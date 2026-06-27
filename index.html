@@ -623,18 +623,20 @@
     .pcard {
       background: #1a1a1a;
       border: 1px solid rgba(0,180,216,.2);
-      border-radius: 12px;
-      padding: 14px 8px;
+      border-radius: 10px;
+      padding: 10px 6px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2px;
+      gap: 1px;
       text-align: center;
       transition: border-color .2s, transform .2s;
     }
-    .pcard:hover { border-color: #00b4d8; transform: translateY(-2px); }
+    .pcard:not(.has-qty):hover { border-color: #00b4d8; transform: translateY(-2px); }
     .pcard.hagz { border-color: rgba(201,168,76,.25); }
-    .pcard.hagz:hover { border-color: var(--gold); }
+    .pcard.hagz:not(.has-qty):hover { border-color: var(--gold); }
+    .pcard.has-qty { border-color: var(--gold); background: #1a1a1a; }
+    .pcard:active { background: #1a1a1a !important; }
     .pcard .rob {
       font-weight: 900;
       font-size: .95rem;
@@ -651,6 +653,62 @@
       color: #6fcf3a;
       letter-spacing: .04em;
     }
+    .qty-ctrl {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 6px;
+    }
+    .qty-btn {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      border: 1px solid rgba(201,168,76,.5);
+      background: rgba(201,168,76,.1);
+      color: var(--gold);
+      font-size: 1rem;
+      font-weight: 900;
+      cursor: pointer;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .15s;
+    }
+    .qty-btn:hover { background: rgba(201,168,76,.3); }
+    .qty-num {
+      min-width: 20px;
+      text-align: center;
+      font-weight: 900;
+      font-size: .9rem;
+      color: var(--gold);
+    }
+    /* منيو الملخص */
+    #com-summary { margin-top:14px; display:none; flex-direction:column; gap:8px; }
+    .sum-row {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      background:#1a1a1a;
+      border:1px solid rgba(201,168,76,.25);
+      border-radius:10px;
+      padding:8px 12px;
+      gap:8px;
+    }
+    .sum-label { color:var(--white); font-size:.88rem; font-weight:700; }
+    .sum-sub   { color:var(--muted); font-size:.78rem; }
+    .sum-ctrl  { display:flex; align-items:center; gap:6px; }
+    .sum-btn   { width:26px;height:26px;border-radius:7px;border:1px solid rgba(201,168,76,.5);background:rgba(201,168,76,.1);color:var(--gold);font-size:1rem;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center; }
+    .sum-btn:hover { background:rgba(201,168,76,.3); }
+    .sum-qty   { min-width:22px;text-align:center;font-weight:900;color:var(--gold);font-size:.95rem; }
+    .sum-total-row {
+      border-top:1px solid rgba(201,168,76,.2);
+      padding-top:10px;
+      margin-top:4px;
+      text-align:center;
+    }
+    .sum-grand { font-family:'Bebas Neue',sans-serif; font-size:1.4rem; color:var(--gold); letter-spacing:.04em; }
+    .sum-grand-sub { color:#6fcf3a; font-size:.85rem; font-weight:700; }
 
   </style>
   <style>
@@ -1101,16 +1159,28 @@
         <input class="oinput" id="pes-email" type="email" placeholder="اكتب الإيميل هنا" style="border-color:rgba(0,207,255,.35);" />
       </div>
 
+      <div class="ofield" style="margin-bottom:20px;">
+        <label class="olabel" style="color:#00cfff;">الباسورد <span class="req">*</span></label>
+        <input class="oinput" id="pes-pass" type="password" placeholder="اكتب الباسورد هنا" style="border-color:rgba(0,207,255,.35);" />
+      </div>
+
       <div class="price-grid" id="pes-prices">
-        <div class="pcard" style="border-color:rgba(0,207,255,.2);" data-coin="130"  data-price="90"   onclick="selectPesAmt(this)"><span class="rob-val">130</span><span class="rob"> كوين</span><span class="sep">ب</span><span class="egp">90 ج</span></div>
-        <div class="pcard" style="border-color:rgba(0,207,255,.2);" data-coin="300"  data-price="175"  onclick="selectPesAmt(this)"><span class="rob-val">300</span><span class="rob"> كوين</span><span class="sep">ب</span><span class="egp">175 ج</span></div>
-        <div class="pcard" style="border-color:rgba(0,207,255,.2);" data-coin="550"  data-price="280"  onclick="selectPesAmt(this)"><span class="rob-val">550</span><span class="rob"> كوين</span><span class="sep">ب</span><span class="egp">280 ج</span></div>
-        <div class="pcard" style="border-color:rgba(0,207,255,.2);" data-coin="750"  data-price="385"  onclick="selectPesAmt(this)"><span class="rob-val">750</span><span class="rob"> كوين</span><span class="sep">ب</span><span class="egp">385 ج</span></div>
-        <div class="pcard" style="border-color:rgba(0,207,255,.2);" data-coin="1040" data-price="500"  onclick="selectPesAmt(this)"><span class="rob-val">1040</span><span class="rob"> كوين</span><span class="sep">ب</span><span class="egp">500 ج</span></div>
-        <div class="pcard" style="border-color:rgba(0,207,255,.2);" data-coin="2130" data-price="950"  onclick="selectPesAmt(this)"><span class="rob-val">2130</span><span class="rob"> كوين</span><span class="sep">ب</span><span class="egp">950 ج</span></div>
-        <div class="pcard" style="border-color:rgba(0,207,255,.2);" data-coin="3250" data-price="1460" onclick="selectPesAmt(this)"><span class="rob-val">3250</span><span class="rob"> كوين</span><span class="sep">ب</span><span class="egp">1460 ج</span></div>
-        <div class="pcard" style="border-color:rgba(0,207,255,.2);" data-coin="5700" data-price="2420" onclick="selectPesAmt(this)"><span class="rob-val">5700</span><span class="rob"> كوين</span><span class="sep">ب</span><span class="egp">2420 ج</span></div>
-        <div class="pcard" style="border-color:rgba(0,207,255,.2);grid-column:span 2;" data-coin="12800" data-price="4850" onclick="selectPesAmt(this)"><span class="rob-val">12800</span><span class="rob"> كوين</span><span class="sep">ب</span><span class="egp">4850 ج</span></div>
+        <div class="pcard" style="border-color:rgba(0,207,255,.2);" data-coin="130"  data-price="90"   onclick="togglePesAmt(this)"><span class="rob-val">130</span><span class="rob"> كوين</span><span class="sep">ب</span><span class="egp">90 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(0,207,255,.5);color:#00cfff;background:rgba(0,207,255,.1);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#00cfff;">0</span><button class="qty-btn" style="border-color:rgba(0,207,255,.5);color:#00cfff;background:rgba(0,207,255,.1);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" style="border-color:rgba(0,207,255,.2);" data-coin="300"  data-price="175"  onclick="togglePesAmt(this)"><span class="rob-val">300</span><span class="rob"> كوين</span><span class="sep">ب</span><span class="egp">175 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(0,207,255,.5);color:#00cfff;background:rgba(0,207,255,.1);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#00cfff;">0</span><button class="qty-btn" style="border-color:rgba(0,207,255,.5);color:#00cfff;background:rgba(0,207,255,.1);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" style="border-color:rgba(0,207,255,.2);" data-coin="550"  data-price="280"  onclick="togglePesAmt(this)"><span class="rob-val">550</span><span class="rob"> كوين</span><span class="sep">ب</span><span class="egp">280 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(0,207,255,.5);color:#00cfff;background:rgba(0,207,255,.1);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#00cfff;">0</span><button class="qty-btn" style="border-color:rgba(0,207,255,.5);color:#00cfff;background:rgba(0,207,255,.1);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" style="border-color:rgba(0,207,255,.2);" data-coin="750"  data-price="385"  onclick="togglePesAmt(this)"><span class="rob-val">750</span><span class="rob"> كوين</span><span class="sep">ب</span><span class="egp">385 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(0,207,255,.5);color:#00cfff;background:rgba(0,207,255,.1);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#00cfff;">0</span><button class="qty-btn" style="border-color:rgba(0,207,255,.5);color:#00cfff;background:rgba(0,207,255,.1);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" style="border-color:rgba(0,207,255,.2);" data-coin="1040" data-price="500"  onclick="togglePesAmt(this)"><span class="rob-val">1040</span><span class="rob"> كوين</span><span class="sep">ب</span><span class="egp">500 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(0,207,255,.5);color:#00cfff;background:rgba(0,207,255,.1);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#00cfff;">0</span><button class="qty-btn" style="border-color:rgba(0,207,255,.5);color:#00cfff;background:rgba(0,207,255,.1);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" style="border-color:rgba(0,207,255,.2);" data-coin="2130" data-price="950"  onclick="togglePesAmt(this)"><span class="rob-val">2130</span><span class="rob"> كوين</span><span class="sep">ب</span><span class="egp">950 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(0,207,255,.5);color:#00cfff;background:rgba(0,207,255,.1);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#00cfff;">0</span><button class="qty-btn" style="border-color:rgba(0,207,255,.5);color:#00cfff;background:rgba(0,207,255,.1);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" style="border-color:rgba(0,207,255,.2);" data-coin="3250" data-price="1460" onclick="togglePesAmt(this)"><span class="rob-val">3250</span><span class="rob"> كوين</span><span class="sep">ب</span><span class="egp">1460 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(0,207,255,.5);color:#00cfff;background:rgba(0,207,255,.1);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#00cfff;">0</span><button class="qty-btn" style="border-color:rgba(0,207,255,.5);color:#00cfff;background:rgba(0,207,255,.1);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" style="border-color:rgba(0,207,255,.2);" data-coin="5700" data-price="2420" onclick="togglePesAmt(this)"><span class="rob-val">5700</span><span class="rob"> كوين</span><span class="sep">ب</span><span class="egp">2420 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(0,207,255,.5);color:#00cfff;background:rgba(0,207,255,.1);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#00cfff;">0</span><button class="qty-btn" style="border-color:rgba(0,207,255,.5);color:#00cfff;background:rgba(0,207,255,.1);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" style="border-color:rgba(0,207,255,.2);grid-column:span 2;" data-coin="12800" data-price="4850" onclick="togglePesAmt(this)"><span class="rob-val">12800</span><span class="rob"> كوين</span><span class="sep">ب</span><span class="egp">4850 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(0,207,255,.5);color:#00cfff;background:rgba(0,207,255,.1);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#00cfff;">0</span><button class="qty-btn" style="border-color:rgba(0,207,255,.5);color:#00cfff;background:rgba(0,207,255,.1);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
+      </div>
+
+      <!-- ملخص الطلب -->
+      <div id="pes-summary" style="display:none; margin-top:16px; background:#031a22; border:1px solid rgba(0,207,255,.3); border-radius:12px; padding:14px;">
+        <div style="font-size:.82rem;font-weight:700;color:#aaa;margin-bottom:8px;text-align:center;letter-spacing:.05em;">📋 ملخص الطلب</div>
+        <div id="pes-sum-rows"></div>
+        <div id="pes-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(0,207,255,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#00cfff;text-align:center;letter-spacing:.04em;"></div>
       </div>
 
       <div class="oerror" id="pes-error" style="margin-top:10px;"></div>
@@ -1198,13 +1268,20 @@
       </div>
 
       <div class="price-grid" id="ff-id-prices">
-        <div class="pcard" style="border-color:rgba(224,60,60,.25);" data-diamond="100" data-price="60" onclick="selectFFIdAmt(this)"><span class="rob-val">100</span><span class="rob"> جوهرة</span><span class="sep">ب</span><span class="egp">60 ج</span></div>
-        <div class="pcard" style="border-color:rgba(224,60,60,.25);" data-diamond="210" data-price="120" onclick="selectFFIdAmt(this)"><span class="rob-val">210</span><span class="rob"> جوهرة</span><span class="sep">ب</span><span class="egp">120 ج</span></div>
-        <div class="pcard" style="border-color:rgba(224,60,60,.25);" data-diamond="530" data-price="270" onclick="selectFFIdAmt(this)"><span class="rob-val">530</span><span class="rob"> جوهرة</span><span class="sep">ب</span><span class="egp">270 ج</span></div>
-        <div class="pcard" style="border-color:rgba(224,60,60,.25);" data-diamond="1080" data-price="550" onclick="selectFFIdAmt(this)"><span class="rob-val">1080</span><span class="rob"> جوهرة</span><span class="sep">ب</span><span class="egp">550 ج</span></div>
-        <div class="pcard" style="border-color:rgba(224,60,60,.25);" data-diamond="2200" data-price="1100" onclick="selectFFIdAmt(this)"><span class="rob-val">2200</span><span class="rob"> جوهرة</span><span class="sep">ب</span><span class="egp">1100 ج</span></div>
-        <div class="pcard" style="border-color:rgba(224,60,60,.25);" data-diamond="أسبوعي" data-price="150" onclick="selectFFIdAmt(this)"><span class="rob-val">📅 أسبوعي</span><span class="sep">ب</span><span class="egp">150 ج</span></div>
-        <div class="pcard" style="border-color:rgba(224,60,60,.25);grid-column:span 2;" data-diamond="شهري" data-price="610" onclick="selectFFIdAmt(this)"><span class="rob-val">📅 شهري</span><span class="sep">ب</span><span class="egp">610 ج</span></div>
+        <div class="pcard" style="border-color:rgba(224,60,60,.25);" data-diamond="100"    data-price="60"   data-label="100 جوهرة"  onclick="toggleFFIdAmt(this)"><span class="rob-val">100</span><span class="rob"> جوهرة</span><span class="sep">ب</span><span class="egp">60 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(224,60,60,.5);color:#e03c3c;background:rgba(224,60,60,.1);" onclick="event.stopPropagation();changeFFIdQtyCard(this,-1)">−</button><span class="qty-num" style="color:#e03c3c;">0</span><button class="qty-btn" style="border-color:rgba(224,60,60,.5);color:#e03c3c;background:rgba(224,60,60,.1);" onclick="event.stopPropagation();changeFFIdQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" style="border-color:rgba(224,60,60,.25);" data-diamond="210"    data-price="120"  data-label="210 جوهرة"  onclick="toggleFFIdAmt(this)"><span class="rob-val">210</span><span class="rob"> جوهرة</span><span class="sep">ب</span><span class="egp">120 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(224,60,60,.5);color:#e03c3c;background:rgba(224,60,60,.1);" onclick="event.stopPropagation();changeFFIdQtyCard(this,-1)">−</button><span class="qty-num" style="color:#e03c3c;">0</span><button class="qty-btn" style="border-color:rgba(224,60,60,.5);color:#e03c3c;background:rgba(224,60,60,.1);" onclick="event.stopPropagation();changeFFIdQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" style="border-color:rgba(224,60,60,.25);" data-diamond="530"    data-price="270"  data-label="530 جوهرة"  onclick="toggleFFIdAmt(this)"><span class="rob-val">530</span><span class="rob"> جوهرة</span><span class="sep">ب</span><span class="egp">270 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(224,60,60,.5);color:#e03c3c;background:rgba(224,60,60,.1);" onclick="event.stopPropagation();changeFFIdQtyCard(this,-1)">−</button><span class="qty-num" style="color:#e03c3c;">0</span><button class="qty-btn" style="border-color:rgba(224,60,60,.5);color:#e03c3c;background:rgba(224,60,60,.1);" onclick="event.stopPropagation();changeFFIdQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" style="border-color:rgba(224,60,60,.25);" data-diamond="1080"   data-price="550"  data-label="1080 جوهرة" onclick="toggleFFIdAmt(this)"><span class="rob-val">1080</span><span class="rob"> جوهرة</span><span class="sep">ب</span><span class="egp">550 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(224,60,60,.5);color:#e03c3c;background:rgba(224,60,60,.1);" onclick="event.stopPropagation();changeFFIdQtyCard(this,-1)">−</button><span class="qty-num" style="color:#e03c3c;">0</span><button class="qty-btn" style="border-color:rgba(224,60,60,.5);color:#e03c3c;background:rgba(224,60,60,.1);" onclick="event.stopPropagation();changeFFIdQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" style="border-color:rgba(224,60,60,.25);" data-diamond="2200"   data-price="1100" data-label="2200 جوهرة" onclick="toggleFFIdAmt(this)"><span class="rob-val">2200</span><span class="rob"> جوهرة</span><span class="sep">ب</span><span class="egp">1100 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(224,60,60,.5);color:#e03c3c;background:rgba(224,60,60,.1);" onclick="event.stopPropagation();changeFFIdQtyCard(this,-1)">−</button><span class="qty-num" style="color:#e03c3c;">0</span><button class="qty-btn" style="border-color:rgba(224,60,60,.5);color:#e03c3c;background:rgba(224,60,60,.1);" onclick="event.stopPropagation();changeFFIdQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" style="border-color:rgba(224,60,60,.25);" data-diamond="أسبوعي" data-price="150"  data-label="اشتراك أسبوعي" onclick="toggleFFIdAmt(this)"><span class="rob-val">📅 أسبوعي</span><span class="sep">ب</span><span class="egp">150 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(224,60,60,.5);color:#e03c3c;background:rgba(224,60,60,.1);" onclick="event.stopPropagation();changeFFIdQtyCard(this,-1)">−</button><span class="qty-num" style="color:#e03c3c;">0</span><button class="qty-btn" style="border-color:rgba(224,60,60,.5);color:#e03c3c;background:rgba(224,60,60,.1);" onclick="event.stopPropagation();changeFFIdQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" style="border-color:rgba(224,60,60,.25);grid-column:span 2;" data-diamond="شهري"    data-price="610"  data-label="اشتراك شهري"  onclick="toggleFFIdAmt(this)"><span class="rob-val">📅 شهري</span><span class="sep">ب</span><span class="egp">610 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(224,60,60,.5);color:#e03c3c;background:rgba(224,60,60,.1);" onclick="event.stopPropagation();changeFFIdQtyCard(this,-1)">−</button><span class="qty-num" style="color:#e03c3c;">0</span><button class="qty-btn" style="border-color:rgba(224,60,60,.5);color:#e03c3c;background:rgba(224,60,60,.1);" onclick="event.stopPropagation();changeFFIdQtyCard(this,1)">+</button></div></div>
+      </div>
+
+      <!-- ملخص فري فاير ID -->
+      <div id="ff-id-summary" style="display:none; margin-top:14px; background:#1a0808; border:1px solid rgba(224,60,60,.3); border-radius:12px; padding:14px;">
+        <div style="font-size:.82rem;font-weight:700;color:#aaa;margin-bottom:8px;text-align:center;">📋 ملخص الطلب</div>
+        <div id="ff-id-sum-rows"></div>
+        <div id="ff-id-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(224,60,60,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#ff6b6b;text-align:center;letter-spacing:.04em;"></div>
       </div>
 
       <div class="oerror" id="ff-id-error" style="margin-top:10px;"></div>
@@ -1239,15 +1316,22 @@
       </div>
 
       <div class="price-grid" id="ff-acc-prices">
-        <div class="pcard" style="border-color:rgba(224,60,60,.25);" data-diamond="100" data-price="60" onclick="selectFFAccAmt(this)"><span class="rob-val">100</span><span class="rob"> جوهرة</span><span class="sep">ب</span><span class="egp">60 ج</span></div>
-        <div class="pcard" style="border-color:rgba(224,60,60,.25);" data-diamond="200" data-price="120" onclick="selectFFAccAmt(this)"><span class="rob-val">200</span><span class="rob"> جوهرة</span><span class="sep">ب</span><span class="egp">120 ج</span></div>
-        <div class="pcard" style="border-color:rgba(224,60,60,.25);" data-diamond="310" data-price="160" onclick="selectFFAccAmt(this)"><span class="rob-val">310</span><span class="rob"> جوهرة</span><span class="sep">ب</span><span class="egp">160 ج</span></div>
-        <div class="pcard" style="border-color:rgba(224,60,60,.25);" data-diamond="520" data-price="250" onclick="selectFFAccAmt(this)"><span class="rob-val">520</span><span class="rob"> جوهرة</span><span class="sep">ب</span><span class="egp">250 ج</span></div>
-        <div class="pcard" style="border-color:rgba(224,60,60,.25);" data-diamond="1060" data-price="500" onclick="selectFFAccAmt(this)"><span class="rob-val">1060</span><span class="rob"> جوهرة</span><span class="sep">ب</span><span class="egp">500 ج</span></div>
-        <div class="pcard" style="border-color:rgba(224,60,60,.25);" data-diamond="2180" data-price="950" onclick="selectFFAccAmt(this)"><span class="rob-val">2180</span><span class="rob"> جوهرة</span><span class="sep">ب</span><span class="egp">950 ج</span></div>
-        <div class="pcard" style="border-color:rgba(224,60,60,.25);" data-diamond="5600" data-price="2400" onclick="selectFFAccAmt(this)"><span class="rob-val">5600</span><span class="rob"> جوهرة</span><span class="sep">ب</span><span class="egp">2400 ج</span></div>
-        <div class="pcard" style="border-color:rgba(224,60,60,.25);" data-diamond="أسبوعي" data-price="120" onclick="selectFFAccAmt(this)"><span class="rob-val">📅 أسبوعي</span><span class="sep">ب</span><span class="egp">120 ج</span></div>
-        <div class="pcard" style="border-color:rgba(224,60,60,.25);" data-diamond="شهري" data-price="430" onclick="selectFFAccAmt(this)"><span class="rob-val">📅 شهري</span><span class="sep">ب</span><span class="egp">430 ج</span></div>
+        <div class="pcard" style="border-color:rgba(224,60,60,.25);" data-diamond="100"    data-price="60"   data-label="100 جوهرة"  onclick="toggleFFAccAmt(this)"><span class="rob-val">100</span><span class="rob"> جوهرة</span><span class="sep">ب</span><span class="egp">60 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(224,60,60,.5);color:#e03c3c;background:rgba(224,60,60,.1);" onclick="event.stopPropagation();changeFFAccQtyCard(this,-1)">−</button><span class="qty-num" style="color:#e03c3c;">0</span><button class="qty-btn" style="border-color:rgba(224,60,60,.5);color:#e03c3c;background:rgba(224,60,60,.1);" onclick="event.stopPropagation();changeFFAccQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" style="border-color:rgba(224,60,60,.25);" data-diamond="200"    data-price="120"  data-label="200 جوهرة"  onclick="toggleFFAccAmt(this)"><span class="rob-val">200</span><span class="rob"> جوهرة</span><span class="sep">ب</span><span class="egp">120 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(224,60,60,.5);color:#e03c3c;background:rgba(224,60,60,.1);" onclick="event.stopPropagation();changeFFAccQtyCard(this,-1)">−</button><span class="qty-num" style="color:#e03c3c;">0</span><button class="qty-btn" style="border-color:rgba(224,60,60,.5);color:#e03c3c;background:rgba(224,60,60,.1);" onclick="event.stopPropagation();changeFFAccQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" style="border-color:rgba(224,60,60,.25);" data-diamond="310"    data-price="160"  data-label="310 جوهرة"  onclick="toggleFFAccAmt(this)"><span class="rob-val">310</span><span class="rob"> جوهرة</span><span class="sep">ب</span><span class="egp">160 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(224,60,60,.5);color:#e03c3c;background:rgba(224,60,60,.1);" onclick="event.stopPropagation();changeFFAccQtyCard(this,-1)">−</button><span class="qty-num" style="color:#e03c3c;">0</span><button class="qty-btn" style="border-color:rgba(224,60,60,.5);color:#e03c3c;background:rgba(224,60,60,.1);" onclick="event.stopPropagation();changeFFAccQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" style="border-color:rgba(224,60,60,.25);" data-diamond="520"    data-price="250"  data-label="520 جوهرة"  onclick="toggleFFAccAmt(this)"><span class="rob-val">520</span><span class="rob"> جوهرة</span><span class="sep">ب</span><span class="egp">250 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(224,60,60,.5);color:#e03c3c;background:rgba(224,60,60,.1);" onclick="event.stopPropagation();changeFFAccQtyCard(this,-1)">−</button><span class="qty-num" style="color:#e03c3c;">0</span><button class="qty-btn" style="border-color:rgba(224,60,60,.5);color:#e03c3c;background:rgba(224,60,60,.1);" onclick="event.stopPropagation();changeFFAccQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" style="border-color:rgba(224,60,60,.25);" data-diamond="1060"   data-price="500"  data-label="1060 جوهرة" onclick="toggleFFAccAmt(this)"><span class="rob-val">1060</span><span class="rob"> جوهرة</span><span class="sep">ب</span><span class="egp">500 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(224,60,60,.5);color:#e03c3c;background:rgba(224,60,60,.1);" onclick="event.stopPropagation();changeFFAccQtyCard(this,-1)">−</button><span class="qty-num" style="color:#e03c3c;">0</span><button class="qty-btn" style="border-color:rgba(224,60,60,.5);color:#e03c3c;background:rgba(224,60,60,.1);" onclick="event.stopPropagation();changeFFAccQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" style="border-color:rgba(224,60,60,.25);" data-diamond="2180"   data-price="950"  data-label="2180 جوهرة" onclick="toggleFFAccAmt(this)"><span class="rob-val">2180</span><span class="rob"> جوهرة</span><span class="sep">ب</span><span class="egp">950 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(224,60,60,.5);color:#e03c3c;background:rgba(224,60,60,.1);" onclick="event.stopPropagation();changeFFAccQtyCard(this,-1)">−</button><span class="qty-num" style="color:#e03c3c;">0</span><button class="qty-btn" style="border-color:rgba(224,60,60,.5);color:#e03c3c;background:rgba(224,60,60,.1);" onclick="event.stopPropagation();changeFFAccQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" style="border-color:rgba(224,60,60,.25);" data-diamond="5600"   data-price="2400" data-label="5600 جوهرة" onclick="toggleFFAccAmt(this)"><span class="rob-val">5600</span><span class="rob"> جوهرة</span><span class="sep">ب</span><span class="egp">2400 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(224,60,60,.5);color:#e03c3c;background:rgba(224,60,60,.1);" onclick="event.stopPropagation();changeFFAccQtyCard(this,-1)">−</button><span class="qty-num" style="color:#e03c3c;">0</span><button class="qty-btn" style="border-color:rgba(224,60,60,.5);color:#e03c3c;background:rgba(224,60,60,.1);" onclick="event.stopPropagation();changeFFAccQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" style="border-color:rgba(224,60,60,.25);" data-diamond="أسبوعي" data-price="120"  data-label="اشتراك أسبوعي" onclick="toggleFFAccAmt(this)"><span class="rob-val">📅 أسبوعي</span><span class="sep">ب</span><span class="egp">120 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(224,60,60,.5);color:#e03c3c;background:rgba(224,60,60,.1);" onclick="event.stopPropagation();changeFFAccQtyCard(this,-1)">−</button><span class="qty-num" style="color:#e03c3c;">0</span><button class="qty-btn" style="border-color:rgba(224,60,60,.5);color:#e03c3c;background:rgba(224,60,60,.1);" onclick="event.stopPropagation();changeFFAccQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" style="border-color:rgba(224,60,60,.25);" data-diamond="شهري"   data-price="430"  data-label="اشتراك شهري"  onclick="toggleFFAccAmt(this)"><span class="rob-val">📅 شهري</span><span class="sep">ب</span><span class="egp">430 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(224,60,60,.5);color:#e03c3c;background:rgba(224,60,60,.1);" onclick="event.stopPropagation();changeFFAccQtyCard(this,-1)">−</button><span class="qty-num" style="color:#e03c3c;">0</span><button class="qty-btn" style="border-color:rgba(224,60,60,.5);color:#e03c3c;background:rgba(224,60,60,.1);" onclick="event.stopPropagation();changeFFAccQtyCard(this,1)">+</button></div></div>
+      </div>
+
+      <!-- ملخص فري فاير حساب -->
+      <div id="ff-acc-summary" style="display:none; margin-top:14px; background:#1a0808; border:1px solid rgba(224,60,60,.3); border-radius:12px; padding:14px;">
+        <div style="font-size:.82rem;font-weight:700;color:#aaa;margin-bottom:8px;text-align:center;">📋 ملخص الطلب</div>
+        <div id="ff-acc-sum-rows"></div>
+        <div id="ff-acc-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(224,60,60,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#ff6b6b;text-align:center;letter-spacing:.04em;"></div>
       </div>
 
       <div class="oerror" id="ff-acc-error" style="margin-top:10px;"></div>
@@ -1286,73 +1370,77 @@
     <!-- SHADAWAT SECTION -->
     <div id="pubg-section-shadawat">
       <div class="price-grid">
-        <div class="pcard pubg-pcard" style="border-color:rgba(201,168,76,.2);" data-uc="60" data-price="60" onclick="selectPubgAmt(this,'shadawat')"><span class="rob-val">60</span><span class="rob"> شدة</span><span class="sep">ب</span><span class="egp">60 ج</span></div>
-        <div class="pcard pubg-pcard" style="border-color:rgba(201,168,76,.2);" data-uc="120" data-price="120" onclick="selectPubgAmt(this,'shadawat')"><span class="rob-val">120</span><span class="rob"> شدة</span><span class="sep">ب</span><span class="egp">120 ج</span></div>
-        <div class="pcard pubg-pcard" style="border-color:rgba(201,168,76,.2);" data-uc="325" data-price="270" onclick="selectPubgAmt(this,'shadawat')"><span class="rob-val">325</span><span class="rob"> شدة</span><span class="sep">ب</span><span class="egp">270 ج</span></div>
-        <div class="pcard pubg-pcard" style="border-color:rgba(201,168,76,.2);" data-uc="660" data-price="510" onclick="selectPubgAmt(this,'shadawat')"><span class="rob-val">660</span><span class="rob"> شدة</span><span class="sep">ب</span><span class="egp">510 ج</span></div>
-        <div class="pcard pubg-pcard" style="border-color:rgba(201,168,76,.2);" data-uc="1800" data-price="1260" onclick="selectPubgAmt(this,'shadawat')"><span class="rob-val">1800</span><span class="rob"> شدة</span><span class="sep">ب</span><span class="egp">1260 ج</span></div>
-        <div class="pcard pubg-pcard" style="border-color:rgba(201,168,76,.2);" data-uc="3850" data-price="2500" onclick="selectPubgAmt(this,'shadawat')"><span class="rob-val">3850</span><span class="rob"> شدة</span><span class="sep">ب</span><span class="egp">2500 ج</span></div>
+        <div class="pcard pubg-pcard" style="border-color:rgba(201,168,76,.2);" data-uc="60" data-price="60" onclick="togglePubgAmt(this,'shadawat')"><span class="rob-val">60</span><span class="rob"> شدة</span><span class="sep">ب</span><span class="egp">60 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(201,168,76,.5);color:var(--gold);background:rgba(201,168,76,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,-1)">−</button><span class="qty-num" style="color:var(--gold);">0</span><button class="qty-btn" style="border-color:rgba(201,168,76,.5);color:var(--gold);background:rgba(201,168,76,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,1)">+</button></div></div>
+        <div class="pcard pubg-pcard" style="border-color:rgba(201,168,76,.2);" data-uc="120" data-price="120" onclick="togglePubgAmt(this,'shadawat')"><span class="rob-val">120</span><span class="rob"> شدة</span><span class="sep">ب</span><span class="egp">120 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(201,168,76,.5);color:var(--gold);background:rgba(201,168,76,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,-1)">−</button><span class="qty-num" style="color:var(--gold);">0</span><button class="qty-btn" style="border-color:rgba(201,168,76,.5);color:var(--gold);background:rgba(201,168,76,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,1)">+</button></div></div>
+        <div class="pcard pubg-pcard" style="border-color:rgba(201,168,76,.2);" data-uc="325" data-price="270" onclick="togglePubgAmt(this,'shadawat')"><span class="rob-val">325</span><span class="rob"> شدة</span><span class="sep">ب</span><span class="egp">270 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(201,168,76,.5);color:var(--gold);background:rgba(201,168,76,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,-1)">−</button><span class="qty-num" style="color:var(--gold);">0</span><button class="qty-btn" style="border-color:rgba(201,168,76,.5);color:var(--gold);background:rgba(201,168,76,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,1)">+</button></div></div>
+        <div class="pcard pubg-pcard" style="border-color:rgba(201,168,76,.2);" data-uc="660" data-price="510" onclick="togglePubgAmt(this,'shadawat')"><span class="rob-val">660</span><span class="rob"> شدة</span><span class="sep">ب</span><span class="egp">510 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(201,168,76,.5);color:var(--gold);background:rgba(201,168,76,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,-1)">−</button><span class="qty-num" style="color:var(--gold);">0</span><button class="qty-btn" style="border-color:rgba(201,168,76,.5);color:var(--gold);background:rgba(201,168,76,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,1)">+</button></div></div>
+        <div class="pcard pubg-pcard" style="border-color:rgba(201,168,76,.2);" data-uc="1800" data-price="1260" onclick="togglePubgAmt(this,'shadawat')"><span class="rob-val">1800</span><span class="rob"> شدة</span><span class="sep">ب</span><span class="egp">1260 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(201,168,76,.5);color:var(--gold);background:rgba(201,168,76,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,-1)">−</button><span class="qty-num" style="color:var(--gold);">0</span><button class="qty-btn" style="border-color:rgba(201,168,76,.5);color:var(--gold);background:rgba(201,168,76,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,1)">+</button></div></div>
+        <div class="pcard pubg-pcard" style="border-color:rgba(201,168,76,.2);" data-uc="3850" data-price="2500" onclick="togglePubgAmt(this,'shadawat')"><span class="rob-val">3850</span><span class="rob"> شدة</span><span class="sep">ب</span><span class="egp">2500 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(201,168,76,.5);color:var(--gold);background:rgba(201,168,76,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,-1)">−</button><span class="qty-num" style="color:var(--gold);">0</span><button class="qty-btn" style="border-color:rgba(201,168,76,.5);color:var(--gold);background:rgba(201,168,76,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,1)">+</button></div></div>
       </div>
-      <div class="oerror" id="pubg-shadawat-error" style="margin-top:10px;"></div>
-      <button class="com-wa-btn" onclick="sendPubgOrder('shadawat')" style="margin-top:14px;background:linear-gradient(135deg,#c9a84c,#e4c97a);color:#0d0d0d;">
-        💬 شحن
-      </button>
     </div>
 
     <!-- OROD SECTION -->
     <div id="pubg-section-orod" style="display:none;">
       <div class="price-grid" style="grid-template-columns:repeat(2,1fr);gap:10px;">
-        <div class="pcard pubg-pcard" style="border-color:rgba(201,168,76,.2);padding:14px 10px;" data-uc="حزمة الشراء الأول (170UC + 900G)" data-price="70" onclick="selectPubgAmt(this,'orod')">
+        <div class="pcard pubg-pcard" style="border-color:rgba(201,168,76,.2);padding:14px 10px;" data-uc="حزمة الشراء الأول (170UC + 900G)" data-price="70" onclick="togglePubgAmt(this,'orod')">
           <span class="rob-val" style="font-size:.78rem;line-height:1.3;">حزمة الشراء الأول</span>
           <span class="rob" style="font-size:.68rem;color:#aaa;">170UC + 900G</span>
           <span class="sep">ب</span><span class="egp">70 ج</span>
-        </div>
-        <div class="pcard pubg-pcard" style="border-color:rgba(201,168,76,.2);padding:14px 10px;" data-uc="موارد ترقية الأسلحة (180UC + 9 ماتريال صغيره)" data-price="165" onclick="selectPubgAmt(this,'orod')">
+        <div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(201,168,76,.5);color:var(--gold);background:rgba(201,168,76,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,-1)">−</button><span class="qty-num" style="color:var(--gold);">0</span><button class="qty-btn" style="border-color:rgba(201,168,76,.5);color:var(--gold);background:rgba(201,168,76,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,1)">+</button></div></div>
+        <div class="pcard pubg-pcard" style="border-color:rgba(201,168,76,.2);padding:14px 10px;" data-uc="موارد ترقية الأسلحة (180UC + 9 ماتريال صغيره)" data-price="165" onclick="togglePubgAmt(this,'orod')">
           <span class="rob-val" style="font-size:.72rem;line-height:1.3;">موارد ترقية الأسلحة</span>
           <span class="rob" style="font-size:.68rem;">180UC</span>
           <span class="rob" style="font-size:.65rem;color:#aaa;">9ماتريال صغيره</span>
           <span class="sep">ب</span><span class="egp">165 ج</span>
-        </div>
-        <div class="pcard pubg-pcard" style="border-color:rgba(201,168,76,.2);padding:14px 10px;" data-uc="حزمة الشعار الخرافي (300UC + 79جوهرة صغيره)" data-price="255" onclick="selectPubgAmt(this,'orod')">
+        <div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(201,168,76,.5);color:var(--gold);background:rgba(201,168,76,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,-1)">−</button><span class="qty-num" style="color:var(--gold);">0</span><button class="qty-btn" style="border-color:rgba(201,168,76,.5);color:var(--gold);background:rgba(201,168,76,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,1)">+</button></div></div>
+        <div class="pcard pubg-pcard" style="border-color:rgba(201,168,76,.2);padding:14px 10px;" data-uc="حزمة الشعار الخرافي (300UC + 79جوهرة صغيره)" data-price="255" onclick="togglePubgAmt(this,'orod')">
           <span class="rob-val" style="font-size:.72rem;line-height:1.3;">حزمة الشعار الخرافي</span>
           <span class="rob" style="font-size:.68rem;">300UC</span>
           <span class="rob" style="font-size:.65rem;color:#aaa;">79جوهرة صغيره</span>
           <span class="sep">ب</span><span class="egp">255 ج</span>
-        </div>
-        <div class="pcard pubg-pcard" style="border-color:rgba(201,168,76,.2);padding:14px 10px;" data-uc="البرايم الصغير (+60UC)" data-price="75" onclick="selectPubgAmt(this,'orod')">
+        <div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(201,168,76,.5);color:var(--gold);background:rgba(201,168,76,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,-1)">−</button><span class="qty-num" style="color:var(--gold);">0</span><button class="qty-btn" style="border-color:rgba(201,168,76,.5);color:var(--gold);background:rgba(201,168,76,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,1)">+</button></div></div>
+        <div class="pcard pubg-pcard" style="border-color:rgba(201,168,76,.2);padding:14px 10px;" data-uc="البرايم الصغير (+60UC)" data-price="75" onclick="togglePubgAmt(this,'orod')">
           <span class="rob-val" style="font-size:.78rem;line-height:1.3;">البرايم الصغير</span>
           <span class="rob" style="font-size:.68rem;color:#aaa;">+60UC</span>
           <span class="sep">ب</span><span class="egp">75 ج</span>
-        </div>
-        <div class="pcard pubg-pcard" style="border-color:rgba(201,168,76,.2);padding:14px 10px;grid-column:span 2;" data-uc="البرايم الكبير (+660UC)" data-price="520" onclick="selectPubgAmt(this,'orod')">
+        <div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(201,168,76,.5);color:var(--gold);background:rgba(201,168,76,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,-1)">−</button><span class="qty-num" style="color:var(--gold);">0</span><button class="qty-btn" style="border-color:rgba(201,168,76,.5);color:var(--gold);background:rgba(201,168,76,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,1)">+</button></div></div>
+        <div class="pcard pubg-pcard" style="border-color:rgba(201,168,76,.2);padding:14px 10px;grid-column:span 2;" data-uc="البرايم الكبير (+660UC)" data-price="520" onclick="togglePubgAmt(this,'orod')">
           <span class="rob-val" style="font-size:.78rem;line-height:1.3;">البرايم الكبير</span>
           <span class="rob" style="font-size:.68rem;color:#aaa;">+660UC</span>
           <span class="sep">ب</span><span class="egp">520 ج</span>
-        </div>
-        <div class="pcard pubg-pcard" style="border-color:rgba(201,168,76,.2);padding:14px 10px;" data-uc="الرويال باس 1~50 (حزمة شحن نص الرويال باس)" data-price="300" onclick="selectPubgAmt(this,'orod')">
+        <div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(201,168,76,.5);color:var(--gold);background:rgba(201,168,76,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,-1)">−</button><span class="qty-num" style="color:var(--gold);">0</span><button class="qty-btn" style="border-color:rgba(201,168,76,.5);color:var(--gold);background:rgba(201,168,76,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,1)">+</button></div></div>
+        <div class="pcard pubg-pcard" style="border-color:rgba(201,168,76,.2);padding:14px 10px;" data-uc="الرويال باس 1~50 (حزمة شحن نص الرويال باس)" data-price="300" onclick="togglePubgAmt(this,'orod')">
           <span class="rob-val" style="font-size:.72rem;line-height:1.3;">رويال باس 1~50</span>
           <span class="rob" style="font-size:.65rem;color:#aaa;">نص الرويال باس</span>
           <span class="rob" style="font-size:.65rem;color:#aaa;">50 شدة</span>
           <span class="sep">ب</span><span class="egp">300 ج</span>
-        </div>
-        <div class="pcard pubg-pcard" style="border-color:rgba(201,168,76,.2);padding:14px 10px;" data-uc="الرويال باس 1~100 (حزمة شحن الرويال باس كامل)" data-price="580" onclick="selectPubgAmt(this,'orod')">
+        <div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(201,168,76,.5);color:var(--gold);background:rgba(201,168,76,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,-1)">−</button><span class="qty-num" style="color:var(--gold);">0</span><button class="qty-btn" style="border-color:rgba(201,168,76,.5);color:var(--gold);background:rgba(201,168,76,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,1)">+</button></div></div>
+        <div class="pcard pubg-pcard" style="border-color:rgba(201,168,76,.2);padding:14px 10px;" data-uc="الرويال باس 1~100 (حزمة شحن الرويال باس كامل)" data-price="580" onclick="togglePubgAmt(this,'orod')">
           <span class="rob-val" style="font-size:.72rem;line-height:1.3;">رويال باس 1~100</span>
           <span class="rob" style="font-size:.65rem;color:#aaa;">الرويال باس كامل</span>
           <span class="rob" style="font-size:.65rem;color:#aaa;">100 شدة</span>
           <span class="sep">ب</span><span class="egp">580 ج</span>
-        </div>
-        <div class="pcard pubg-pcard" style="border-color:rgba(201,168,76,.2);padding:14px 10px;grid-column:span 2;" data-uc="الرويال باس بلس (حزمة شحن الرويال باس بلس)" data-price="1410" onclick="selectPubgAmt(this,'orod')">
+        <div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(201,168,76,.5);color:var(--gold);background:rgba(201,168,76,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,-1)">−</button><span class="qty-num" style="color:var(--gold);">0</span><button class="qty-btn" style="border-color:rgba(201,168,76,.5);color:var(--gold);background:rgba(201,168,76,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,1)">+</button></div></div>
+        <div class="pcard pubg-pcard" style="border-color:rgba(201,168,76,.2);padding:14px 10px;grid-column:span 2;" data-uc="الرويال باس بلس (حزمة شحن الرويال باس بلس)" data-price="1410" onclick="togglePubgAmt(this,'orod')">
           <span class="rob-val" style="font-size:.78rem;line-height:1.3;">رويال باس بلس</span>
           <span class="rob" style="font-size:.65rem;color:#aaa;">240 شدة • إطار صورة RP</span>
           <span class="rob" style="font-size:.65rem;color:#aaa;">24 لفل RP • رقصة النصر • تمثال</span>
           <span class="sep">ب</span><span class="egp">1410 ج</span>
-        </div>
+        <div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(201,168,76,.5);color:var(--gold);background:rgba(201,168,76,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,-1)">−</button><span class="qty-num" style="color:var(--gold);">0</span><button class="qty-btn" style="border-color:rgba(201,168,76,.5);color:var(--gold);background:rgba(201,168,76,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,1)">+</button></div></div>
       </div>
-      <div class="oerror" id="pubg-orod-error" style="margin-top:10px;"></div>
-      <button class="com-wa-btn" onclick="sendPubgOrder('orod')" style="margin-top:14px;background:linear-gradient(135deg,#c9a84c,#e4c97a);color:#0d0d0d;">
-        💬 شحن
-      </button>
     </div>
+
+    <!-- SHARED SUMMARY (شدات + عروض معاً) -->
+    <div id="pubg-summary" style="display:none; margin-top:14px; background:#1a1605; border:1px solid rgba(201,168,76,.3); border-radius:12px; padding:14px;">
+      <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">🛒 طلبك:</div>
+      <div id="pubg-sum-rows"></div>
+      <div id="pubg-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(201,168,76,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--gold);text-align:center;letter-spacing:.04em;"></div>
+    </div>
+
+    <div class="oerror" id="pubg-error" style="margin-top:10px;"></div>
+    <button class="com-wa-btn" onclick="sendPubgOrder()" style="margin-top:14px;background:linear-gradient(135deg,#c9a84c,#e4c97a);color:#0d0d0d;">
+      💬 شحن
+    </button>
 
   </div>
 </div>
@@ -1398,13 +1486,20 @@
       </div>
 
       <!-- الأسعار -->
-      <div class="price-grid acc-grid">
-        <div class="pcard" data-rob="80" data-price="75" onclick="selectAccAmt(this)"><span class="rob-val">80</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">75 ج</span></div>
-        <div class="pcard" data-rob="160" data-price="150" onclick="selectAccAmt(this)"><span class="rob-val">160</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">150 ج</span></div>
-        <div class="pcard" data-rob="400" data-price="260" onclick="selectAccAmt(this)"><span class="rob-val">400</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">260 ج</span></div>
-        <div class="pcard" data-rob="800" data-price="490" onclick="selectAccAmt(this)"><span class="rob-val">800</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">490 ج</span></div>
-        <div class="pcard" data-rob="1000" data-price="600" onclick="selectAccAmt(this)"><span class="rob-val">1000</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">600 ج</span></div>
-        <div class="pcard" data-rob="0" data-price="350" onclick="selectAccAmt(this)"><span class="rob" style="font-size:.9rem;">البلس</span><span class="sep">ب</span><span class="egp">350 ج</span></div>
+      <div class="price-grid acc-grid" id="acc-prices">
+        <div class="pcard" data-rob="80"   data-price="75"  data-label="80 روب"   onclick="toggleAccAmt(this)"><span class="rob-val">80</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">75 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" data-rob="160"  data-price="150" data-label="160 روب"  onclick="toggleAccAmt(this)"><span class="rob-val">160</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">150 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" data-rob="400"  data-price="260" data-label="400 روب"  onclick="toggleAccAmt(this)"><span class="rob-val">400</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">260 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" data-rob="800"  data-price="490" data-label="800 روب"  onclick="toggleAccAmt(this)"><span class="rob-val">800</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">490 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" data-rob="1000" data-price="600" data-label="1000 روب" onclick="toggleAccAmt(this)"><span class="rob-val">1000</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">600 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" data-rob="0"    data-price="350" data-label="البلس"    onclick="toggleAccAmt(this)"><span class="rob" style="font-size:.9rem;">البلس</span><span class="sep">ب</span><span class="egp">350 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>
+      </div>
+
+      <!-- ملخص الطلب -->
+      <div id="acc-summary" style="display:none; margin-top:16px;">
+        <div style="font-size:.82rem;font-weight:700;color:#aaa;margin-bottom:8px;text-align:center;letter-spacing:.05em;">📋 ملخص الطلب</div>
+        <div id="acc-sum-rows"></div>
+        <div id="acc-grand-total" class="sum-total-row"></div>
       </div>
 
       <div class="oerror" id="acc-error" style="margin-top:12px;"></div>
@@ -1447,22 +1542,35 @@
         <button class="ptoggle" id="com-btn-hagz" onclick="switchPriceCom('hagz')">📅 حجز</button>
       </div>
 
+      <p style="color:var(--muted);font-size:.82rem;text-align:center;margin:12px 0 6px;">اضغط على الكمية اللي عايزها — تقدر تختار أكتر من واحدة</p>
+
       <div class="price-grid" id="com-prices-fawri">
-        <div class="pcard" data-rob="100" data-price="50" onclick="selectComAmt(this)"><span class="rob-val">100</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">50 ج</span></div>
-        <div class="pcard" data-rob="200" data-price="100" onclick="selectComAmt(this)"><span class="rob-val">200</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">100 ج</span></div>
-        <div class="pcard" data-rob="300" data-price="150" onclick="selectComAmt(this)"><span class="rob-val">300</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">150 ج</span></div>
-        <div class="pcard" data-rob="400" data-price="200" onclick="selectComAmt(this)"><span class="rob-val">400</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">200 ج</span></div>
-        <div class="pcard" data-rob="500" data-price="250" onclick="selectComAmt(this)"><span class="rob-val">500</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">250 ج</span></div>
-        <div class="pcard" data-rob="1000" data-price="500" onclick="selectComAmt(this)"><span class="rob-val">1000</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">500 ج</span></div>
+        <div class="pcard" data-rob="10"   data-price="5"   onclick="addComItem(this)"><span class="rob-val">10</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">5 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" data-rob="25"   data-price="13"  onclick="addComItem(this)"><span class="rob-val">25</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">13 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" data-rob="50"   data-price="25"  onclick="addComItem(this)"><span class="rob-val">50</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">25 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" data-rob="100"  data-price="50"  onclick="addComItem(this)"><span class="rob-val">100</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">50 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" data-rob="200"  data-price="100" onclick="addComItem(this)"><span class="rob-val">200</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">100 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" data-rob="300"  data-price="150" onclick="addComItem(this)"><span class="rob-val">300</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">150 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" data-rob="400"  data-price="200" onclick="addComItem(this)"><span class="rob-val">400</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">200 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" data-rob="500"  data-price="250" onclick="addComItem(this)"><span class="rob-val">500</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">250 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" data-rob="1000" data-price="500" onclick="addComItem(this)"><span class="rob-val">1000</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">500 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
       </div>
 
       <div class="price-grid" id="com-prices-hagz" style="display:none;">
-        <div class="pcard hagz" data-rob="110" data-price="50" onclick="selectComAmt(this)"><span class="rob-val">110</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">50 ج</span></div>
-        <div class="pcard hagz" data-rob="220" data-price="100" onclick="selectComAmt(this)"><span class="rob-val">220</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">100 ج</span></div>
-        <div class="pcard hagz" data-rob="330" data-price="150" onclick="selectComAmt(this)"><span class="rob-val">330</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">150 ج</span></div>
-        <div class="pcard hagz" data-rob="440" data-price="200" onclick="selectComAmt(this)"><span class="rob-val">440</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">200 ج</span></div>
-        <div class="pcard hagz" data-rob="550" data-price="250" onclick="selectComAmt(this)"><span class="rob-val">550</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">250 ج</span></div>
-        <div class="pcard hagz" data-rob="1100" data-price="500" onclick="selectComAmt(this)"><span class="rob-val">1100</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">500 ج</span></div>
+        <div class="pcard hagz" data-rob="11"   data-price="5"   onclick="addComItem(this)"><span class="rob-val">11</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">5 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
+        <div class="pcard hagz" data-rob="28"   data-price="13"  onclick="addComItem(this)"><span class="rob-val">28</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">13 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
+        <div class="pcard hagz" data-rob="55"   data-price="25"  onclick="addComItem(this)"><span class="rob-val">55</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">25 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
+        <div class="pcard hagz" data-rob="110"  data-price="50"  onclick="addComItem(this)"><span class="rob-val">110</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">50 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
+        <div class="pcard hagz" data-rob="220"  data-price="100" onclick="addComItem(this)"><span class="rob-val">220</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">100 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
+        <div class="pcard hagz" data-rob="330"  data-price="150" onclick="addComItem(this)"><span class="rob-val">330</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">150 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
+        <div class="pcard hagz" data-rob="440"  data-price="200" onclick="addComItem(this)"><span class="rob-val">440</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">200 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
+        <div class="pcard hagz" data-rob="550"  data-price="250" onclick="addComItem(this)"><span class="rob-val">550</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">250 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
+        <div class="pcard hagz" data-rob="1100" data-price="500" onclick="addComItem(this)"><span class="rob-val">1100</span><span class="rob"> روب</span><span class="sep">ب</span><span class="egp">500 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
+      </div>
+
+      <!-- منيو الملخص -->
+      <div id="com-summary">
+        <div class="sum-total-row" id="com-grand-total"></div>
       </div>
 
       <!-- فورم الطلب -->
@@ -1497,21 +1605,22 @@
         <p class="explain-intro">اكتب الحاجة اللي عايز تشتريها أو تبيعها واسم الماب — وهيرد عليك واحد من تجارنا ويقولك <span class="highlight">سعر الشراء وسعر البيع</span> للحاجة.</p>
       </div>
 
-      <!-- بيع / شراء -->
-      <div class="price-toggle" style="margin-top:20px;">
-        <button class="ptoggle active" id="map-btn-buy" onclick="switchMapType('buy')">🛒 شراء</button>
-        <button class="ptoggle" id="map-btn-sell" onclick="switchMapType('sell')">💰 بيع</button>
-      </div>
-
       <!-- الخانات -->
       <div class="order-form" style="margin-top:16px;">
         <div class="ofield">
-          <label class="olabel">اسم الماب <span class="req">*</span></label>
+          <label class="olabel">👾 اسم الماب <span class="req">*</span></label>
           <input class="oinput" id="map-name" type="text" placeholder="اكتب اسم الماب هنا" />
         </div>
         <div class="ofield">
-          <label class="olabel" id="map-item-label">الحاجة اللي عايز تشتريها <span class="req">*</span></label>
+          <label class="olabel" id="map-item-label">⭐ الحاجة <span class="req">*</span></label>
           <input class="oinput" id="map-item" type="text" placeholder="اكتب اسم الحاجة هنا" />
+        </div>
+        <div class="ofield">
+          <label class="olabel">🛍️ النوع <span class="req">*</span></label>
+          <div class="price-toggle" style="margin-top:8px;">
+            <button class="ptoggle active" id="map-btn-buy" onclick="switchMapType('buy')">🛒 شراء</button>
+            <button class="ptoggle" id="map-btn-sell" onclick="switchMapType('sell')">💰 بيع</button>
+          </div>
         </div>
         <div class="oerror" id="map-error"></div>
         <button class="com-wa-btn" onclick="sendMapOrder()">💬 تواصل مع التاجر</button>
@@ -1543,12 +1652,20 @@
     document.body.style.overflow = '';
   }
   function switchPrice(type) {
-    document.getElementById('prices-fawri').style.display = type === 'fawri' ? 'grid' : 'none';
-    document.getElementById('prices-hagz').style.display  = type === 'hagz'  ? 'grid' : 'none';
-    document.getElementById('btn-fawri').classList.toggle('active', type === 'fawri');
-    document.getElementById('btn-hagz').classList.toggle('active', type === 'hagz');
+    switchPriceCom(type);
   }
   function switchPriceCom(type) {
+    comCart = {};
+    document.querySelectorAll('#com-prices-fawri .pcard, #com-prices-hagz .pcard').forEach(card => {
+      const qtyNum = card.querySelector('.qty-num');
+      if (qtyNum) qtyNum.textContent = '0';
+      card.classList.remove('has-qty');
+      const qtyCtrl = card.querySelector('.qty-ctrl');
+      if (qtyCtrl) qtyCtrl.style.display = 'none';
+    });
+    document.getElementById('com-summary').style.display = 'none';
+    document.querySelectorAll('#com-summary .sum-row').forEach(r => r.remove());
+    document.getElementById('com-grand-total').innerHTML = '';
     document.getElementById('com-prices-fawri').style.display = type === 'fawri' ? 'grid' : 'none';
     document.getElementById('com-prices-hagz').style.display  = type === 'hagz'  ? 'grid' : 'none';
     document.getElementById('com-btn-fawri').classList.toggle('active', type === 'fawri');
@@ -1561,106 +1678,253 @@
     btnText.textContent = isOpen ? '✖ إخفاء الشرح' : '📖 شرح شحن الكميونتي';
   }
   // account panel
-  let accSelectedRob   = 0;
-  let accSelectedPrice = 0;
-  let accSelectedLabel = '';
 
-  function selectAccAmt(el) {
-    document.querySelectorAll('.acc-grid .pcard').forEach(c => c.classList.remove('selected'));
-    el.classList.add('selected');
-    accSelectedRob   = parseInt(el.dataset.rob);
-    accSelectedPrice = parseInt(el.dataset.price);
-    accSelectedLabel = el.querySelector('.rob-val') ? el.querySelector('.rob-val').textContent + ' روب' : 'البلس';
+
+  let accCart = {};
+
+  function toggleAccAmt(card) {
+    const key   = card.dataset.rob + '_' + card.dataset.price;
+    const label = card.dataset.label;
+    const price = parseInt(card.dataset.price);
+    const qtyCtrl = card.querySelector('.qty-ctrl');
+    const qtyNum  = card.querySelector('.qty-num');
+    if (accCart[key]) {
+      delete accCart[key];
+      card.classList.remove('has-qty');
+      if (qtyCtrl) { qtyCtrl.style.display = 'none'; if(qtyNum) qtyNum.textContent = '0'; }
+    } else {
+      accCart[key] = { label, price, qty: 1 };
+      card.classList.add('has-qty');
+      if (qtyCtrl) { qtyCtrl.style.display = 'flex'; if(qtyNum) qtyNum.textContent = '1'; }
+    }
+    renderAccSummary();
     document.getElementById('acc-error').textContent = '';
+  }
+
+  function changeAccQtyCard(btn, delta) {
+    const card = btn.closest('.pcard');
+    const key  = card.dataset.rob + '_' + card.dataset.price;
+    if (!accCart[key]) return;
+    accCart[key].qty = Math.max(1, accCart[key].qty + delta);
+    card.querySelector('.qty-num').textContent = accCart[key].qty;
+    renderAccSummary();
+  }
+
+  function changeAccQty(key, delta) {
+    if (!accCart[key]) return;
+    accCart[key].qty += delta;
+    if (accCart[key].qty <= 0) {
+      delete accCart[key];
+      document.querySelectorAll('#acc-prices .pcard').forEach(c => {
+        if ((c.dataset.rob + '_' + c.dataset.price) === key) {
+          c.classList.remove('has-qty');
+          const qc = c.querySelector('.qty-ctrl');
+          if (qc) { qc.style.display = 'none'; c.querySelector('.qty-num').textContent = '0'; }
+        }
+      });
+    } else {
+      document.querySelectorAll('#acc-prices .pcard').forEach(c => {
+        if ((c.dataset.rob + '_' + c.dataset.price) === key) {
+          const qn = c.querySelector('.qty-num');
+          if (qn) qn.textContent = accCart[key].qty;
+        }
+      });
+    }
+    renderAccSummary();
+  }
+
+  function renderAccSummary() {
+    const keys    = Object.keys(accCart);
+    const sumDiv  = document.getElementById('acc-summary');
+    const rowsDiv = document.getElementById('acc-sum-rows');
+    const totDiv  = document.getElementById('acc-grand-total');
+    if (!keys.length) { sumDiv.style.display = 'none'; return; }
+    sumDiv.style.display = 'block';
+    rowsDiv.innerHTML = keys.map(k => {
+      const item = accCart[k];
+      return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.06);gap:8px;">
+        <span style="flex:1;">📦 ${item.label} (${item.qty})</span>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <button onclick="changeAccQty('${k}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:#222;color:#fff;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">−</button>
+          <button onclick="changeAccQty('${k}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(0,180,216,.4);background:#222;color:#00b4d8;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
+        </div>
+      </div>`;
+    }).join('');
+    const total = keys.reduce((s,k) => s + accCart[k].price * accCart[k].qty, 0);
+    totDiv.innerHTML = `<div style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--gold);letter-spacing:.04em;">💰 الإجمالي: ${total} جنيه</div>`;
   }
 
   function sendAccOrder() {
     const username = document.getElementById('acc-username').value.trim();
     const pass     = document.getElementById('acc-pass').value.trim();
     const err      = document.getElementById('acc-error');
+    const keys     = Object.keys(accCart);
 
-    if (!username || !pass || !accSelectedPrice) {
-      err.textContent = '⚠️ ' + (!username ? 'اكتب اليوزرنيم' : !pass ? 'اكتب الباسورد' : 'اختار الكمية الأول');
-      return;
-    }
+    if (!username)    { err.textContent = '⚠️ اكتب اليوزرنيم'; return; }
+    if (!pass)        { err.textContent = '⚠️ اكتب الباسورد'; return; }
+    if (!keys.length) { err.textContent = '⚠️ اختار الكمية الأول'; return; }
     err.textContent = '';
 
-    const label = accSelectedRob ? accSelectedLabel : 'البلس';
-    const msg = `📦 طلب شحن الحساب\n👤 اليوزرنيم: ${username}\n🔑 الباسورد: ${pass}\n🎮 الطلب: ${label}\n💰 السعر: ${accSelectedPrice} جنيه`;
+    const items = keys.map(k => {
+      const item = accCart[k];
+      return `• ${item.label} (${item.qty})`;
+    }).join('\n');
+    const total = keys.reduce((s,k) => s + accCart[k].price * accCart[k].qty, 0);
+    const msg = `📦 طلب شحن الحساب\n👤 اليوزرنيم: ${username}\n🔑 الباسورد: ${pass}\n📦 الطلب:\n${items}\n💰 السعر: ${total} جنيه`;
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
 
   // community order form
-  let comSelectedRob   = 0;
-  let comSelectedPrice = 0;
+  // ── COMMUNITY CART ──
+  let comCart = {};
   let codeApplied = false;
-  const VALID_CODES = ['king', 'cat', 'lengewenii'];
+  const VALID_CODES = ['king', 'cat', 'lengewenii', 'amgadcat'];
 
   function getComCards() {
     return document.querySelectorAll('#com-prices-fawri .pcard, #com-prices-hagz .pcard');
+  }
+
+  function addComItem(card) {
+    const rob   = parseInt(card.dataset.rob);
+    const price = parseInt(card.dataset.price);
+    const label = card.querySelector('.rob-val').textContent + ' روب';
+    const key   = rob + '_' + price;
+    const qtyCtrl = card.querySelector('.qty-ctrl');
+    const qtyNum  = card.querySelector('.qty-num');
+    if (comCart[key]) {
+      delete comCart[key];
+      card.classList.remove('has-qty');
+      if (qtyCtrl) { qtyCtrl.style.display = 'none'; if (qtyNum) qtyNum.textContent = '0'; }
+    } else {
+      comCart[key] = { rob, price, label, qty: 1 };
+      card.classList.add('has-qty');
+      if (qtyCtrl) { qtyCtrl.style.display = 'flex'; if (qtyNum) qtyNum.textContent = '1'; }
+    }
+    renderComSummary();
+    document.getElementById('com-error').textContent = '';
+  }
+
+  function changeComQtyCard(btn, delta) {
+    const card = btn.closest('.pcard');
+    const key  = card.dataset.rob + '_' + card.dataset.price;
+    if (!comCart[key]) return;
+    comCart[key].qty = Math.max(1, comCart[key].qty + delta);
+    card.querySelector('.qty-num').textContent = comCart[key].qty;
+    renderComSummary();
+  }
+
+  function changeCartQty(key, delta) {
+    if (!comCart[key]) return;
+    comCart[key].qty += delta;
+    if (comCart[key].qty <= 0) {
+      delete comCart[key];
+      document.querySelectorAll('#com-prices-fawri .pcard, #com-prices-hagz .pcard').forEach(c => {
+        const k = c.dataset.rob + '_' + c.dataset.price;
+        if (k === key) {
+          c.classList.remove('has-qty');
+          const qc = c.querySelector('.qty-ctrl');
+          if (qc) { qc.style.display = 'none'; c.querySelector('.qty-num').textContent = '0'; }
+        }
+      });
+    } else {
+      document.querySelectorAll('#com-prices-fawri .pcard, #com-prices-hagz .pcard').forEach(c => {
+        const k = c.dataset.rob + '_' + c.dataset.price;
+        if (k === key) {
+          const qn = c.querySelector('.qty-num');
+          if (qn) qn.textContent = comCart[key].qty;
+        }
+      });
+    }
+    renderComSummary();
+  }
+
+  function getComSelections() {
+    const items = Object.values(comCart);
+    let totalRob = 0, totalPrice = 0;
+    items.forEach(i => {
+      totalRob   += i.rob * i.qty;
+      totalPrice += i.price * i.qty;
+    });
+    return { items, totalRob, totalPrice };
+  }
+
+  function renderComSummary() {
+    const { items, totalRob, totalPrice } = getComSelections();
+    const sumDiv  = document.getElementById('com-summary');
+    const grandEl = document.getElementById('com-grand-total');
+    sumDiv.querySelectorAll('.sum-row').forEach(r => r.remove());
+    if (items.length === 0) {
+      sumDiv.style.display = 'none';
+      grandEl.innerHTML = '';
+      return;
+    }
+    sumDiv.style.display = 'flex';
+    const bonus    = codeApplied ? Math.round(totalRob * 0.05) : 0;
+    const finalRob = totalRob + bonus;
+    items.forEach(item => {
+      const key = item.rob + '_' + item.price;
+      const row = document.createElement('div');
+      row.className = 'sum-row';
+      row.innerHTML = `
+        <div>
+          <div class="sum-label">\u{1F4E6} ${item.label} (${item.qty})</div>
+          <div class="sum-sub">${item.rob}\u0631\u0648\u0628(${item.qty})</div>
+        </div>
+        <div class="sum-ctrl">
+          <button class="sum-btn" onclick="changeCartQty('${key}',-1)">&minus;</button>
+          <span class="sum-qty">${item.qty}</span>
+          <button class="sum-btn" onclick="changeCartQty('${key}',1)">+</button>
+        </div>`;
+      sumDiv.insertBefore(row, grandEl);
+    });
+    grandEl.innerHTML = `
+      <div class="sum-grand">\u{1F3AE} ${finalRob} \u0631\u0648\u0628</div>
+      <div class="sum-grand-sub">\u{1F4B0} \u0625\u062c\u0645\u0627\u0644\u064a: ${totalPrice} \u062c\u0646\u064a\u0647${bonus ? ' (\u0634\u0627\u0645\u0644 ' + bonus + ' \u0631\u0648\u0628 \u0647\u062f\u064a\u0629 \u{1F381})' : ''}</div>`;
   }
 
   function updateCardDisplay() {
     getComCards().forEach(card => {
       const base  = parseInt(card.dataset.rob);
       const bonus = codeApplied ? Math.round(base * 0.05) : 0;
-      const total = base + bonus;
-      card.querySelector('.rob-val').textContent = total;
+      card.querySelector('.rob-val').textContent = base + bonus;
     });
-    // update selected values too
-    if (comSelectedRob) {
-      const bonus = codeApplied ? Math.round(comSelectedRob * 0.05) : 0;
-    }
+    renderComSummary();
   }
 
-  function selectComAmt(el) {
-    getComCards().forEach(c => c.classList.remove('selected'));
-    el.classList.add('selected');
-    comSelectedRob   = parseInt(el.dataset.rob);
-    comSelectedPrice = parseInt(el.dataset.price);
-    document.getElementById('com-error').textContent = '';
-  }
+  function selectComAmt() {}
+  function changeQty()    {}
+  function changeSumQty() {}
+  function updateComTotal(){ renderComSummary(); }
 
   function applyCode() {
     const code   = document.getElementById('com-code').value.trim().toLowerCase();
     const status = document.getElementById('code-status');
-    if (!code) {
-      status.className = 'code-status err';
-      status.textContent = '⚠️ اكتب الكود الأول';
-      return;
-    }
+    if (!code) { status.className = 'code-status err'; status.textContent = '\u26a0\ufe0f \u0627\u0643\u062a\u0628 \u0627\u0644\u0643\u0648\u062f \u0627\u0644\u0623\u0648\u0644'; return; }
     if (VALID_CODES.includes(code)) {
       codeApplied = true;
       updateCardDisplay();
       status.className = 'code-status ok';
-      status.textContent = '✅ الكود اتفعل! كل الكميات اتزادت 5% روب مجاناً 🎉';
+      status.textContent = '\u2705 \u0627\u0644\u0643\u0648\u062f \u0627\u062a\u0641\u0639\u0644! \u0643\u0644 \u0627\u0644\u0643\u0645\u064a\u0627\u062a \u0627\u062a\u0632\u0627\u062f\u062a 5% \u0631\u0648\u0628 \u0645\u062c\u0627\u0646\u0627\u064b \u{1F389}';
     } else {
-      if (codeApplied) {
-        codeApplied = false;
-        updateCardDisplay();
-      }
+      if (codeApplied) { codeApplied = false; updateCardDisplay(); }
       status.className = 'code-status err';
-      status.textContent = '❌ الكود غلط، جرب تاني';
+      status.textContent = '\u274c \u0627\u0644\u0643\u0648\u062f \u063a\u0644\u0637\u060c \u062c\u0631\u0628 \u062a\u0627\u0646\u064a';
     }
   }
 
   function sendComOrder() {
     const username = document.getElementById('com-username').value.trim();
-    const code     = document.getElementById('com-code').value.trim();
     const err      = document.getElementById('com-error');
-
-    if (!username && !comSelectedRob) { err.textContent = '⚠️ اكتب اليوزرنيم واختار الكمية الأول'; return; }
-    if (!username)      { err.textContent = '⚠️ لازم تكتب اليوزرنيم'; return; }
-    if (!comSelectedRob){ err.textContent = '⚠️ لازم تختار الكمية الأول'; return; }
+    const { items, totalRob, totalPrice } = getComSelections();
+    if (!username && items.length === 0) { err.textContent = '\u26a0\ufe0f \u0627\u0643\u062a\u0628 \u0627\u0644\u064a\u0648\u0632\u0631\u0646\u064a\u0645 \u0648\u0627\u062e\u062a\u0627\u0631 \u0627\u0644\u0643\u0645\u064a\u0629 \u0627\u0644\u0623\u0648\u0644'; return; }
+    if (!username)      { err.textContent = '\u26a0\ufe0f \u0644\u0627\u0632\u0645 \u062a\u0643\u062a\u0628 \u0627\u0644\u064a\u0648\u0632\u0631\u0646\u064a\u0645'; return; }
+    if (items.length === 0) { err.textContent = '\u26a0\ufe0f \u0644\u0627\u0632\u0645 \u062a\u062e\u062a\u0627\u0631 \u0627\u0644\u0643\u0645\u064a\u0629 \u0627\u0644\u0623\u0648\u0644'; return; }
     err.textContent = '';
-
-    const type  = document.getElementById('com-btn-hagz').classList.contains('active') ? 'حجز' : 'فوري';
-    const bonus = codeApplied ? Math.round(comSelectedRob * 0.05) : 0;
-    const total = comSelectedRob + bonus;
-
-    let msg = `📦 طلب شحن كميونتي\n👤 الاسم: ${username}\n🎮 الطلب: ${total} روب (${type})\n💰 السعر: ${comSelectedPrice} جنيه`;
-    msg += `\nكود الزيادة: ${codeApplied ? document.getElementById('com-code').value.trim() + ' ✅' : 'مفيش'}`;
-
+    const type     = document.getElementById('com-btn-hagz').classList.contains('active') ? '\u062d\u062c\u0632' : '\u0641\u0648\u0631\u064a';
+    const bonus    = codeApplied ? Math.round(totalRob * 0.05) : 0;
+    const finalRob = totalRob + bonus;
+    const code     = document.getElementById('com-code').value.trim();
+    let msg = `\u{1F4E6} \u0637\u0644\u0628 \u0634\u062d\u0646 \u0643\u0645\u064a\u0648\u0646\u062a\u064a\n\u{1F464} \u0627\u0644\u0627\u0633\u0645: ${username}\n\u{1F3AE} \u0627\u0644\u0637\u0644\u0628: ${finalRob} \u0631\u0648\u0628 (${type})\n\u{1F4B0} \u0627\u0644\u0633\u0639\u0631: ${totalPrice} \u062c\u0646\u064a\u0647\n\u0643\u0648\u062f \u0627\u0644\u0632\u064a\u0627\u062f\u0629: ${codeApplied ? code : '\u0645\u0641\u064a\u0634'}`;
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
 
@@ -1691,8 +1955,8 @@
     }
     err.textContent = '';
     const typeAr = mapType === 'buy' ? 'شراء' : 'بيع';
-    const msg = `🗺️ مابات روبلوكس\nاسم الماب: ${mapName}\nالحاجة: ${mapItem}\nالنوع: ${typeAr}`;
-    window.open('https://wa.me/201142812954?text=' + encodeURIComponent(msg), '_blank');
+    const msg = `🗺️ مابات\n👾 اسم الماب: ${mapName}\n⭐ الحاجة: ${mapItem}\n🛍️ النوع: ${typeAr}`;
+    window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
 
   // PUBG page
@@ -1704,20 +1968,20 @@
     document.getElementById('pubgPage').classList.remove('open');
     document.body.style.overflow = '';
     document.getElementById('pubg-id').value = '';
-    ['shadawat','orod'].forEach(t => {
-      document.getElementById('pubg-'+t+'-error').textContent = '';
-      document.querySelectorAll('#pubg-section-'+t+' .pubg-pcard').forEach(c => {
-        c.style.borderColor = 'rgba(201,168,76,.2)';
-        c.style.background = '#1a1a1a';
-      });
+    document.getElementById('pubg-error').textContent = '';
+    document.querySelectorAll('#pubgPage .pubg-pcard').forEach(c => {
+      c.style.borderColor = 'rgba(201,168,76,.2)';
+      c.style.background = '#1a1a1a';
+      const qc = c.querySelector('.qty-ctrl');
+      if (qc) { qc.style.display = 'none'; c.querySelector('.qty-num').textContent = '0'; }
     });
-    pubgSelectedShadawat = null;
-    pubgSelectedOrod = null;
+    pubgCart = {};
+    renderPubgSummary();
     switchPubgTab('shadawat');
   }
 
-  let pubgSelectedShadawat = null;
-  let pubgSelectedOrod = null;
+  // كرت واحد مشترك بين تابي "شدات" و "عروض" — تقدر تختار من الاتنين مع بعض
+  let pubgCart = {};
 
   function switchPubgTab(type) {
     document.getElementById('pubg-section-shadawat').style.display = type === 'shadawat' ? 'block' : 'none';
@@ -1731,31 +1995,103 @@
     });
   }
 
-  function selectPubgAmt(el, type) {
-    document.querySelectorAll('#pubg-section-' + type + ' .pubg-pcard').forEach(c => {
-      c.style.borderColor = 'rgba(201,168,76,.2)';
-      c.style.background = '#1a1a1a';
-    });
-    el.style.borderColor = 'var(--gold)';
-    el.style.background = 'rgba(201,168,76,.15)';
-    if (type === 'shadawat') pubgSelectedShadawat = el;
-    else pubgSelectedOrod = el;
-    document.getElementById('pubg-'+type+'-error').textContent = '';
+  function pubgKey(card, type) {
+    return type + '__' + card.dataset.uc + '__' + card.dataset.price;
   }
 
-  function sendPubgOrder(type) {
+  function pubgLabel(item) {
+    return item.type === 'orod' ? item.uc.replace(/\s*\(.*?\)\s*/g, '').trim() : item.uc + ' شدة';
+  }
+
+  function togglePubgAmt(card, type) {
+    const uc    = card.dataset.uc;
+    const price = parseInt(card.dataset.price);
+    const key   = pubgKey(card, type);
+    const qtyCtrl = card.querySelector('.qty-ctrl');
+    const qtyNum  = card.querySelector('.qty-num');
+    if (pubgCart[key]) {
+      delete pubgCart[key];
+      card.style.borderColor = 'rgba(201,168,76,.2)';
+      card.style.background = '#1a1a1a';
+      if (qtyCtrl) { qtyCtrl.style.display = 'none'; if (qtyNum) qtyNum.textContent = '0'; }
+    } else {
+      pubgCart[key] = { type, uc, price, qty: 1 };
+      card.style.borderColor = 'var(--gold)';
+      card.style.background = 'rgba(201,168,76,.15)';
+      if (qtyCtrl) { qtyCtrl.style.display = 'flex'; if (qtyNum) qtyNum.textContent = '1'; }
+    }
+    renderPubgSummary();
+    document.getElementById('pubg-error').textContent = '';
+  }
+
+  function changePubgQtyCard(btn, delta) {
+    const card = btn.closest('.pcard');
+    const type = card.closest('#pubg-section-shadawat') ? 'shadawat' : 'orod';
+    const key  = pubgKey(card, type);
+    if (!pubgCart[key]) return;
+    pubgCart[key].qty = Math.max(1, pubgCart[key].qty + delta);
+    card.querySelector('.qty-num').textContent = pubgCart[key].qty;
+    renderPubgSummary();
+  }
+
+  function changePubgQty(key, delta) {
+    if (!pubgCart[key]) return;
+    pubgCart[key].qty += delta;
+    if (pubgCart[key].qty <= 0) {
+      delete pubgCart[key];
+      document.querySelectorAll('#pubgPage .pubg-pcard').forEach(c => {
+        const type = c.closest('#pubg-section-shadawat') ? 'shadawat' : 'orod';
+        if (pubgKey(c, type) === key) {
+          c.style.borderColor = 'rgba(201,168,76,.2)';
+          c.style.background = '#1a1a1a';
+          const qc = c.querySelector('.qty-ctrl');
+          if (qc) { qc.style.display = 'none'; c.querySelector('.qty-num').textContent = '0'; }
+        }
+      });
+    } else {
+      document.querySelectorAll('#pubgPage .pubg-pcard').forEach(c => {
+        const type = c.closest('#pubg-section-shadawat') ? 'shadawat' : 'orod';
+        if (pubgKey(c, type) === key) {
+          const qn = c.querySelector('.qty-num');
+          if (qn) qn.textContent = pubgCart[key].qty;
+        }
+      });
+    }
+    renderPubgSummary();
+  }
+
+  function renderPubgSummary() {
+    const keys    = Object.keys(pubgCart);
+    const sumDiv  = document.getElementById('pubg-summary');
+    const rowsDiv = document.getElementById('pubg-sum-rows');
+    const totDiv  = document.getElementById('pubg-grand-total');
+    if (!keys.length) { sumDiv.style.display = 'none'; return; }
+    sumDiv.style.display = 'block';
+    rowsDiv.innerHTML = keys.map(k => {
+      const item = pubgCart[k];
+      return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(201,168,76,.12);gap:8px;">
+        <span style="flex:1;">🪙 ${pubgLabel(item)} (${item.qty})</span>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <button onclick="changePubgQty('${k}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:#1a1a1a;color:#e4c97a;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">−</button>
+          <button onclick="changePubgQty('${k}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(201,168,76,.5);background:#1a1a1a;color:var(--gold);font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
+        </div>
+      </div>`;
+    }).join('');
+    const total = keys.reduce((s,k) => s + pubgCart[k].price * pubgCart[k].qty, 0);
+    totDiv.innerHTML = `💰 السعر: ${total} جنيه`;
+  }
+
+  function sendPubgOrder() {
     const idVal = document.getElementById('pubg-id').value.trim();
-    const err = document.getElementById('pubg-'+type+'-error');
-    const selected = type === 'shadawat' ? pubgSelectedShadawat : pubgSelectedOrod;
-    if (!idVal && !selected) { err.textContent = '⚠️ اكتب الـ ID واختار الكمية الأول'; return; }
-    if (!idVal) { err.textContent = '⚠️ لازم تكتب الـ ID عشان نشحن'; document.getElementById('pubg-id').focus(); return; }
-    if (!selected) { err.textContent = '⚠️ اختار الكمية الأول'; return; }
+    const err   = document.getElementById('pubg-error');
+    const keys  = Object.keys(pubgCart);
+    if (!idVal && !keys.length) { err.textContent = '⚠️ اكتب الـ ID واختار الكمية الأول'; return; }
+    if (!idVal)   { err.textContent = '⚠️ لازم تكتب الـ ID عشان نشحن'; document.getElementById('pubg-id').focus(); return; }
+    if (!keys.length) { err.textContent = '⚠️ اختار الكمية الأول'; return; }
     err.textContent = '';
-    const uc = selected.dataset.uc;
-    const price = selected.dataset.price;
-    const isOrod = type === 'orod';
-    const orderLabel = isOrod ? uc.replace(/\s*\(.*?\)\s*/g, '').trim() : uc + ' شدة';
-    const msg = `🎮 طلب شحن ببجي\n🆔 الـ ID: ${idVal}\n💎 الطلب: ${orderLabel}\n💰 السعر: ${price} جنيه`;
+    const items = keys.map(k => `• ${pubgLabel(pubgCart[k])} (${pubgCart[k].qty})`).join('\n');
+    const total = keys.reduce((s,k) => s + pubgCart[k].price * pubgCart[k].qty, 0);
+    const msg = `🎮 طلب شحن ببجي\n🆔 الـ ID: ${idVal}\n📦 الطلب:\n${items}\n💰 السعر: ${total} جنيه`;
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
 
@@ -1783,7 +2119,7 @@
   }
   function sendCompReg() {
     const msg = `🎮 تسجيل في مسابقة\nأنا عايز أشارك في المسابقة`;
-    window.open('https://wa.me/201142812954?text=' + encodeURIComponent(msg), '_blank');
+    window.open('https://wa.me/201508033266?text=' + encodeURIComponent(msg), '_blank');
   }
   function toggleCompSuggest() {
     const box = document.getElementById('compSuggestBox');
@@ -1801,7 +2137,7 @@
       return;
     }
     const msg = `💡 اقتراح مسابقة\n${text}`;
-    window.open('https://wa.me/201142812954?text=' + encodeURIComponent(msg), '_blank');
+    window.open('https://wa.me/201508033266?text=' + encodeURIComponent(msg), '_blank');
   }
 
   // ── BRAWL STARS ──
@@ -1852,11 +2188,15 @@
     document.getElementById('pesPage').classList.remove('open');
     document.body.style.overflow = '';
     document.getElementById('pes-email').value = '';
+    document.getElementById('pes-pass').value = '';
     document.getElementById('pes-error').textContent = '';
-    pesSelected = null;
+    pesCart = {};
+    renderPesSummary();
     document.querySelectorAll('#pes-prices .pcard').forEach(c => {
       c.style.borderColor = 'rgba(0,207,255,.2)';
       c.style.background = '';
+      const qc = c.querySelector('.qty-ctrl');
+      if (qc) { qc.style.display = 'none'; c.querySelector('.qty-num').textContent = '0'; }
     });
     switchPesTab('android');
   }
@@ -1871,26 +2211,97 @@
       tab.style.borderBottomColor = active ? '#00cfff' : '';
     });
   }
-  let pesSelected = null;
-  function selectPesAmt(el) {
-    document.querySelectorAll('#pes-prices .pcard').forEach(c => {
-      c.style.borderColor = 'rgba(0,207,255,.2)';
-      c.style.background = '';
-    });
-    el.style.borderColor = '#00cfff';
-    el.style.background = 'rgba(0,207,255,.15)';
-    pesSelected = el;
+
+  // ── PES CART (شحن متعدد) ──
+  let pesCart = {};
+
+  function togglePesAmt(card) {
+    const coin  = card.dataset.coin;
+    const price = parseInt(card.dataset.price);
+    const key   = coin + '_' + price;
+    const qtyCtrl = card.querySelector('.qty-ctrl');
+    const qtyNum  = card.querySelector('.qty-num');
+    if (pesCart[key]) {
+      delete pesCart[key];
+      card.style.borderColor = 'rgba(0,207,255,.2)';
+      card.style.background = '';
+      if (qtyCtrl) { qtyCtrl.style.display = 'none'; if (qtyNum) qtyNum.textContent = '0'; }
+    } else {
+      pesCart[key] = { coin, price, qty: 1 };
+      card.style.borderColor = '#00cfff';
+      card.style.background = 'rgba(0,207,255,.15)';
+      if (qtyCtrl) { qtyCtrl.style.display = 'flex'; if (qtyNum) qtyNum.textContent = '1'; }
+    }
+    renderPesSummary();
     document.getElementById('pes-error').textContent = '';
   }
+
+  function changePesQtyCard(btn, delta) {
+    const card = btn.closest('.pcard');
+    const key  = card.dataset.coin + '_' + card.dataset.price;
+    if (!pesCart[key]) return;
+    pesCart[key].qty = Math.max(1, pesCart[key].qty + delta);
+    card.querySelector('.qty-num').textContent = pesCart[key].qty;
+    renderPesSummary();
+  }
+
+  function changePesQty(key, delta) {
+    if (!pesCart[key]) return;
+    pesCart[key].qty += delta;
+    if (pesCart[key].qty <= 0) {
+      delete pesCart[key];
+      document.querySelectorAll('#pes-prices .pcard').forEach(c => {
+        if ((c.dataset.coin + '_' + c.dataset.price) === key) {
+          c.style.borderColor = 'rgba(0,207,255,.2)';
+          c.style.background = '';
+          const qc = c.querySelector('.qty-ctrl');
+          if (qc) { qc.style.display = 'none'; c.querySelector('.qty-num').textContent = '0'; }
+        }
+      });
+    } else {
+      document.querySelectorAll('#pes-prices .pcard').forEach(c => {
+        if ((c.dataset.coin + '_' + c.dataset.price) === key) {
+          const qn = c.querySelector('.qty-num');
+          if (qn) qn.textContent = pesCart[key].qty;
+        }
+      });
+    }
+    renderPesSummary();
+  }
+
+  function renderPesSummary() {
+    const keys    = Object.keys(pesCart);
+    const sumDiv  = document.getElementById('pes-summary');
+    const rowsDiv = document.getElementById('pes-sum-rows');
+    const totDiv  = document.getElementById('pes-grand-total');
+    if (!keys.length) { sumDiv.style.display = 'none'; return; }
+    sumDiv.style.display = 'block';
+    rowsDiv.innerHTML = keys.map(k => {
+      const item = pesCart[k];
+      return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(0,207,255,.12);gap:8px;">
+        <span style="flex:1;">🪙 ${item.coin} كوين (${item.qty})</span>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <button onclick="changePesQty('${k}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:#0a1a1f;color:#6fd9f5;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">−</button>
+          <button onclick="changePesQty('${k}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(0,207,255,.5);background:#0a1a1f;color:#00cfff;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
+        </div>
+      </div>`;
+    }).join('');
+    const total = keys.reduce((s,k) => s + pesCart[k].price * pesCart[k].qty, 0);
+    totDiv.innerHTML = `💰 السعر: ${total} جنيه`;
+  }
+
   function sendPesOrder() {
     const email = document.getElementById('pes-email').value.trim();
+    const pass  = document.getElementById('pes-pass').value.trim();
     const err   = document.getElementById('pes-error');
+    const keys  = Object.keys(pesCart);
     if (!email) { err.textContent = '⚠️ اكتب الإيميل الأول'; return; }
-    if (!pesSelected) { err.textContent = '⚠️ اختار الكمية الأول'; return; }
+    if (!pass)  { err.textContent = '⚠️ اكتب الباسورد الأول'; return; }
+    if (!keys.length) { err.textContent = '⚠️ اختار الكمية الأول'; return; }
     err.textContent = '';
-    const coin  = pesSelected.dataset.coin;
-    const price = pesSelected.dataset.price;
-    const msg = `⚽ طلب شحن بيس\n📧 الإيميل: ${email}\n🪙 الطلب: ${coin} كوين\n💰 السعر: ${price} جنيه`;
+    const items = keys.map(k => `• ${pesCart[k].coin} كوين (${pesCart[k].qty})`).join('\n');
+    const total = keys.reduce((s,k) => s + pesCart[k].price * pesCart[k].qty, 0);
+    const msg = `⚽ طلب شحن بيس\n📧 الإيميل: ${email}\n🔑 الباسورد: ${pass}\n🪙 الطلب:\n${items}\n💰 السعر: ${total} جنيه`;
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
 
@@ -1928,12 +2339,19 @@
     document.getElementById('ff-acc-link').value = '';
     document.getElementById('ff-id-error').textContent = '';
     document.getElementById('ff-acc-error').textContent = '';
-    ffIdSelected = null;
-    ffAccSelected = null;
+    // reset carts
+    ffIdCart = {}; ffAccCart = {};
     document.querySelectorAll('#ff-id-prices .pcard, #ff-acc-prices .pcard').forEach(c => {
       c.style.borderColor = 'rgba(224,60,60,.25)';
       c.style.background = '';
+      c.classList.remove('has-qty');
+      const qc = c.querySelector('.qty-ctrl');
+      if (qc) { qc.style.display = 'none'; }
+      const qn = c.querySelector('.qty-num');
+      if (qn) qn.textContent = '0';
     });
+    document.getElementById('ff-id-summary').style.display = 'none';
+    document.getElementById('ff-acc-summary').style.display = 'none';
     switchFFTab('id');
   }
 
@@ -1949,59 +2367,208 @@
     });
   }
 
-  let ffIdSelected = null;
-  let ffAccSelected = null;
+  // ── FF ID CART ──
+  let ffIdCart = {};
 
-  function selectFFIdAmt(el) {
-    document.querySelectorAll('#ff-id-prices .pcard').forEach(c => {
-      c.style.borderColor = 'rgba(224,60,60,.25)';
-      c.style.background = '';
-    });
-    el.style.borderColor = '#e03c3c';
-    el.style.background = 'rgba(224,60,60,.15)';
-    ffIdSelected = el;
+  function toggleFFIdAmt(card) {
+    const key   = card.dataset.diamond + '_' + card.dataset.price;
+    const label = card.dataset.label;
+    const price = parseInt(card.dataset.price);
+    const qtyCtrl = card.querySelector('.qty-ctrl');
+    const qtyNum  = card.querySelector('.qty-num');
+    if (ffIdCart[key]) {
+      delete ffIdCart[key];
+      card.classList.remove('has-qty');
+      card.style.borderColor = 'rgba(224,60,60,.25)';
+      card.style.background = '';
+      if (qtyCtrl) { qtyCtrl.style.display = 'none'; if(qtyNum) qtyNum.textContent = '0'; }
+    } else {
+      ffIdCart[key] = { label, price, qty: 1 };
+      card.classList.add('has-qty');
+      card.style.borderColor = '#e03c3c';
+      card.style.background = 'rgba(224,60,60,.15)';
+      if (qtyCtrl) { qtyCtrl.style.display = 'flex'; if(qtyNum) qtyNum.textContent = '1'; }
+    }
+    renderFFIdSummary();
     document.getElementById('ff-id-error').textContent = '';
   }
 
-  function selectFFAccAmt(el) {
-    document.querySelectorAll('#ff-acc-prices .pcard').forEach(c => {
-      c.style.borderColor = 'rgba(224,60,60,.25)';
-      c.style.background = '';
-    });
-    el.style.borderColor = '#e03c3c';
-    el.style.background = 'rgba(224,60,60,.15)';
-    ffAccSelected = el;
-    document.getElementById('ff-acc-error').textContent = '';
+  function changeFFIdQtyCard(btn, delta) {
+    const card = btn.closest('.pcard');
+    const key  = card.dataset.diamond + '_' + card.dataset.price;
+    if (!ffIdCart[key]) return;
+    ffIdCart[key].qty = Math.max(1, ffIdCart[key].qty + delta);
+    card.querySelector('.qty-num').textContent = ffIdCart[key].qty;
+    renderFFIdSummary();
+  }
+
+  function changeFFIdQty(key, delta) {
+    if (!ffIdCart[key]) return;
+    ffIdCart[key].qty += delta;
+    if (ffIdCart[key].qty <= 0) {
+      delete ffIdCart[key];
+      document.querySelectorAll('#ff-id-prices .pcard').forEach(c => {
+        if ((c.dataset.diamond + '_' + c.dataset.price) === key) {
+          c.classList.remove('has-qty');
+          c.style.borderColor = 'rgba(224,60,60,.25)';
+          c.style.background = '';
+          const qc = c.querySelector('.qty-ctrl');
+          if (qc) { qc.style.display = 'none'; c.querySelector('.qty-num').textContent = '0'; }
+        }
+      });
+    } else {
+      document.querySelectorAll('#ff-id-prices .pcard').forEach(c => {
+        if ((c.dataset.diamond + '_' + c.dataset.price) === key) {
+          const qn = c.querySelector('.qty-num');
+          if (qn) qn.textContent = ffIdCart[key].qty;
+        }
+      });
+    }
+    renderFFIdSummary();
+  }
+
+  function renderFFIdSummary() {
+    const keys   = Object.keys(ffIdCart);
+    const sumDiv = document.getElementById('ff-id-summary');
+    const rowsDiv= document.getElementById('ff-id-sum-rows');
+    const totDiv = document.getElementById('ff-id-grand-total');
+    if (!keys.length) { sumDiv.style.display = 'none'; return; }
+    sumDiv.style.display = 'block';
+    rowsDiv.innerHTML = keys.map(k => {
+      const item = ffIdCart[k];
+      return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(224,60,60,.12);gap:8px;">
+        <span style="flex:1;">💎 ${item.label} (${item.qty})</span>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <button onclick="changeFFIdQty('${k}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:#2a0000;color:#ff6b6b;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">−</button>
+          <button onclick="changeFFIdQty('${k}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(224,60,60,.5);background:#2a0000;color:#e03c3c;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
+        </div>
+      </div>`;
+    }).join('');
+    const total = keys.reduce((s,k) => s + ffIdCart[k].price * ffIdCart[k].qty, 0);
+    totDiv.innerHTML = `💰 السعر: ${total} جنيه`;
   }
 
   function sendFFIdOrder() {
     const idVal = document.getElementById('ff-id').value.trim();
-    const err = document.getElementById('ff-id-error');
-    if (!idVal && !ffIdSelected) { err.textContent = '⚠️ اكتب الـ ID واختار الكمية الأول'; return; }
-    if (!idVal) { err.textContent = '⚠️ لازم تكتب الـ ID عشان نشحن'; document.getElementById('ff-id').focus(); return; }
-    if (!ffIdSelected) { err.textContent = '⚠️ اختار الكمية الأول'; return; }
+    const err   = document.getElementById('ff-id-error');
+    const keys  = Object.keys(ffIdCart);
+    if (!idVal && !keys.length) { err.textContent = '⚠️ اكتب الـ ID واختار الكمية الأول'; return; }
+    if (!idVal)   { err.textContent = '⚠️ لازم تكتب الـ ID عشان نشحن'; document.getElementById('ff-id').focus(); return; }
+    if (!keys.length) { err.textContent = '⚠️ اختار الكمية الأول'; return; }
     err.textContent = '';
-    const diamond = ffIdSelected.dataset.diamond;
-    const price   = ffIdSelected.dataset.price;
-    const msg = `🔥 طلب شحن فري فاير\n🆔 الـ ID: ${idVal}\n💎 الطلب: ${diamond} جوهرة\n💰 السعر: ${price} جنيه`;
+    const items = keys.map(k => {
+      const item = ffIdCart[k];
+      return `• ${item.label} (${item.qty})`;
+    }).join('\n');
+    const total = keys.reduce((s,k) => s + ffIdCart[k].price * ffIdCart[k].qty, 0);
+    const msg = `🔥 طلب شحن فري فاير (ID)\n🆔 الـ ID: ${idVal}\n💎 الطلب:\n${items}\n💰 السعر: ${total} جنيه`;
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
 
+  // ── FF ACCOUNT CART ──
+  let ffAccCart = {};
+
+  function toggleFFAccAmt(card) {
+    const key   = card.dataset.diamond + '_' + card.dataset.price;
+    const label = card.dataset.label;
+    const price = parseInt(card.dataset.price);
+    const qtyCtrl = card.querySelector('.qty-ctrl');
+    const qtyNum  = card.querySelector('.qty-num');
+    if (ffAccCart[key]) {
+      delete ffAccCart[key];
+      card.classList.remove('has-qty');
+      card.style.borderColor = 'rgba(224,60,60,.25)';
+      card.style.background = '';
+      if (qtyCtrl) { qtyCtrl.style.display = 'none'; if(qtyNum) qtyNum.textContent = '0'; }
+    } else {
+      ffAccCart[key] = { label, price, qty: 1 };
+      card.classList.add('has-qty');
+      card.style.borderColor = '#e03c3c';
+      card.style.background = 'rgba(224,60,60,.15)';
+      if (qtyCtrl) { qtyCtrl.style.display = 'flex'; if(qtyNum) qtyNum.textContent = '1'; }
+    }
+    renderFFAccSummary();
+    document.getElementById('ff-acc-error').textContent = '';
+  }
+
+  function changeFFAccQtyCard(btn, delta) {
+    const card = btn.closest('.pcard');
+    const key  = card.dataset.diamond + '_' + card.dataset.price;
+    if (!ffAccCart[key]) return;
+    ffAccCart[key].qty = Math.max(1, ffAccCart[key].qty + delta);
+    card.querySelector('.qty-num').textContent = ffAccCart[key].qty;
+    renderFFAccSummary();
+  }
+
+  function changeFFAccQty(key, delta) {
+    if (!ffAccCart[key]) return;
+    ffAccCart[key].qty += delta;
+    if (ffAccCart[key].qty <= 0) {
+      delete ffAccCart[key];
+      document.querySelectorAll('#ff-acc-prices .pcard').forEach(c => {
+        if ((c.dataset.diamond + '_' + c.dataset.price) === key) {
+          c.classList.remove('has-qty');
+          c.style.borderColor = 'rgba(224,60,60,.25)';
+          c.style.background = '';
+          const qc = c.querySelector('.qty-ctrl');
+          if (qc) { qc.style.display = 'none'; c.querySelector('.qty-num').textContent = '0'; }
+        }
+      });
+    } else {
+      document.querySelectorAll('#ff-acc-prices .pcard').forEach(c => {
+        if ((c.dataset.diamond + '_' + c.dataset.price) === key) {
+          const qn = c.querySelector('.qty-num');
+          if (qn) qn.textContent = ffAccCart[key].qty;
+        }
+      });
+    }
+    renderFFAccSummary();
+  }
+
+  function renderFFAccSummary() {
+    const keys   = Object.keys(ffAccCart);
+    const sumDiv = document.getElementById('ff-acc-summary');
+    const rowsDiv= document.getElementById('ff-acc-sum-rows');
+    const totDiv = document.getElementById('ff-acc-grand-total');
+    if (!keys.length) { sumDiv.style.display = 'none'; return; }
+    sumDiv.style.display = 'block';
+    rowsDiv.innerHTML = keys.map(k => {
+      const item = ffAccCart[k];
+      return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(224,60,60,.12);gap:8px;">
+        <span style="flex:1;">💎 ${item.label} (${item.qty})</span>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <button onclick="changeFFAccQty('${k}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:#2a0000;color:#ff6b6b;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">−</button>
+          <button onclick="changeFFAccQty('${k}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(224,60,60,.5);background:#2a0000;color:#e03c3c;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
+        </div>
+      </div>`;
+    }).join('');
+    const total = keys.reduce((s,k) => s + ffAccCart[k].price * ffAccCart[k].qty, 0);
+    totDiv.innerHTML = `💰 السعر: ${total} جنيه`;
+  }
+
   function sendFFAccOrder() {
-    const user = document.getElementById('ff-acc-user').value.trim();
-    const pass = document.getElementById('ff-acc-pass').value.trim();
-    const link = document.getElementById('ff-acc-link').value.trim();
-    const err  = document.getElementById('ff-acc-error');
-    if (!user) { err.textContent = '⚠️ اكتب الإيميل'; return; }
-    if (!pass) { err.textContent = '⚠️ اكتب الباسورد'; return; }
-    if (!link) { err.textContent = '⚠️ اكتب نوع الربط'; return; }
-    if (!ffAccSelected) { err.textContent = '⚠️ اختار الكمية الأول'; return; }
+    const user  = document.getElementById('ff-acc-user').value.trim();
+    const pass  = document.getElementById('ff-acc-pass').value.trim();
+    const link  = document.getElementById('ff-acc-link').value.trim();
+    const err   = document.getElementById('ff-acc-error');
+    const keys  = Object.keys(ffAccCart);
+    if (!user)        { err.textContent = '⚠️ اكتب الإيميل'; return; }
+    if (!pass)        { err.textContent = '⚠️ اكتب الباسورد'; return; }
+    if (!link)        { err.textContent = '⚠️ اكتب نوع الربط'; return; }
+    if (!keys.length) { err.textContent = '⚠️ اختار الكمية الأول'; return; }
     err.textContent = '';
-    const diamond = ffAccSelected.dataset.diamond;
-    const price   = ffAccSelected.dataset.price;
-    const msg = `🔥 طلب شحن فري فاير\n📧 الإيميل: ${user}\n🔑 الباسورد: ${pass}\n🔗 نوع الربط: ${link}\n💎 الطلب: ${diamond} جوهرة\n💰 السعر: ${price} جنيه`;
+    const items = keys.map(k => {
+      const item = ffAccCart[k];
+      return `• ${item.label} (${item.qty})`;
+    }).join('\n');
+    const total = keys.reduce((s,k) => s + ffAccCart[k].price * ffAccCart[k].qty, 0);
+    const msg = `🔥 طلب شحن فري فاير (حساب)\n📧 الإيميل: ${user}\n🔑 الباسورد: ${pass}\n🔗 نوع الربط: ${link}\n💎 الطلب:\n${items}\n💰 السعر: ${total} جنيه`;
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
+
+  // keep old names as aliases (not used but safe)
+  function selectFFIdAmt(el) { toggleFFIdAmt(el); }
+  function selectFFAccAmt(el) { toggleFFAccAmt(el); }
 
   function switchRTab(el, id) {
     document.querySelectorAll('.rptab').forEach(t => t.classList.remove('active'));
