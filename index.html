@@ -1173,7 +1173,7 @@
         <div class="pcard" style="border-color:rgba(0,207,255,.2);" data-coin="2130" data-price="950"  onclick="togglePesAmt(this)"><span class="rob-val">2130</span><span class="rob"> كوين</span><span class="sep">ب</span><span class="egp">950 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(0,207,255,.5);color:#00cfff;background:rgba(0,207,255,.1);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#00cfff;">0</span><button class="qty-btn" style="border-color:rgba(0,207,255,.5);color:#00cfff;background:rgba(0,207,255,.1);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
         <div class="pcard" style="border-color:rgba(0,207,255,.2);" data-coin="3250" data-price="1460" onclick="togglePesAmt(this)"><span class="rob-val">3250</span><span class="rob"> كوين</span><span class="sep">ب</span><span class="egp">1460 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(0,207,255,.5);color:#00cfff;background:rgba(0,207,255,.1);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#00cfff;">0</span><button class="qty-btn" style="border-color:rgba(0,207,255,.5);color:#00cfff;background:rgba(0,207,255,.1);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
         <div class="pcard" style="border-color:rgba(0,207,255,.2);" data-coin="5700" data-price="2420" onclick="togglePesAmt(this)"><span class="rob-val">5700</span><span class="rob"> كوين</span><span class="sep">ب</span><span class="egp">2420 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(0,207,255,.5);color:#00cfff;background:rgba(0,207,255,.1);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#00cfff;">0</span><button class="qty-btn" style="border-color:rgba(0,207,255,.5);color:#00cfff;background:rgba(0,207,255,.1);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" style="border-color:rgba(0,207,255,.2);grid-column:span 2;" data-coin="12800" data-price="4850" onclick="togglePesAmt(this)"><span class="rob-val">12800</span><span class="rob"> كوين</span><span class="sep">ب</span><span class="egp">4850 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(0,207,255,.5);color:#00cfff;background:rgba(0,207,255,.1);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#00cfff;">0</span><button class="qty-btn" style="border-color:rgba(0,207,255,.5);color:#00cfff;background:rgba(0,207,255,.1);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" style="border-color:rgba(0,207,255,.2);" data-coin="12800" data-price="4850" onclick="togglePesAmt(this)"><span class="rob-val">12800</span><span class="rob"> كوين</span><span class="sep">ب</span><span class="egp">4850 ج</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(0,207,255,.5);color:#00cfff;background:rgba(0,207,255,.1);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#00cfff;">0</span><button class="qty-btn" style="border-color:rgba(0,207,255,.5);color:#00cfff;background:rgba(0,207,255,.1);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
       </div>
 
       <!-- ملخص الطلب -->
@@ -1770,7 +1770,7 @@
       return `• ${item.label} (${item.qty})`;
     }).join('\n');
     const total = keys.reduce((s,k) => s + accCart[k].price * accCart[k].qty, 0);
-    const msg = `📦 طلب شحن الحساب\n👤 اليوزرنيم: ${username}\n🔑 الباسورد: ${pass}\n📦 الطلب:\n${items}\n💰 السعر: ${total} جنيه`;
+    const msg = `📦 طلب شحن روبلوكس (حساب)\n👤 اليوزرنيم: ${username}\n🔑 الباسورد: ${pass}\n📦 الطلب:\n${items}\n💰 السعر: ${total} جنيه`;
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
 
@@ -1778,7 +1778,7 @@
   // ── COMMUNITY CART ──
   let comCart = {};
   let codeApplied = false;
-  const VALID_CODES = ['king', 'cat', 'lengewenii', 'amgadcat'];
+  const VALID_CODES = ['king', 'cat', 'lengewenii', 'amgadcat', 'elkomy88'];
 
   function getComCards() {
     return document.querySelectorAll('#com-prices-fawri .pcard, #com-prices-hagz .pcard');
@@ -1924,7 +1924,7 @@
     const bonus    = codeApplied ? Math.round(totalRob * 0.05) : 0;
     const finalRob = totalRob + bonus;
     const code     = document.getElementById('com-code').value.trim();
-    let msg = `\u{1F4E6} \u0637\u0644\u0628 \u0634\u062d\u0646 \u0643\u0645\u064a\u0648\u0646\u062a\u064a\n\u{1F464} \u0627\u0644\u0627\u0633\u0645: ${username}\n\u{1F3AE} \u0627\u0644\u0637\u0644\u0628: ${finalRob} \u0631\u0648\u0628 (${type})\n\u{1F4B0} \u0627\u0644\u0633\u0639\u0631: ${totalPrice} \u062c\u0646\u064a\u0647\n\u0643\u0648\u062f \u0627\u0644\u0632\u064a\u0627\u062f\u0629: ${codeApplied ? code : '\u0645\u0641\u064a\u0634'}`;
+    let msg = `\u{1F4E6} \u0637\u0644\u0628 \u0634\u062d\u0646 \u0631\u0648\u0628\u0644\u0648\u0643\u0633 (\u0643\u0645\u064a\u0648\u0646\u062a\u064a)\n\u{1F464} \u0627\u0644\u0627\u0633\u0645: ${username}\n\u{1F3AE} \u0627\u0644\u0637\u0644\u0628: ${finalRob} \u0631\u0648\u0628 (${type})\n\u{1F4B0} \u0627\u0644\u0633\u0639\u0631: ${totalPrice} \u062c\u0646\u064a\u0647\n\u0643\u0648\u062f \u0627\u0644\u0632\u064a\u0627\u062f\u0629: ${codeApplied ? code : '\u0645\u0641\u064a\u0634'}`;
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
 
@@ -2301,7 +2301,7 @@
     err.textContent = '';
     const items = keys.map(k => `• ${pesCart[k].coin} كوين (${pesCart[k].qty})`).join('\n');
     const total = keys.reduce((s,k) => s + pesCart[k].price * pesCart[k].qty, 0);
-    const msg = `⚽ طلب شحن بيس\n📧 الإيميل: ${email}\n🔑 الباسورد: ${pass}\n🪙 الطلب:\n${items}\n💰 السعر: ${total} جنيه`;
+    const msg = `⚽ طلب شحن بيس (اندرويد)\n📧 الإيميل: ${email}\n🔑 الباسورد: ${pass}\n🪙 الطلب:\n${items}\n💰 السعر: ${total} جنيه`;
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
 
