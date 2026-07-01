@@ -4,6 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>King & Cat – خدمات الشحن</title>
+  <meta property="og:title" content="King & Cat – خدمات الشحن" />
+  <meta property="og:description" content="شحن ألعاب" />
+  <meta property="og:image" content="https://raw.githubusercontent.com/King-cat11/King-cat/main/IMG-20260701-WA0002.jpg" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="King & Cat – خدمات الشحن" />
+  <meta name="twitter:description" content="شحن ألعاب" />
+  <meta name="twitter:image" content="https://raw.githubusercontent.com/King-cat11/King-cat/main/IMG-20260701-WA0002.jpg" />
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Bebas+Neue&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -134,6 +142,11 @@
     .nav-menu a:last-child { border-bottom: none; }
 
     /* ── HERO ── */
+
+    .game-card:hover {
+      box-shadow: 0 8px 28px rgba(0,0,0,.45);
+    }
+
     .hero {
       min-height: 100vh;
       padding: 100px 4% 60px;
@@ -173,6 +186,8 @@
       overflow: hidden;
       pointer-events: none;
       z-index: 0;
+      transform: translateZ(0);
+      will-change: transform;
     }
     .ember {
       position: absolute;
@@ -183,6 +198,7 @@
       box-shadow: 0 0 6px 2px rgba(255,90,77,.8);
       opacity: 0;
       animation: emberRise linear infinite;
+      will-change: transform, opacity;
     }
     @keyframes emberRise {
       0%   { transform: translateY(0) translateX(0); opacity: 0; }
@@ -222,6 +238,8 @@
       overflow: hidden;
       pointer-events: none;
       z-index: 0;
+      transform: translateZ(0);
+      will-change: transform;
     }
     .pes-coin {
       position: absolute;
@@ -234,6 +252,7 @@
       opacity: 0;
       filter: drop-shadow(0 0 3px rgba(255,212,0,.45));
       animation: coinRise linear infinite;
+      will-change: transform, opacity;
     }
     .visa-emojis {
       position: fixed;
@@ -241,6 +260,8 @@
       overflow: hidden;
       pointer-events: none;
       z-index: 0;
+      transform: translateZ(0);
+      will-change: transform;
     }
     .visa-emoji {
       position: absolute;
@@ -249,6 +270,7 @@
       opacity: 0;
       filter: drop-shadow(0 0 3px rgba(111,207,58,.45));
       animation: coinRise linear infinite;
+      will-change: transform, opacity;
     }
     #pubgPage {
       background:
@@ -262,6 +284,8 @@
       overflow: hidden;
       pointer-events: none;
       z-index: 0;
+      transform: translateZ(0);
+      will-change: transform;
     }
     .uc-coin {
       position: absolute;
@@ -274,6 +298,7 @@
       opacity: 0;
       filter: drop-shadow(0 0 3px rgba(255,184,77,.45));
       animation: coinRise linear infinite;
+      will-change: transform, opacity;
     }
     .ff-gems {
       position: fixed;
@@ -281,6 +306,8 @@
       overflow: hidden;
       pointer-events: none;
       z-index: 0;
+      transform: translateZ(0);
+      will-change: transform;
     }
     .ff-gem {
       position: absolute;
@@ -295,6 +322,7 @@
       opacity: 0;
       filter: drop-shadow(0 0 3px rgba(0,180,216,.45));
       animation: coinRise linear infinite;
+      will-change: transform, opacity;
     }
     #robloxPage .rpage-header {
       background: rgba(10,10,10,.5);
@@ -307,6 +335,8 @@
       overflow: hidden;
       pointer-events: none;
       z-index: 0;
+      transform: translateZ(0);
+      will-change: transform;
     }
     .robux-coin {
       position: absolute;
@@ -319,6 +349,7 @@
       opacity: 0;
       filter: drop-shadow(0 0 3px rgba(255,210,90,.35));
       animation: coinRise linear infinite;
+      will-change: transform, opacity;
     }
     #compPage {
       background:
@@ -332,6 +363,8 @@
       overflow: hidden;
       pointer-events: none;
       z-index: 0;
+      transform: translateZ(0);
+      will-change: transform;
     }
     .comp-trophy {
       position: absolute;
@@ -340,6 +373,7 @@
       opacity: 0;
       filter: drop-shadow(0 0 3px rgba(0,0,0,.25));
       animation: coinRise linear infinite;
+      will-change: transform, opacity;
     }
     @keyframes coinRise {
       0%   { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
@@ -359,6 +393,8 @@
       overflow: hidden;
       pointer-events: none;
       z-index: 0;
+      transform: translateZ(0);
+      will-change: transform;
     }
     .brawl-star {
       position: absolute;
@@ -367,6 +403,7 @@
       opacity: 0;
       filter: drop-shadow(0 0 3px rgba(244,161,0,.45));
       animation: coinRise linear infinite;
+      will-change: transform, opacity;
     }
     #channelsPage {
       background:
@@ -380,6 +417,8 @@
       overflow: hidden;
       pointer-events: none;
       z-index: 0;
+      transform: translateZ(0);
+      will-change: transform;
     }
     .channels-icon {
       position: absolute;
@@ -389,6 +428,7 @@
       opacity: 0;
       filter: drop-shadow(0 0 3px rgba(0,0,0,.35));
       animation: coinRise linear infinite;
+      will-change: transform, opacity;
     }
     .channels-icon.ci-chat {
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2' y='3' width='28' height='22' rx='8' fill='%2325d366'/%3E%3Cpath d='M9 28l1.5-6h11L23 28l-7-3-7 3z' fill='%2325d366'/%3E%3Cpath d='M9 11h14M9 16h9' stroke='%23fff' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E");
@@ -725,6 +765,7 @@
       display: none;
       flex-direction: column;
       overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
     }
     .rpage.open { display: flex; }
 
