@@ -3301,14 +3301,18 @@
 
 <script>
   (function () {
-    const messages = ['صلي على النبي ﷺ', 'اذكر الله', 'صليت اللي عليك؟'];
-    let idx = 0;
+    const messages = ['صلي على النبي ﷺ', 'اذكر الله'];
+    let lastIdx = -1;
     const bar = document.getElementById('reminderBar');
 
     function showReminder() {
       if (!bar) return;
+      let idx;
+      do {
+        idx = Math.floor(Math.random() * messages.length);
+      } while (idx === lastIdx && messages.length > 1);
+      lastIdx = idx;
       bar.textContent = messages[idx];
-      idx = (idx + 1) % messages.length;
       bar.classList.add('show');
       setTimeout(() => bar.classList.remove('show'), 5000);
     }
