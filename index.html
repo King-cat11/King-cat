@@ -3534,14 +3534,9 @@
   function sendDesignOrder() {
     const type = document.getElementById('design-type').value.trim();
     const desc = document.getElementById('design-desc').value.trim();
-    const err  = document.getElementById('design-error');
 
-    if (!type) { err.textContent = '⚠️ اكتب نوع التصميم'; return; }
-    if (!desc) { err.textContent = '⚠️ اكتب وصف التصميم'; return; }
-    err.textContent = '';
-
-    const msg = `👕 طلب تصميم ملابس روبلوكس\n🛍️ نوع التصميم: ${type}\n📝 الوصف: ${desc}`;
-    window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
+    const msg = `👕 طلب تصميم ملابس روبلوكس\n🛍️ نوع التصميم: ${type || 'غير محدد'}\n📝 الوصف: ${desc || 'غير محدد'}`;
+    window.open('https://wa.me/201287724199?text=' + encodeURIComponent(msg), '_blank');
   }
 
   function switchRTab(el, id) {
