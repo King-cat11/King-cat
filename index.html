@@ -151,14 +151,14 @@
     }
     #visaPage {
       background:
-        radial-gradient(circle at 18% 18%, rgba(111,207,58,.14) 0%, transparent 55%),
-        radial-gradient(circle at 85% 80%, rgba(111,207,58,.11) 0%, transparent 55%),
+        radial-gradient(circle at 18% 18%, rgba(96,165,250,.14) 0%, transparent 55%),
+        radial-gradient(circle at 85% 80%, rgba(96,165,250,.11) 0%, transparent 55%),
         var(--black);
     }
     #pesPage {
       background:
-        radial-gradient(circle at 18% 18%, rgba(37,99,235,.18) 0%, transparent 55%),
-        radial-gradient(circle at 85% 80%, rgba(255,212,0,.11) 0%, transparent 55%),
+        radial-gradient(circle at 18% 18%, rgba(111,207,58,.18) 0%, transparent 55%),
+        radial-gradient(circle at 85% 80%, rgba(74,158,31,.11) 0%, transparent 55%),
         var(--black);
     }
     #pubgPage {
@@ -632,8 +632,11 @@
 
     /* PUBG dropdown menu: red instead of blue */
     #pubgtabMenu { border-color: rgba(0,180,216,.4) !important; }
+    #pestabMenu { border-color: rgba(111,207,58,.4) !important; }
     #pubgtabMenu .rtab-menu-item:hover { background: rgba(0,180,216,.12) !important; }
     #pubgtabMenu .rtab-menu-item.active { color: #48cae4 !important; background: rgba(0,180,216,.18) !important; }
+    #pestabMenu .rtab-menu-item:hover { background: rgba(111,207,58,.12) !important; }
+    #pestabMenu .rtab-menu-item.active { color: #6fcf3a !important; background: rgba(111,207,58,.18) !important; }
 
     .ce-modal-overlay {
       display: none;
@@ -1355,18 +1358,18 @@
 
 <!-- PES PAGE -->
 <div id="pesPage" class="rpage">
-  <div class="rpage-header" style="border-bottom-color:rgba(255,212,0,.3);">
-    <button class="rpage-back" style="border-color:rgba(37,99,235,.5);color:#2563eb;" onclick="closePes()">&#8594; Back</button>
+  <div class="rpage-header" style="border-bottom-color:rgba(111,207,58,.3);">
+    <button class="rpage-back" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;" onclick="closePes()">&#8594; Back</button>
     <div class="rpage-title">
-      <span class="rpage-logo" style="color:#2563eb;">eFootball</span>
+      <span class="rpage-logo" style="color:#6fcf3a;">eFootball</span>
       <span class="rpage-sub"></span>
     </div>  </div>
 
   <!-- DROPDOWN SELECTOR -->
-  <div class="rtab-select-row" style="border-bottom:1px solid rgba(37,99,235,.15); padding-bottom: 12px;">
-    <div class="rtab-select-label" style="background:rgba(37,99,235,.08); border-color:rgba(37,99,235,.4); color:#2563eb; cursor:pointer;" onclick="openPesActiveExplainModal()">📖</div>
+  <div class="rtab-select-row" style="border-bottom:1px solid rgba(111,207,58,.15); padding-bottom: 12px;">
+    <div class="rtab-select-label" style="background:rgba(111,207,58,.08); border-color:rgba(111,207,58,.4); color:#6fcf3a; cursor:pointer;" onclick="openPesActiveExplainModal()">📖</div>
     <div class="rtab-select-wrap" id="pestabSelectWrap">
-      <button class="rtab-select-btn" style="background:rgba(37,99,235,.08); border-color:rgba(37,99,235,.4); color:#2563eb;" onclick="togglePesTabMenu()">
+      <button class="rtab-select-btn" style="background:rgba(111,207,58,.08); border-color:rgba(111,207,58,.4); color:#6fcf3a;" onclick="togglePesTabMenu()">
         <span id="pestabSelectedLabel">🤖 اندرويد</span>
         <span class="rtab-select-arrow">▾</span>
       </button>
@@ -1375,7 +1378,7 @@
         <button class="rtab-menu-item" id="pestab-item-iphone" onclick="selectPesTab(this,'iphone','🍎 ايفون')">🍎 ايفون</button>
       </div>
     </div>
-    <div class="rtab-select-label" style="background:rgba(37,99,235,.08); border:1.5px solid rgba(37,99,235,.4); padding:0; margin-inline-start:auto; width:60px; align-self:stretch; overflow:hidden; border-radius:14px;">
+    <div class="rtab-select-label" style="background:rgba(111,207,58,.08); border:1.5px solid rgba(111,207,58,.4); padding:0; margin-inline-start:auto; width:60px; align-self:stretch; overflow:hidden; border-radius:14px;">
       <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/images%20(8).jpeg" alt="eFootball" style="width:100%;height:100%;object-fit:cover;display:block;">
     </div>
   </div>
@@ -1401,36 +1404,36 @@
     <!-- TAB 1: اندرويد -->
     <div id="pes-panel-android" class="rpanel active">
       <div class="ofield" style="margin-bottom:20px;">
-        <label class="olabel" style="color:#2563eb;">الإيميل <span class="req">*</span></label>
-        <input class="oinput" id="pes-email" type="email" placeholder="اكتب الإيميل هنا" style="border-color:rgba(37,99,235,.4);" />
+        <label class="olabel" style="color:#6fcf3a;">الإيميل <span class="req">*</span></label>
+        <input class="oinput" id="pes-email" type="email" placeholder="اكتب الإيميل هنا" style="border-color:rgba(111,207,58,.4);" />
       </div>
 
       <div class="ofield" style="margin-bottom:20px;">
-        <label class="olabel" style="color:#2563eb;">الباسورد <span class="req">*</span></label>
-        <input class="oinput" id="pes-pass" type="password" placeholder="اكتب الباسورد هنا" style="border-color:rgba(37,99,235,.4);" />
+        <label class="olabel" style="color:#6fcf3a;">الباسورد <span class="req">*</span></label>
+        <input class="oinput" id="pes-pass" type="password" placeholder="اكتب الباسورد هنا" style="border-color:rgba(111,207,58,.4);" />
       </div>
 
       <div class="price-grid" id="pes-prices">
-        <div class="pcard" style="border-color:rgba(37,99,235,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-coin="130"  data-price="90"   onclick="togglePesAmt(this)"><span class="rob">Coins </span><span class="rob-val">130</span><span class="egp">EGP 90</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(37,99,235,.5);color:#2563eb;background:rgba(37,99,235,.12);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#2563eb;">0</span><button class="qty-btn" style="border-color:rgba(37,99,235,.5);color:#2563eb;background:rgba(37,99,235,.12);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" style="border-color:rgba(37,99,235,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-coin="300"  data-price="175"  onclick="togglePesAmt(this)"><span class="rob">Coins </span><span class="rob-val">300</span><span class="egp">EGP 175</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(37,99,235,.5);color:#2563eb;background:rgba(37,99,235,.12);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#2563eb;">0</span><button class="qty-btn" style="border-color:rgba(37,99,235,.5);color:#2563eb;background:rgba(37,99,235,.12);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" style="border-color:rgba(37,99,235,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-coin="550"  data-price="280"  onclick="togglePesAmt(this)"><span class="rob">Coins </span><span class="rob-val">550</span><span class="egp">EGP 280</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(37,99,235,.5);color:#2563eb;background:rgba(37,99,235,.12);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#2563eb;">0</span><button class="qty-btn" style="border-color:rgba(37,99,235,.5);color:#2563eb;background:rgba(37,99,235,.12);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" style="border-color:rgba(37,99,235,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-coin="750"  data-price="385"  onclick="togglePesAmt(this)"><span class="rob">Coins </span><span class="rob-val">750</span><span class="egp">EGP 385</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(37,99,235,.5);color:#2563eb;background:rgba(37,99,235,.12);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#2563eb;">0</span><button class="qty-btn" style="border-color:rgba(37,99,235,.5);color:#2563eb;background:rgba(37,99,235,.12);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" style="border-color:rgba(37,99,235,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-coin="1040" data-price="500"  onclick="togglePesAmt(this)"><span class="rob">Coins </span><span class="rob-val">1040</span><span class="egp">EGP 500</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(37,99,235,.5);color:#2563eb;background:rgba(37,99,235,.12);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#2563eb;">0</span><button class="qty-btn" style="border-color:rgba(37,99,235,.5);color:#2563eb;background:rgba(37,99,235,.12);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" style="border-color:rgba(37,99,235,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-coin="2130" data-price="950"  onclick="togglePesAmt(this)"><span class="rob">Coins </span><span class="rob-val">2130</span><span class="egp">EGP 950</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(37,99,235,.5);color:#2563eb;background:rgba(37,99,235,.12);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#2563eb;">0</span><button class="qty-btn" style="border-color:rgba(37,99,235,.5);color:#2563eb;background:rgba(37,99,235,.12);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" style="border-color:rgba(37,99,235,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-coin="3250" data-price="1460" onclick="togglePesAmt(this)"><span class="rob">Coins </span><span class="rob-val">3250</span><span class="egp">EGP 1460</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(37,99,235,.5);color:#2563eb;background:rgba(37,99,235,.12);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#2563eb;">0</span><button class="qty-btn" style="border-color:rgba(37,99,235,.5);color:#2563eb;background:rgba(37,99,235,.12);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" style="border-color:rgba(37,99,235,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-coin="5700" data-price="2420" onclick="togglePesAmt(this)"><span class="rob">Coins </span><span class="rob-val">5700</span><span class="egp">EGP 2420</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(37,99,235,.5);color:#2563eb;background:rgba(37,99,235,.12);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#2563eb;">0</span><button class="qty-btn" style="border-color:rgba(37,99,235,.5);color:#2563eb;background:rgba(37,99,235,.12);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" style="border-color:rgba(37,99,235,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-coin="12800" data-price="4850" onclick="togglePesAmt(this)"><span class="rob">Coins </span><span class="rob-val">12800</span><span class="egp">EGP 4850</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(37,99,235,.5);color:#2563eb;background:rgba(37,99,235,.12);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#2563eb;">0</span><button class="qty-btn" style="border-color:rgba(37,99,235,.5);color:#2563eb;background:rgba(37,99,235,.12);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" style="border-color:rgba(111,207,58,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-coin="130"  data-price="90"   onclick="togglePesAmt(this)"><span class="rob">Coins </span><span class="rob-val">130</span><span class="egp">EGP 90</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#6fcf3a;">0</span><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" style="border-color:rgba(111,207,58,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-coin="300"  data-price="175"  onclick="togglePesAmt(this)"><span class="rob">Coins </span><span class="rob-val">300</span><span class="egp">EGP 175</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#6fcf3a;">0</span><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" style="border-color:rgba(111,207,58,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-coin="550"  data-price="280"  onclick="togglePesAmt(this)"><span class="rob">Coins </span><span class="rob-val">550</span><span class="egp">EGP 280</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#6fcf3a;">0</span><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" style="border-color:rgba(111,207,58,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-coin="750"  data-price="385"  onclick="togglePesAmt(this)"><span class="rob">Coins </span><span class="rob-val">750</span><span class="egp">EGP 385</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#6fcf3a;">0</span><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" style="border-color:rgba(111,207,58,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-coin="1040" data-price="500"  onclick="togglePesAmt(this)"><span class="rob">Coins </span><span class="rob-val">1040</span><span class="egp">EGP 500</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#6fcf3a;">0</span><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" style="border-color:rgba(111,207,58,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-coin="2130" data-price="950"  onclick="togglePesAmt(this)"><span class="rob">Coins </span><span class="rob-val">2130</span><span class="egp">EGP 950</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#6fcf3a;">0</span><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" style="border-color:rgba(111,207,58,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-coin="3250" data-price="1460" onclick="togglePesAmt(this)"><span class="rob">Coins </span><span class="rob-val">3250</span><span class="egp">EGP 1460</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#6fcf3a;">0</span><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" style="border-color:rgba(111,207,58,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-coin="5700" data-price="2420" onclick="togglePesAmt(this)"><span class="rob">Coins </span><span class="rob-val">5700</span><span class="egp">EGP 2420</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#6fcf3a;">0</span><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" style="border-color:rgba(111,207,58,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-coin="12800" data-price="4850" onclick="togglePesAmt(this)"><span class="rob">Coins </span><span class="rob-val">12800</span><span class="egp">EGP 4850</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#6fcf3a;">0</span><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
       </div>
 
       <!-- ملخص الطلب -->
-      <div id="pes-summary" style="display:none; margin-top:16px; background:#0f1f3a; border:1px solid rgba(37,99,235,.35); border-radius:12px; padding:14px;">
+      <div id="pes-summary" style="display:none; margin-top:16px; background:#0f1f14; border:1px solid rgba(111,207,58,.35); border-radius:12px; padding:14px;">
         <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">🛒 طلبك:</div>
         <div id="pes-sum-rows"></div>
-        <div id="pes-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(37,99,235,.25);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#2563eb;text-align:center;letter-spacing:.04em;"></div>
+        <div id="pes-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(111,207,58,.25);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#6fcf3a;text-align:center;letter-spacing:.04em;"></div>
       </div>
 
       <div class="oerror" id="pes-error" style="margin-top:10px;"></div>
-      <button class="com-wa-btn" onclick="sendPesOrder()" style="margin-top:16px;background:linear-gradient(135deg,#3b82f6,#2563eb);color:#0d0d0d;border:none;">
+      <button class="com-wa-btn" onclick="sendPesOrder()" style="margin-top:16px;background:linear-gradient(135deg,#1e7e34,#6fcf3a);color:#0d0d0d;border:none;">
         💬 شحن
       </button>
     </div>
@@ -1449,17 +1452,17 @@
 
 <!-- VISA PAGE -->
 <div id="visaPage" class="rpage">
-  <div class="rpage-header" style="border-bottom-color:rgba(111,207,58,.3);">
-    <button class="rpage-back" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;" onclick="closeVisa()">&#8594; Back</button>
+  <div class="rpage-header" style="border-bottom-color:rgba(96,165,250,.3);">
+    <button class="rpage-back" style="border-color:rgba(96,165,250,.5);color:#60a5fa;" onclick="closeVisa()">&#8594; Back</button>
     <div class="rpage-title">
-      <span class="rpage-logo" style="color:#6fcf3a;">Visa Recharge</span>
+      <span class="rpage-logo" style="color:#60a5fa;">Visa Recharge</span>
     </div>  </div>
 
   <!-- EXPLAIN ROW -->
-  <div class="rtab-select-row" style="border-bottom:1px solid rgba(111,207,58,.15); padding-bottom: 12px;">
-    <div class="rtab-select-label" style="background:rgba(111,207,58,.08); border-color:rgba(111,207,58,.4); color:#6fcf3a; cursor:pointer;" onclick="openVisaExplainModal()">📖</div>
+  <div class="rtab-select-row" style="border-bottom:1px solid rgba(96,165,250,.15); padding-bottom: 12px;">
+    <div class="rtab-select-label" style="background:rgba(96,165,250,.08); border-color:rgba(96,165,250,.4); color:#60a5fa; cursor:pointer;" onclick="openVisaExplainModal()">📖</div>
     <div class="rtab-select-wrap" id="visatabSelectWrap">
-      <button class="rtab-select-btn" style="background:rgba(111,207,58,.08); border-color:rgba(111,207,58,.4); color:#6fcf3a;" onclick="toggleVisaTabMenu()">
+      <button class="rtab-select-btn" style="background:rgba(96,165,250,.08); border-color:rgba(96,165,250,.4); color:#60a5fa;" onclick="toggleVisaTabMenu()">
         <span id="visatabSelectedLabel">💳 Visa Recharge</span>
         <span class="rtab-select-arrow">▾</span>
       </button>
@@ -1467,7 +1470,7 @@
         <button class="rtab-menu-item active" id="visatab-item-visa" onclick="selectVisaTab(this,'visa','💳 Visa Recharge')">💳 Visa Recharge</button>
       </div>
     </div>
-    <div class="rtab-select-label" style="background:rgba(111,207,58,.08); border:1.5px solid rgba(111,207,58,.4); padding:0; margin-inline-start:auto; width:60px; align-self:stretch; overflow:hidden; border-radius:14px;">
+    <div class="rtab-select-label" style="background:rgba(96,165,250,.08); border:1.5px solid rgba(96,165,250,.4); padding:0; margin-inline-start:auto; width:60px; align-self:stretch; overflow:hidden; border-radius:14px;">
       <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/sm.svg" alt="Visa" style="width:100%;height:100%;object-fit:cover;display:block;">
     </div>
   </div>
@@ -1483,14 +1486,14 @@
   <div class="rpage-panels">
 
     <div class="ofield" style="margin-bottom:24px;">
-      <label class="olabel" style="color:#6fcf3a;">الحاجة اللي عايز تشحنها <span class="req">*</span></label>
+      <label class="olabel" style="color:#60a5fa;">الحاجة اللي عايز تشحنها <span class="req">*</span></label>
       <textarea class="oinput" id="visa-request" rows="4"
         placeholder="اكتب هنا اللي عايزه..."
-        style="border-color:rgba(111,207,58,.35);resize:none;line-height:1.7;padding:14px;"></textarea>
+        style="border-color:rgba(96,165,250,.35);resize:none;line-height:1.7;padding:14px;"></textarea>
     </div>
 
     <div class="oerror" id="visa-error" style="margin-bottom:10px;"></div>
-    <button class="com-wa-btn" onclick="sendVisaOrder()" style="background:linear-gradient(135deg,#4a9e1f,#6fcf3a);color:#0d0d0d;border:none;">
+    <button class="com-wa-btn" onclick="sendVisaOrder()" style="background:linear-gradient(135deg,#2563eb,#60a5fa);color:#0d0d0d;border:none;">
       💬 شحن
     </button>
 
@@ -1787,7 +1790,7 @@
       </div>
     </div>
     <div class="rtab-select-label" style="background:rgba(37,99,235,.08); border:1.5px solid rgba(37,99,235,.4); padding:0; margin-inline-start:auto; width:60px; align-self:stretch; overflow:hidden; border-radius:14px;">
-      <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/b6153b0e699d5b0018791b75a51075921330fa25.png" alt="Roblox Studio" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+      <img id="robloxPageThumb" src="https://raw.githubusercontent.com/King-cat11/King-cat/main/b6153b0e699d5b0018791b75a51075921330fa25.png" alt="Roblox" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
     </div>
   </div>
 
@@ -2087,6 +2090,8 @@
     document.getElementById('rtab-item-design').style.display = 'none';
     document.getElementById('robloxPageLogo').textContent = 'Roblox';
     document.getElementById('robloxPageSub').textContent = '';
+    document.getElementById('robloxPageThumb').src = 'https://raw.githubusercontent.com/King-cat11/King-cat/main/images.jpeg';
+    document.getElementById('robloxPageThumb').alt = 'Roblox';
     selectRTab(document.getElementById('rtab-item-community'), 'community', 'كميونتي');
   }
   function openRobloxDesign() {
@@ -2097,6 +2102,8 @@
     document.getElementById('rtab-item-design').style.display = '';
     document.getElementById('robloxPageLogo').textContent = 'Roblox Studio';
     document.getElementById('robloxPageSub').textContent = '';
+    document.getElementById('robloxPageThumb').src = 'https://raw.githubusercontent.com/King-cat11/King-cat/main/b6153b0e699d5b0018791b75a51075921330fa25.png';
+    document.getElementById('robloxPageThumb').alt = 'Roblox Studio';
     selectRobloxDesignTab(document.getElementById('rtab-item-design'), 'design', 'طلب تصميم');
   }
   function openRobloxCommunity() {
@@ -2656,7 +2663,7 @@
     pesCart = {};
     renderPesSummary();
     document.querySelectorAll('#pes-prices .pcard').forEach(c => {
-      c.style.borderColor = 'rgba(37,99,235,.25)';
+      c.style.borderColor = 'rgba(111,207,58,.25)';
       c.style.background = '';
       const qc = c.querySelector('.qty-ctrl');
       if (qc) { qc.style.display = 'none'; c.querySelector('.qty-num').textContent = '0'; }
@@ -2675,13 +2682,13 @@
     const qtyNum  = card.querySelector('.qty-num');
     if (pesCart[key]) {
       delete pesCart[key];
-      card.style.borderColor = 'rgba(37,99,235,.25)';
+      card.style.borderColor = 'rgba(111,207,58,.25)';
       card.style.background = '';
       if (qtyCtrl) { qtyCtrl.style.display = 'none'; if (qtyNum) qtyNum.textContent = '0'; }
     } else {
       pesCart[key] = { coin, price, qty: 1 };
-      card.style.borderColor = '#2563eb';
-      card.style.background = 'rgba(37,99,235,.2)';
+      card.style.borderColor = '#6fcf3a';
+      card.style.background = 'rgba(111,207,58,.2)';
       if (qtyCtrl) { qtyCtrl.style.display = 'flex'; if (qtyNum) qtyNum.textContent = '1'; }
     }
     renderPesSummary();
@@ -2704,7 +2711,7 @@
       delete pesCart[key];
       document.querySelectorAll('#pes-prices .pcard').forEach(c => {
         if ((c.dataset.coin + '_' + c.dataset.price) === key) {
-          c.style.borderColor = 'rgba(37,99,235,.25)';
+          c.style.borderColor = 'rgba(111,207,58,.25)';
           c.style.background = '';
           const qc = c.querySelector('.qty-ctrl');
           if (qc) { qc.style.display = 'none'; c.querySelector('.qty-num').textContent = '0'; }
@@ -2730,11 +2737,11 @@
     sumDiv.style.display = 'block';
     rowsDiv.innerHTML = keys.map(k => {
       const item = pesCart[k];
-      return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(37,99,235,.15);gap:8px;">
+      return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(111,207,58,.15);gap:8px;">
         <span style="flex:1;">🪙 ${item.coin} Coins (${item.qty})</span>
         <div style="display:flex;align-items:center;gap:6px;">
-          <button onclick="changePesQty('${k}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:#0f1f3a;color:#6fd9f5;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">−</button>
-          <button onclick="changePesQty('${k}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(37,99,235,.5);background:#0f1f3a;color:#2563eb;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
+          <button onclick="changePesQty('${k}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:#0f1f14;color:#6fd9f5;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">−</button>
+          <button onclick="changePesQty('${k}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(111,207,58,.5);background:#0f1f14;color:#6fcf3a;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
         </div>
       </div>`;
     }).join('');
