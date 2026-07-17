@@ -745,6 +745,11 @@
       font-size: .95rem;
       color: var(--white);
     }
+    .pcard .rob-qty {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 1px;
+    }
     .pcard.hagz .rob { color: var(--gold-lt); }
     .pcard .sep {
       font-size: .7rem;
@@ -1083,7 +1088,7 @@
       <div class="offer-badge">جديد</div>
       <div class="offer-bottom-fade"></div>
       <div class="offer-text offer-text-bottom">
-        <div class="offer-title offer-title-glow">اشحن حجز دلوقتي عشان تاخد زيادة %10😍</div>
+        <div class="offer-title offer-title-glow">اشحن حجز دلوقتي عشان تاخد زيادة %5😍</div>
       </div>
     </div>
     <div class="offer-slide o3" style="cursor:pointer;" onclick="openComp()">
@@ -1803,7 +1808,7 @@
         <div class="explain-num">١</div>
         <div>
           <div class="explain-opt-title">الدفع المسبق</div>
-          <div class="explain-opt-desc">تدفع الفلوس دلوقتي وتاخد بأسعار الحجز — وبعد الـ14 يوم يوصلك الروبلوكس مع <span class="highlight">زيادة 10%</span> مكافأة.</div>
+          <div class="explain-opt-desc">تدفع الفلوس دلوقتي وتاخد بأسعار الحجز — وبعد الـ14 يوم يوصلك الروبلوكس مع <span class="highlight">زيادة 5%</span> مكافأة.</div>
         </div>
       </div>
       <div class="explain-option">
@@ -1860,11 +1865,11 @@
 
       <!-- الأسعار -->
       <div class="price-grid acc-grid" id="acc-prices">
-        <div class="pcard" data-rob="80" data-price="75" style="flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px;"  data-label="80 روب"   onclick="toggleAccAmt(this)"><span class="rob">R </span><span class="rob-val">80</span><span class="egp">EGP 75</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" data-rob="160"  data-price="150" data-label="160 روب"  onclick="toggleAccAmt(this)"><span class="rob">R </span><span class="rob-val">160</span><span class="egp">EGP 150</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" data-rob="400"  data-price="260" data-label="400 روب"  onclick="toggleAccAmt(this)"><span class="rob">R </span><span class="rob-val">400</span><span class="egp">EGP 260</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" data-rob="800"  data-price="490" data-label="800 روب"  onclick="toggleAccAmt(this)"><span class="rob">R </span><span class="rob-val">800</span><span class="egp">EGP 490</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" data-rob="1000" data-price="600" data-label="1000 روب" onclick="toggleAccAmt(this)"><span class="rob">R </span><span class="rob-val">1000</span><span class="egp">EGP 600</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" data-rob="80" data-price="75" style="flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px;"  data-label="80 روب"   onclick="toggleAccAmt(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">80</span></span><span class="egp">EGP 75</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" data-rob="160"  data-price="150" data-label="160 روب"  onclick="toggleAccAmt(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">160</span></span><span class="egp">EGP 150</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" data-rob="400"  data-price="260" data-label="400 روب"  onclick="toggleAccAmt(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">400</span></span><span class="egp">EGP 260</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" data-rob="800"  data-price="490" data-label="800 روب"  onclick="toggleAccAmt(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">800</span></span><span class="egp">EGP 490</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" data-rob="1000" data-price="600" data-label="1000 روب" onclick="toggleAccAmt(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">1000</span></span><span class="egp">EGP 600</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>
         <div class="pcard" data-rob="0"    data-price="350" data-label="البلس"    onclick="toggleAccAmt(this)"><span class="rob" style="font-size:.9rem;">البلس</span><span class="egp">EGP 350</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>
       </div>
 
@@ -1891,27 +1896,21 @@
       </div>
 
       <div class="price-grid" id="com-prices-fawri">
-        <div class="pcard" data-rob="10"   data-price="5"   onclick="addComItem(this)"><span class="rob">R </span><span class="rob-val">10</span><span class="egp">EGP 5</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" data-rob="25"   data-price="13"  onclick="addComItem(this)"><span class="rob">R </span><span class="rob-val">25</span><span class="egp">EGP 13</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" data-rob="50"   data-price="25"  onclick="addComItem(this)"><span class="rob">R </span><span class="rob-val">50</span><span class="egp">EGP 25</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" data-rob="100"  data-price="50"  onclick="addComItem(this)"><span class="rob">R </span><span class="rob-val">100</span><span class="egp">EGP 50</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" data-rob="200"  data-price="100" onclick="addComItem(this)"><span class="rob">R </span><span class="rob-val">200</span><span class="egp">EGP 100</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" data-rob="300"  data-price="150" onclick="addComItem(this)"><span class="rob">R </span><span class="rob-val">300</span><span class="egp">EGP 150</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" data-rob="400"  data-price="200" onclick="addComItem(this)"><span class="rob">R </span><span class="rob-val">400</span><span class="egp">EGP 200</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" data-rob="500"  data-price="250" onclick="addComItem(this)"><span class="rob">R </span><span class="rob-val">500</span><span class="egp">EGP 250</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" data-rob="1000" data-price="500" onclick="addComItem(this)"><span class="rob">R </span><span class="rob-val">1000</span><span class="egp">EGP 500</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" data-rob="100"  data-price="70"  onclick="addComItem(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">100</span></span><span class="egp">EGP 70</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" data-rob="200"  data-price="120" onclick="addComItem(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">200</span></span><span class="egp">EGP 120</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" data-rob="300"  data-price="170" onclick="addComItem(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">300</span></span><span class="egp">EGP 170</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" data-rob="400"  data-price="220" onclick="addComItem(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">400</span></span><span class="egp">EGP 220</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" data-rob="500"  data-price="270" onclick="addComItem(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">500</span></span><span class="egp">EGP 270</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" data-rob="1000" data-price="520" onclick="addComItem(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">1000</span></span><span class="egp">EGP 520</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
       </div>
 
       <div class="price-grid" id="com-prices-hagz" style="display:none;">
-        <div class="pcard hagz" data-rob="11"   data-price="5"   onclick="addComItem(this)"><span class="rob">R </span><span class="rob-val">11</span><span class="egp">EGP 5</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
-        <div class="pcard hagz" data-rob="28"   data-price="13"  onclick="addComItem(this)"><span class="rob">R </span><span class="rob-val">28</span><span class="egp">EGP 13</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
-        <div class="pcard hagz" data-rob="55"   data-price="25"  onclick="addComItem(this)"><span class="rob">R </span><span class="rob-val">55</span><span class="egp">EGP 25</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
-        <div class="pcard hagz" data-rob="110"  data-price="50"  onclick="addComItem(this)"><span class="rob">R </span><span class="rob-val">110</span><span class="egp">EGP 50</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
-        <div class="pcard hagz" data-rob="220"  data-price="100" onclick="addComItem(this)"><span class="rob">R </span><span class="rob-val">220</span><span class="egp">EGP 100</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
-        <div class="pcard hagz" data-rob="330"  data-price="150" onclick="addComItem(this)"><span class="rob">R </span><span class="rob-val">330</span><span class="egp">EGP 150</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
-        <div class="pcard hagz" data-rob="440"  data-price="200" onclick="addComItem(this)"><span class="rob">R </span><span class="rob-val">440</span><span class="egp">EGP 200</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
-        <div class="pcard hagz" data-rob="550"  data-price="250" onclick="addComItem(this)"><span class="rob">R </span><span class="rob-val">550</span><span class="egp">EGP 250</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
-        <div class="pcard hagz" data-rob="1100" data-price="500" onclick="addComItem(this)"><span class="rob">R </span><span class="rob-val">1100</span><span class="egp">EGP 500</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
+        <div class="pcard hagz" data-rob="105"  data-price="70"  onclick="addComItem(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">105</span></span><span class="egp">EGP 70</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
+        <div class="pcard hagz" data-rob="210"  data-price="120" onclick="addComItem(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">210</span></span><span class="egp">EGP 120</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
+        <div class="pcard hagz" data-rob="315"  data-price="170" onclick="addComItem(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">315</span></span><span class="egp">EGP 170</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
+        <div class="pcard hagz" data-rob="420"  data-price="220" onclick="addComItem(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">420</span></span><span class="egp">EGP 220</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
+        <div class="pcard hagz" data-rob="525"  data-price="270" onclick="addComItem(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">525</span></span><span class="egp">EGP 270</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
+        <div class="pcard hagz" data-rob="1050" data-price="520" onclick="addComItem(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">1050</span></span><span class="egp">EGP 520</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
       </div>
 
       <!-- منيو الملخص -->
@@ -2246,7 +2245,7 @@
   // ── COMMUNITY CART ──
   let comCart = {};
   let codeApplied = false;
-  const VALID_CODES = ['king', 'cat', 'lengewenii', 'amgadcat', 'elkomy88'];
+  const VALID_CODES = ['kingcat'];
 
   function getComCards() {
     return document.querySelectorAll('#com-prices-fawri .pcard, #com-prices-hagz .pcard');
@@ -2255,7 +2254,7 @@
   function addComItem(card) {
     const rob   = parseInt(card.dataset.rob);
     const price = parseInt(card.dataset.price);
-    const label = card.querySelector('.rob-val').textContent + ' R';
+    const label = rob + 'R';
     const key   = rob + '_' + price;
     const qtyCtrl = card.querySelector('.qty-ctrl');
     const qtyNum  = card.querySelector('.qty-num');
@@ -2328,7 +2327,7 @@
       return;
     }
     sumDiv.style.display = 'block';
-    const bonus    = codeApplied ? Math.round(totalRob * 0.05) : 0;
+    const bonus    = codeApplied ? Math.round(totalRob * 0.03) : 0;
     const finalRob = totalRob + bonus;
     rowsDiv.innerHTML = items.map(item => {
       const key = item.rob + '_' + item.price;
@@ -2346,7 +2345,7 @@
   function updateCardDisplay() {
     getComCards().forEach(card => {
       const base  = parseInt(card.dataset.rob);
-      const bonus = codeApplied ? Math.round(base * 0.05) : 0;
+      const bonus = codeApplied ? Math.round(base * 0.03) : 0;
       card.querySelector('.rob-val').textContent = base + bonus;
     });
     renderComSummary();
@@ -2365,7 +2364,7 @@
       codeApplied = true;
       updateCardDisplay();
       status.className = 'code-status ok';
-      status.textContent = '\u2705 \u0627\u0644\u0643\u0648\u062f \u0627\u062a\u0641\u0639\u0644! \u0643\u0644 \u0627\u0644\u0643\u0645\u064a\u0627\u062a \u0627\u062a\u0632\u0627\u062f\u062a 5% \u0631\u0648\u0628 \u0645\u062c\u0627\u0646\u0627\u064b \u{1F389}';
+      status.textContent = '\u2705 \u0627\u0644\u0643\u0648\u062f \u0627\u062a\u0641\u0639\u0644! \u0643\u0644 \u0627\u0644\u0643\u0645\u064a\u0627\u062a \u0627\u062a\u0632\u0627\u062f\u062a 3% \u0631\u0648\u0628 \u0645\u062c\u0627\u0646\u0627\u064b \u{1F389}';
     } else {
       if (codeApplied) { codeApplied = false; updateCardDisplay(); }
       status.className = 'code-status err';
@@ -2382,10 +2381,13 @@
     if (items.length === 0) { err.textContent = '\u26a0\ufe0f \u0644\u0627\u0632\u0645 \u062a\u062e\u062a\u0627\u0631 \u0627\u0644\u0643\u0645\u064a\u0629 \u0627\u0644\u0623\u0648\u0644'; return; }
     err.textContent = '';
     const type     = document.getElementById('com-btn-hagz').classList.contains('active') ? '\u062d\u062c\u0632' : '\u0641\u0648\u0631\u064a';
-    const bonus    = codeApplied ? Math.round(totalRob * 0.05) : 0;
-    const finalRob = totalRob + bonus;
     const code     = document.getElementById('com-code').value.trim();
-    let msg = `\u{1F4E6} \u0637\u0644\u0628 \u0634\u062d\u0646 \u0631\u0648\u0628\u0644\u0648\u0643\u0633 (\u0643\u0645\u064a\u0648\u0646\u062a\u064a)\n\u{1F464} \u0627\u0644\u0627\u0633\u0645: ${username}\n\u{1F3AE} \u0627\u0644\u0637\u0644\u0628: ${finalRob} \u0631\u0648\u0628 (${type})\n\u{1F4B0} \u0627\u0644\u0633\u0639\u0631: ${totalPrice} \u062c\u0646\u064a\u0647\n\u0643\u0648\u062f \u0627\u0644\u0632\u064a\u0627\u062f\u0629: ${codeApplied ? code : '\u0645\u0641\u064a\u0634'}`;
+    const RLM      = '\u200F';
+    const itemsList = items.map(i => {
+      const finalRob = i.rob + (codeApplied ? Math.round(i.rob * 0.03) : 0);
+      return `${RLM}\u2022 ${finalRob}R (${i.qty})`;
+    }).join('\n');
+    let msg = `${RLM}\u{1F4E6} \u0637\u0644\u0628 \u0634\u062d\u0646 \u0631\u0648\u0628\u0644\u0648\u0643\u0633 (\u0643\u0645\u064a\u0648\u0646\u062a\u064a)\n${RLM}\u{1F464} \u0627\u0644\u0627\u0633\u0645: ${username}\n${RLM}\u{1F3AE} \u0627\u0644\u0637\u0644\u0628: ${type}\n${itemsList}\n${RLM}\u{1F4B0} \u0627\u0644\u0633\u0639\u0631: ${totalPrice} \u062c\u0646\u064a\u0647\n${RLM}\u0643\u0648\u062f \u0627\u0644\u0632\u064a\u0627\u062f\u0629: ${codeApplied ? code : '\u0645\u0641\u064a\u0634'}`;
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
 
