@@ -1791,6 +1791,7 @@
       <div class="rtab-menu" id="rtabMenu">
         <button class="rtab-menu-item active" id="rtab-item-community" onclick="selectRTab(this,'community','كميونتي')">كميونتي</button>
         <button class="rtab-menu-item" id="rtab-item-account" onclick="selectRTab(this,'account','داخل الحساب')">داخل الحساب</button>
+        <button class="rtab-menu-item" id="rtab-item-giftcard" onclick="selectRTab(this,'giftcard','جيفت كارد')">جيفت كارد</button>
         <button class="rtab-menu-item" id="rtab-item-design" onclick="selectRobloxDesignTab(this,'design','طلب تصميم')" style="display:none;">طلب تصميم</button>
       </div>
     </div>
@@ -1848,6 +1849,15 @@
   </div>
 
 
+  <div id="giftcardExplainModal" class="ce-modal-overlay" onclick="closeGiftcardExplainModal()">
+    <div class="ce-modal-box" onclick="event.stopPropagation()">
+      <p style="text-align:center;color:var(--gold-lt);font-weight:800;font-size:.85rem;margin-bottom:14px;">اضغط على كميونتي/داخل الحساب/جيفت كارد لتغير طريقة الشحن</p>
+      <p class="explain-intro">بتشتري الدولارات وتدخل موقع روبلوكس تكتبها عشان تاخد دولارات وتشحن بيهم روب.</p>
+      <p style="text-align:center;color:var(--muted);font-size:.78rem;margin-top:16px;">اضغط في أي مكان عشان تقفل</p>
+    </div>
+  </div>
+
+
   <div class="rpage-panels">
 
     <div class="rpanel" id="rp-account">
@@ -1867,10 +1877,10 @@
       <div class="price-grid acc-grid" id="acc-prices">
         <div class="pcard" data-rob="80" data-price="75" style="flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px;"  data-label="80 روب"   onclick="toggleAccAmt(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">80</span></span><span class="egp">EGP 75</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>
         <div class="pcard" data-rob="160"  data-price="150" data-label="160 روب"  onclick="toggleAccAmt(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">160</span></span><span class="egp">EGP 150</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" data-rob="400"  data-price="260" data-label="400 روب"  onclick="toggleAccAmt(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">400</span></span><span class="egp">EGP 260</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" data-rob="800"  data-price="490" data-label="800 روب"  onclick="toggleAccAmt(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">800</span></span><span class="egp">EGP 490</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" data-rob="1000" data-price="600" data-label="1000 روب" onclick="toggleAccAmt(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">1000</span></span><span class="egp">EGP 600</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" data-rob="0"    data-price="350" data-label="البلس"    onclick="toggleAccAmt(this)"><span class="rob" style="font-size:.9rem;">البلس</span><span class="egp">EGP 350</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" data-rob="400"  data-price="300" data-label="400 روب"  onclick="toggleAccAmt(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">400</span></span><span class="egp">EGP 300</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" data-rob="800"  data-price="600" data-label="800 روب"  onclick="toggleAccAmt(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">800</span></span><span class="egp">EGP 600</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" data-rob="1700" data-price="1200" data-label="1700 روب" onclick="toggleAccAmt(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">1700</span></span><span class="egp">EGP 1200</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" data-rob="0"    data-price="350" data-label="Plus"    onclick="toggleAccAmt(this)"><span class="rob" style="font-size:.9rem;">Plus</span><span class="egp">EGP 350</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>
       </div>
 
       <!-- ملخص الطلب -->
@@ -1882,6 +1892,28 @@
 
       <div class="oerror" id="acc-error" style="margin-top:12px;"></div>
       <button class="com-wa-btn" onclick="sendAccOrder()" style="margin-top:12px;background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff;">💬 شحن</button>
+    </div>
+
+    <div class="rpanel" id="rp-giftcard">
+      <a href="https://www.roblox.com/promocodes" target="_blank" class="com-link">
+        🔗 رابط الاسترداد
+      </a>
+
+      <div class="price-grid" id="giftcard-prices">
+        <div class="pcard" data-usd="5"  data-price="360"  onclick="addGiftItem(this)"><span class="rob-qty"><span class="rob-val">5</span><span class="rob" style="font-size:.72rem;margin-inline-start:3px;">USD</span></span><span class="egp">EGP 360</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeGiftQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeGiftQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" data-usd="10" data-price="620"  onclick="addGiftItem(this)"><span class="rob-qty"><span class="rob-val">10</span><span class="rob" style="font-size:.72rem;margin-inline-start:3px;">USD</span></span><span class="egp">EGP 620</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeGiftQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeGiftQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" data-usd="25" data-price="1420" onclick="addGiftItem(this)"><span class="rob-qty"><span class="rob-val">25</span><span class="rob" style="font-size:.72rem;margin-inline-start:3px;">USD</span></span><span class="egp">EGP 1420</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeGiftQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeGiftQtyCard(this,1)">+</button></div></div>
+        <div class="pcard" data-usd="50" data-price="2950" onclick="addGiftItem(this)"><span class="rob-qty"><span class="rob-val">50</span><span class="rob" style="font-size:.72rem;margin-inline-start:3px;">USD</span></span><span class="egp">EGP 2950</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeGiftQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeGiftQtyCard(this,1)">+</button></div></div>
+      </div>
+
+      <div id="giftcard-summary" style="display:none; margin-top:14px; background:#0f1f3a; border:1px solid rgba(37,99,235,.35); border-radius:12px; padding:14px;">
+        <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">🛒 طلبك:</div>
+        <div id="giftcard-sum-rows"></div>
+        <div id="giftcard-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(37,99,235,.25);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#2563eb;text-align:center;letter-spacing:.04em;"></div>
+      </div>
+
+      <div class="oerror" id="giftcard-error" style="margin-top:12px;"></div>
+      <button class="com-wa-btn" onclick="sendGiftOrder()" style="margin-top:12px;background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff;">💬 شحن</button>
     </div>
 
     <div class="rpanel active" id="rp-community">
@@ -2086,6 +2118,7 @@
     document.body.style.overflow = 'hidden';
     document.getElementById('rtab-item-community').style.display = '';
     document.getElementById('rtab-item-account').style.display = '';
+    document.getElementById('rtab-item-giftcard').style.display = '';
     document.getElementById('rtab-item-design').style.display = 'none';
     document.getElementById('robloxPageLogo').textContent = 'Roblox';
     document.getElementById('robloxPageSub').textContent = '';
@@ -2098,6 +2131,7 @@
     document.body.style.overflow = 'hidden';
     document.getElementById('rtab-item-community').style.display = 'none';
     document.getElementById('rtab-item-account').style.display = 'none';
+    document.getElementById('rtab-item-giftcard').style.display = 'none';
     document.getElementById('rtab-item-design').style.display = '';
     document.getElementById('robloxPageLogo').textContent = 'Roblox Studio';
     document.getElementById('robloxPageSub').textContent = '';
@@ -2387,11 +2421,113 @@
       const finalRob = i.rob + (codeApplied ? Math.round(i.rob * 0.03) : 0);
       return `${RLM}\u2022 ${finalRob}R (${i.qty})`;
     }).join('\n');
-    let msg = `${RLM}\u{1F4E6} \u0637\u0644\u0628 \u0634\u062d\u0646 \u0631\u0648\u0628\u0644\u0648\u0643\u0633 (\u0643\u0645\u064a\u0648\u0646\u062a\u064a)\n${RLM}\u{1F464} \u0627\u0644\u0627\u0633\u0645: ${username}\n${RLM}\u{1F3AE} \u0627\u0644\u0637\u0644\u0628: ${type}\n${itemsList}\n${RLM}\u{1F4B0} \u0627\u0644\u0633\u0639\u0631: ${totalPrice} \u062c\u0646\u064a\u0647\n${RLM}\u0643\u0648\u062f \u0627\u0644\u0632\u064a\u0627\u062f\u0629: ${codeApplied ? code : '\u0645\u0641\u064a\u0634'}`;
+    const totalFinalRob = items.reduce((sum, i) => {
+      const finalRob = i.rob + (codeApplied ? Math.round(i.rob * 0.03) : 0);
+      return sum + finalRob * i.qty;
+    }, 0);
+    let msg = `${RLM}\u{1F4E6} \u0637\u0644\u0628 \u0634\u062d\u0646 \u0631\u0648\u0628\u0644\u0648\u0643\u0633 (\u0643\u0645\u064a\u0648\u0646\u062a\u064a)\n${RLM}\u{1F464} \u0627\u0644\u0627\u0633\u0645: ${username}\n${RLM}\u{1F3AE} \u0627\u0644\u0637\u0644\u0628: ${type}\n${itemsList}\n${RLM}\u{1F4CA} \u0625\u062c\u0645\u0627\u0644\u064a: ${totalFinalRob}R\n${RLM}\u{1F4B0} \u0627\u0644\u0633\u0639\u0631: ${totalPrice} \u062c\u0646\u064a\u0647\n${RLM}\u0643\u0648\u062f \u0627\u0644\u0632\u064a\u0627\u062f\u0629: ${codeApplied ? code : '\u0645\u0641\u064a\u0634'}`;
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
 
-  // ── PUBG DROPDOWN FUNCTIONS (matching Roblox pattern) ──
+  // ── GIFT CARD (Roblox) — no data needed, pick quantity and checkout ──
+  let giftCart = {};
+  function getGiftCards() {
+    return document.querySelectorAll('#giftcard-prices .pcard');
+  }
+  function addGiftItem(card) {
+    const usd   = parseInt(card.dataset.usd);
+    const price = parseInt(card.dataset.price);
+    const label = usd + ' USD';
+    const key   = usd + '_' + price;
+    const qtyCtrl = card.querySelector('.qty-ctrl');
+    const qtyNum  = card.querySelector('.qty-num');
+    if (giftCart[key]) {
+      delete giftCart[key];
+      card.classList.remove('has-qty');
+      if (qtyCtrl) { qtyCtrl.style.display = 'none'; if (qtyNum) qtyNum.textContent = '0'; }
+    } else {
+      giftCart[key] = { usd, price, label, qty: 1 };
+      card.classList.add('has-qty');
+      if (qtyCtrl) { qtyCtrl.style.display = 'flex'; if (qtyNum) qtyNum.textContent = '1'; }
+    }
+    renderGiftSummary();
+    document.getElementById('giftcard-error').textContent = '';
+  }
+  function changeGiftQtyCard(btn, delta) {
+    const card = btn.closest('.pcard');
+    const key  = card.dataset.usd + '_' + card.dataset.price;
+    if (!giftCart[key]) return;
+    giftCart[key].qty = Math.max(1, giftCart[key].qty + delta);
+    card.querySelector('.qty-num').textContent = giftCart[key].qty;
+    renderGiftSummary();
+  }
+  function changeGiftCartQty(key, delta) {
+    if (!giftCart[key]) return;
+    giftCart[key].qty += delta;
+    if (giftCart[key].qty <= 0) {
+      delete giftCart[key];
+      getGiftCards().forEach(c => {
+        const k = c.dataset.usd + '_' + c.dataset.price;
+        if (k === key) {
+          c.classList.remove('has-qty');
+          const qc = c.querySelector('.qty-ctrl');
+          if (qc) { qc.style.display = 'none'; c.querySelector('.qty-num').textContent = '0'; }
+        }
+      });
+    } else {
+      getGiftCards().forEach(c => {
+        const k = c.dataset.usd + '_' + c.dataset.price;
+        if (k === key) {
+          const qn = c.querySelector('.qty-num');
+          if (qn) qn.textContent = giftCart[key].qty;
+        }
+      });
+    }
+    renderGiftSummary();
+  }
+  function getGiftSelections() {
+    const items = Object.values(giftCart);
+    let totalUsd = 0, totalPrice = 0;
+    items.forEach(i => {
+      totalUsd   += i.usd * i.qty;
+      totalPrice += i.price * i.qty;
+    });
+    return { items, totalUsd, totalPrice };
+  }
+  function renderGiftSummary() {
+    const { items, totalUsd, totalPrice } = getGiftSelections();
+    const sumDiv  = document.getElementById('giftcard-summary');
+    const rowsDiv = document.getElementById('giftcard-sum-rows');
+    const grandEl = document.getElementById('giftcard-grand-total');
+    if (items.length === 0) {
+      sumDiv.style.display = 'none';
+      rowsDiv.innerHTML = '';
+      grandEl.innerHTML = '';
+      return;
+    }
+    sumDiv.style.display = 'block';
+    rowsDiv.innerHTML = items.map(item => {
+      const key = item.usd + '_' + item.price;
+      return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(37,99,235,.15);gap:8px;">
+        <span style="flex:1;">📦 ${item.label} (${item.qty})</span>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <button onclick="changeGiftCartQty('${key}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:#1a1a1a;color:#ff5a4d;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">−</button>
+          <button onclick="changeGiftCartQty('${key}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(37,99,235,.5);background:#1a1a1a;color:#2563eb;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
+        </div>
+      </div>`;
+    }).join('');
+    grandEl.innerHTML = `💰 السعر: ${totalPrice} جنيه (${totalUsd} USD)`;
+  }
+  function sendGiftOrder() {
+    const err = document.getElementById('giftcard-error');
+    const { items, totalUsd, totalPrice } = getGiftSelections();
+    if (items.length === 0) { err.textContent = '⚠️ لازم تختار الكمية الأول'; return; }
+    err.textContent = '';
+    const RLM = '\u200F';
+    const itemsList = items.map(i => `${RLM}\u2022 ${i.usd} USD (${i.qty})`).join('\n');
+    let msg = `${RLM}\u{1F381} طلب شحن روبلوكس (جيفت كارد)\n${itemsList}\n${RLM}\u{1F4B0} السعر: ${totalPrice} جنيه`;
+    window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
+  }
   function togglePubgTabMenu() {
     document.getElementById('pubgtabSelectWrap').classList.toggle('open');
   }
@@ -3249,9 +3385,17 @@
       openAccountExplainModal();
     } else if (activePanel && activePanel.id === 'rp-design') {
       openDesignExplainModal();
+    } else if (activePanel && activePanel.id === 'rp-giftcard') {
+      openGiftcardExplainModal();
     } else {
       openCommunityExplainModal();
     }
+  }
+  function openGiftcardExplainModal() {
+    document.getElementById('giftcardExplainModal').classList.add('open');
+  }
+  function closeGiftcardExplainModal() {
+    document.getElementById('giftcardExplainModal').classList.remove('open');
   }
 
   function selectRTab(el, id, label) {
@@ -3457,26 +3601,87 @@
     container.addEventListener('mouseenter', stopTimer);
     container.addEventListener('mouseleave', startTimer);
 
-    // swipe support (mobile) — also pauses while the finger is down
-    let touchStartX = 0, touchEndX = 0, touching = false;
+    // swipe support (mobile) — slide follows the finger in real time, no reversal
+    let touchStartX = 0, dragDelta = 0, dragging = false, dragTarget = null, dragW = 0, rafId = null;
+
+    function setSlideTransform(el, x, opacity, withTransition) {
+      el.style.willChange = 'transform, opacity';
+      el.style.transition = withTransition ? 'transform .3s ease, opacity .3s ease' : 'none';
+      el.style.transform = `translate3d(${x}px,0,0)`;
+      el.style.opacity = opacity;
+    }
+    function resetSlideStyles(el) {
+      el.style.transition = '';
+      el.style.transform = '';
+      el.style.opacity = '';
+      el.style.willChange = '';
+    }
+
+    function updateDragVisual() {
+      rafId = null;
+      if (!dragging) return;
+      const w = dragW;
+      const wantIdx = (dragDelta < 0 ? idx - 1 + slides.length : idx + 1) % slides.length;
+
+      if (dragTarget !== wantIdx) {
+        if (dragTarget !== null && dragTarget !== idx) resetSlideStyles(slides[dragTarget]);
+        dragTarget = wantIdx;
+      }
+
+      setSlideTransform(slides[idx], dragDelta, 1, false);
+      const incomingX = dragDelta < 0 ? dragDelta + w : dragDelta - w;
+      setSlideTransform(slides[dragTarget], incomingX, 1, false);
+    }
+
     container.addEventListener('touchstart', (e) => {
       touchStartX = e.changedTouches[0].screenX;
-      touchEndX = touchStartX;
-      touching = true;
+      dragDelta = 0;
+      dragging = true;
+      dragTarget = null;
+      dragW = container.offsetWidth;
+      locked = false;
       stopTimer();
     }, { passive: true });
 
     container.addEventListener('touchmove', (e) => {
-      touchEndX = e.changedTouches[0].screenX;
+      if (!dragging) return;
+      dragDelta = e.changedTouches[0].screenX - touchStartX;
+      if (rafId === null) rafId = requestAnimationFrame(updateDragVisual);
     }, { passive: true });
 
     container.addEventListener('touchend', () => {
-      if (!touching) return;
-      touching = false;
-      const diff = touchStartX - touchEndX;
-      if (Math.abs(diff) > SWIPE_THRESHOLD) {
-        diff > 0 ? goTo(idx + 1) : goTo(idx - 1);
+      if (!dragging) return;
+      dragging = false;
+      if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; }
+      const w = dragW || container.offsetWidth;
+      const passed = Math.abs(dragDelta) > Math.max(SWIPE_THRESHOLD, w * 0.18);
+      const fromIdx = idx;
+      const toIdx = dragTarget;
+
+      if (passed && toIdx !== null) {
+        const outX = dragDelta < 0 ? -w : w;
+        setSlideTransform(slides[fromIdx], outX, 0, true);
+        setSlideTransform(slides[toIdx], 0, 1, true);
+        locked = true;
+        setTimeout(() => {
+          resetSlideStyles(slides[fromIdx]);
+          resetSlideStyles(slides[toIdx]);
+          slides[fromIdx].classList.remove('active');
+          dots[fromIdx].classList.remove('active');
+          idx = toIdx;
+          slides[idx].classList.add('active');
+          dots[idx].classList.add('active');
+          locked = false;
+        }, 300);
+      } else {
+        setSlideTransform(slides[fromIdx], 0, 1, true);
+        if (toIdx !== null) setSlideTransform(slides[toIdx], dragDelta < 0 ? w : -w, 1, true);
+        setTimeout(() => {
+          resetSlideStyles(slides[fromIdx]);
+          if (toIdx !== null) resetSlideStyles(slides[toIdx]);
+        }, 300);
       }
+      dragTarget = null;
       startTimer();
     });
 
