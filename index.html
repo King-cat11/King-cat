@@ -3884,6 +3884,21 @@
       el.style.willChange = '';
     }
 
+    // Like resetSlideStyles, but applies the rest state INSTANTLY (no transition).
+    // Clearing inline styles alone lets the element's own CSS transition
+    // (opacity .7s / transform .9s) kick in and re-animate it from wherever
+    // the drag left it back to its resting position — which looks like the
+    // card suddenly flying back / re-entering the view. Forcing transition:none
+    // + a reflow before removing it prevents that phantom animation.
+    function snapToRest(el) {
+      el.style.transition = 'none';
+      el.style.transform = '';
+      el.style.opacity = '';
+      el.style.willChange = '';
+      void el.offsetWidth; // force reflow so the "none" transition is actually applied
+      el.style.transition = '';
+    }
+
     function updateDragVisual() {
       rafId = null;
       if (!dragging) return;
@@ -3891,7 +3906,7 @@
       const wantIdx = (dragDelta < 0 ? idx - 1 + slides.length : idx + 1) % slides.length;
 
       if (dragTarget !== wantIdx) {
-        if (dragTarget !== null && dragTarget !== idx) resetSlideStyles(slides[dragTarget]);
+        if (dragTarget !== null && dragTarget !== idx) snapToRest(slides[dragTarget]);
         dragTarget = wantIdx;
       }
 
@@ -3938,8 +3953,8 @@
         setSlideTransform(slides[toIdx], 0, 1, true);
         locked = true;
         pendingFinalize = () => {
-          resetSlideStyles(slides[fromIdx]);
-          resetSlideStyles(slides[toIdx]);
+          snapToRest(slides[fromIdx]);
+          snapToRest(slides[toIdx]);
           slides[fromIdx].classList.remove('active');
           dots[fromIdx].classList.remove('active');
           idx = toIdx;
@@ -3951,8 +3966,8 @@
         setSlideTransform(slides[fromIdx], 0, 1, true);
         if (toIdx !== null) setSlideTransform(slides[toIdx], dragDelta < 0 ? w : -w, 1, true);
         pendingFinalize = () => {
-          resetSlideStyles(slides[fromIdx]);
-          if (toIdx !== null) resetSlideStyles(slides[toIdx]);
+          snapToRest(slides[fromIdx]);
+          if (toIdx !== null) snapToRest(slides[toIdx]);
         };
       }
       pendingTimeout = setTimeout(() => {
@@ -4075,10 +4090,47 @@
     onAuthStateChanged,
     signOut
   } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
+  import {
+    getFirestore,
+    doc,
+    getDoc,
+    setDoc,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
   const app = getApp();
   const auth = getAuth(app);
+  const db = getFirestore(app);
   const googleProvider = new GoogleAuthProvider();
+
+  // ============ التحقق من صلاحية المستخدم (role) وتوجيهه لو أدمن ============
+  // بيتنفذ بعد أي تسجيل دخول ناجح (Google أو إيميل) وكمان عند تحميل الصفحة لو المستخدم مسجل دخول بالفعل
+  async function checkUserRoleAndRedirect(user) {
+    try {
+      const userRef = doc(db, "users", user.uid);
+      const userSnap = await getDoc(userRef);
+
+      if (!userSnap.exists()) {
+        // أول مرة لليوزر ده، بنعمله سجل افتراضي بصلاحية "user"
+        await setDoc(userRef, {
+          uid: user.uid,
+          email: user.email || null,
+          displayName: user.displayName || null,
+          role: "user",
+          createdAt: serverTimestamp()
+        });
+        return; // مستخدم عادي، يفضل في نفس الصفحة
+      }
+
+      const userData = userSnap.data();
+      if (userData && userData.role === "admin") {
+        window.location.href = "admin.html";
+      }
+      // لو role مش admin، المستخدم يفضل في الموقع العادي (index.html) من غير أي تحويل
+    } catch (err) {
+      console.error("تعذر التحقق من صلاحية المستخدم:", err);
+    }
+  }
 
   function setStatus(msg, type) {
     const el = document.getElementById('loginStatusMsg');
@@ -4172,6 +4224,9 @@
       if (formView) formView.style.display = 'none';
       if (accountView) accountView.style.display = 'block';
       if (emailText) emailText.textContent = user.email || user.displayName || '';
+
+      // التحقق من الـ role وتوجيه الأدمن لصفحة admin.html تلقائياً
+      checkUserRoleAndRedirect(user);
     } else {
       if (btnText) btnText.textContent = 'تسجيل الدخول';
       if (navBtnText) navBtnText.textContent = 'تسجيل الدخول';
