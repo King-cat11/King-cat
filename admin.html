@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>King&amp;cat - لوحة التحكم</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Bebas+Neue&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html, body { -webkit-tap-highlight-color: transparent; }
+  a, button, [onclick] { -webkit-tap-highlight-color: transparent; outline: none; }
+
+  :root {
+    --sky-top: #020a16;
+    --sky-mid: #03142c;
+    --black:   linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 100%);
+    --white:   #f5f3ee;
+    --blue:    #2563eb;
+    --blue-lt: #60a5fa;
+    --gray:    #2a2a2a;
+    --muted:   #888;
+    --radius:  12px;
+  }
+
+  html { scroll-behavior: smooth; background: var(--sky-mid); }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Cairo', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: fixed;
+    top: 0; right: 0; left: 0;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    height: 70px;
+    background: rgba(13,13,13,.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(37,99,235,.18);
+  }
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+  .hamburger span {
+    display: block;
+    width: 26px;
+    height: 2px;
+    background: var(--blue);
+    border-radius: 2px;
+    transition: transform .3s, opacity .3s;
+  }
+  .header-title {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-inline-start: 14px;
+  }
+  .header-title .name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: .06em;
+    color: var(--white);
+  }
+  .header-title .name span { color: var(--blue-lt); }
+  .header-title .badge {
+    font-size: .68rem;
+    font-weight: 800;
+    color: var(--blue-lt);
+    background: rgba(96,165,250,.12);
+    border: 1px solid rgba(96,165,250,.35);
+    border-radius: 20px;
+    padding: 3px 10px;
+    margin-inline-start: 10px;
+  }
+  .header-admin-icon {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: rgba(96,165,250,.12);
+    border: 1.5px solid rgba(96,165,250,.4);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--blue-lt);
+    font-weight: 900;
+    font-size: .9rem;
+    flex-shrink: 0;
+  }
+
+  /* ── SIDE MENU ── */
+  .nav-menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.55);
+    backdrop-filter: blur(2px);
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s ease;
+  }
+  .nav-menu-overlay.open { opacity: 1; pointer-events: auto; }
+  .nav-menu {
+    position: fixed;
+    top: 0; right: 0;
+    height: 100vh; height: 100dvh;
+    width: 72%;
+    max-width: 320px;
+    background: #0d0d0d;
+    border-left: 1px solid rgba(37,99,235,.25);
+    box-shadow: -8px 0 32px rgba(0,0,0,.9);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 24px 0 20px;
+    z-index: 1001;
+    transform: translateX(100%);
+    transition: transform .32s cubic-bezier(.4,0,.2,1);
+  }
+  .nav-menu.open { transform: translateX(0); }
+  .nav-menu-close {
+    position: absolute;
+    top: 20px; left: 20px;
+    width: 34px; height: 34px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(37,99,235,.1);
+    border: 1px solid rgba(37,99,235,.25);
+    border-radius: 50%;
+    color: var(--white);
+    font-size: 1.1rem;
+    cursor: pointer;
+  }
+  .nav-menu-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 30px 8% 22px;
+    text-align: center;
+    background: rgba(96,165,250,.07);
+    border-bottom: 1px solid rgba(96,165,250,.2);
+  }
+  .nav-profile-icon {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: rgba(96,165,250,.15);
+    border: 1.5px solid rgba(96,165,250,.5);
+    color: var(--blue-lt);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 900;
+  }
+  .nav-menu-profile .nav-profile-text {
+    color: var(--blue-lt);
+    font-weight: 800;
+    font-size: .92rem;
+  }
+  .nav-menu-profile .nav-profile-sub {
+    color: var(--muted);
+    font-size: .75rem;
+  }
+  .nav-menu-links { display: flex; flex-direction: column; overflow-y: auto; }
+  .nav-menu a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 16px 8%;
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: .95rem;
+    border-bottom: 1px solid rgba(37,99,235,.1);
+    transition: color .2s, background .2s;
+    cursor: pointer;
+  }
+  .nav-menu a .ic { font-size: 1.1rem; width: 22px; text-align: center; }
+  .nav-menu a:hover, .nav-menu a.active { color: var(--blue-lt); background: rgba(37,99,235,.08); }
+  .nav-menu a.logout { color: #e05555; margin-top: auto; }
+  .nav-menu a.logout:hover { background: rgba(224,85,85,.08); }
+
+  /* ── MAIN ── */
+  main {
+    padding: 100px 5% 60px;
+    min-height: 100vh;
+  }
+
+  .page-head { margin-bottom: 26px; }
+  .page-head .eyebrow {
+    color: var(--blue-lt);
+    font-size: .8rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+  .page-head h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.1rem;
+    letter-spacing: .04em;
+    color: var(--white);
+  }
+  .page-head p {
+    color: var(--muted);
+    font-size: .88rem;
+    margin-top: 4px;
+  }
+
+  /* stat cards */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 30px;
+  }
+  .stat-card {
+    background: #141414;
+    border: 1px solid rgba(37,99,235,.2);
+    border-radius: var(--radius);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .stat-card .stat-icon {
+    width: 36px; height: 36px;
+    border-radius: 9px;
+    background: rgba(37,99,235,.12);
+    border: 1px solid rgba(37,99,235,.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    color: var(--blue-lt);
+  }
+  .stat-card .stat-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.7rem;
+    color: var(--white);
+    letter-spacing: .03em;
+  }
+  .stat-card .stat-label {
+    color: var(--muted);
+    font-size: .78rem;
+    font-weight: 600;
+  }
+
+  /* section title */
+  .section-title {
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--white);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--blue-lt);
+  }
+
+  /* quick action cards (sections of the admin) */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 34px;
+  }
+  .admin-card {
+    background: #141414;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: var(--radius);
+    padding: 18px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    cursor: pointer;
+    transition: border-color .2s, transform .2s;
+  }
+  .admin-card:hover { border-color: var(--blue); transform: translateY(-2px); }
+  .admin-card .ac-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    background: rgba(37,99,235,.12);
+    border: 1px solid rgba(37,99,235,.3);
+    color: var(--blue-lt);
+  }
+  .admin-card .ac-title { font-weight: 800; font-size: .92rem; color: var(--white); }
+  .admin-card .ac-desc { font-size: .76rem; color: var(--muted); line-height: 1.5; }
+
+  .admin-card.orders-card { cursor: default; margin-bottom: 12px; }
+  .admin-card.orders-card:hover { border-color: rgba(255,255,255,.08); transform: none; }
+  .orders-card-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  /* ── ORDERS FILTER TABS ── */
+  .orders-tabs {
+    display: flex;
+    gap: 8px;
+    background: #141414;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: var(--radius);
+    padding: 5px;
+    margin-bottom: 16px;
+  }
+  .orders-tab {
+    flex: 1;
+    text-align: center;
+    padding: 10px 6px;
+    border-radius: 9px;
+    font-size: .84rem;
+    font-weight: 800;
+    color: var(--muted);
+    cursor: pointer;
+    transition: background .2s, color .2s;
+    user-select: none;
+  }
+  .orders-tab.active { background: rgba(37,99,235,.16); color: var(--blue-lt); }
+  .orders-tab:hover:not(.active) { color: #ccc; }
+
+  /* recent orders placeholder table */
+  .table-wrap {
+    background: #141414;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .order-row {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+    gap: 10px;
+  }
+  .order-row:last-child { border-bottom: none; }
+  .order-row .o-game { font-weight: 800; font-size: .88rem; color: var(--white); }
+  .order-row .o-user { font-size: .74rem; color: var(--muted); margin-top: 2px; }
+
+  .order-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .o-action-btn {
+    flex: 1;
+    min-width: 78px;
+    text-align: center;
+    font-family: 'Cairo', sans-serif;
+    font-size: .74rem;
+    font-weight: 800;
+    padding: 8px 6px;
+    border-radius: 8px;
+    cursor: pointer;
+    background: none;
+    transition: background .2s, opacity .2s;
+    white-space: nowrap;
+  }
+  .o-action-btn.done    { color: #6fcf3a; border: 1px solid rgba(111,207,58,.35); background: rgba(111,207,58,.06); }
+  .o-action-btn.done.active    { background: rgba(111,207,58,.25); }
+  .o-action-btn.pending { color: #f4a100; border: 1px solid rgba(244,161,0,.35); background: rgba(244,161,0,.06); }
+  .o-action-btn.pending.active { background: rgba(244,161,0,.25); }
+  .o-action-btn.cancel  { color: #e05555; border: 1px solid rgba(224,85,85,.35); background: rgba(224,85,85,.06); }
+  .o-action-btn.cancel:hover  { background: rgba(224,85,85,.2); }
+
+  .order-date-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .o-date-label { font-size: .75rem; color: var(--muted); font-weight: 700; white-space: nowrap; }
+  .o-date-input {
+    background: #1a1a1a;
+    border: 1.5px solid rgba(244,161,0,.35);
+    border-radius: 8px;
+    padding: 7px 10px;
+    color: #fff;
+    font-family: 'Cairo', sans-serif;
+    font-size: .82rem;
+    outline: none;
+    flex: 1;
+    min-width: 130px;
+    color-scheme: dark;
+  }
+  .o-date-input:focus { border-color: #f4a100; }
+
+  /* back button (orders page) */
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(37,99,235,.12);
+    border: 1px solid rgba(37,99,235,.3);
+    color: var(--blue-lt);
+    font-family: 'Cairo', sans-serif;
+    font-weight: 800;
+    font-size: .82rem;
+    padding: 8px 14px;
+    border-radius: 9px;
+    cursor: pointer;
+    margin-bottom: 14px;
+  }
+  .back-btn:hover { background: rgba(37,99,235,.22); }
+
+  .o-due-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: .76rem;
+    font-weight: 800;
+    color: #f4a100;
+    background: rgba(244,161,0,.1);
+    border: 1px solid rgba(244,161,0,.35);
+    border-radius: 8px;
+    padding: 6px 10px;
+    white-space: nowrap;
+  }
+
+  /* ── LOGIN SCREEN ── */
+  .admin-login-wrap {
+    position: fixed;
+    inset: 0;
+    background: var(--black);
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .admin-login-wrap::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(37,99,235,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(37,99,235,.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+  .admin-login-box {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+    background: #101010;
+    border: 1.5px solid rgba(37,99,235,.3);
+    border-radius: 18px;
+    padding: 34px 26px;
+    box-shadow: 0 20px 50px rgba(0,0,0,.6);
+  }
+  .admin-login-logo {
+    text-align: center;
+    margin-bottom: 22px;
+  }
+  .admin-login-logo .name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: .06em;
+    color: var(--white);
+  }
+  .admin-login-logo .name span { color: var(--blue-lt); }
+  .admin-login-logo .sub {
+    color: var(--muted);
+    font-size: .8rem;
+    margin-top: 4px;
+  }
+  .order-form { display: flex; flex-direction: column; gap: 14px; }
+  .ofield { display: flex; flex-direction: column; gap: 6px; }
+  .olabel { font-size: .85rem; font-weight: 700; color: #ccc; }
+  .oinput {
+    background: #1a1a1a;
+    border: 1.5px solid rgba(255,255,255,.12);
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: #fff;
+    font-family: 'Cairo', sans-serif;
+    font-size: .95rem;
+    outline: none;
+    transition: border-color .2s;
+    direction: ltr;
+    text-align: right;
+  }
+  .oinput:focus { border-color: var(--blue-lt); }
+  .oinput::placeholder { color: #555; }
+  .login-submit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--blue-lt);
+    color: #04101f;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 900;
+    font-size: .95rem;
+    padding: 13px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: opacity .2s;
+    width: 100%;
+    margin-top: 6px;
+  }
+  .login-submit-btn:hover { opacity: .88; }
+  .login-status {
+    font-size: .82rem;
+    font-weight: 700;
+    min-height: 18px;
+    margin-top: 10px;
+    text-align: center;
+  }
+  .login-status.err { color: #e05555; }
+
+  /* ── AUTH GATE (شاشة تحقق قبل عرض لوحة التحكم) ── */
+  #authGate {
+    position: fixed;
+    inset: 0;
+    z-index: 5000;
+    background: var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+  }
+  #authGate .gate-spinner {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    border: 3px solid rgba(96,165,250,.25);
+    border-top-color: var(--blue-lt);
+    animation: gateSpin .8s linear infinite;
+  }
+  #authGate .gate-text {
+    color: var(--muted);
+    font-size: .9rem;
+    font-weight: 700;
+  }
+  @keyframes gateSpin { to { transform: rotate(360deg); } }
+
+</style>
+</head>
+<body>
+
+<!-- ============ شاشة التحقق من صلاحية الأدمن (تظهر لحد ما يتأكد الكود إنه أدمن فعلاً) ============ -->
+<div id="authGate">
+  <div class="gate-spinner"></div>
+  <div class="gate-text">جاري التحقق من الصلاحية...</div>
+</div>
+
+<!-- ============ محتوى لوحة التحكم (مخفي لحد ما نتأكد إن اليوزر أدمن) ============ -->
+<div id="adminContent" style="display:none;">
+
+<!-- ============ HEADER ============ -->
+<header>
+  <button class="hamburger" id="menuBtn" aria-label="القائمة">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="header-title">
+    <span class="name">King<span>&amp;cat</span></span>
+    <span class="badge">أدمن</span>
+  </div>
+  <div class="header-admin-icon">A</div>
+</header>
+
+<!-- ============ SIDE MENU ============ -->
+<div class="nav-menu-overlay" id="navMenuOverlay"></div>
+<nav class="nav-menu" id="navMenu">
+  <button class="nav-menu-close" id="navMenuClose" aria-label="اغلاق">✕</button>
+  <div class="nav-menu-profile">
+    <div class="nav-profile-icon">A</div>
+    <span class="nav-profile-text">حساب الأدمن</span>
+    <span class="nav-profile-sub">admin@kingcat.com</span>
+  </div>
+  <a href="javascript:void(0)" style="border-bottom:1px solid rgba(37,99,235,.1);"><span class="ic">⚙️</span> الإعدادات</a>
+  <div class="nav-menu-links">
+    <a href="javascript:void(0)" class="active" id="navHome" onclick="showDashboard()"><span class="ic">🏠</span> الرئيسية</a>
+    <a href="javascript:void(0)" id="navOrders" onclick="showOrdersPage()"><span class="ic">🧾</span> الطلبات</a>
+    <a href="javascript:void(0)"><span class="ic">🎮</span> المنتجات والأسعار</a>
+    <a href="javascript:void(0)" class="logout" onclick="adminLogout()"><span class="ic">🚪</span> تسجيل الخروج</a>
+  </div>
+</nav>
+
+<!-- ============ MAIN DASHBOARD (شكل فقط) ============ -->
+<main id="dashboard">
+  <div class="page-head">
+    <div class="eyebrow">أهلاً بيك</div>
+    <h1>لوحة التحكم</h1>
+    <p>نظرة سريعة على حالة الموقع دلوقتي</p>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">🧾</div>
+      <div class="stat-value">—</div>
+      <div class="stat-label">إجمالي الطلبات</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">⏳</div>
+      <div class="stat-value">—</div>
+      <div class="stat-label">طلبات قيد الانتظار</div>
+    </div>
+  </div>
+
+  <div class="section-title"><span class="dot"></span> أقسام التحكم</div>
+
+  <div class="cards-grid">
+    <div class="admin-card" onclick="showOrdersPage()">
+      <div class="ac-icon">🧾</div>
+      <div class="ac-title">الطلبات</div>
+      <div class="ac-desc">هنا بتوصلك كل الطلبات الجديدة</div>
+    </div>
+    <div class="admin-card">
+      <div class="ac-icon">🎮</div>
+      <div class="ac-title">المنتجات والأسعار</div>
+      <div class="ac-desc">تعديل أسعار الألعاب والكروت</div>
+    </div>
+  </div>
+</main>
+
+<!-- ============ صفحة الطلبات (بال3 خانات: طلبات / قيد الانتظار / تم) ============ -->
+<main id="ordersPage" style="display:none;">
+  <button class="back-btn" onclick="showDashboard()">→ رجوع للرئيسية</button>
+
+  <div class="orders-tabs" id="ordersTabs">
+    <div class="orders-tab active" data-filter="new" onclick="filterOrders('new', this)">طلبات</div>
+    <div class="orders-tab" data-filter="pending" onclick="filterOrders('pending', this)">قيد الانتظار</div>
+    <div class="orders-tab" data-filter="done" onclick="filterOrders('done', this)">تم</div>
+  </div>
+
+  <div class="table-wrap" id="ordersTableWrap"></div>
+  <p id="ordersEmptyMsg" style="display:none;text-align:center;color:var(--muted);font-size:.85rem;padding:20px;">مفيش طلبات في القسم ده</p>
+</main>
+
+</div>
+<!-- ============ نهاية محتوى لوحة التحكم ============ -->
+
+<script>
+  // فتح وقفل القائمة الجانبية
+  const menuBtn = document.getElementById('menuBtn');
+  const navMenu = document.getElementById('navMenu');
+  const navMenuOverlay = document.getElementById('navMenuOverlay');
+  const navMenuClose = document.getElementById('navMenuClose');
+
+  function openMenu() { navMenu.classList.add('open'); navMenuOverlay.classList.add('open'); }
+  function closeMenu() { navMenu.classList.remove('open'); navMenuOverlay.classList.remove('open'); }
+
+  menuBtn.addEventListener('click', openMenu);
+  navMenuClose.addEventListener('click', closeMenu);
+  navMenuOverlay.addEventListener('click', closeMenu);
+
+  // ============ التنقل بين الرئيسية وصفحة الطلبات ============
+  function showOrdersPage() {
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('ordersPage').style.display = 'block';
+    document.getElementById('navHome').classList.remove('active');
+    document.getElementById('navOrders').classList.add('active');
+    closeMenu();
+    window.scrollTo(0, 0);
+  }
+
+  function showDashboard() {
+    document.getElementById('ordersPage').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    document.getElementById('navOrders').classList.remove('active');
+    document.getElementById('navHome').classList.add('active');
+    closeMenu();
+    window.scrollTo(0, 0);
+  }
+
+  // ============ نظام إدارة الطلبات ============
+  // كل طلب بياخد id, بيانات اللعبة, حالته (new/pending/done), وتاريخ استلام لو قيد الانتظار
+  // الأزرار (تم / قيد الانتظار / إلغاء) بتظهر بس في تبويب "طلبات"
+  let ordersData = [
+    { id: 1, game: 'Roblox — 800 روبكس', user: 'أحمد محمد', time: 'منذ 5 دقايق', status: 'new', date: '' },
+    { id: 2, game: 'PUBG UC — 660', user: 'محمود علي', time: 'منذ 20 دقيقة', status: 'done', date: '' },
+    { id: 3, game: 'PSN Card — 25$ (USA)', user: 'سارة حسن', time: 'منذ ساعة', status: 'pending', date: defaultDatePlus14() }
+  ];
+  let nextOrderId = 4;
+  let currentOrdersFilter = 'new';
+  let expandedDateIds = new Set(); // الطلبات اللي دلوقتي بتختار تاريخ الاستلام بتاعها
+
+  function defaultDatePlus14() {
+    const d = new Date();
+    d.setDate(d.getDate() + 14);
+    return d.toISOString().split('T')[0];
+  }
+
+  function todayStr() {
+    return new Date().toISOString().split('T')[0];
+  }
+
+  function renderOrders() {
+    const wrap = document.getElementById('ordersTableWrap');
+    const emptyMsg = document.getElementById('ordersEmptyMsg');
+    const filtered = ordersData.filter(o => o.status === currentOrdersFilter);
+
+    if (filtered.length === 0) {
+      wrap.style.display = 'none';
+      emptyMsg.style.display = 'block';
+      return;
+    }
+    wrap.style.display = 'block';
+    emptyMsg.style.display = 'none';
+
+    const isNewTab = currentOrdersFilter === 'new';
+
+    wrap.innerHTML = filtered.map(o => `
+      <div class="order-row" data-id="${o.id}">
+        <div>
+          <div class="o-game">${o.game}</div>
+          <div class="o-user">${o.user} · ${o.time}</div>
+        </div>
+        ${isNewTab ? `
+        <div class="order-actions">
+          <button class="o-action-btn done" onclick="setOrderStatus(${o.id}, 'done')">تم</button>
+          <button class="o-action-btn pending" onclick="togglePendingDate(${o.id})">قيد الانتظار</button>
+          <button class="o-action-btn cancel" onclick="cancelOrder(${o.id})">إلغاء</button>
+        </div>
+        ${expandedDateIds.has(o.id) ? `
+        <div class="order-date-row">
+          <label class="o-date-label">تاريخ الاستلام:</label>
+          <input type="date" class="o-date-input" id="dateInput-${o.id}" value="${defaultDatePlus14()}" />
+          <button class="o-action-btn done" onclick="confirmPending(${o.id})">تأكيد</button>
+        </div>` : ''}
+        ` : ''}
+        ${!isNewTab && o.status === 'pending' ? `
+        <div class="o-user">تاريخ الاستلام المتوقع: ${o.date}</div>
+        <div class="order-actions">
+          <button class="o-action-btn cancel" onclick="cancelOrder(${o.id})">إلغاء</button>
+        </div>
+        ${o.date && o.date <= todayStr() ? `
+        <div class="order-date-row">
+          <span class="o-due-badge">⏰ حان وقت اتمام الطلب</span>
+          <button class="o-action-btn done" onclick="setOrderStatus(${o.id}, 'done')">تم</button>
+        </div>` : ''}
+        ` : ''}
+      </div>
+    `).join('');
+  }
+
+  // فلترة الطلبات (طلبات / قيد الانتظار / تم)
+  function filterOrders(status, tabEl) {
+    currentOrdersFilter = status;
+    document.querySelectorAll('#ordersTabs .orders-tab').forEach(t => t.classList.remove('active'));
+    tabEl.classList.add('active');
+    renderOrders();
+  }
+
+  // تم: الطلب يتشال من "طلبات" ويظهر في "تم"
+  function setOrderStatus(id, status) {
+    const o = ordersData.find(x => x.id === id);
+    if (!o) return;
+    o.status = status;
+    expandedDateIds.delete(id);
+    renderOrders();
+  }
+
+  // فتح اختيار تاريخ الاستلام لطلب معين
+  function togglePendingDate(id) {
+    expandedDateIds.add(id);
+    renderOrders();
+  }
+
+  // تأكيد قيد الانتظار: لو مفيش تاريخ متختار بيتحط تلقائي بعد 14 يوم من انهارده
+  function confirmPending(id) {
+    const o = ordersData.find(x => x.id === id);
+    if (!o) return;
+    const input = document.getElementById(`dateInput-${id}`);
+    const chosenDate = input && input.value ? input.value : defaultDatePlus14();
+    o.status = 'pending';
+    o.date = chosenDate;
+    expandedDateIds.delete(id);
+    renderOrders();
+  }
+
+  // إلغاء: الطلب يتمسح خالص
+  function cancelOrder(id) {
+    if (!confirm('متأكد إنك عايز تلغي الطلب ده؟ هيتمسح خالص من القايمة.')) return;
+    ordersData = ordersData.filter(x => x.id !== id);
+    expandedDateIds.delete(id);
+    renderOrders();
+  }
+
+  renderOrders();
+</script>
+
+<!-- ============ FIREBASE — حماية صفحة الأدمن (Auth Guard) ============ -->
+<script type="module">
+  import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+  import {
+    getAuth,
+    onAuthStateChanged,
+    signOut
+  } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
+  import {
+    getFirestore,
+    doc,
+    getDoc
+  } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+
+  // نفس إعدادات Firebase المستخدمة في index.html — لازم تكون متطابقة
+  const firebaseConfig = {
+    apiKey: "AIzaSyC4Zj-t41a8p51P26hi6cKe3Yt4TuT29ok",
+    authDomain: "king-cat11.firebaseapp.com",
+    projectId: "king-cat11",
+    storageBucket: "king-cat11.firebasestorage.app",
+    messagingSenderId: "379006916143",
+    appId: "1:379006916143:web:56af8e3230d9429575d8da"
+  };
+
+  // بنستخدم getApps() عشان لو الصفحة مبدأتش فيها Firebase قبل كده، نبتدي واحد جديد
+  const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  const authGate = document.getElementById('authGate');
+  const adminContent = document.getElementById('adminContent');
+
+  function showAdminContent() {
+    if (authGate) authGate.style.display = 'none';
+    if (adminContent) adminContent.style.display = 'block';
+  }
+
+  function rejectAndRedirect(message) {
+    if (message) alert(message);
+    window.location.href = "index.html";
+  }
+
+  // ============ حماية الصفحة: onAuthStateChanged + التحقق من role في Firestore ============
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      // مفيش مستخدم مسجل دخول خالص
+      rejectAndRedirect('لازم تسجل دخول الأول');
+      return;
+    }
+
+    try {
+      const userRef = doc(db, "users", user.uid);
+      const userSnap = await getDoc(userRef);
+
+      if (!userSnap.exists() || userSnap.data().role !== "admin") {
+        // مش أدمن
+        rejectAndRedirect('معندكش صلاحية الدخول للوحة التحكم');
+        return;
+      }
+
+      // اتأكدنا إنه أدمن فعلاً
+      showAdminContent();
+    } catch (err) {
+      console.error("تعذر التحقق من صلاحية الأدمن:", err);
+      rejectAndRedirect('حصلت مشكلة أثناء التحقق من صلاحيتك، حاول تاني');
+    }
+  });
+
+  // ============ تسجيل الخروج الحقيقي ============
+  window.adminLogout = async function () {
+    try {
+      await signOut(auth);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      window.location.href = "index.html";
+    }
+  };
+</script>
+
+</body>
+</html>
