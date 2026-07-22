@@ -1335,7 +1335,7 @@
             </div>
             <div class="ofield">
               <label class="olabel">كلمة المرور</label>
-              <input class="oinput" id="authPasswordInput" type="password" placeholder="6 أحرف على الأقل" autocomplete="current-password" />
+              <input class="oinput" id="authPasswordInput" type="password" placeholder="8 أحرف على الأقل" autocomplete="current-password" />
             </div>
             <button class="login-submit-btn" id="authSubmitBtn" onclick="submitEmailAuth()">
               <span id="authSubmitBtnText">تسجيل الدخول</span>
@@ -2770,6 +2770,14 @@
     if (items.length === 0) { err.textContent = '\u26a0\ufe0f \u0644\u0627\u0632\u0645 \u062a\u062e\u062a\u0627\u0631 \u0627\u0644\u0643\u0645\u064a\u0629 \u0627\u0644\u0623\u0648\u0644'; return; }
     err.textContent = '';
     const type     = document.getElementById('com-btn-hagz').classList.contains('active') ? '\u062d\u062c\u0632' : '\u0641\u0648\u0631\u064a';
+
+    // طلبات "حجز" بتاخد وقت، فلازم تسجيل دخول عشان العميل يقدر يستعلم عن طلبه ويعرف امتى هيستلمه
+    if (type === '\u062d\u062c\u0632' && !window.isLoggedIn) {
+      err.textContent = '⚠️ طلبات الحجز بتاخد وقت — سجل دخولك الأول عشان تقدر تستعلم عن طلبك وتعرف امتى هتستلمه';
+      if (typeof handleProfileClick === 'function') handleProfileClick();
+      return;
+    }
+
     const code     = document.getElementById('com-code').value.trim();
     const RLM      = '\u200F';
     const itemsList = items.map(i => {
@@ -4365,18 +4373,25 @@
 
     try {
       const ordersRef = collection(db, 'orders');
-      // تبويب "قيد الانتظار" بيشمل حالتين من عند الأدمن (new + pending)، وتبويب "المكتملة" بيشمل done بس
-      const statusFilter = tab === 'completed' ? where('status', '==', 'done') : where('status', 'in', ['new', 'pending']);
-      const q = query(ordersRef, where('uid', '==', user.uid), statusFilter, orderBy('createdAt', 'desc'));
+      // بنجيب كل طلبات اليوزر مرتبة بالتاريخ بس (ده استعلام بسيط ومش محتاج أي index يدوي في Firebase)،
+      // وبعدين بنفلتر حسب الحالة في الجافاسكريبت — عشان لو ضفنا شرط status جوه الاستعلام نفسه
+      // كان هيحتاج "composite index" لازم يتعمل يدوي من Firebase Console، وده كان بيخلي الاستعلام يفشل بصمت
+      const q = query(ordersRef, where('uid', '==', user.uid), orderBy('createdAt', 'desc'));
 
       ordersUnsub = onSnapshot(q, (snap) => {
-        if (snap.empty) {
+        // تبويب "قيد الانتظار" بيشمل حالتين من عند الأدمن (new + pending)، وتبويب "المكتملة" بيشمل done بس
+        const docs = snap.docs.filter((docSnap) => {
+          const st = docSnap.data().status || 'new';
+          return tab === 'completed' ? st === 'done' : (st === 'new' || st === 'pending');
+        });
+
+        if (docs.length === 0) {
           const emptyMsg = tab === 'completed' ? 'مفيش طلبات مكتملة لسه' : 'مفيش طلبات قيد الانتظار حالياً';
           container.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;padding:40px 20px;color:var(--muted);font-size:.9rem;text-align:center;">${emptyMsg}</div>`;
           return;
         }
         container.innerHTML = '';
-        snap.forEach((docSnap) => {
+        docs.forEach((docSnap) => {
           container.appendChild(renderOrder(docSnap.data()));
         });
       }, (err) => {
@@ -4393,7 +4408,7 @@
     const code = err && err.code ? err.code : '';
     if (code.includes('email-already-in-use')) return 'البريد الإلكتروني ده متسجل قبل كده';
     if (code.includes('invalid-email')) return 'البريد الإلكتروني مش صحيح';
-    if (code.includes('weak-password')) return 'كلمة المرور لازم تكون 6 أحرف على الأقل';
+    if (code.includes('weak-password')) return 'كلمة المرور لازم تكون 8 أحرف على الأقل';
     if (code.includes('user-not-found') || code.includes('invalid-credential') || code.includes('wrong-password')) return 'البريد الإلكتروني أو كلمة المرور غلط';
     if (code.includes('popup-closed-by-user')) return 'تم إلغاء تسجيل الدخول';
     if (code.includes('network-request-failed')) return 'في مشكلة في الاتصال بالإنترنت';
@@ -4427,6 +4442,13 @@
     if (currentAuthTab === 'register' && !nickname) {
       setStatus('من فضلك اكتب لقبك', 'err');
       return;
+    }
+    if (currentAuthTab === 'register') {
+      const strongEnough = password.length >= 8;
+      if (!strongEnough) {
+        setStatus('كلمة المرور لازم تكون 8 أحرف على الأقل', 'err');
+        return;
+      }
     }
 
     submitBtn.disabled = true;
