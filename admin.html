@@ -417,6 +417,48 @@
   }
   .back-btn:hover { background: rgba(37,99,235,.22); }
 
+  .order-top-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .o-trash-btn {
+    flex-shrink: 0;
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    border: 1px solid rgba(224,85,85,.35);
+    background: rgba(224,85,85,.06);
+    color: #e05555;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background .2s;
+  }
+  .o-trash-btn:hover { background: rgba(224,85,85,.2); }
+
+  .date-filter-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .date-filter-row .o-date-input { flex: 1; }
+  .date-filter-clear {
+    flex-shrink: 0;
+    background: rgba(37,99,235,.12);
+    border: 1px solid rgba(37,99,235,.3);
+    color: var(--blue-lt);
+    font-family: 'Cairo', sans-serif;
+    font-weight: 800;
+    font-size: .78rem;
+    padding: 10px 12px;
+    border-radius: 9px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .date-filter-clear:hover { background: rgba(37,99,235,.22); }
+
   .o-due-badge {
     display: inline-flex;
     align-items: center;
@@ -640,6 +682,11 @@
     <div class="orders-tab" data-filter="done" onclick="filterOrders('done', this)">تم</div>
   </div>
 
+  <div class="date-filter-row" id="doneDateFilterRow" style="display:none;">
+    <input type="date" class="o-date-input" id="doneDateInput" onchange="filterDoneByDate(this.value)" />
+    <button class="date-filter-clear" onclick="clearDoneDateFilter()">مسح الفلتر</button>
+  </div>
+
   <div class="table-wrap" id="ordersTableWrap"></div>
   <p id="ordersEmptyMsg" style="display:none;text-align:center;color:var(--muted);font-size:.85rem;padding:20px;">مفيش طلبات في القسم ده</p>
 </main>
@@ -696,6 +743,7 @@
   let ordersData = [];
   let currentOrdersFilter = 'new';
   let expandedDateIds = new Set(); // الطلبات اللي دلوقتي بتختار تاريخ الاستلام بتاعها
+  let selectedDoneDate = ''; // الفلتر بتاريخ لخانة "تم"
   // بنعرّضهم على window عشان سكريبت الـ Firebase (تحت) يقدر يحدّثهم لايف من غير ما يعمل reassign
   window.ordersData = ordersData;
   window.expandedDateIds = expandedDateIds;
@@ -719,7 +767,10 @@
   function renderOrders() {
     const wrap = document.getElementById('ordersTableWrap');
     const emptyMsg = document.getElementById('ordersEmptyMsg');
-    const filtered = ordersData.filter(o => o.status === currentOrdersFilter);
+    let filtered = ordersData.filter(o => o.status === currentOrdersFilter);
+    if (currentOrdersFilter === 'done' && selectedDoneDate) {
+      filtered = filtered.filter(o => o.dateStr === selectedDoneDate);
+    }
 
     if (filtered.length === 0) {
       wrap.style.display = 'none';
@@ -733,9 +784,12 @@
 
     wrap.innerHTML = filtered.map(o => `
       <div class="order-row" data-id="${esc(o.id)}">
-        <div onclick="showOrderDetail('${o.id}')" style="cursor:pointer;">
-          <div class="o-game">${esc(o.game)}</div>
-          <div class="o-user">${esc(o.user)} · ${esc(o.time)}${o.price ? ' · ' + esc(o.price) + ' جنيه' : ''}</div>
+        <div class="order-top-row">
+          <div onclick="showOrderDetail('${o.id}')" style="cursor:pointer;flex:1;min-width:0;">
+            <div class="o-game">${esc(o.game)}</div>
+            <div class="o-user">${esc(o.user)} · ${esc(o.time)}${o.price ? ' · ' + esc(o.price) + ' جنيه' : ''}</div>
+          </div>
+          ${!isNewTab && o.status === 'done' ? `<button class="o-trash-btn" onclick="deleteOrderPermanently('${o.id}')" title="حذف الطلب">🗑️</button>` : ''}
         </div>
         ${isNewTab ? `
         <div class="order-actions">
@@ -753,18 +807,17 @@
         ${!isNewTab && o.status === 'pending' ? `
         <div class="o-user">تاريخ الاستلام المتوقع: ${esc(o.date)}</div>
         <div class="order-actions">
+          <button class="o-action-btn done" onclick="setOrderStatus('${o.id}', 'done')">تم</button>
+          <button class="o-action-btn pending" onclick="togglePendingDate('${o.id}')">تغيير المعاد</button>
           <button class="o-action-btn cancel" onclick="cancelOrder('${o.id}')">إلغاء</button>
         </div>
-        ${o.date && o.date <= todayStr() ? `
+        ${expandedDateIds.has(o.id) ? `
         <div class="order-date-row">
-          <span class="o-due-badge">⏰ حان وقت اتمام الطلب</span>
-          <button class="o-action-btn done" onclick="setOrderStatus('${o.id}', 'done')">تم</button>
+          <label class="o-date-label">المعاد الجديد:</label>
+          <input type="date" class="o-date-input" id="dateInput-${o.id}" value="${o.date || defaultDatePlus14()}" />
+          <button class="o-action-btn done" onclick="confirmPending('${o.id}')">تأكيد</button>
         </div>` : ''}
         ` : ''}
-        ${!isNewTab && o.status === 'done' ? `
-        <div class="order-actions">
-          <button class="o-action-btn pending" onclick="setOrderStatus('${o.id}', 'pending')">رجّعه قيد الانتظار</button>
-        </div>` : ''}
       </div>
     `).join('');
   }
@@ -775,8 +828,24 @@
     currentOrdersFilter = status;
     document.querySelectorAll('#ordersTabs .orders-tab').forEach(t => t.classList.remove('active'));
     tabEl.classList.add('active');
+    const doneDateRow = document.getElementById('doneDateFilterRow');
+    if (doneDateRow) doneDateRow.style.display = (status === 'done') ? 'flex' : 'none';
     renderOrders();
   }
+
+  // فلترة طلبات "تم" حسب تاريخ معين
+  function filterDoneByDate(val) {
+    selectedDoneDate = val || '';
+    renderOrders();
+  }
+  function clearDoneDateFilter() {
+    selectedDoneDate = '';
+    const input = document.getElementById('doneDateInput');
+    if (input) input.value = '';
+    renderOrders();
+  }
+  window.filterDoneByDate = filterDoneByDate;
+  window.clearDoneDateFilter = clearDoneDateFilter;
 
   // فتح اختيار تاريخ الاستلام لطلب معين
   function togglePendingDate(id) {
@@ -905,6 +974,7 @@
           time: timeAgo(d.createdAt),
           status: d.status || 'new',
           date: d.pendingDate || '',
+          dateStr: (d.createdAt && d.createdAt.toDate) ? d.createdAt.toDate().toISOString().split('T')[0] : '',
           price: d.price || '',
           fullDetails: d.fullDetails || d.details || ''
         });
@@ -956,6 +1026,18 @@
     } catch (err) {
       console.error('تعذر إلغاء الطلب:', err);
       alert('حصلت مشكلة أثناء إلغاء الطلب، حاول تاني');
+    }
+  };
+
+  // ============ حذف طلب خلاص من خانة "تم" (زرار علبة الزبالة) ============
+  window.deleteOrderPermanently = async function (id) {
+    if (!confirm('متأكد إنك عايز تحذف الطلب ده؟ هيتمسح خالص من القايمة.')) return;
+    try {
+      await deleteDoc(doc(db, 'orders', id));
+      window.expandedDateIds.delete(id);
+    } catch (err) {
+      console.error('تعذر حذف الطلب:', err);
+      alert('حصلت مشكلة أثناء حذف الطلب، حاول تاني');
     }
   };
 
