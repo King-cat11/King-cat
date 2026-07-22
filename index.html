@@ -4235,6 +4235,43 @@
   const db = getFirestore(app);
   const googleProvider = new GoogleAuthProvider();
 
+  // ============ أسعار روبلكس الديناميكية — بتتغير من لوحة الأدمن وتتحدث هنا لايف من غير ريفريش ============
+  function buildAccCardHTML(item) {
+    if (item.custom) {
+      return `<div class="pcard" data-rob="${item.rob}" data-price="${item.price}" data-label="${item.label}" onclick="toggleAccAmt(this)"><span class="rob" style="font-size:.9rem;">${item.label}</span><span class="egp">EGP ${item.price}</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>`;
+    }
+    return `<div class="pcard" data-rob="${item.rob}" data-price="${item.price}" data-label="${item.label}" onclick="toggleAccAmt(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">${item.rob}</span></span><span class="egp">EGP ${item.price}</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>`;
+  }
+  function buildComCardHTML(item, hagz) {
+    const cls = hagz ? 'pcard hagz' : 'pcard';
+    return `<div class="${cls}" data-rob="${item.rob}" data-price="${item.price}" onclick="addComItem(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">${item.rob}</span></span><span class="egp">EGP ${item.price}</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>`;
+  }
+  function buildGiftCardHTML(item) {
+    return `<div class="pcard" data-usd="${item.usd}" data-price="${item.price}" onclick="addGiftItem(this)"><span class="rob-qty"><span class="rob-val">${item.usd}</span><span class="rob" style="font-size:.72rem;margin-inline-start:3px;">USD</span></span><span class="egp">EGP ${item.price}</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeGiftQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeGiftQtyCard(this,1)">+</button></div></div>`;
+  }
+  function applyRobloxPricing(data) {
+    if (!data) return;
+    try {
+      const accEl = document.getElementById('acc-prices');
+      const fawriEl = document.getElementById('com-prices-fawri');
+      const hagzEl = document.getElementById('com-prices-hagz');
+      const giftEl = document.getElementById('giftcard-prices');
+      if (accEl && Array.isArray(data.acc) && data.acc.length) accEl.innerHTML = data.acc.map(buildAccCardHTML).join('');
+      if (fawriEl && Array.isArray(data.comFawri) && data.comFawri.length) fawriEl.innerHTML = data.comFawri.map(i => buildComCardHTML(i, false)).join('');
+      if (hagzEl && Array.isArray(data.comHagz) && data.comHagz.length) hagzEl.innerHTML = data.comHagz.map(i => buildComCardHTML(i, true)).join('');
+      if (giftEl && Array.isArray(data.giftcard) && data.giftcard.length) giftEl.innerHTML = data.giftcard.map(buildGiftCardHTML).join('');
+    } catch (err) {
+      console.error('تعذر تطبيق أسعار روبلكس:', err);
+    }
+  }
+  // بث حي: أي تعديل في الأسعار من لوحة الأدمن بيتطبق هنا على طول من غير ما اليوزر يعمل ريفريش.
+  // لو مفيش بيانات محفوظة لسه في Firestore، الأسعار الثابتة المكتوبة في الصفحة بتفضل زي ما هي.
+  onSnapshot(doc(db, 'pricing', 'roblox'), (snap) => {
+    if (snap.exists()) applyRobloxPricing(snap.data());
+  }, (err) => {
+    console.error('تعذر تحميل أسعار روبلكس:', err);
+  });
+
   // ============ التحقق من صلاحية المستخدم (role) وتوجيهه لو أدمن ============
   // بيتنفذ بعد أي تسجيل دخول ناجح (Google أو إيميل) وكمان عند تحميل الصفحة لو المستخدم مسجل دخول بالفعل
   async function checkUserRoleAndRedirect(user) {
