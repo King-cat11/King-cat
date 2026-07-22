@@ -62,6 +62,7 @@
       line-height: 1.7;
       overflow-x: hidden;
       -webkit-overflow-scrolling: touch;
+      overscroll-behavior-y: contain;
     }
 
 
@@ -262,9 +263,6 @@
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
     }
-    #catToastContainer.show {
-      transform: translateY(0) !important;
-    }
 
     #fifaPage {
       background:
@@ -298,6 +296,7 @@
       z-index: 1;
       box-shadow: 0 10px 30px rgba(0,0,0,.4);
       border: 1px solid rgba(255,255,255,.08);
+      touch-action: pan-y;
     }
     .offer-slide {
       position: absolute;
@@ -550,6 +549,7 @@
       flex-direction: column;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
+      overscroll-behavior-y: contain;
     }
     .rpage.open { display: flex; }
 
@@ -1253,36 +1253,6 @@
   </style><body>
 
 <!-- CAT TOAST NOTIFICATION -->
-<div id="catToastContainer" style="
-  position: fixed;
-  top: 24px;
-  left: 24px;
-  z-index: 10001;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  transform: translateY(-150%);
-  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-  pointer-events: none;
-">
-  <!-- Speech bubble -->
-  <div style="
-    background: #1a1a1a;
-    color: #fff;
-    padding: 14px 22px;
-    border-radius: 18px;
-    font-family: 'Cairo', sans-serif;
-    font-weight: 800;
-    font-size: 1rem;
-    max-width: 240px;
-    line-height: 1.6;
-    border: 1px solid rgba(255,255,255,.12);
-    position: relative;
-    letter-spacing: 0.02em;
-  ">
-    <span id="catToastText">صلي على النبي ﷺ</span>
-  </div>
-</div>
 
 <!-- NAV -->
 <header>
@@ -1298,11 +1268,11 @@
 <div class="nav-menu-overlay" id="navMenuOverlay"></div>
 <nav class="nav-menu" id="navMenu">
   <button class="nav-menu-close" id="navMenuClose" aria-label="اغلاق">✕</button>
-  <a href="javascript:void(0)" class="nav-menu-profile" id="navLoginBtn" onclick="openLoginModal()">
+  <a href="javascript:void(0)" class="nav-menu-profile" id="navLoginBtn" onclick="handleProfileClick()">
     <span class="nav-profile-icon" id="navProfileIcon">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
     </span>
-    <span class="nav-profile-text" id="navLoginBtnText">تسجيل الدخول</span>
+    <span class="nav-profile-text" id="navLoginBtnText">Login</span>
   </a>
   <a href="javascript:void(0)" onclick="openChannels()">قنواتنا</a>
   <a href="https://wa.me/201069478690" target="_blank">تواصل معنا</a>
@@ -1312,7 +1282,6 @@
 <section class="hero" id="home">
   <div style="display:flex;align-items:center;gap:10px;position:relative;z-index:1;margin-bottom:14px;">
     <div class="rtab-select-label" onclick="openSiteExplainModal()" style="cursor:pointer;">📖</div>
-    <button id="adhkarToggleBtn" class="rtab-select-label" onclick="toggleAdhkar()" style="cursor:pointer;background:rgba(111,207,58,.12);border-color:#6fcf3a;color:#6fcf3a;font-size:.82rem;padding:8px 14px;">اذكار</button>
   </div>
 
   <div id="siteExplainModal" class="ce-modal-overlay" onclick="closeSiteExplainModal()">
@@ -1326,7 +1295,7 @@
   <!-- LOGIN PAGE (Firebase Auth) — تسجيل الدخول اختياري تمامًا وغير إجباري لإتمام الطلب -->
   <div id="loginModal" class="rpage">
     <div class="rpage-header" style="border-bottom-color:rgba(37,99,235,.3);">
-      <button class="rpage-back" style="border-color:rgba(37,99,235,.5);color:#2563eb;" onclick="closeLoginModal()">&#8594; رجوع</button>
+      <button class="rpage-back" style="border-color:rgba(37,99,235,.5);color:#2563eb;" onclick="closeLoginModal()">&#8594; Back</button>
       <div class="rpage-title">
         <span class="rpage-logo" style="color:#2563eb;">تسجيل الدخول</span>
         <span class="rpage-sub">King &amp; Cat – حسابك</span>
@@ -1568,6 +1537,88 @@
         <div style="margin-right:auto;color:#ff0050;font-size:1.2rem;">←</div>
       </div>
     </a>
+  </div>
+</div>
+
+<!-- SETTINGS PAGE -->
+<div id="settingsPage" class="rpage">
+  <div class="rpage-header" style="border-bottom-color:rgba(37,99,235,.3);">
+    <button class="rpage-back" style="border-color:rgba(37,99,235,.5);color:#2563eb;" onclick="closeSettingsPage()">&#8594; Back</button>
+    <div class="rpage-title">
+      <span class="rpage-logo" style="color:#2563eb;">الحساب</span>
+      <span class="rpage-sub">King &amp; Cat – حسابك</span>
+    </div>
+  </div>
+
+  <div class="rpage-panels" style="display:flex;flex-direction:column;align-items:center;padding:44px 5% 60px;">
+    <div style="width:100%;max-width:420px;margin:0 auto;">
+
+      <!-- profile -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:12px;padding-bottom:28px;">
+        <span class="nav-profile-icon" id="settingsProfileIcon" style="width:72px;height:72px;font-size:1.6rem;border-width:2px;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        </span>
+        <span id="settingsProfileName" style="font-weight:800;font-size:1.15rem;color:var(--white);">Login</span>
+      </div>
+
+      <!-- menu list -->
+      <div style="border-top:1px solid rgba(255,255,255,.08);">
+        <a href="javascript:void(0)" onclick="openOrdersPage()" style="display:flex;align-items:center;gap:14px;padding:18px 4px;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.08);transition:opacity .2s;">
+          <span style="flex:1;font-weight:700;font-size:.98rem;color:var(--white);">طلباتي</span>
+          <span style="color:var(--muted);font-size:1.1rem;">‹</span>
+        </a>
+        <a href="javascript:void(0)" onclick="logoutUser(); closeSettingsPage();" style="display:flex;align-items:center;gap:14px;padding:18px 4px;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.08);transition:opacity .2s;">
+          <span style="flex:1;font-weight:700;font-size:.98rem;color:#e05555;">تسجيل الخروج</span>
+        </a>
+      </div>
+
+      <p style="text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px;">باقي خيارات الحساب هتتضاف قريباً</p>
+
+    </div>
+  </div>
+</div>
+
+<!-- MY ORDERS PAGE -->
+<div id="ordersPage" class="rpage">
+  <div class="rpage-header" style="border-bottom-color:rgba(37,99,235,.3);">
+    <button class="rpage-back" style="border-color:rgba(37,99,235,.5);color:#2563eb;" onclick="closeOrdersPage()">&#8594; Back</button>
+    <div class="rpage-title">
+      <span class="rpage-logo" style="color:#2563eb;">طلباتي</span>
+      <span class="rpage-sub">King &amp; Cat – الطلبات</span>
+    </div>
+  </div>
+
+  <div class="rpage-panels" style="display:flex;flex-direction:column;align-items:center;padding:28px 5% 60px;">
+    <div style="width:100%;max-width:480px;margin:0 auto;">
+
+      <div class="rtab-select-row" style="padding:0 0 18px;">
+        <div class="rtab-select-wrap" id="orderstabSelectWrap">
+          <button class="rtab-select-btn" style="width:200px;" onclick="toggleOrdersTabMenu()">
+            <span id="orderstabSelectedLabel">⏳ قيد الانتظار</span>
+            <span class="rtab-select-arrow">▾</span>
+          </button>
+          <div class="rtab-menu" id="orderstabMenu">
+            <button class="rtab-menu-item active" id="orderstab-item-pending" onclick="selectOrdersTab(this,'pending','⏳ قيد الانتظار')">⏳ قيد الانتظار</button>
+            <button class="rtab-menu-item" id="orderstab-item-completed" onclick="selectOrdersTab(this,'completed','✅ المكتملة')">✅ المكتملة</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="ordersListContainer" style="display:flex;flex-direction:column;">
+        <div style="display:flex;align-items:center;justify-content:center;padding:40px 20px;color:var(--muted);font-size:.9rem;text-align:center;">
+          جاري التحميل...
+        </div>
+      </div>
+
+      <div id="orderDetailModal" class="ce-modal-overlay" onclick="closeOrderDetailModal()">
+        <div class="ce-modal-box" onclick="event.stopPropagation()">
+          <div id="orderDetailTitle" style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:#2563eb;letter-spacing:.03em;margin-bottom:14px;text-align:center;"></div>
+          <div id="orderDetailBody" style="white-space:pre-wrap;font-family:'Cairo',sans-serif;font-size:.9rem;line-height:1.9;color:var(--white);text-align:right;"></div>
+          <p style="text-align:center;color:var(--muted);font-size:.78rem;margin-top:18px;">اضغط في أي مكان عشان تقفل</p>
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>
 
@@ -2567,7 +2618,15 @@
       return `• ${item.label} (${item.qty})`;
     }).join('\n');
     const total = keys.reduce((s,k) => s + accCart[k].price * accCart[k].qty, 0);
+    const totalQty = keys.reduce((s,k) => s + accCart[k].qty, 0);
     const msg = `📦 طلب شحن روبلوكس (حساب)\n👤 اليوزرنيم: ${username}\n🔑 الباسورد: ${pass}\n📦 الطلب:\n${items}\n💰 السعر: ${total} جنيه`;
+    if (typeof window.saveOrder === 'function') {
+      // بنخزن نسخة "الباسورد فيها نجوم" في قاعدة البيانات، مش الباسورد الحقيقي —
+      // الرسالة الكاملة بالباسورد الحقيقي بتتبعت للأدمن على واتساب بس
+      const maskedPass = '•'.repeat(Math.max(pass.length, 6));
+      const maskedMsg = `📦 طلب شحن روبلوكس (حساب)\n👤 اليوزرنيم: ${username}\n🔑 الباسورد: ${maskedPass}\n📦 الطلب:\n${items}\n💰 السعر: ${total} جنيه`;
+      window.saveOrder({ title: 'روبلوكس (حساب)', quantity: totalQty, price: total, details: maskedMsg, fullDetails: msg });
+    }
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
 
@@ -2722,6 +2781,10 @@
       return sum + finalRob * i.qty;
     }, 0);
     let msg = `${RLM}\u{1F4E6} \u0637\u0644\u0628 \u0634\u062d\u0646 \u0631\u0648\u0628\u0644\u0648\u0643\u0633 (\u0643\u0645\u064a\u0648\u0646\u062a\u064a)\n${RLM}\u{1F464} \u0627\u0644\u0627\u0633\u0645: ${username}\n${RLM}\u{1F3AE} \u0627\u0644\u0637\u0644\u0628: ${type}\n${itemsList}\n${RLM}\u{1F4CA} \u0625\u062c\u0645\u0627\u0644\u064a: ${totalFinalRob}R\n${RLM}\u{1F4B0} \u0627\u0644\u0633\u0639\u0631: ${totalPrice} \u062c\u0646\u064a\u0647\n${RLM}\u0643\u0648\u062f \u0627\u0644\u0632\u064a\u0627\u062f\u0629: ${codeApplied ? code : '\u0645\u0641\u064a\u0634'}`;
+    if (typeof window.saveOrder === 'function') {
+      const totalQty = items.reduce((s,i) => s + i.qty, 0);
+      window.saveOrder({ title: 'روبلوكس (كوميونتي)', quantity: totalQty, price: totalPrice, details: msg, fullDetails: msg });
+    }
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
 
@@ -2822,6 +2885,10 @@
     const RLM = '\u200F';
     const itemsList = items.map(i => `${RLM}\u2022 ${i.usd} USD (${i.qty})`).join('\n');
     let msg = `${RLM}\u{1F381} طلب شحن روبلوكس (جيفت كارد)\n${itemsList}\n${RLM}\u{1F4B0} السعر: ${totalPrice} جنيه`;
+    if (typeof window.saveOrder === 'function') {
+      const totalQty = items.reduce((s,i) => s + i.qty, 0);
+      window.saveOrder({ title: 'روبلوكس (جيفت كارد)', quantity: totalQty, price: totalPrice, details: msg, fullDetails: msg });
+    }
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
   function togglePubgTabMenu() {
@@ -2978,6 +3045,10 @@
     const items = keys.map(k => `• ${pubgLabel(pubgCart[k])} (${pubgCart[k].qty})`).join('\n');
     const total = keys.reduce((s,k) => s + pubgCart[k].price * pubgCart[k].qty, 0);
     const msg = `🎮 طلب شحن ببجي\n🆔 الـ ID: ${idVal}\n📦 الطلب:\n${items}\n💰 السعر: ${total} جنيه`;
+    if (typeof window.saveOrder === 'function') {
+      const totalQty = keys.reduce((s,k) => s + pubgCart[k].qty, 0);
+      window.saveOrder({ title: 'ببجي', quantity: totalQty, price: total, details: msg, fullDetails: msg });
+    }
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
 
@@ -2992,6 +3063,58 @@
     document.getElementById('channelsPage').classList.remove('open');
     document.body.style.overflow = '';
   }
+
+  // ── SETTINGS ──
+  function openSettingsPage() {
+    document.getElementById('settingsPage').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('navMenu').classList.remove('open');
+  }
+  function closeSettingsPage() {
+    document.getElementById('settingsPage').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // ── MY ORDERS ──
+  let currentOrdersTab = 'pending';
+  function openOrdersPage() {
+    document.getElementById('ordersPage').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    loadOrdersTab(currentOrdersTab);
+  }
+  function closeOrdersPage() {
+    document.getElementById('ordersPage').classList.remove('open');
+    document.body.style.overflow = '';
+    if (typeof window.stopOrdersListener === 'function') window.stopOrdersListener();
+  }
+  function toggleOrdersTabMenu() {
+    document.getElementById('orderstabSelectWrap').classList.toggle('open');
+  }
+  function selectOrdersTab(el, status, label) {
+    document.querySelectorAll('#orderstabMenu .rtab-menu-item').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('orderstabSelectedLabel').textContent = label;
+    document.getElementById('orderstabSelectWrap').classList.remove('open');
+    loadOrdersTab(status);
+  }
+  function loadOrdersTab(status) {
+    currentOrdersTab = status;
+    const container = document.getElementById('ordersListContainer');
+    if (!container) return;
+    container.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;padding:40px 20px;color:var(--muted);font-size:.9rem;text-align:center;">جاري التحميل...</div>';
+    if (typeof window.loadUserOrders === 'function') {
+      window.loadUserOrders(status);
+    }
+  }
+  function openOrderDetailModal(title, details) {
+    document.getElementById('orderDetailTitle').textContent = title;
+    document.getElementById('orderDetailBody').textContent = details;
+    document.getElementById('orderDetailModal').classList.add('open');
+  }
+  function closeOrderDetailModal() {
+    document.getElementById('orderDetailModal').classList.remove('open');
+  }
+  window.openOrderDetailModal = openOrderDetailModal;
 
   // ── BRAWL STARS ──
   function openBrawl() {
@@ -3029,6 +3152,9 @@
     const pass  = brawlSelected.dataset.pass;
     const price = brawlSelected.dataset.price;
     const msg = `⭐ طلب شحن براول ستارز\n📧 الإيميل: ${email}\n🎮 الطلب: ${pass}\n💰 السعر: ${price} جنيه`;
+    if (typeof window.saveOrder === 'function') {
+      window.saveOrder({ title: 'براول ستارز', quantity: 1, price: parseInt(price) || null, details: msg, fullDetails: msg });
+    }
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
 
@@ -3145,6 +3271,11 @@
     const items = keys.map(k => `• ${pesCart[k].coin} Coins (${pesCart[k].qty})`).join('\n');
     const total = keys.reduce((s,k) => s + pesCart[k].price * pesCart[k].qty, 0);
     const msg = `⚽ طلب شحن بيس (اندرويد)\n📧 الإيميل: ${email}\n🔑 الباسورد: ${pass}\n🪙 الطلب:\n${items}\n💰 السعر: ${total} جنيه`;
+    if (typeof window.saveOrder === 'function') {
+      const totalQty = keys.reduce((s,k) => s + pesCart[k].qty, 0);
+      const maskedMsg = window.maskSecret(msg, pass);
+      window.saveOrder({ title: 'بيس (اندرويد)', quantity: totalQty, price: total, details: maskedMsg, fullDetails: msg });
+    }
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
 
@@ -3165,6 +3296,9 @@
     if (!request) { err.textContent = '⚠️ اكتب الحاجة اللي عايز تشحنها الأول'; return; }
     err.textContent = '';
     const msg = `💳 طلب شحن بالفيزا\n📝 الطلب: ${request}`;
+    if (typeof window.saveOrder === 'function') {
+      window.saveOrder({ title: 'فيزا', quantity: 1, price: null, details: msg, fullDetails: msg });
+    }
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
 
@@ -3307,6 +3441,10 @@
     }).join('\n');
     const total = keys.reduce((s,k) => s + ffIdCart[k].price * ffIdCart[k].qty, 0);
     const msg = `🔥 طلب شحن فري فاير (ID)\n🆔 الـ ID: ${idVal}\n💎 الطلب:\n${items}\n💰 السعر: ${total} جنيه`;
+    if (typeof window.saveOrder === 'function') {
+      const totalQty = keys.reduce((s,k) => s + ffIdCart[k].qty, 0);
+      window.saveOrder({ title: 'فري فاير (ID)', quantity: totalQty, price: total, details: msg, fullDetails: msg });
+    }
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
 
@@ -3408,6 +3546,11 @@
     }).join('\n');
     const total = keys.reduce((s,k) => s + ffAccCart[k].price * ffAccCart[k].qty, 0);
     const msg = `🔥 طلب شحن فري فاير (حساب)\n📧 الإيميل: ${user}\n🔑 الباسورد: ${pass}\n🔗 نوع الربط: ${link}\n💎 الطلب:\n${items}\n💰 السعر: ${total} جنيه`;
+    if (typeof window.saveOrder === 'function') {
+      const totalQty = keys.reduce((s,k) => s + ffAccCart[k].qty, 0);
+      const maskedMsg = window.maskSecret(msg, pass);
+      window.saveOrder({ title: 'فري فاير (حساب)', quantity: totalQty, price: total, details: maskedMsg, fullDetails: msg });
+    }
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
 
@@ -3582,6 +3725,10 @@
     const RLM = '\u200F';
     const itemsList = items.map(i => `${RLM}• ${i.label} (${i.qty})`).join('\n');
     const msg = `${RLM}⚽ طلب شحن فيفا\n${RLM}📧 الإيميل: ${user}\n${RLM}🪙 الطلب:\n${itemsList}\n${RLM}💰 السعر: ${totalPrice} جنيه`;
+    if (typeof window.saveOrder === 'function') {
+      const totalQty = items.reduce((s,i) => s + i.qty, 0);
+      window.saveOrder({ title: 'فيفا', quantity: totalQty, price: totalPrice, details: msg, fullDetails: msg });
+    }
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
 
@@ -3689,6 +3836,10 @@
     const brawlWrap = document.getElementById('brawltabSelectWrap');
     if (brawlWrap && brawlWrap.classList.contains('open') && !brawlWrap.contains(e.target)) {
       brawlWrap.classList.remove('open');
+    }
+    const ordersWrap = document.getElementById('orderstabSelectWrap');
+    if (ordersWrap && ordersWrap.classList.contains('open') && !ordersWrap.contains(e.target)) {
+      ordersWrap.classList.remove('open');
     }
   });
 
@@ -3953,13 +4104,19 @@
         setSlideTransform(slides[toIdx], 0, 1, true);
         locked = true;
         pendingFinalize = () => {
-          snapToRest(slides[fromIdx]);
-          snapToRest(slides[toIdx]);
+          // toggle the classes FIRST so the slides are already in their final
+          // (active/inactive) state, then clear the inline drag styles.
+          // Doing it the other way around (clearing styles while the old
+          // class is still applied) made the CSS fall back to the wrong
+          // resting state for a frame — which looked like the card flashing
+          // back to where it started before settling on the new one.
           slides[fromIdx].classList.remove('active');
           dots[fromIdx].classList.remove('active');
           idx = toIdx;
           slides[idx].classList.add('active');
           dots[idx].classList.add('active');
+          snapToRest(slides[fromIdx]);
+          snapToRest(slides[toIdx]);
           locked = false;
         };
       } else {
@@ -3985,57 +4142,17 @@
   })();
 </script>
 
-<script>
-  (function () {
-    const messages = ['صلي على النبي ﷺ', 'اذكر الله', 'سبحان الله', 'الحمد لله', 'لا إله إلا الله'];
-    let lastIdx = -1;
-    const container = document.getElementById('catToastContainer');
-    const textEl = document.getElementById('catToastText');
-    let adhkarEnabled = true;
-    let adhkarInterval = null;
-
-    function showCatToast() {
-      if (!adhkarEnabled || !container || !textEl) return;
-      let idx;
-      do {
-        idx = Math.floor(Math.random() * messages.length);
-      } while (idx === lastIdx && messages.length > 1);
-      lastIdx = idx;
-      textEl.textContent = messages[idx];
-      container.classList.add('show');
-      setTimeout(() => container.classList.remove('show'), 5000);
-    }
-
-    function startAdhkar() {
-      showCatToast();
-      adhkarInterval = setInterval(showCatToast, 60000);
-    }
-
-    window.toggleAdhkar = function () {
-      const btn = document.getElementById('adhkarToggleBtn');
-      adhkarEnabled = !adhkarEnabled;
-      if (adhkarEnabled) {
-        btn.style.background = 'rgba(111,207,58,.12)';
-        btn.style.borderColor = '#6fcf3a';
-        btn.style.color = '#6fcf3a';
-        clearInterval(adhkarInterval);
-        adhkarInterval = setInterval(showCatToast, 60000);
-      } else {
-        btn.style.background = 'rgba(255,255,255,.05)';
-        btn.style.borderColor = 'rgba(255,255,255,.25)';
-        btn.style.color = 'var(--muted)';
-        container.classList.remove('show');
-        clearInterval(adhkarInterval);
-      }
-    };
-
-    setTimeout(startAdhkar, 3000);
-  })();
-</script>
-
 <!-- LOGIN MODAL — UI helpers (open/close + tab switching, no Firebase needed here) -->
 <script>
   let currentAuthTab = 'login';
+
+  function handleProfileClick() {
+    if (window.isLoggedIn) {
+      openSettingsPage();
+    } else {
+      openLoginModal();
+    }
+  }
 
   function openLoginModal() {
     document.getElementById('loginModal').classList.add('open');
@@ -4095,7 +4212,14 @@
     doc,
     getDoc,
     setDoc,
-    serverTimestamp
+    addDoc,
+    serverTimestamp,
+    collection,
+    query,
+    where,
+    orderBy,
+    getDocs,
+    onSnapshot
   } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
   const app = getApp();
@@ -4138,6 +4262,132 @@
     el.textContent = msg;
     el.className = 'login-status' + (type ? ' ' + type : '');
   }
+
+  // ============ جلب طلبات المستخدم (قيد الانتظار / مكتملة) ============
+  // كل طلب متسجل في مجموعة "orders" في Firestore وبيه الحقول:
+  // uid, status ("new" أو "pending" أو "done" — نفس حالات لوحة الأدمن بالظبط)،
+  // title, quantity, price, details (نسخة فيها أي باسورد متبدل بنجوم),
+  // fullDetails (النسخة الكاملة اللي بتوصل للأدمن فقط), pendingDate, createdAt
+  function renderOrder(order) {
+    const wrap = document.createElement('div');
+    wrap.style.cssText = 'display:flex;align-items:center;gap:14px;padding:16px 4px;border-bottom:1px solid rgba(255,255,255,.08);cursor:pointer;';
+
+    const info = document.createElement('div');
+    info.style.flex = '1';
+
+    const titleEl = document.createElement('div');
+    titleEl.style.cssText = 'font-weight:700;font-size:.95rem;color:var(--white);';
+    titleEl.textContent = order.title || 'طلب';
+
+    const qtyEl = document.createElement('div');
+    qtyEl.style.cssText = 'font-size:.8rem;color:#888;margin-top:2px;';
+    let qtyText = 'الكمية: ' + (order.quantity || 1);
+    if (order.status === 'pending' && order.pendingDate) qtyText += ' — متوقع ' + order.pendingDate;
+    qtyEl.textContent = qtyText;
+
+    info.appendChild(titleEl);
+    info.appendChild(qtyEl);
+
+    const isDone = order.status === 'done';
+    const statusColor = isDone ? '#6fcf3a' : '#f2b705';
+    const statusText = isDone ? 'مكتمل' : 'قيد الانتظار';
+    const statusEl = document.createElement('span');
+    statusEl.style.cssText = `font-size:.78rem;font-weight:700;color:${statusColor};white-space:nowrap;`;
+    statusEl.textContent = statusText;
+
+    const arrowEl = document.createElement('span');
+    arrowEl.style.cssText = 'color:var(--muted);font-size:1rem;margin-inline-start:2px;';
+    arrowEl.textContent = '‹';
+
+    wrap.appendChild(info);
+    wrap.appendChild(statusEl);
+    wrap.appendChild(arrowEl);
+
+    wrap.addEventListener('click', () => {
+      if (typeof window.openOrderDetailModal === 'function') {
+        window.openOrderDetailModal(order.title || 'طلب', order.details || '');
+      }
+    });
+
+    return wrap;
+  }
+
+  // ============ إخفاء أي باسورد/رقم سري من نص قبل ما يتخزن في "طلباتي" ============
+  function maskSecret(msg, secret) {
+    if (!secret) return msg;
+    const stars = '•'.repeat(Math.max(String(secret).length, 6));
+    return msg.split(secret).join(stars);
+  }
+  window.maskSecret = maskSecret;
+
+  // ============ حفظ طلب جديد في Firestore (لو المستخدم مسجل دخول) ============
+  // title: اسم اللعبة/الخدمة، quantity: الكمية اللي هتتعرض في القايمة،
+  // price: السعر الإجمالي، details: نص التفاصيل اللي هيظهر في "طلباتي" فقط —
+  // *** لازم يكون أي باسورد/رقم سري جواه متبدل بنجوم قبل ما يتبعت هنا (استخدم maskSecret) ***
+  // fullDetails: نفس النص لكن كامل بدون إخفاء — ده اللي هيشوفه الأدمن بس في لوحة التحكم
+  window.saveOrder = async function ({ title, quantity, price, details, fullDetails }) {
+    const user = auth.currentUser;
+    if (!user) return; // مفيش تسجيل دخول، مفيش حفظ (مينفعش نعرف الطلب ده بتاع مين)
+    try {
+      await addDoc(collection(db, 'orders'), {
+        uid: user.uid,
+        customerName: user.displayName || user.email || 'عميل',
+        status: 'new',
+        title: title || 'طلب',
+        quantity: quantity || 1,
+        price: price || null,
+        details: details || '',
+        fullDetails: fullDetails || details || '',
+        pendingDate: null,
+        createdAt: serverTimestamp()
+      });
+    } catch (err) {
+      console.error('تعذر حفظ الطلب:', err);
+    }
+  };
+
+  // بث حي: لما الأدمن يغيّر حالة الطلب، الشاشة هنا بتتحدث لوحدها من غير ريفريش
+  let ordersUnsub = null;
+  window.stopOrdersListener = function () {
+    if (ordersUnsub) { ordersUnsub(); ordersUnsub = null; }
+  };
+  window.loadUserOrders = function (tab) {
+    const container = document.getElementById('ordersListContainer');
+    if (!container) return;
+    const user = auth.currentUser;
+
+    if (ordersUnsub) { ordersUnsub(); ordersUnsub = null; }
+
+    if (!user) {
+      container.innerHTML = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:40px 20px;color:var(--muted);font-size:.9rem;text-align:center;"><span>سجل دخولك الأول عشان تشوف طلباتك</span></div>';
+      return;
+    }
+
+    try {
+      const ordersRef = collection(db, 'orders');
+      // تبويب "قيد الانتظار" بيشمل حالتين من عند الأدمن (new + pending)، وتبويب "المكتملة" بيشمل done بس
+      const statusFilter = tab === 'completed' ? where('status', '==', 'done') : where('status', 'in', ['new', 'pending']);
+      const q = query(ordersRef, where('uid', '==', user.uid), statusFilter, orderBy('createdAt', 'desc'));
+
+      ordersUnsub = onSnapshot(q, (snap) => {
+        if (snap.empty) {
+          const emptyMsg = tab === 'completed' ? 'مفيش طلبات مكتملة لسه' : 'مفيش طلبات قيد الانتظار حالياً';
+          container.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;padding:40px 20px;color:var(--muted);font-size:.9rem;text-align:center;">${emptyMsg}</div>`;
+          return;
+        }
+        container.innerHTML = '';
+        snap.forEach((docSnap) => {
+          container.appendChild(renderOrder(docSnap.data()));
+        });
+      }, (err) => {
+        console.error('تعذر تحميل الطلبات:', err);
+        container.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;padding:40px 20px;color:var(--muted);font-size:.9rem;text-align:center;">حصلت مشكلة في تحميل الطلبات، حاول تاني</div>';
+      });
+    } catch (err) {
+      console.error('تعذر تحميل الطلبات:', err);
+      container.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;padding:40px 20px;color:var(--muted);font-size:.9rem;text-align:center;">حصلت مشكلة في تحميل الطلبات، حاول تاني</div>';
+    }
+  };
 
   function translateAuthError(err) {
     const code = err && err.code ? err.code : '';
@@ -4212,29 +4462,39 @@
     const formView = document.getElementById('loginFormView');
     const accountView = document.getElementById('loginAccountView');
     const emailText = document.getElementById('loggedInEmailText');
+    const settingsIcon = document.getElementById('settingsProfileIcon');
+    const settingsName = document.getElementById('settingsProfileName');
 
     const userIconSvg = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>';
+    const userIconSvgLarge = '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>';
 
     if (user) {
       const label = user.displayName || user.email || 'حسابي';
       const shortLabel = label.length > 14 ? label.slice(0, 14) + '…' : label;
+      window.isLoggedIn = true;
       if (btnText) btnText.textContent = shortLabel;
       if (navBtnText) navBtnText.textContent = shortLabel;
       if (navIcon) navIcon.textContent = label.trim().charAt(0).toUpperCase();
       if (formView) formView.style.display = 'none';
       if (accountView) accountView.style.display = 'block';
       if (emailText) emailText.textContent = user.email || user.displayName || '';
+      if (settingsIcon) settingsIcon.textContent = label.trim().charAt(0).toUpperCase();
+      if (settingsName) settingsName.textContent = label;
 
       // التحقق من الـ role وتوجيه الأدمن لصفحة admin.html تلقائياً
       checkUserRoleAndRedirect(user);
     } else {
-      if (btnText) btnText.textContent = 'تسجيل الدخول';
-      if (navBtnText) navBtnText.textContent = 'تسجيل الدخول';
+      window.isLoggedIn = false;
+      if (btnText) btnText.textContent = 'Login';
+      if (navBtnText) navBtnText.textContent = 'Login';
       if (navIcon) navIcon.innerHTML = userIconSvg;
       if (formView) formView.style.display = 'block';
       if (accountView) accountView.style.display = 'none';
+      if (settingsIcon) settingsIcon.innerHTML = userIconSvgLarge;
+      if (settingsName) settingsName.textContent = 'Login';
     }
   });
 </script>
+
 </body>
 </html>
