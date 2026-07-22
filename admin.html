@@ -417,6 +417,26 @@
   }
   .back-btn:hover { background: rgba(37,99,235,.22); }
 
+  .add-order-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    background: rgba(37,99,235,.12);
+    border: 1.5px dashed rgba(37,99,235,.4);
+    color: var(--blue-lt);
+    font-family: 'Cairo', sans-serif;
+    font-weight: 800;
+    font-size: .85rem;
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 16px;
+    transition: background .2s;
+  }
+  .add-order-btn:hover { background: rgba(37,99,235,.22); }
+
   .order-top-row {
     display: flex;
     align-items: flex-start;
@@ -676,6 +696,8 @@
 <main id="ordersPage" style="display:none;">
   <button class="back-btn" onclick="showDashboard()">→ رجوع للرئيسية</button>
 
+  <button class="add-order-btn" onclick="openManualOrderModal()">➕ إضافة طلب يدوي (عميل مش مسجل)</button>
+
   <div class="orders-tabs" id="ordersTabs">
     <div class="orders-tab active" data-filter="new" onclick="filterOrders('new', this)">طلبات</div>
     <div class="orders-tab" data-filter="pending" onclick="filterOrders('pending', this)">قيد الانتظار</div>
@@ -697,6 +719,31 @@
     <div id="orderDetailTitleAdmin" style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--blue-lt);letter-spacing:.03em;margin-bottom:12px;"></div>
     <div id="orderDetailBodyAdmin" style="white-space:pre-wrap;font-family:'Cairo',sans-serif;font-size:.9rem;line-height:1.9;color:var(--white);direction:rtl;"></div>
     <button onclick="closeOrderDetail()" style="margin-top:18px;width:100%;padding:12px;border-radius:10px;border:1px solid rgba(37,99,235,.35);background:rgba(37,99,235,.1);color:var(--blue-lt);font-family:'Cairo',sans-serif;font-weight:800;font-size:.88rem;cursor:pointer;">قفل</button>
+  </div>
+</div>
+
+<!-- ============ مودال إضافة طلب يدوي (عميل مش مسجل بحساب) ============ -->
+<div id="manualOrderOverlay" onclick="closeManualOrderModal(event)" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:4000;align-items:center;justify-content:center;padding:20px;">
+  <div onclick="event.stopPropagation()" style="width:100%;max-width:420px;background:#141414;border:1.5px solid rgba(37,99,235,.35);border-radius:16px;padding:22px;max-height:85vh;overflow-y:auto;">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--blue-lt);letter-spacing:.03em;margin-bottom:6px;">إضافة طلب يدوي</div>
+    <p style="color:var(--muted);font-size:.78rem;margin-bottom:16px;">للطلبات اللي بتوصلك من عميل مش مسجل بحساب. بياناته هتفضل عندك في لوحة التحكم بس، ومش بتتحذف ولا بتتشارك مع أي زبون.</p>
+    <div class="order-form">
+      <div class="ofield">
+        <label class="olabel">اسم اللعبة / الخدمة</label>
+        <input type="text" class="oinput" id="manualOrderGame" placeholder="مثال: شحن روبكس" />
+      </div>
+      <div class="ofield">
+        <label class="olabel">السعر (اختياري)</label>
+        <input type="text" class="oinput" id="manualOrderPrice" placeholder="مثال: 150" />
+      </div>
+      <div class="ofield">
+        <label class="olabel">بيانات العميل (اسمه الحقيقي، رقم الواتساب، أي تفاصيل)</label>
+        <textarea class="oinput" id="manualOrderDetails" rows="4" style="resize:vertical;" placeholder="اسم العميل، رقم واتساب، تفاصيل الطلب..."></textarea>
+      </div>
+      <div id="manualOrderStatus" class="login-status"></div>
+      <button class="login-submit-btn" onclick="submitManualOrder()">إضافة الطلب</button>
+      <button class="back-btn" style="width:100%;justify-content:center;margin:0;" onclick="closeManualOrderModal()">إلغاء</button>
+    </div>
   </div>
 </div>
 
@@ -868,6 +915,22 @@
   window.showOrderDetail = showOrderDetail;
   window.closeOrderDetail = closeOrderDetail;
 
+  // ============ فتح/قفل مودال إضافة طلب يدوي ============
+  function openManualOrderModal() {
+    document.getElementById('manualOrderGame').value = '';
+    document.getElementById('manualOrderPrice').value = '';
+    document.getElementById('manualOrderDetails').value = '';
+    document.getElementById('manualOrderStatus').textContent = '';
+    document.getElementById('manualOrderStatus').className = 'login-status';
+    document.getElementById('manualOrderOverlay').style.display = 'flex';
+  }
+  function closeManualOrderModal(e) {
+    if (e && e.target !== document.getElementById('manualOrderOverlay')) return;
+    document.getElementById('manualOrderOverlay').style.display = 'none';
+  }
+  window.openManualOrderModal = openManualOrderModal;
+  window.closeManualOrderModal = closeManualOrderModal;
+
   renderOrders();
 </script>
 
@@ -888,7 +951,9 @@
     orderBy,
     onSnapshot,
     updateDoc,
-    deleteDoc
+    deleteDoc,
+    addDoc,
+    serverTimestamp
   } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
   // نفس إعدادات Firebase المستخدمة في index.html — لازم تكون متطابقة
@@ -1038,6 +1103,40 @@
     } catch (err) {
       console.error('تعذر حذف الطلب:', err);
       alert('حصلت مشكلة أثناء حذف الطلب، حاول تاني');
+    }
+  };
+
+  // ============ إضافة طلب يدوي لعميل مش مسجل — بيتسجل باسم "Guest" وبياناته الحقيقية بتفضل عند الأدمن بس ============
+  window.submitManualOrder = async function () {
+    const gameInput = document.getElementById('manualOrderGame');
+    const priceInput = document.getElementById('manualOrderPrice');
+    const detailsInput = document.getElementById('manualOrderDetails');
+    const statusEl = document.getElementById('manualOrderStatus');
+
+    const game = gameInput.value.trim();
+    const price = priceInput.value.trim();
+    const details = detailsInput.value.trim();
+
+    if (!game) {
+      statusEl.textContent = 'لازم تكتب اسم اللعبة أو الخدمة';
+      statusEl.className = 'login-status err';
+      return;
+    }
+
+    try {
+      await addDoc(collection(db, 'orders'), {
+        title: game,
+        customerName: 'Guest', // اسم ثابت بالإنجليزي لأي عميل مش مسجل بحساب
+        price: price,
+        status: 'new',
+        fullDetails: details, // بيانات العميل الحقيقية — تظهر للأدمن بس عند فتح تفاصيل الطلب
+        createdAt: serverTimestamp()
+      });
+      document.getElementById('manualOrderOverlay').style.display = 'none';
+    } catch (err) {
+      console.error('تعذر إضافة الطلب اليدوي:', err);
+      statusEl.textContent = 'حصلت مشكلة أثناء إضافة الطلب، حاول تاني';
+      statusEl.className = 'login-status err';
     }
   };
 
