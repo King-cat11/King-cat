@@ -577,6 +577,26 @@
     margin-top: 6px;
   }
   .login-submit-btn:hover { opacity: .88; }
+  /* ── PRICING EDITOR ── */
+  .price-section { margin-bottom: 26px; }
+  .price-section-title { font-weight: 800; font-size: 1rem; color: var(--blue-lt); margin-bottom: 10px; }
+  .price-rows { display: flex; flex-direction: column; gap: 8px; }
+  .price-row { display: flex; align-items: center; gap: 8px; }
+  .price-row .oinput { padding: 10px 12px; font-size: .88rem; }
+  .price-row .amt-input { flex: 1.2; }
+  .price-row .price-input { flex: 1; }
+  .price-row .label-input { flex: 1.4; }
+  .price-row .custom-check { display: flex; align-items: center; gap: 4px; font-size: .72rem; color: var(--muted); flex-shrink: 0; white-space: nowrap; }
+  .remove-row-btn {
+    flex-shrink: 0;
+    width: 38px; height: 38px;
+    border-radius: 8px;
+    border: 1px solid rgba(224,85,85,.4);
+    background: rgba(224,85,85,.1);
+    color: #e05555;
+    cursor: pointer;
+    font-size: .9rem;
+  }
   .login-status {
     font-size: .82rem;
     font-weight: 700;
@@ -585,6 +605,7 @@
     text-align: center;
   }
   .login-status.err { color: #e05555; }
+  .login-status.ok { color: #6fcf3a; }
 
   /* ── AUTH GATE (شاشة تحقق قبل عرض لوحة التحكم) ── */
   #authGate {
@@ -650,7 +671,7 @@
   <div class="nav-menu-links">
     <a href="javascript:void(0)" class="active" id="navHome" onclick="showDashboard()"><span class="ic">🏠</span> الرئيسية</a>
     <a href="javascript:void(0)" id="navOrders" onclick="showOrdersPage()"><span class="ic">🧾</span> الطلبات</a>
-    <a href="javascript:void(0)"><span class="ic">🎮</span> المنتجات والأسعار</a>
+    <a href="javascript:void(0)" id="navPricing" onclick="showPricingPage()"><span class="ic">🎮</span> المنتجات والأسعار</a>
     <a href="javascript:void(0)" class="logout" onclick="adminLogout()"><span class="ic">🚪</span> تسجيل الخروج</a>
   </div>
 </nav>
@@ -684,12 +705,66 @@
       <div class="ac-title">الطلبات</div>
       <div class="ac-desc">هنا بتوصلك كل الطلبات الجديدة</div>
     </div>
-    <div class="admin-card">
+    <div class="admin-card" onclick="showPricingPage()">
       <div class="ac-icon">🎮</div>
       <div class="ac-title">المنتجات والأسعار</div>
       <div class="ac-desc">تعديل أسعار الألعاب والكروت</div>
     </div>
   </div>
+</main>
+
+<!-- ============ صفحة الألعاب (كروت الألعاب) ============ -->
+<main id="pricingPage" style="display:none;">
+  <button class="back-btn" onclick="showDashboard()">→ رجوع للرئيسية</button>
+  <div class="page-head">
+    <div class="eyebrow">إدارة</div>
+    <h1>المنتجات والأسعار</h1>
+    <p>اختار اللعبة اللي عايز تعدل أسعارها</p>
+  </div>
+  <div class="cards-grid">
+    <div class="admin-card" onclick="showRobloxPricing()">
+      <div class="ac-icon">🎮</div>
+      <div class="ac-title">روبلكس</div>
+      <div class="ac-desc">تعديل أسعار كل طريقة شحن لوحدها</div>
+    </div>
+  </div>
+</main>
+
+<!-- ============ صفحة أسعار روبلكس ============ -->
+<main id="robloxPricingPage" style="display:none;">
+  <button class="back-btn" onclick="showPricingPage()">→ رجوع للألعاب</button>
+  <div class="page-head">
+    <div class="eyebrow">روبلكس</div>
+    <h1>تعديل أسعار روبلكس</h1>
+    <p>كل طريقة شحن ليها الأسعار بتاعتها لوحدها، عدّل زي ما تحب وابعت "حفظ" في الآخر</p>
+  </div>
+
+  <div id="rp-section-acc" class="price-section">
+    <div class="price-section-title">📱 داخل الحساب</div>
+    <div class="price-rows" id="rows-acc"></div>
+    <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="addPriceRow('acc')">➕ إضافة سعر جديد</button>
+  </div>
+
+  <div class="price-section">
+    <div class="price-section-title">⚡ كوميونتي فوري</div>
+    <div class="price-rows" id="rows-comFawri"></div>
+    <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="addPriceRow('comFawri')">➕ إضافة سعر جديد</button>
+  </div>
+
+  <div class="price-section">
+    <div class="price-section-title">📅 كوميونتي حجز</div>
+    <div class="price-rows" id="rows-comHagz"></div>
+    <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="addPriceRow('comHagz')">➕ إضافة سعر جديد</button>
+  </div>
+
+  <div class="price-section">
+    <div class="price-section-title">🎁 جيفت كارد</div>
+    <div class="price-rows" id="rows-giftcard"></div>
+    <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="addPriceRow('giftcard')">➕ إضافة سعر جديد</button>
+  </div>
+
+  <div id="robloxPricingStatus" class="login-status" style="margin-top:14px;"></div>
+  <button class="login-submit-btn" style="margin-top:6px;" onclick="saveRobloxPricing()">💾 حفظ كل التعديلات</button>
 </main>
 
 <!-- ============ صفحة الطلبات (بال3 خانات: طلبات / قيد الانتظار / تم) ============ -->
@@ -776,12 +851,36 @@
 
   function showDashboard() {
     document.getElementById('ordersPage').style.display = 'none';
+    document.getElementById('pricingPage').style.display = 'none';
+    document.getElementById('robloxPricingPage').style.display = 'none';
     document.getElementById('dashboard').style.display = 'block';
     document.getElementById('navOrders').classList.remove('active');
+    document.getElementById('navPricing').classList.remove('active');
     document.getElementById('navHome').classList.add('active');
     closeMenu();
     window.scrollTo(0, 0);
   }
+
+  // ============ التنقل لصفحة الألعاب وصفحة أسعار روبلكس ============
+  function showPricingPage() {
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('ordersPage').style.display = 'none';
+    document.getElementById('robloxPricingPage').style.display = 'none';
+    document.getElementById('pricingPage').style.display = 'block';
+    document.getElementById('navHome').classList.remove('active');
+    document.getElementById('navPricing').classList.add('active');
+    closeMenu();
+    window.scrollTo(0, 0);
+  }
+
+  function showRobloxPricing() {
+    document.getElementById('pricingPage').style.display = 'none';
+    document.getElementById('robloxPricingPage').style.display = 'block';
+    window.scrollTo(0, 0);
+    if (typeof window.loadRobloxPricing === 'function') window.loadRobloxPricing();
+  }
+  window.showPricingPage = showPricingPage;
+  window.showRobloxPricing = showRobloxPricing;
 
   // ============ نظام إدارة الطلبات ============
   // كل طلب بياخد id (Firestore doc id — نص مش رقم), بيانات اللعبة, حالته (new/pending/done),
@@ -932,6 +1031,75 @@
   window.closeManualOrderModal = closeManualOrderModal;
 
   renderOrders();
+
+  // ============ صفوف تعديل أسعار روبلكس ============
+  // كل قسم (acc / comFawri / comHagz / giftcard) بياخد صف واحد لكل شريحة سعر
+  function priceRowHTML(section, item) {
+    item = item || {};
+    if (section === 'acc') {
+      const isCustom = !!item.custom;
+      return `<div class="price-row" data-section="acc">
+        <input type="text" class="oinput amt-input" placeholder="كمية الروبكس" value="${item.rob != null ? item.rob : ''}">
+        <input type="text" class="oinput label-input" placeholder="الاسم اللي هيظهر (مثال: 80 روب)" value="${item.label != null ? item.label : ''}">
+        <input type="number" class="oinput price-input" placeholder="السعر" value="${item.price != null ? item.price : ''}">
+        <label class="custom-check"><input type="checkbox" ${isCustom ? 'checked' : ''}> نص فقط</label>
+        <button class="remove-row-btn" onclick="this.closest('.price-row').remove()">🗑️</button>
+      </div>`;
+    }
+    if (section === 'giftcard') {
+      return `<div class="price-row" data-section="giftcard">
+        <input type="text" class="oinput amt-input" placeholder="قيمة USD" value="${item.usd != null ? item.usd : ''}">
+        <input type="number" class="oinput price-input" placeholder="السعر بالجنيه" value="${item.price != null ? item.price : ''}">
+        <button class="remove-row-btn" onclick="this.closest('.price-row').remove()">🗑️</button>
+      </div>`;
+    }
+    // comFawri / comHagz
+    return `<div class="price-row" data-section="${section}">
+      <input type="text" class="oinput amt-input" placeholder="كمية الروبكس" value="${item.rob != null ? item.rob : ''}">
+      <input type="number" class="oinput price-input" placeholder="السعر بالجنيه" value="${item.price != null ? item.price : ''}">
+      <button class="remove-row-btn" onclick="this.closest('.price-row').remove()">🗑️</button>
+    </div>`;
+  }
+
+  function addPriceRow(section) {
+    const wrap = document.getElementById('rows-' + section);
+    if (!wrap) return;
+    wrap.insertAdjacentHTML('beforeend', priceRowHTML(section, {}));
+  }
+  window.addPriceRow = addPriceRow;
+
+  function renderPriceRows(section, items) {
+    const wrap = document.getElementById('rows-' + section);
+    if (!wrap) return;
+    wrap.innerHTML = (items || []).map(item => priceRowHTML(section, item)).join('');
+  }
+  window.renderPriceRows = renderPriceRows;
+
+  // بيلم كل الصفوف بتاعت قسم معين ويحولها لأراي بيانات جاهزة تتخزن
+  function collectPriceRows(section) {
+    const wrap = document.getElementById('rows-' + section);
+    if (!wrap) return [];
+    const rows = Array.from(wrap.querySelectorAll('.price-row'));
+    return rows.map(row => {
+      const amtInput   = row.querySelector('.amt-input');
+      const priceInput = row.querySelector('.price-input');
+      const labelInput = row.querySelector('.label-input');
+      const checkInput = row.querySelector('.custom-check input');
+      const price = parseInt(priceInput.value) || 0;
+      if (section === 'acc') {
+        const rob = parseInt(amtInput.value) || 0;
+        const label = (labelInput.value || '').trim() || (rob + ' روب');
+        return { rob, price, label, custom: !!(checkInput && checkInput.checked) };
+      }
+      if (section === 'giftcard') {
+        const usd = parseInt(amtInput.value) || 0;
+        return { usd, price };
+      }
+      const rob = parseInt(amtInput.value) || 0;
+      return { rob, price };
+    }).filter(item => item.price > 0);
+  }
+  window.collectPriceRows = collectPriceRows;
 </script>
 
 <!-- ============ FIREBASE — حماية صفحة الأدمن (Auth Guard) ============ -->
@@ -953,6 +1121,7 @@
     updateDoc,
     deleteDoc,
     addDoc,
+    setDoc,
     serverTimestamp
   } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
@@ -985,16 +1154,7 @@
   }
 
   // ============ حماية الصفحة: onAuthStateChanged + التحقق من role في Firestore ============
-  // ⚠️⚠️⚠️ التحقق من صلاحية الأدمن متوقف مؤقتًا للتيست — لازم ترجعه قبل ما ترفع الموقع فعليًا! ⚠️⚠️⚠️
-  // عشان ترجعه زي ما كان: امسح الكتلة اللي جوه TEMP_BYPASS وشيل التعليق (/* */) اللي حوالين الكود الأصلي تحت
   onAuthStateChanged(auth, async (user) => {
-    // ---------- TEMP_BYPASS: بداية ----------
-    showAdminContent();
-    startOrdersListener();
-    return;
-    // ---------- TEMP_BYPASS: نهاية ----------
-
-    /* الكود الأصلي (هيشتغل تاني لما تشيل التعليق ده وتمسح الـ TEMP_BYPASS اللي فوق)
     if (!user) {
       // مفيش مستخدم مسجل دخول خالص
       rejectAndRedirect('لازم تسجل دخول الأول');
@@ -1018,7 +1178,6 @@
       console.error("تعذر التحقق من صلاحية الأدمن:", err);
       rejectAndRedirect('حصلت مشكلة أثناء التحقق من صلاحيتك، حاول تاني');
     }
-    */
   });
 
   // ============ ترجمة الوقت لصيغة "منذ..." ============
@@ -1149,6 +1308,71 @@
       console.error('تعذر إضافة الطلب اليدوي:', err);
       statusEl.textContent = 'حصلت مشكلة أثناء إضافة الطلب، حاول تاني';
       statusEl.className = 'login-status err';
+    }
+  };
+
+  // ============ الأسعار الافتراضية (نفس الموجودة دلوقتي في الموقع) — بتتحمل لو مفيش بيانات محفوظة لسه في Firestore ============
+  const DEFAULT_ROBLOX_PRICING = {
+    acc: [
+      { rob: 80,   price: 75,   label: '80 روب',   custom: false },
+      { rob: 160,  price: 150,  label: '160 روب',  custom: false },
+      { rob: 400,  price: 300,  label: '400 روب',  custom: false },
+      { rob: 800,  price: 600,  label: '800 روب',  custom: false },
+      { rob: 1700, price: 1200, label: '1700 روب', custom: false },
+      { rob: 0,    price: 350,  label: 'Plus',      custom: true }
+    ],
+    comFawri: [
+      { rob: 50, price: 35 }, { rob: 100, price: 70 }, { rob: 200, price: 120 },
+      { rob: 300, price: 170 }, { rob: 400, price: 220 }, { rob: 500, price: 270 }, { rob: 1000, price: 520 }
+    ],
+    comHagz: [
+      { rob: 53, price: 35 }, { rob: 105, price: 70 }, { rob: 210, price: 120 },
+      { rob: 315, price: 170 }, { rob: 420, price: 220 }, { rob: 525, price: 270 }, { rob: 1050, price: 520 }
+    ],
+    giftcard: [
+      { usd: 5, price: 360 }, { usd: 10, price: 620 }, { usd: 25, price: 1420 }, { usd: 50, price: 2950 }
+    ]
+  };
+
+  // ============ تحميل أسعار روبلكس الحالية في صفحة التعديل ============
+  window.loadRobloxPricing = async function () {
+    const statusEl = document.getElementById('robloxPricingStatus');
+    if (statusEl) { statusEl.textContent = 'بيتحمل...'; statusEl.className = 'login-status'; }
+    try {
+      const snap = await getDoc(doc(db, 'pricing', 'roblox'));
+      const data = snap.exists() ? snap.data() : DEFAULT_ROBLOX_PRICING;
+      window.renderPriceRows('acc', data.acc && data.acc.length ? data.acc : DEFAULT_ROBLOX_PRICING.acc);
+      window.renderPriceRows('comFawri', data.comFawri && data.comFawri.length ? data.comFawri : DEFAULT_ROBLOX_PRICING.comFawri);
+      window.renderPriceRows('comHagz', data.comHagz && data.comHagz.length ? data.comHagz : DEFAULT_ROBLOX_PRICING.comHagz);
+      window.renderPriceRows('giftcard', data.giftcard && data.giftcard.length ? data.giftcard : DEFAULT_ROBLOX_PRICING.giftcard);
+      if (statusEl) statusEl.textContent = '';
+    } catch (err) {
+      console.error('تعذر تحميل أسعار روبلكس:', err);
+      // لو حصلت مشكلة في التحميل، نعرض الأسعار الافتراضية على الأقل عشان الصفحة متفضلش فاضية
+      window.renderPriceRows('acc', DEFAULT_ROBLOX_PRICING.acc);
+      window.renderPriceRows('comFawri', DEFAULT_ROBLOX_PRICING.comFawri);
+      window.renderPriceRows('comHagz', DEFAULT_ROBLOX_PRICING.comHagz);
+      window.renderPriceRows('giftcard', DEFAULT_ROBLOX_PRICING.giftcard);
+      if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء تحميل الأسعار المحفوظة، ده عرض افتراضي بس'; statusEl.className = 'login-status err'; }
+    }
+  };
+
+  // ============ حفظ أسعار روبلكس كلها مرة واحدة في Firestore ============
+  window.saveRobloxPricing = async function () {
+    const statusEl = document.getElementById('robloxPricingStatus');
+    try {
+      const payload = {
+        acc: window.collectPriceRows('acc'),
+        comFawri: window.collectPriceRows('comFawri'),
+        comHagz: window.collectPriceRows('comHagz'),
+        giftcard: window.collectPriceRows('giftcard'),
+        updatedAt: serverTimestamp()
+      };
+      await setDoc(doc(db, 'pricing', 'roblox'), payload);
+      if (statusEl) { statusEl.textContent = 'تم الحفظ بنجاح ✅ — هيتحدث على الموقع على طول'; statusEl.className = 'login-status ok'; }
+    } catch (err) {
+      console.error('تعذر حفظ أسعار روبلكس:', err);
+      if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء الحفظ، حاول تاني'; statusEl.className = 'login-status err'; }
     }
   };
 
