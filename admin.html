@@ -726,19 +726,19 @@
 <div id="manualOrderOverlay" onclick="closeManualOrderModal(event)" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:4000;align-items:center;justify-content:center;padding:20px;">
   <div onclick="event.stopPropagation()" style="width:100%;max-width:420px;background:#141414;border:1.5px solid rgba(37,99,235,.35);border-radius:16px;padding:22px;max-height:85vh;overflow-y:auto;">
     <div style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--blue-lt);letter-spacing:.03em;margin-bottom:6px;">إضافة طلب يدوي</div>
-    <p style="color:var(--muted);font-size:.78rem;margin-bottom:16px;">للطلبات اللي بتوصلك من عميل مش مسجل بحساب. بياناته هتفضل عندك في لوحة التحكم بس، ومش بتتحذف ولا بتتشارك مع أي زبون.</p>
+    <p style="color:var(--muted);font-size:.78rem;margin-bottom:16px;">للطلبات اللي بتوصلك من عميل مش مسجل بحساب. اسمه هيتسجل "Guest"، وبياناته هتفضل عندك في لوحة التحكم بس، ومش بتتحذف ولا بتتشارك مع أي زبون.</p>
     <div class="order-form">
       <div class="ofield">
-        <label class="olabel">اسم اللعبة / الخدمة</label>
-        <input type="text" class="oinput" id="manualOrderGame" placeholder="مثال: شحن روبكس" />
+        <label class="olabel">اكتب اللي عايزه (اسم العميل، رقم واتساب، تفاصيل الطلب، السعر... أي حاجة)</label>
+        <textarea class="oinput" id="manualOrderText" rows="6" style="resize:vertical;" placeholder="اكتب هنا أي تفاصيل عن الطلب..."></textarea>
       </div>
       <div class="ofield">
-        <label class="olabel">السعر (اختياري)</label>
-        <input type="text" class="oinput" id="manualOrderPrice" placeholder="مثال: 150" />
-      </div>
-      <div class="ofield">
-        <label class="olabel">بيانات العميل (اسمه الحقيقي، رقم الواتساب، أي تفاصيل)</label>
-        <textarea class="oinput" id="manualOrderDetails" rows="4" style="resize:vertical;" placeholder="اسم العميل، رقم واتساب، تفاصيل الطلب..."></textarea>
+        <label class="olabel">هيظهر في خانة</label>
+        <select class="oinput" id="manualOrderTargetStatus">
+          <option value="new">طلبات</option>
+          <option value="pending">قيد الانتظار</option>
+          <option value="done">تم</option>
+        </select>
       </div>
       <div id="manualOrderStatus" class="login-status"></div>
       <button class="login-submit-btn" onclick="submitManualOrder()">إضافة الطلب</button>
@@ -800,6 +800,7 @@
     d.setDate(d.getDate() + 14);
     return d.toISOString().split('T')[0];
   }
+  window.defaultDatePlus14 = defaultDatePlus14;
 
   function todayStr() {
     return new Date().toISOString().split('T')[0];
@@ -917,9 +918,8 @@
 
   // ============ فتح/قفل مودال إضافة طلب يدوي ============
   function openManualOrderModal() {
-    document.getElementById('manualOrderGame').value = '';
-    document.getElementById('manualOrderPrice').value = '';
-    document.getElementById('manualOrderDetails').value = '';
+    document.getElementById('manualOrderText').value = '';
+    document.getElementById('manualOrderTargetStatus').value = 'new';
     document.getElementById('manualOrderStatus').textContent = '';
     document.getElementById('manualOrderStatus').className = 'login-status';
     document.getElementById('manualOrderOverlay').style.display = 'flex';
@@ -985,7 +985,16 @@
   }
 
   // ============ حماية الصفحة: onAuthStateChanged + التحقق من role في Firestore ============
+  // ⚠️⚠️⚠️ التحقق من صلاحية الأدمن متوقف مؤقتًا للتيست — لازم ترجعه قبل ما ترفع الموقع فعليًا! ⚠️⚠️⚠️
+  // عشان ترجعه زي ما كان: امسح الكتلة اللي جوه TEMP_BYPASS وشيل التعليق (/* */) اللي حوالين الكود الأصلي تحت
   onAuthStateChanged(auth, async (user) => {
+    // ---------- TEMP_BYPASS: بداية ----------
+    showAdminContent();
+    startOrdersListener();
+    return;
+    // ---------- TEMP_BYPASS: نهاية ----------
+
+    /* الكود الأصلي (هيشتغل تاني لما تشيل التعليق ده وتمسح الـ TEMP_BYPASS اللي فوق)
     if (!user) {
       // مفيش مستخدم مسجل دخول خالص
       rejectAndRedirect('لازم تسجل دخول الأول');
@@ -1009,6 +1018,7 @@
       console.error("تعذر التحقق من صلاحية الأدمن:", err);
       rejectAndRedirect('حصلت مشكلة أثناء التحقق من صلاحيتك، حاول تاني');
     }
+    */
   });
 
   // ============ ترجمة الوقت لصيغة "منذ..." ============
@@ -1108,30 +1118,32 @@
 
   // ============ إضافة طلب يدوي لعميل مش مسجل — بيتسجل باسم "Guest" وبياناته الحقيقية بتفضل عند الأدمن بس ============
   window.submitManualOrder = async function () {
-    const gameInput = document.getElementById('manualOrderGame');
-    const priceInput = document.getElementById('manualOrderPrice');
-    const detailsInput = document.getElementById('manualOrderDetails');
+    const textInput = document.getElementById('manualOrderText');
+    const targetStatusInput = document.getElementById('manualOrderTargetStatus');
     const statusEl = document.getElementById('manualOrderStatus');
 
-    const game = gameInput.value.trim();
-    const price = priceInput.value.trim();
-    const details = detailsInput.value.trim();
+    const fullText = textInput.value.trim();
+    const targetStatus = targetStatusInput.value; // new / pending / done
 
-    if (!game) {
-      statusEl.textContent = 'لازم تكتب اسم اللعبة أو الخدمة';
+    if (!fullText) {
+      statusEl.textContent = 'لازم تكتب حاجة الأول';
       statusEl.className = 'login-status err';
       return;
     }
 
     try {
-      await addDoc(collection(db, 'orders'), {
-        title: game,
-        customerName: 'Guest', // اسم ثابت بالإنجليزي لأي عميل مش مسجل بحساب
-        price: price,
-        status: 'new',
-        fullDetails: details, // بيانات العميل الحقيقية — تظهر للأدمن بس عند فتح تفاصيل الطلب
+      const orderData = {
+        title: 'Guest', // عنوان الطلب في القايمة يبقى ثابت "Guest"
+        status: targetStatus,
+        fullDetails: fullText, // كل اللي كتبته — يظهر لك بس لما تضغط على الطلب
         createdAt: serverTimestamp()
-      });
+      };
+      // لو هتحطه في "قيد الانتظار" مباشرة، بنديله تاريخ استلام مبدئي (يقدر الأدمن يغيّره بعدين)
+      if (targetStatus === 'pending') {
+        orderData.pendingDate = window.defaultDatePlus14 ? window.defaultDatePlus14() : '';
+      }
+
+      await addDoc(collection(db, 'orders'), orderData);
       document.getElementById('manualOrderOverlay').style.display = 'none';
     } catch (err) {
       console.error('تعذر إضافة الطلب اليدوي:', err);
