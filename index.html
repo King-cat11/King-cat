@@ -4373,17 +4373,26 @@
 
     try {
       const ordersRef = collection(db, 'orders');
-      // بنجيب كل طلبات اليوزر مرتبة بالتاريخ بس (ده استعلام بسيط ومش محتاج أي index يدوي في Firebase)،
-      // وبعدين بنفلتر حسب الحالة في الجافاسكريبت — عشان لو ضفنا شرط status جوه الاستعلام نفسه
-      // كان هيحتاج "composite index" لازم يتعمل يدوي من Firebase Console، وده كان بيخلي الاستعلام يفشل بصمت
-      const q = query(ordersRef, where('uid', '==', user.uid), orderBy('createdAt', 'desc'));
+      // بنجيب كل طلبات اليوزر من غير orderBy في الاستعلام نفسه —
+      // لأن استخدام orderBy('createdAt') مع serverTimestamp() على نفس الجهاز اللي بيبعت الطلب
+      // بيعمل مشكلة معروفة في Firestore: الطلب بيظهر لحظة (من الكاش المحلي وقت ما createdAt لسه
+      // مش متأكد من السيرفر) وبعدين يختفي تاني لما القيمة الحقيقية توصل من السيرفر.
+      // الحل: بنجيب الطلبات من غير ترتيب في الاستعلام، وبنرتبهم إحنا في الجافاسكريبت.
+      const q = query(ordersRef, where('uid', '==', user.uid));
 
       ordersUnsub = onSnapshot(q, (snap) => {
         // تبويب "قيد الانتظار" بيشمل حالتين من عند الأدمن (new + pending)، وتبويب "المكتملة" بيشمل done بس
-        const docs = snap.docs.filter((docSnap) => {
-          const st = docSnap.data().status || 'new';
-          return tab === 'completed' ? st === 'done' : (st === 'new' || st === 'pending');
-        });
+        const docs = snap.docs
+          .filter((docSnap) => {
+            const st = docSnap.data().status || 'new';
+            return tab === 'completed' ? st === 'done' : (st === 'new' || st === 'pending');
+          })
+          .sort((a, b) => {
+            // لو createdAt لسه معلقة (لحظة إرسال الطلب) بنعتبرها دلوقتي عشان تفضل فوق
+            const ta = a.data().createdAt && a.data().createdAt.toMillis ? a.data().createdAt.toMillis() : Date.now();
+            const tb = b.data().createdAt && b.data().createdAt.toMillis ? b.data().createdAt.toMillis() : Date.now();
+            return tb - ta;
+          });
 
         if (docs.length === 0) {
           const emptyMsg = tab === 'completed' ? 'مفيش طلبات مكتملة لسه' : 'مفيش طلبات قيد الانتظار حالياً';
