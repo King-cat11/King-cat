@@ -604,12 +604,12 @@
   <div class="stats-grid">
     <div class="stat-card">
       <div class="stat-icon">🧾</div>
-      <div class="stat-value">—</div>
+      <div class="stat-value" id="statTotalOrders">—</div>
       <div class="stat-label">إجمالي الطلبات</div>
     </div>
     <div class="stat-card">
       <div class="stat-icon">⏳</div>
-      <div class="stat-value">—</div>
+      <div class="stat-value" id="statPendingOrders">—</div>
       <div class="stat-label">طلبات قيد الانتظار</div>
     </div>
   </div>
@@ -643,6 +643,15 @@
   <div class="table-wrap" id="ordersTableWrap"></div>
   <p id="ordersEmptyMsg" style="display:none;text-align:center;color:var(--muted);font-size:.85rem;padding:20px;">مفيش طلبات في القسم ده</p>
 </main>
+
+<!-- ============ مودال تفاصيل الطلب الكاملة ============ -->
+<div id="orderDetailOverlay" onclick="closeOrderDetail(event)" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:4000;align-items:center;justify-content:center;padding:20px;">
+  <div onclick="event.stopPropagation()" style="width:100%;max-width:420px;background:#141414;border:1.5px solid rgba(37,99,235,.35);border-radius:16px;padding:22px;max-height:80vh;overflow-y:auto;">
+    <div id="orderDetailTitleAdmin" style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--blue-lt);letter-spacing:.03em;margin-bottom:12px;"></div>
+    <div id="orderDetailBodyAdmin" style="white-space:pre-wrap;font-family:'Cairo',sans-serif;font-size:.9rem;line-height:1.9;color:var(--white);direction:rtl;"></div>
+    <button onclick="closeOrderDetail()" style="margin-top:18px;width:100%;padding:12px;border-radius:10px;border:1px solid rgba(37,99,235,.35);background:rgba(37,99,235,.1);color:var(--blue-lt);font-family:'Cairo',sans-serif;font-weight:800;font-size:.88rem;cursor:pointer;">قفل</button>
+  </div>
+</div>
 
 </div>
 <!-- ============ نهاية محتوى لوحة التحكم ============ -->
@@ -681,16 +690,15 @@
   }
 
   // ============ نظام إدارة الطلبات ============
-  // كل طلب بياخد id, بيانات اللعبة, حالته (new/pending/done), وتاريخ استلام لو قيد الانتظار
+  // كل طلب بياخد id (Firestore doc id — نص مش رقم), بيانات اللعبة, حالته (new/pending/done),
+  // وتاريخ استلام لو قيد الانتظار. البيانات نفسها بتتحدث لايف من Firestore (تحت في سكريبت الـ module)
   // الأزرار (تم / قيد الانتظار / إلغاء) بتظهر بس في تبويب "طلبات"
-  let ordersData = [
-    { id: 1, game: 'Roblox — 800 روبكس', user: 'أحمد محمد', time: 'منذ 5 دقايق', status: 'new', date: '' },
-    { id: 2, game: 'PUBG UC — 660', user: 'محمود علي', time: 'منذ 20 دقيقة', status: 'done', date: '' },
-    { id: 3, game: 'PSN Card — 25$ (USA)', user: 'سارة حسن', time: 'منذ ساعة', status: 'pending', date: defaultDatePlus14() }
-  ];
-  let nextOrderId = 4;
+  let ordersData = [];
   let currentOrdersFilter = 'new';
   let expandedDateIds = new Set(); // الطلبات اللي دلوقتي بتختار تاريخ الاستلام بتاعها
+  // بنعرّضهم على window عشان سكريبت الـ Firebase (تحت) يقدر يحدّثهم لايف من غير ما يعمل reassign
+  window.ordersData = ordersData;
+  window.expandedDateIds = expandedDateIds;
 
   function defaultDatePlus14() {
     const d = new Date();
@@ -700,6 +708,12 @@
 
   function todayStr() {
     return new Date().toISOString().split('T')[0];
+  }
+
+  function esc(str) {
+    const d = document.createElement('div');
+    d.textContent = str == null ? '' : String(str);
+    return d.innerHTML;
   }
 
   function renderOrders() {
@@ -718,38 +732,43 @@
     const isNewTab = currentOrdersFilter === 'new';
 
     wrap.innerHTML = filtered.map(o => `
-      <div class="order-row" data-id="${o.id}">
-        <div>
-          <div class="o-game">${o.game}</div>
-          <div class="o-user">${o.user} · ${o.time}</div>
+      <div class="order-row" data-id="${esc(o.id)}">
+        <div onclick="showOrderDetail('${o.id}')" style="cursor:pointer;">
+          <div class="o-game">${esc(o.game)}</div>
+          <div class="o-user">${esc(o.user)} · ${esc(o.time)}${o.price ? ' · ' + esc(o.price) + ' جنيه' : ''}</div>
         </div>
         ${isNewTab ? `
         <div class="order-actions">
-          <button class="o-action-btn done" onclick="setOrderStatus(${o.id}, 'done')">تم</button>
-          <button class="o-action-btn pending" onclick="togglePendingDate(${o.id})">قيد الانتظار</button>
-          <button class="o-action-btn cancel" onclick="cancelOrder(${o.id})">إلغاء</button>
+          <button class="o-action-btn done" onclick="setOrderStatus('${o.id}', 'done')">تم</button>
+          <button class="o-action-btn pending" onclick="togglePendingDate('${o.id}')">قيد الانتظار</button>
+          <button class="o-action-btn cancel" onclick="cancelOrder('${o.id}')">إلغاء</button>
         </div>
         ${expandedDateIds.has(o.id) ? `
         <div class="order-date-row">
           <label class="o-date-label">تاريخ الاستلام:</label>
           <input type="date" class="o-date-input" id="dateInput-${o.id}" value="${defaultDatePlus14()}" />
-          <button class="o-action-btn done" onclick="confirmPending(${o.id})">تأكيد</button>
+          <button class="o-action-btn done" onclick="confirmPending('${o.id}')">تأكيد</button>
         </div>` : ''}
         ` : ''}
         ${!isNewTab && o.status === 'pending' ? `
-        <div class="o-user">تاريخ الاستلام المتوقع: ${o.date}</div>
+        <div class="o-user">تاريخ الاستلام المتوقع: ${esc(o.date)}</div>
         <div class="order-actions">
-          <button class="o-action-btn cancel" onclick="cancelOrder(${o.id})">إلغاء</button>
+          <button class="o-action-btn cancel" onclick="cancelOrder('${o.id}')">إلغاء</button>
         </div>
         ${o.date && o.date <= todayStr() ? `
         <div class="order-date-row">
           <span class="o-due-badge">⏰ حان وقت اتمام الطلب</span>
-          <button class="o-action-btn done" onclick="setOrderStatus(${o.id}, 'done')">تم</button>
+          <button class="o-action-btn done" onclick="setOrderStatus('${o.id}', 'done')">تم</button>
         </div>` : ''}
         ` : ''}
+        ${!isNewTab && o.status === 'done' ? `
+        <div class="order-actions">
+          <button class="o-action-btn pending" onclick="setOrderStatus('${o.id}', 'pending')">رجّعه قيد الانتظار</button>
+        </div>` : ''}
       </div>
     `).join('');
   }
+  window.renderOrders = renderOrders;
 
   // فلترة الطلبات (طلبات / قيد الانتظار / تم)
   function filterOrders(status, tabEl) {
@@ -759,40 +778,26 @@
     renderOrders();
   }
 
-  // تم: الطلب يتشال من "طلبات" ويظهر في "تم"
-  function setOrderStatus(id, status) {
-    const o = ordersData.find(x => x.id === id);
-    if (!o) return;
-    o.status = status;
-    expandedDateIds.delete(id);
-    renderOrders();
-  }
-
   // فتح اختيار تاريخ الاستلام لطلب معين
   function togglePendingDate(id) {
     expandedDateIds.add(id);
     renderOrders();
   }
 
-  // تأكيد قيد الانتظار: لو مفيش تاريخ متختار بيتحط تلقائي بعد 14 يوم من انهارده
-  function confirmPending(id) {
+  // عرض تفاصيل الطلب الكاملة (بدون إخفاء أي باسورد)
+  function showOrderDetail(id) {
     const o = ordersData.find(x => x.id === id);
     if (!o) return;
-    const input = document.getElementById(`dateInput-${id}`);
-    const chosenDate = input && input.value ? input.value : defaultDatePlus14();
-    o.status = 'pending';
-    o.date = chosenDate;
-    expandedDateIds.delete(id);
-    renderOrders();
+    document.getElementById('orderDetailTitleAdmin').textContent = o.game || 'طلب';
+    document.getElementById('orderDetailBodyAdmin').textContent = o.fullDetails || 'مفيش تفاصيل إضافية';
+    document.getElementById('orderDetailOverlay').style.display = 'flex';
   }
-
-  // إلغاء: الطلب يتمسح خالص
-  function cancelOrder(id) {
-    if (!confirm('متأكد إنك عايز تلغي الطلب ده؟ هيتمسح خالص من القايمة.')) return;
-    ordersData = ordersData.filter(x => x.id !== id);
-    expandedDateIds.delete(id);
-    renderOrders();
+  function closeOrderDetail(e) {
+    if (e && e.target !== document.getElementById('orderDetailOverlay')) return;
+    document.getElementById('orderDetailOverlay').style.display = 'none';
   }
+  window.showOrderDetail = showOrderDetail;
+  window.closeOrderDetail = closeOrderDetail;
 
   renderOrders();
 </script>
@@ -808,7 +813,13 @@
   import {
     getFirestore,
     doc,
-    getDoc
+    getDoc,
+    collection,
+    query,
+    orderBy,
+    onSnapshot,
+    updateDoc,
+    deleteDoc
   } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
   // نفس إعدادات Firebase المستخدمة في index.html — لازم تكون متطابقة
@@ -859,11 +870,94 @@
 
       // اتأكدنا إنه أدمن فعلاً
       showAdminContent();
+      startOrdersListener();
     } catch (err) {
       console.error("تعذر التحقق من صلاحية الأدمن:", err);
       rejectAndRedirect('حصلت مشكلة أثناء التحقق من صلاحيتك، حاول تاني');
     }
   });
+
+  // ============ ترجمة الوقت لصيغة "منذ..." ============
+  function timeAgo(ts) {
+    if (!ts || !ts.toDate) return '';
+    const diffMs = Date.now() - ts.toDate().getTime();
+    const mins = Math.floor(diffMs / 60000);
+    if (mins < 1) return 'الآن';
+    if (mins < 60) return `منذ ${mins} دقيقة`;
+    const hrs = Math.floor(mins / 60);
+    if (hrs < 24) return `منذ ${hrs} ساعة`;
+    const days = Math.floor(hrs / 24);
+    return `منذ ${days} يوم`;
+  }
+
+  // ============ بث حي لكل الطلبات (كل طلبات كل الزباين) ============
+  function startOrdersListener() {
+    const ordersRef = collection(db, 'orders');
+    const q = query(ordersRef, orderBy('createdAt', 'desc'));
+    onSnapshot(q, (snap) => {
+      window.ordersData.length = 0;
+      snap.forEach((docSnap) => {
+        const d = docSnap.data();
+        window.ordersData.push({
+          id: docSnap.id,
+          game: d.title || 'طلب',
+          user: d.customerName || 'عميل',
+          time: timeAgo(d.createdAt),
+          status: d.status || 'new',
+          date: d.pendingDate || '',
+          price: d.price || '',
+          fullDetails: d.fullDetails || d.details || ''
+        });
+      });
+      if (typeof window.renderOrders === 'function') window.renderOrders();
+      updateStatCards();
+    }, (err) => {
+      console.error('تعذر تحميل الطلبات:', err);
+    });
+  }
+
+  function updateStatCards() {
+    const totalEl = document.getElementById('statTotalOrders');
+    const pendingEl = document.getElementById('statPendingOrders');
+    if (totalEl) totalEl.textContent = window.ordersData.length;
+    if (pendingEl) pendingEl.textContent = window.ordersData.filter(o => o.status !== 'done').length;
+  }
+
+  // ============ تحديث حالة الطلب (تم / قيد الانتظار) — بيتغير عند الزبون لايف ============
+  window.setOrderStatus = async function (id, status) {
+    try {
+      await updateDoc(doc(db, 'orders', id), { status });
+      window.expandedDateIds.delete(id);
+    } catch (err) {
+      console.error('تعذر تحديث حالة الطلب:', err);
+      alert('حصلت مشكلة أثناء تحديث الطلب، حاول تاني');
+    }
+  };
+
+  // ============ تأكيد "قيد الانتظار" مع تاريخ استلام متوقع ============
+  window.confirmPending = async function (id) {
+    const input = document.getElementById(`dateInput-${id}`);
+    const chosenDate = input && input.value ? input.value : defaultDatePlus14();
+    try {
+      await updateDoc(doc(db, 'orders', id), { status: 'pending', pendingDate: chosenDate });
+      window.expandedDateIds.delete(id);
+    } catch (err) {
+      console.error('تعذر تحديث الطلب:', err);
+      alert('حصلت مشكلة أثناء تحديث الطلب، حاول تاني');
+    }
+  };
+
+  // ============ إلغاء الطلب: بيتمسح خالص من قاعدة البيانات ============
+  window.cancelOrder = async function (id) {
+    if (!confirm('متأكد إنك عايز تلغي الطلب ده؟ هيتمسح خالص من القايمة.')) return;
+    try {
+      await deleteDoc(doc(db, 'orders', id));
+      window.expandedDateIds.delete(id);
+    } catch (err) {
+      console.error('تعذر إلغاء الطلب:', err);
+      alert('حصلت مشكلة أثناء إلغاء الطلب، حاول تاني');
+    }
+  };
 
   // ============ تسجيل الخروج الحقيقي ============
   window.adminLogout = async function () {
