@@ -663,9 +663,36 @@
   }
   @keyframes gateSpin { to { transform: rotate(360deg); } }
 
+  /* ── PHONE FRAME (تخلي الصفحة تفضل شكل موبايل حتى لو اتفتحت على شاشة كمبيوتر) ── */
+  .phone-frame {
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+    position: relative;
+    /* بيعمل containing block جديد عشان position:fixed (الهيدر والقوائم والمودالز) تتحبس جوه الفريم بدل ما تاخد عرض الشاشة كلها */
+    transform: translateZ(0);
+    overflow-x: hidden;
+    background: var(--black);
+  }
+  @media (min-width: 481px) {
+    html { background: #000; }
+    body { background: #000; }
+    .phone-frame {
+      box-shadow: 0 0 0 1px rgba(96,165,250,.15), 0 30px 90px rgba(0,0,0,.85);
+    }
+  }
+  /* تصغير عام للمقاسات الكبيرة عشان تتناسب مع شاشة الموبايل دايمًا */
+  @media (max-width: 380px) {
+    .page-head h1 { font-size: 1.8rem; }
+    .stat-card .stat-value { font-size: 1.45rem; }
+    .admin-login-logo .name { font-size: 1.7rem; }
+  }
+
 </style>
 </head>
 <body>
+<div class="phone-frame">
 
 <!-- ============ شاشة التحقق من صلاحية الأدمن (تظهر لحد ما يتأكد الكود إنه أدمن فعلاً) ============ -->
 <div id="authGate">
@@ -895,6 +922,8 @@
 
 </div>
 <!-- ============ نهاية محتوى لوحة التحكم ============ -->
+
+</div><!-- /.phone-frame -->
 
 <script>
   // فتح وقفل القائمة الجانبية
