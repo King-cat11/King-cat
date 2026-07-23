@@ -2634,7 +2634,8 @@
   // ── COMMUNITY CART ──
   let comCart = {};
   let codeApplied = false;
-  const VALID_CODES = ['kingcat'];
+  let appliedBonusPercent = 0; // بتتحدد من كود الزيادة اللي الأدمن ضايفه (مش رقم ثابت)
+  window.bonusCodesCache = window.bonusCodesCache || []; // بتتحدث لايف من لوحة الأدمن — شوف onSnapshot(doc(db,'pricing','bonusCodes')) تحت
 
   function getComCards() {
     return document.querySelectorAll('#com-prices-fawri .pcard, #com-prices-hagz .pcard');
@@ -2716,7 +2717,7 @@
       return;
     }
     sumDiv.style.display = 'block';
-    const bonus    = codeApplied ? Math.round(totalRob * 0.03) : 0;
+    const bonus    = codeApplied ? Math.round(totalRob * appliedBonusPercent / 100) : 0;
     const finalRob = totalRob + bonus;
     rowsDiv.innerHTML = items.map(item => {
       const key = item.rob + '_' + item.price;
@@ -2734,7 +2735,7 @@
   function updateCardDisplay() {
     getComCards().forEach(card => {
       const base  = parseInt(card.dataset.rob);
-      const bonus = codeApplied ? Math.round(base * 0.03) : 0;
+      const bonus = codeApplied ? Math.round(base * appliedBonusPercent / 100) : 0;
       card.querySelector('.rob-val').textContent = base + bonus;
     });
     renderComSummary();
@@ -2746,16 +2747,18 @@
   function updateComTotal(){ renderComSummary(); }
 
   function applyCode() {
-    const code   = document.getElementById('com-code').value.trim().toLowerCase();
+    const code   = document.getElementById('com-code').value.trim().toUpperCase();
     const status = document.getElementById('code-status');
     if (!code) { status.className = 'code-status err'; status.textContent = '\u26a0\ufe0f \u0627\u0643\u062a\u0628 \u0627\u0644\u0643\u0648\u062f \u0627\u0644\u0623\u0648\u0644'; return; }
-    if (VALID_CODES.includes(code)) {
+    const match = window.bonusCodesCache.find(c => c.code === code && c.active !== false);
+    if (match) {
       codeApplied = true;
+      appliedBonusPercent = match.percent || 0;
       updateCardDisplay();
       status.className = 'code-status ok';
-      status.textContent = '\u2705 \u0627\u0644\u0643\u0648\u062f \u0627\u062a\u0641\u0639\u0644! \u0643\u0644 \u0627\u0644\u0643\u0645\u064a\u0627\u062a \u0627\u062a\u0632\u0627\u062f\u062a 3% \u0631\u0648\u0628 \u0645\u062c\u0627\u0646\u0627\u064b \u{1F389}';
+      status.textContent = `\u2705 \u0627\u0644\u0643\u0648\u062f \u0627\u062a\u0641\u0639\u0644! \u0643\u0644 \u0627\u0644\u0643\u0645\u064a\u0627\u062a \u0627\u062a\u0632\u0627\u062f\u062a ${appliedBonusPercent}% \u0631\u0648\u0628 \u0645\u062c\u0627\u0646\u0627\u064b \u{1F389}`;
     } else {
-      if (codeApplied) { codeApplied = false; updateCardDisplay(); }
+      if (codeApplied) { codeApplied = false; appliedBonusPercent = 0; updateCardDisplay(); }
       status.className = 'code-status err';
       status.textContent = '\u274c \u0627\u0644\u0643\u0648\u062f \u063a\u0644\u0637\u060c \u062c\u0631\u0628 \u062a\u0627\u0646\u064a';
     }
@@ -2781,11 +2784,11 @@
     const code     = document.getElementById('com-code').value.trim();
     const RLM      = '\u200F';
     const itemsList = items.map(i => {
-      const finalRob = i.rob + (codeApplied ? Math.round(i.rob * 0.03) : 0);
+      const finalRob = i.rob + (codeApplied ? Math.round(i.rob * appliedBonusPercent / 100) : 0);
       return `${RLM}\u2022 ${finalRob}R (${i.qty})`;
     }).join('\n');
     const totalFinalRob = items.reduce((sum, i) => {
-      const finalRob = i.rob + (codeApplied ? Math.round(i.rob * 0.03) : 0);
+      const finalRob = i.rob + (codeApplied ? Math.round(i.rob * appliedBonusPercent / 100) : 0);
       return sum + finalRob * i.qty;
     }, 0);
     let msg = `${RLM}\u{1F4E6} \u0637\u0644\u0628 \u0634\u062d\u0646 \u0631\u0648\u0628\u0644\u0648\u0643\u0633 (\u0643\u0645\u064a\u0648\u0646\u062a\u064a)\n${RLM}\u{1F464} \u0627\u0644\u0627\u0633\u0645: ${username}\n${RLM}\u{1F3AE} \u0627\u0644\u0637\u0644\u0628: ${type}\n${itemsList}\n${RLM}\u{1F4CA} \u0625\u062c\u0645\u0627\u0644\u064a: ${totalFinalRob}R\n${RLM}\u{1F4B0} \u0627\u0644\u0633\u0639\u0631: ${totalPrice} \u062c\u0646\u064a\u0647\n${RLM}\u0643\u0648\u062f \u0627\u0644\u0632\u064a\u0627\u062f\u0629: ${codeApplied ? code : '\u0645\u0641\u064a\u0634'}`;
@@ -4270,6 +4273,13 @@
     if (snap.exists()) applyRobloxPricing(snap.data());
   }, (err) => {
     console.error('تعذر تحميل أسعار روبلكس:', err);
+  });
+
+  // ============ أكواد الزيادة (كوميونتي) — من لوحة الأدمن، بث حي بلا حاجة لريفريش ============
+  onSnapshot(doc(db, 'pricing', 'bonusCodes'), (snap) => {
+    window.bonusCodesCache = snap.exists() ? (snap.data().codes || []) : [];
+  }, (err) => {
+    console.error('تعذر تحميل أكواد الزيادة:', err);
   });
 
   // ============ التحقق من صلاحية المستخدم (role) وتوجيهه لو أدمن ============
