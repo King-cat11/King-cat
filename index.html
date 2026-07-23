@@ -1206,6 +1206,25 @@
       flex-shrink: 0;
     }
 
+    .auth-en-badge {
+      display: inline-block;
+      background: rgba(96,165,250,.15);
+      border: 2px solid rgba(96,165,250,.5);
+      color: #60a5fa;
+      font-family: 'Poppins', 'Cairo', sans-serif;
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: .06em;
+      padding: 9px 26px;
+      border-radius: 10px;
+      margin-bottom: 14px;
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+    .auth-en-badge:hover {
+      background: rgba(96,165,250,.28);
+      transform: scale(1.05);
+    }
     .login-title-row {
       display: flex;
       align-items: baseline;
@@ -1381,7 +1400,7 @@
     <div class="rpage-header" style="border-bottom-color:rgba(37,99,235,.3);">
       <button class="rpage-back" style="border-color:rgba(37,99,235,.5);color:#2563eb;" onclick="closeLoginModal()">&#8594; Back</button>
       <div class="rpage-title">
-        <span class="rpage-logo" style="color:#2563eb;">تسجيل الدخول</span>
+        <span class="rpage-logo" style="color:#2563eb;">LOGIN</span>
         <span class="rpage-sub">King &amp; Cat – حسابك</span>
       </div>
     </div>
@@ -1391,21 +1410,17 @@
 
         <!-- Logged-out view -->
         <div id="loginFormView">
+          <div class="auth-en-badge" id="authFormTitleEn" onclick="switchAuthTab('register')" title="إنشاء حساب">SIGN UP</div>
           <div class="login-title-row">
-            <span class="login-title" style="margin-bottom:0;">تسجيل الدخول</span>
+            <span class="login-title" style="margin-bottom:0;" id="authFormTitle">LOGIN</span>
             <div class="rtab-select-label" onclick="openLoginExplainModal()" style="cursor:pointer;">📖</div>
           </div>
 
           <div id="loginExplainModal" class="ce-modal-overlay" onclick="closeLoginExplainModal()">
             <div class="ce-modal-box" onclick="event.stopPropagation()">
-              <p class="explain-intro" style="margin-bottom:0;">مش شرط تسجل عشان تطلب — التسجيل بس لو حابب تحفظ بياناتك وطلباتك. تقدر تكمل طلبك عادي من غير تسجيل.</p>
+              <p class="explain-intro" style="margin-bottom:0;" id="loginExplainText">سجل بحسابك عشان تتابع كل طلباتك اللي طلبتها، ولو مش معاك حساب اعمل إنشاء حساب أو سجل بجوجل.</p>
               <p style="text-align:center;color:var(--muted);font-size:.78rem;margin-top:16px;">اضغط في أي مكان عشان تقفل</p>
             </div>
-          </div>
-
-          <div class="login-tabs">
-            <div class="login-tab active" id="loginTabBtn" onclick="switchAuthTab('login')">تسجيل الدخول</div>
-            <div class="login-tab" id="registerTabBtn" onclick="switchAuthTab('register')">حساب جديد</div>
           </div>
 
           <div class="order-form" style="margin-top:0;">
@@ -1422,7 +1437,7 @@
               <input class="oinput" id="authPasswordInput" type="password" placeholder="8 أحرف على الأقل" autocomplete="current-password" />
             </div>
             <button class="login-submit-btn" id="authSubmitBtn" onclick="submitEmailAuth()">
-              <span id="authSubmitBtnText">تسجيل الدخول</span>
+              <span id="authSubmitBtnText">LOGIN</span>
             </button>
             <div class="login-status" id="loginStatusMsg"></div>
           </div>
@@ -1648,7 +1663,7 @@
       <!-- menu list -->
       <div style="border-top:1px solid rgba(255,255,255,.08);">
         <a href="javascript:void(0)" onclick="openEditAccountPage()" style="display:flex;align-items:center;gap:14px;padding:18px 4px;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.08);transition:opacity .2s;">
-          <span style="flex:1;font-weight:700;font-size:.98rem;color:var(--white);">تعديل حسابي</span>
+          <span style="flex:1;font-weight:700;font-size:.98rem;color:var(--white);">EDIT PROFILE</span>
           <span style="color:var(--muted);font-size:1.1rem;">‹</span>
         </a>
         <a href="javascript:void(0)" onclick="openOrdersPage()" style="display:flex;align-items:center;gap:14px;padding:18px 4px;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.08);transition:opacity .2s;">
@@ -1671,7 +1686,7 @@
   <div class="rpage-header" style="border-bottom-color:rgba(37,99,235,.3);">
     <button class="rpage-back" style="border-color:rgba(37,99,235,.5);color:#2563eb;" onclick="closeEditAccountPage()">&#8594; Back</button>
     <div class="rpage-title">
-      <span class="rpage-logo" style="color:#2563eb;">تعديل حسابي</span>
+      <span class="rpage-logo" style="color:#2563eb;">EDIT PROFILE</span>
       <span class="rpage-sub">King &amp; Cat – حسابك</span>
     </div>
   </div>
@@ -2932,7 +2947,7 @@
       const finalRob = i.rob + (codeApplied ? Math.round(i.rob * appliedBonusPercent / 100) : 0);
       return sum + finalRob * i.qty;
     }, 0);
-    let msg = `${RLM}\u{1F4E6} \u0637\u0644\u0628 \u0634\u062d\u0646 \u0631\u0648\u0628\u0644\u0648\u0643\u0633 (\u0643\u0645\u064a\u0648\u0646\u062a\u064a)\n${RLM}\u{1F464} \u0627\u0644\u0627\u0633\u0645: ${username}\n${RLM}\u{1F3AE} \u0627\u0644\u0637\u0644\u0628: ${type}\n${itemsList}\n${RLM}\u{1F4CA} \u0625\u062c\u0645\u0627\u0644\u064a: ${totalFinalRob}R\n${RLM}\u{1F4B0} \u0627\u0644\u0633\u0639\u0631: ${totalPrice} \u062c\u0646\u064a\u0647\n${RLM}\u0643\u0648\u062f \u0627\u0644\u0632\u064a\u0627\u062f\u0629: ${codeApplied ? code : '\u0645\u0641\u064a\u0634'}\n\$\{RLM\}\u0627\u0644\u0627\u0633\u0645: ${getCustomerName()}`;
+    let msg = `${RLM}\u{1F4E6} \u0637\u0644\u0628 \u0634\u062d\u0646 \u0631\u0648\u0628\u0644\u0648\u0643\u0633 (\u0643\u0645\u064a\u0648\u0646\u062a\u064a)\n${RLM}\u{1F464} \u0627\u0644\u0627\u0633\u0645: ${username}\n${RLM}\u{1F3AE} \u0627\u0644\u0637\u0644\u0628: ${type}\n${itemsList}\n${RLM}\u{1F4CA} \u0625\u062c\u0645\u0627\u0644\u064a: ${totalFinalRob}R\n${RLM}\u{1F4B0} \u0627\u0644\u0633\u0639\u0631: ${totalPrice} \u062c\u0646\u064a\u0647\n${RLM}\u0643\u0648\u062f \u0627\u0644\u0632\u064a\u0627\u062f\u0629: ${codeApplied ? code : '\u0645\u0641\u064a\u0634'}\n${RLM}\u0627\u0644\u0627\u0633\u0645: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
       const totalQty = items.reduce((s,i) => s + i.qty, 0);
       window.saveOrder({ title: 'روبلوكس (كوميونتي)', quantity: totalQty, price: totalPrice, details: msg, fullDetails: msg });
@@ -3036,7 +3051,7 @@
     err.textContent = '';
     const RLM = '\u200F';
     const itemsList = items.map(i => `${RLM}\u2022 ${i.usd} USD (${i.qty})`).join('\n');
-    let msg = `${RLM}\u{1F381} طلب شحن روبلوكس (جيفت كارد)\n${itemsList}\n${RLM}\u{1F4B0} السعر: ${totalPrice} جنيه\n\$\{RLM\}الاسم: ${getCustomerName()}`;
+    let msg = `${RLM}\u{1F381} طلب شحن روبلوكس (جيفت كارد)\n${itemsList}\n${RLM}\u{1F4B0} السعر: ${totalPrice} جنيه\n${RLM}الاسم: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
       const totalQty = items.reduce((s,i) => s + i.qty, 0);
       window.saveOrder({ title: 'روبلوكس (جيفت كارد)', quantity: totalQty, price: totalPrice, details: msg, fullDetails: msg });
@@ -3912,7 +3927,7 @@
 
     const RLM = '\u200F';
     const itemsList = items.map(i => `${RLM}• ${i.label} (${i.qty})`).join('\n');
-    const msg = `${RLM}⚽ طلب شحن فيفا\n${RLM}📧 الإيميل: ${user}\n${RLM}🪙 الطلب:\n${itemsList}\n${RLM}💰 السعر: ${totalPrice} جنيه\n\$\{RLM\}الاسم: ${getCustomerName()}`;
+    const msg = `${RLM}⚽ طلب شحن فيفا\n${RLM}📧 الإيميل: ${user}\n${RLM}🪙 الطلب:\n${itemsList}\n${RLM}💰 السعر: ${totalPrice} جنيه\n${RLM}الاسم: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
       const totalQty = items.reduce((s,i) => s + i.qty, 0);
       window.saveOrder({ title: 'فيفا', quantity: totalQty, price: totalPrice, details: msg, fullDetails: msg });
@@ -4373,6 +4388,7 @@
     if (navOverlay) navOverlay.classList.remove('open');
     const statusEl = document.getElementById('loginStatusMsg');
     if (statusEl) { statusEl.textContent = ''; statusEl.className = 'login-status'; }
+    if (typeof switchAuthTab === 'function') switchAuthTab('login');
   }
   function closeLoginModal() {
     document.getElementById('loginModal').classList.remove('open');
@@ -4380,11 +4396,23 @@
   }
   function switchAuthTab(tab) {
     currentAuthTab = tab;
-    document.getElementById('loginTabBtn').classList.toggle('active', tab === 'login');
-    document.getElementById('registerTabBtn').classList.toggle('active', tab === 'register');
-    document.getElementById('authSubmitBtnText').textContent = tab === 'login' ? 'تسجيل الدخول' : 'إنشاء حساب';
+    document.getElementById('authFormTitle').textContent = tab === 'login' ? 'LOGIN' : 'SIGN UP';
+    document.getElementById('authSubmitBtnText').textContent = tab === 'login' ? 'LOGIN' : 'SIGN UP';
     document.getElementById('authPasswordInput').setAttribute('autocomplete', tab === 'login' ? 'current-password' : 'new-password');
     document.getElementById('authNicknameField').style.display = tab === 'register' ? 'flex' : 'none';
+    const enBadge = document.getElementById('authFormTitleEn');
+    if (tab === 'login') {
+      enBadge.textContent = 'SIGN UP';
+      enBadge.setAttribute('onclick', "switchAuthTab('register')");
+      enBadge.setAttribute('title', 'إنشاء حساب');
+    } else {
+      enBadge.textContent = 'LOGIN';
+      enBadge.setAttribute('onclick', "switchAuthTab('login')");
+      enBadge.setAttribute('title', 'تسجيل الدخول');
+    }
+    document.getElementById('loginExplainText').textContent = tab === 'login'
+      ? 'سجل بحسابك عشان تتابع كل طلباتك اللي طلبتها، ولو مش معاك حساب اعمل إنشاء حساب أو سجل بجوجل.'
+      : 'لو خايف على الايميل بتاعك تقدر تسجل بحساب وهمي عادي، احنا بناخد بياناتك عشان نعرف نحفظلك طلباتك، فمش مهم يكون حساب حقيقي أو وهمي.';
     const statusEl = document.getElementById('loginStatusMsg');
     statusEl.textContent = '';
     statusEl.className = 'login-status';
@@ -4732,6 +4760,13 @@
       if (currentAuthTab === 'register') {
         const cred = await createUserWithEmailAndPassword(auth, email, password);
         await updateProfile(cred.user, { displayName: nickname });
+        await cred.user.reload();
+        refreshProfileDisplays(auth.currentUser);
+        try {
+          await setDoc(doc(db, "users", cred.user.uid), { displayName: nickname }, { merge: true });
+        } catch (e) {
+          console.error('تعذر حفظ اللقب في قاعدة البيانات:', e);
+        }
       } else {
         await signInWithEmailAndPassword(auth, email, password);
       }
