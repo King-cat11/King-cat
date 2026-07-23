@@ -577,14 +577,36 @@
     margin-top: 6px;
   }
   .login-submit-btn:hover { opacity: .88; }
-  /* ── PRICING EDITOR ── */
-  .price-rows { display: flex; flex-direction: column; gap: 8px; }
-  .price-row { display: flex; align-items: center; gap: 8px; }
-  .price-row .oinput { padding: 10px 12px; font-size: .88rem; }
-  .price-row .amt-input { flex: 1.2; }
-  .price-row .price-input { flex: 1; }
-  .price-row .label-input { flex: 1.4; }
-  .price-row .custom-check { display: flex; align-items: center; gap: 4px; font-size: .72rem; color: var(--muted); flex-shrink: 0; white-space: nowrap; }
+  /* ── PRICING EDITOR (خانات صغيرة في سطر واحد، بس بتفضل جوه عرض الموبايل) ── */
+  .price-rows { display: flex; flex-direction: column; gap: 7px; }
+  .price-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: #1a1a1a;
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 8px;
+    padding: 6px;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+  .price-row .oinput {
+    padding: 7px 5px;
+    font-size: .7rem;
+    min-width: 0;   /* أهم حاجة: تمنع الـ input إنه يفرض عرضه الطبيعي ويطلع بره الصف */
+    width: 100%;
+    text-align: center;
+  }
+  .price-row .amt-input   { flex: .85 1 0; }
+  .price-row .price-input { flex: .85 1 0; }
+  .price-row .label-input { flex: 1.15 1 0; text-align: right; }
+  .price-row .custom-check {
+    display: flex; flex-direction: column; align-items: center; gap: 1px;
+    font-size: .56rem; color: var(--muted); line-height: 1.1;
+    flex-shrink: 0; white-space: nowrap; width: 30px;
+  }
+  .price-row .custom-check input { width: 13px; height: 13px; flex-shrink: 0; }
 
   /* ── ACCORDION PRICE SECTIONS (iOS grouped-list style) ── */
   .price-section {
@@ -619,13 +641,15 @@
   .price-section.open .price-section-body { max-height: 3000px; }
   .remove-row-btn {
     flex-shrink: 0;
-    width: 38px; height: 38px;
-    border-radius: 8px;
+    width: 26px; height: 26px;
+    border-radius: 6px;
     border: 1px solid rgba(224,85,85,.4);
     background: rgba(224,85,85,.1);
     color: #e05555;
     cursor: pointer;
-    font-size: .9rem;
+    font-size: .68rem;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0;
   }
   .login-status {
     font-size: .82rem;
@@ -1151,24 +1175,24 @@
     if (section === 'acc') {
       const isCustom = !!item.custom;
       return `<div class="price-row" data-section="acc">
-        <input type="text" class="oinput amt-input" placeholder="كمية الروبكس" value="${item.rob != null ? item.rob : ''}">
-        <input type="text" class="oinput label-input" placeholder="الاسم اللي هيظهر (مثال: 80 روب)" value="${item.label != null ? item.label : ''}">
+        <input type="text" class="oinput amt-input" placeholder="روبكس" value="${item.rob != null ? item.rob : ''}">
+        <input type="text" class="oinput label-input" placeholder="الاسم" value="${item.label != null ? item.label : ''}">
         <input type="number" class="oinput price-input" placeholder="السعر" value="${item.price != null ? item.price : ''}">
-        <label class="custom-check"><input type="checkbox" ${isCustom ? 'checked' : ''}> نص فقط</label>
+        <label class="custom-check"><input type="checkbox" ${isCustom ? 'checked' : ''}> نص</label>
         <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
       </div>`;
     }
     if (section === 'giftcard') {
       return `<div class="price-row" data-section="giftcard">
-        <input type="text" class="oinput amt-input" placeholder="قيمة USD" value="${item.usd != null ? item.usd : ''}">
-        <input type="number" class="oinput price-input" placeholder="السعر بالجنيه" value="${item.price != null ? item.price : ''}">
+        <input type="text" class="oinput amt-input" placeholder="USD" value="${item.usd != null ? item.usd : ''}">
+        <input type="number" class="oinput price-input" placeholder="السعر" value="${item.price != null ? item.price : ''}">
         <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
       </div>`;
     }
     // comFawri / comHagz
     return `<div class="price-row" data-section="${section}">
-      <input type="text" class="oinput amt-input" placeholder="كمية الروبكس" value="${item.rob != null ? item.rob : ''}">
-      <input type="number" class="oinput price-input" placeholder="السعر بالجنيه" value="${item.price != null ? item.price : ''}">
+      <input type="text" class="oinput amt-input" placeholder="روبكس" value="${item.rob != null ? item.rob : ''}">
+      <input type="number" class="oinput price-input" placeholder="السعر" value="${item.price != null ? item.price : ''}">
       <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
     </div>`;
   }
@@ -1249,8 +1273,8 @@
     item = item || {};
     const isActive = item.active !== false; // فعّال افتراضيًا
     return `<div class="price-row" data-section="bonus">
-      <input type="text" class="oinput label-input" placeholder="الكود (مثال: kingcat)" value="${item.code != null ? item.code : ''}" style="text-transform:uppercase;">
-      <input type="number" class="oinput price-input" placeholder="نسبة الزيادة %" value="${item.percent != null ? item.percent : ''}">
+      <input type="text" class="oinput label-input" placeholder="الكود" value="${item.code != null ? item.code : ''}" style="text-transform:uppercase;">
+      <input type="number" class="oinput price-input" placeholder="%" value="${item.percent != null ? item.percent : ''}">
       <label class="custom-check"><input type="checkbox" ${isActive ? 'checked' : ''}> فعّال</label>
       <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
     </div>`;
