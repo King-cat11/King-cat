@@ -578,8 +578,6 @@
   }
   .login-submit-btn:hover { opacity: .88; }
   /* ── PRICING EDITOR ── */
-  .price-section { margin-bottom: 26px; }
-  .price-section-title { font-weight: 800; font-size: 1rem; color: var(--blue-lt); margin-bottom: 10px; }
   .price-rows { display: flex; flex-direction: column; gap: 8px; }
   .price-row { display: flex; align-items: center; gap: 8px; }
   .price-row .oinput { padding: 10px 12px; font-size: .88rem; }
@@ -587,6 +585,38 @@
   .price-row .price-input { flex: 1; }
   .price-row .label-input { flex: 1.4; }
   .price-row .custom-check { display: flex; align-items: center; gap: 4px; font-size: .72rem; color: var(--muted); flex-shrink: 0; white-space: nowrap; }
+
+  /* ── ACCORDION PRICE SECTIONS (iOS grouped-list style) ── */
+  .price-section {
+    margin-bottom: 12px;
+    background: #141414;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .price-section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .price-section-head-title { font-weight: 800; font-size: .95rem; color: var(--white); display: flex; align-items: center; gap: 8px; }
+  .price-section-count {
+    font-size: .7rem; font-weight: 800; color: var(--blue-lt);
+    background: rgba(96,165,250,.12); border: 1px solid rgba(96,165,250,.3);
+    border-radius: 20px; padding: 2px 9px; margin-inline-start: 4px;
+  }
+  .price-section-chevron { color: var(--blue-lt); font-size: .75rem; transition: transform .25s ease; flex-shrink: 0; }
+  .price-section.open .price-section-chevron { transform: rotate(180deg); }
+  .price-section-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .3s ease;
+  }
+  .price-section-body-inner { padding: 0 16px 16px; }
+  .price-section.open .price-section-body { max-height: 3000px; }
   .remove-row-btn {
     flex-shrink: 0;
     width: 38px; height: 38px;
@@ -710,6 +740,11 @@
       <div class="ac-title">المنتجات والأسعار</div>
       <div class="ac-desc">تعديل أسعار الألعاب والكروت</div>
     </div>
+    <div class="admin-card" onclick="showBonusCodesPage()">
+      <div class="ac-icon">🏷️</div>
+      <div class="ac-title">أكواد الزيادة</div>
+      <div class="ac-desc">تحكم في أكواد زيادة الروب بتاعة الكوميونتي</div>
+    </div>
   </div>
 </main>
 
@@ -739,32 +774,68 @@
     <p>كل طريقة شحن ليها الأسعار بتاعتها لوحدها، عدّل زي ما تحب وابعت "حفظ" في الآخر</p>
   </div>
 
-  <div id="rp-section-acc" class="price-section">
-    <div class="price-section-title">📱 داخل الحساب</div>
-    <div class="price-rows" id="rows-acc"></div>
-    <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="addPriceRow('acc')">➕ إضافة سعر جديد</button>
+  <div id="rp-sec-acc" class="price-section open">
+    <div class="price-section-head" onclick="togglePriceSection('acc')">
+      <div class="price-section-head-title">📱 داخل الحساب <span class="price-section-count" id="count-acc"></span></div>
+      <span class="price-section-chevron">▾</span>
+    </div>
+    <div class="price-section-body"><div class="price-section-body-inner">
+      <div class="price-rows" id="rows-acc"></div>
+      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('acc')">➕ إضافة سعر جديد</button>
+    </div></div>
   </div>
 
-  <div class="price-section">
-    <div class="price-section-title">⚡ كوميونتي فوري</div>
-    <div class="price-rows" id="rows-comFawri"></div>
-    <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="addPriceRow('comFawri')">➕ إضافة سعر جديد</button>
+  <div id="rp-sec-comFawri" class="price-section">
+    <div class="price-section-head" onclick="togglePriceSection('comFawri')">
+      <div class="price-section-head-title">⚡ كوميونتي فوري <span class="price-section-count" id="count-comFawri"></span></div>
+      <span class="price-section-chevron">▾</span>
+    </div>
+    <div class="price-section-body"><div class="price-section-body-inner">
+      <div class="price-rows" id="rows-comFawri"></div>
+      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('comFawri')">➕ إضافة سعر جديد</button>
+    </div></div>
   </div>
 
-  <div class="price-section">
-    <div class="price-section-title">📅 كوميونتي حجز</div>
-    <div class="price-rows" id="rows-comHagz"></div>
-    <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="addPriceRow('comHagz')">➕ إضافة سعر جديد</button>
+  <div id="rp-sec-comHagz" class="price-section">
+    <div class="price-section-head" onclick="togglePriceSection('comHagz')">
+      <div class="price-section-head-title">📅 كوميونتي حجز <span class="price-section-count" id="count-comHagz"></span></div>
+      <span class="price-section-chevron">▾</span>
+    </div>
+    <div class="price-section-body"><div class="price-section-body-inner">
+      <div class="price-rows" id="rows-comHagz"></div>
+      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('comHagz')">➕ إضافة سعر جديد</button>
+    </div></div>
   </div>
 
-  <div class="price-section">
-    <div class="price-section-title">🎁 جيفت كارد</div>
-    <div class="price-rows" id="rows-giftcard"></div>
-    <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="addPriceRow('giftcard')">➕ إضافة سعر جديد</button>
+  <div id="rp-sec-giftcard" class="price-section">
+    <div class="price-section-head" onclick="togglePriceSection('giftcard')">
+      <div class="price-section-head-title">🎁 جيفت كارد <span class="price-section-count" id="count-giftcard"></span></div>
+      <span class="price-section-chevron">▾</span>
+    </div>
+    <div class="price-section-body"><div class="price-section-body-inner">
+      <div class="price-rows" id="rows-giftcard"></div>
+      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('giftcard')">➕ إضافة سعر جديد</button>
+    </div></div>
   </div>
 
   <div id="robloxPricingStatus" class="login-status" style="margin-top:14px;"></div>
   <button class="login-submit-btn" style="margin-top:6px;" onclick="saveRobloxPricing()">💾 حفظ كل التعديلات</button>
+</main>
+
+<!-- ============ صفحة أكواد الزيادة ============ -->
+<main id="bonusCodesPage" style="display:none;">
+  <button class="back-btn" onclick="showDashboard()">→ رجوع للرئيسية</button>
+  <div class="page-head">
+    <div class="eyebrow">إدارة</div>
+    <h1>أكواد الزيادة</h1>
+    <p>ضيف كود جديد وحدد نسبة الروب الزيادة بتاعته، والكود يشتغل على طول في قسم الكوميونتي بالموقع الأساسي بعد الحفظ</p>
+  </div>
+
+  <div class="price-rows" id="rows-bonusCodes"></div>
+  <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="addBonusCodeRow()">➕ إضافة كود جديد</button>
+
+  <div id="bonusCodesStatus" class="login-status" style="margin-top:14px;"></div>
+  <button class="login-submit-btn" style="margin-top:6px;" onclick="saveBonusCodes()">💾 حفظ كل الأكواد</button>
 </main>
 
 <!-- ============ صفحة الطلبات (بال3 خانات: طلبات / قيد الانتظار / تم) ============ -->
@@ -842,6 +913,7 @@
   // ============ التنقل بين الرئيسية وصفحة الطلبات ============
   function showOrdersPage() {
     document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('bonusCodesPage').style.display = 'none';
     document.getElementById('ordersPage').style.display = 'block';
     document.getElementById('navHome').classList.remove('active');
     document.getElementById('navOrders').classList.add('active');
@@ -853,6 +925,7 @@
     document.getElementById('ordersPage').style.display = 'none';
     document.getElementById('pricingPage').style.display = 'none';
     document.getElementById('robloxPricingPage').style.display = 'none';
+    document.getElementById('bonusCodesPage').style.display = 'none';
     document.getElementById('dashboard').style.display = 'block';
     document.getElementById('navOrders').classList.remove('active');
     document.getElementById('navPricing').classList.remove('active');
@@ -861,11 +934,21 @@
     window.scrollTo(0, 0);
   }
 
+  // ============ التنقل لصفحة أكواد الزيادة ============
+  function showBonusCodesPage() {
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('bonusCodesPage').style.display = 'block';
+    window.scrollTo(0, 0);
+    if (typeof window.loadBonusCodes === 'function') window.loadBonusCodes();
+  }
+  window.showBonusCodesPage = showBonusCodesPage;
+
   // ============ التنقل لصفحة الألعاب وصفحة أسعار روبلكس ============
   function showPricingPage() {
     document.getElementById('dashboard').style.display = 'none';
     document.getElementById('ordersPage').style.display = 'none';
     document.getElementById('robloxPricingPage').style.display = 'none';
+    document.getElementById('bonusCodesPage').style.display = 'none';
     document.getElementById('pricingPage').style.display = 'block';
     document.getElementById('navHome').classList.remove('active');
     document.getElementById('navPricing').classList.add('active');
@@ -1043,21 +1126,21 @@
         <input type="text" class="oinput label-input" placeholder="الاسم اللي هيظهر (مثال: 80 روب)" value="${item.label != null ? item.label : ''}">
         <input type="number" class="oinput price-input" placeholder="السعر" value="${item.price != null ? item.price : ''}">
         <label class="custom-check"><input type="checkbox" ${isCustom ? 'checked' : ''}> نص فقط</label>
-        <button class="remove-row-btn" onclick="this.closest('.price-row').remove()">🗑️</button>
+        <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
       </div>`;
     }
     if (section === 'giftcard') {
       return `<div class="price-row" data-section="giftcard">
         <input type="text" class="oinput amt-input" placeholder="قيمة USD" value="${item.usd != null ? item.usd : ''}">
         <input type="number" class="oinput price-input" placeholder="السعر بالجنيه" value="${item.price != null ? item.price : ''}">
-        <button class="remove-row-btn" onclick="this.closest('.price-row').remove()">🗑️</button>
+        <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
       </div>`;
     }
     // comFawri / comHagz
     return `<div class="price-row" data-section="${section}">
       <input type="text" class="oinput amt-input" placeholder="كمية الروبكس" value="${item.rob != null ? item.rob : ''}">
       <input type="number" class="oinput price-input" placeholder="السعر بالجنيه" value="${item.price != null ? item.price : ''}">
-      <button class="remove-row-btn" onclick="this.closest('.price-row').remove()">🗑️</button>
+      <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
     </div>`;
   }
 
@@ -1065,6 +1148,7 @@
     const wrap = document.getElementById('rows-' + section);
     if (!wrap) return;
     wrap.insertAdjacentHTML('beforeend', priceRowHTML(section, {}));
+    updatePriceSectionCount(section);
   }
   window.addPriceRow = addPriceRow;
 
@@ -1072,8 +1156,38 @@
     const wrap = document.getElementById('rows-' + section);
     if (!wrap) return;
     wrap.innerHTML = (items || []).map(item => priceRowHTML(section, item)).join('');
+    updatePriceSectionCount(section);
   }
   window.renderPriceRows = renderPriceRows;
+
+  function updatePriceSectionCount(section) {
+    const countEl = document.getElementById('count-' + section);
+    const wrap = document.getElementById('rows-' + section);
+    if (!countEl || !wrap) return;
+    countEl.textContent = wrap.querySelectorAll('.price-row').length;
+  }
+
+  // بيشتغل مع كل زرار حذف صف سعر — بيمسح الصف وبعدين يحدّث عداد القسم لو الصف تابع لقسم روبلكس
+  function removePriceRow(btn) {
+    const row = btn.closest('.price-row');
+    if (!row) return;
+    const section = row.getAttribute('data-section');
+    row.remove();
+    if (section && section !== 'bonus') updatePriceSectionCount(section);
+  }
+  window.removePriceRow = removePriceRow;
+
+  // ============ فتح/قفل أقسام أسعار روبلكس (أكورديون — قسم واحد مفتوح في نفس الوقت) ============
+  function togglePriceSection(key) {
+    const sections = ['acc', 'comFawri', 'comHagz', 'giftcard'];
+    sections.forEach(s => {
+      const el = document.getElementById('rp-sec-' + s);
+      if (!el) return;
+      if (s === key) el.classList.toggle('open');
+      else el.classList.remove('open');
+    });
+  }
+  window.togglePriceSection = togglePriceSection;
 
   // بيلم كل الصفوف بتاعت قسم معين ويحولها لأراي بيانات جاهزة تتخزن
   function collectPriceRows(section) {
@@ -1100,6 +1214,48 @@
     }).filter(item => item.price > 0);
   }
   window.collectPriceRows = collectPriceRows;
+
+  // ============ صفوف أكواد الزيادة ============
+  function bonusCodeRowHTML(item) {
+    item = item || {};
+    const isActive = item.active !== false; // فعّال افتراضيًا
+    return `<div class="price-row" data-section="bonus">
+      <input type="text" class="oinput label-input" placeholder="الكود (مثال: kingcat)" value="${item.code != null ? item.code : ''}" style="text-transform:uppercase;">
+      <input type="number" class="oinput price-input" placeholder="نسبة الزيادة %" value="${item.percent != null ? item.percent : ''}">
+      <label class="custom-check"><input type="checkbox" ${isActive ? 'checked' : ''}> فعّال</label>
+      <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
+    </div>`;
+  }
+
+  function addBonusCodeRow() {
+    const wrap = document.getElementById('rows-bonusCodes');
+    if (!wrap) return;
+    wrap.insertAdjacentHTML('beforeend', bonusCodeRowHTML({}));
+  }
+  window.addBonusCodeRow = addBonusCodeRow;
+
+  function renderBonusCodes(items) {
+    const wrap = document.getElementById('rows-bonusCodes');
+    if (!wrap) return;
+    wrap.innerHTML = (items || []).map(bonusCodeRowHTML).join('');
+  }
+  window.renderBonusCodes = renderBonusCodes;
+
+  // بيلم كل أكواد الزيادة من الفورم ويجهزها للحفظ — بيتجاهل أي صف الكود فاضي فيه أو النسبة صفر
+  function collectBonusCodes() {
+    const wrap = document.getElementById('rows-bonusCodes');
+    if (!wrap) return [];
+    const rows = Array.from(wrap.querySelectorAll('.price-row'));
+    return rows.map(row => {
+      const codeInput = row.querySelector('.label-input');
+      const percentInput = row.querySelector('.price-input');
+      const checkInput = row.querySelector('.custom-check input');
+      const code = (codeInput.value || '').trim().toUpperCase();
+      const percent = parseInt(percentInput.value) || 0;
+      return { code, percent, active: !!(checkInput && checkInput.checked) };
+    }).filter(item => item.code && item.percent > 0);
+  }
+  window.collectBonusCodes = collectBonusCodes;
 </script>
 
 <!-- ============ FIREBASE — حماية صفحة الأدمن (Auth Guard) ============ -->
@@ -1196,7 +1352,12 @@
   // ============ بث حي لكل الطلبات (كل طلبات كل الزباين) ============
   function startOrdersListener() {
     const ordersRef = collection(db, 'orders');
-    const q = query(ordersRef, orderBy('createdAt', 'desc'));
+    // ملاحظة: من غير قصد orderBy('createdAt') في الاستعلام نفسه — لأن استخدام orderBy مع
+    // serverTimestamp() بيعمل مشكلة معروفة في Firestore: أي طلب جديد (زي طلب الضيف اللي
+    // بتضيفه يدوي) بيكون createdAt بتاعه لسه "معلق" (pending) لحد ما السيرفر يأكّده، وطول
+    // المدة دي الاستعلام المرتب بيستبعده تمامًا فبيبان إنه "اتحذف" أول ما تضيفه.
+    // الحل: نجيب الطلبات من غير ترتيب في الاستعلام، ونرتبهم إحنا في الجافاسكريبت بعد كده.
+    const q = query(ordersRef);
     onSnapshot(q, (snap) => {
       window.ordersData.length = 0;
       snap.forEach((docSnap) => {
@@ -1209,10 +1370,13 @@
           status: d.status || 'new',
           date: d.pendingDate || '',
           dateStr: (d.createdAt && d.createdAt.toDate) ? d.createdAt.toDate().toISOString().split('T')[0] : '',
+          // لو createdAt لسه معلقة (لحظة الإضافة) بنعتبرها دلوقتي عشان تفضل فوق وميبانش إنها اتحذفت
+          sortTime: (d.createdAt && d.createdAt.toMillis) ? d.createdAt.toMillis() : Date.now(),
           price: d.price || '',
           fullDetails: d.fullDetails || d.details || ''
         });
       });
+      window.ordersData.sort((a, b) => b.sortTime - a.sortTime);
       if (typeof window.renderOrders === 'function') window.renderOrders();
       updateStatCards();
     }, (err) => {
@@ -1372,6 +1536,38 @@
       if (statusEl) { statusEl.textContent = 'تم الحفظ بنجاح ✅ — هيتحدث على الموقع على طول'; statusEl.className = 'login-status ok'; }
     } catch (err) {
       console.error('تعذر حفظ أسعار روبلكس:', err);
+      if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء الحفظ، حاول تاني'; statusEl.className = 'login-status err'; }
+    }
+  };
+
+  // ============ تحميل أكواد الزيادة الحالية في صفحة التعديل ============
+  window.loadBonusCodes = async function () {
+    const statusEl = document.getElementById('bonusCodesStatus');
+    if (statusEl) { statusEl.textContent = 'بيتحمل...'; statusEl.className = 'login-status'; }
+    try {
+      const snap = await getDoc(doc(db, 'pricing', 'bonusCodes'));
+      const data = snap.exists() ? snap.data() : { codes: [] };
+      window.renderBonusCodes(data.codes || []);
+      if (statusEl) statusEl.textContent = '';
+    } catch (err) {
+      console.error('تعذر تحميل أكواد الزيادة:', err);
+      window.renderBonusCodes([]);
+      if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء تحميل الأكواد المحفوظة'; statusEl.className = 'login-status err'; }
+    }
+  };
+
+  // ============ حفظ أكواد الزيادة كلها مرة واحدة في Firestore — نفس الدوك اللي الموقع الأساسي بيقراه ============
+  window.saveBonusCodes = async function () {
+    const statusEl = document.getElementById('bonusCodesStatus');
+    try {
+      const payload = {
+        codes: window.collectBonusCodes(),
+        updatedAt: serverTimestamp()
+      };
+      await setDoc(doc(db, 'pricing', 'bonusCodes'), payload);
+      if (statusEl) { statusEl.textContent = 'تم الحفظ بنجاح ✅ — الأكواد شغالة في قسم الكوميونتي على طول'; statusEl.className = 'login-status ok'; }
+    } catch (err) {
+      console.error('تعذر حفظ أكواد الزيادة:', err);
       if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء الحفظ، حاول تاني'; statusEl.className = 'login-status err'; }
     }
   };
