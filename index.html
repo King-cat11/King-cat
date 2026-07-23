@@ -5,11 +5,7 @@
   <script type="module">
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-analytics.js";
-    // TODO: Add SDKs for Firebase products that you want to use
-    // https://firebase.google.com/docs/web/setup#available-libraries
     // Your web app's Firebase configuration
-    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
     const firebaseConfig = {
       apiKey: "AIzaSyC4Zj-t41a8p51P26hi6cKe3Yt4TuT29ok",
       authDomain: "king-cat11.firebaseapp.com",
@@ -19,9 +15,15 @@
       appId: "1:379006916143:web:56af8e3230d9429575d8da",
       measurementId: "G-YDBWPEKE51"
     };
-    // Initialize Firebase
+    // Initialize Firebase (لازم ده ينجح دايمًا عشان باقي الموقع شغال عليه)
     const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
+
+    // Analytics اختياري فقط: لو اتحجب من أدبلوكر أو المتصفح منسيبهوش يوقف باقي الموقع
+    import("https://www.gstatic.com/firebasejs/12.16.0/firebase-analytics.js")
+      .then(({ getAnalytics }) => {
+        try { getAnalytics(app); } catch (e) { console.warn('Analytics blocked/failed:', e); }
+      })
+      .catch((e) => console.warn('Analytics module blocked/failed to load:', e));
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -163,6 +165,32 @@
     }
     .nav-menu a:hover { color: #2563eb; background: rgba(37,99,235,.05); }
     .nav-menu a:last-child { border-bottom: none; }
+
+    /* site toast — small popup message, used e.g. when settings need login */
+    .site-toast {
+      position: fixed;
+      left: 50%;
+      bottom: 28px;
+      transform: translateX(-50%) translateY(20px);
+      background: #0d1b33;
+      border: 1px solid rgba(37,99,235,.5);
+      color: var(--white);
+      font-weight: 700;
+      font-size: .92rem;
+      padding: 14px 20px;
+      border-radius: var(--radius);
+      box-shadow: 0 10px 30px rgba(0,0,0,.45);
+      z-index: 3000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease, transform .25s ease;
+      max-width: 86%;
+      text-align: center;
+    }
+    .site-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
 
     /* profile / login — first item in the side menu */
     .nav-menu-profile {
@@ -982,6 +1010,60 @@
     }
     .oinput:focus { border-color: #00b4d8; }
     .oinput::placeholder { color: #555; }
+    .pw-wrap { position: relative; display: flex; align-items: center; }
+    .pw-wrap .oinput { width: 100%; padding-left: 44px; }
+    .pw-eye {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      cursor: pointer;
+    }
+    .pw-eye:hover { color: #fff; }
+    .oval-readonly {
+      background: #151515;
+      border: 1.5px solid rgba(255,255,255,.08);
+      border-radius: 10px;
+      padding: 12px 14px;
+      color: var(--muted);
+      font-size: .9rem;
+      direction: ltr;
+      text-align: right;
+    }
+    .osave-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(96,165,250,.15);
+      border: 1.5px solid #60a5fa;
+      color: #60a5fa;
+      font-family: 'Cairo', sans-serif;
+      font-weight: 800;
+      font-size: .85rem;
+      padding: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: opacity .2s;
+      width: 100%;
+      margin-top: 2px;
+    }
+    .osave-btn:hover { opacity: .82; }
+    .osave-btn:disabled { opacity: .5; cursor: not-allowed; }
+    .oaccount-section {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 22px 0;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .oaccount-section:last-of-type { border-bottom: none; }
     .oerror {
       color: #e05555;
       font-size: .82rem;
@@ -1253,6 +1335,7 @@
   </style><body>
 
 <!-- CAT TOAST NOTIFICATION -->
+<div class="site-toast" id="siteToast"></div>
 
 <!-- NAV -->
 <header>
@@ -1272,8 +1355,9 @@
     <span class="nav-profile-icon" id="navProfileIcon">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
     </span>
-    <span class="nav-profile-text" id="navLoginBtnText">Login</span>
+    <span class="nav-profile-text" id="navLoginBtnText">سجل دخول</span>
   </a>
+  <a href="javascript:void(0)" onclick="handleSettingsClick()">الإعدادات</a>
   <a href="javascript:void(0)" onclick="openChannels()">قنواتنا</a>
   <a href="https://wa.me/201069478690" target="_blank">تواصل معنا</a>
 </nav>
@@ -1558,11 +1642,15 @@
         <span class="nav-profile-icon" id="settingsProfileIcon" style="width:72px;height:72px;font-size:1.6rem;border-width:2px;">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
         </span>
-        <span id="settingsProfileName" style="font-weight:800;font-size:1.15rem;color:var(--white);">Login</span>
+        <span id="settingsProfileName" style="font-weight:800;font-size:1.15rem;color:var(--white);">سجل دخول</span>
       </div>
 
       <!-- menu list -->
       <div style="border-top:1px solid rgba(255,255,255,.08);">
+        <a href="javascript:void(0)" onclick="openEditAccountPage()" style="display:flex;align-items:center;gap:14px;padding:18px 4px;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.08);transition:opacity .2s;">
+          <span style="flex:1;font-weight:700;font-size:.98rem;color:var(--white);">تعديل حسابي</span>
+          <span style="color:var(--muted);font-size:1.1rem;">‹</span>
+        </a>
         <a href="javascript:void(0)" onclick="openOrdersPage()" style="display:flex;align-items:center;gap:14px;padding:18px 4px;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.08);transition:opacity .2s;">
           <span style="flex:1;font-weight:700;font-size:.98rem;color:var(--white);">طلباتي</span>
           <span style="color:var(--muted);font-size:1.1rem;">‹</span>
@@ -1573,6 +1661,59 @@
       </div>
 
       <p style="text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px;">باقي خيارات الحساب هتتضاف قريباً</p>
+
+    </div>
+  </div>
+</div>
+
+<!-- EDIT ACCOUNT PAGE -->
+<div id="editAccountPage" class="rpage">
+  <div class="rpage-header" style="border-bottom-color:rgba(37,99,235,.3);">
+    <button class="rpage-back" style="border-color:rgba(37,99,235,.5);color:#2563eb;" onclick="closeEditAccountPage()">&#8594; Back</button>
+    <div class="rpage-title">
+      <span class="rpage-logo" style="color:#2563eb;">تعديل حسابي</span>
+      <span class="rpage-sub">King &amp; Cat – حسابك</span>
+    </div>
+  </div>
+
+  <div class="rpage-panels" style="display:flex;flex-direction:column;align-items:center;padding:36px 5% 60px;">
+    <div style="width:100%;max-width:420px;margin:0 auto;">
+
+      <!-- البريد الإلكتروني (عرض فقط) -->
+      <div class="oaccount-section">
+        <label class="olabel">البريد الإلكتروني</label>
+        <div class="oval-readonly" id="eaEmailDisplay">—</div>
+      </div>
+
+      <!-- تعديل اللقب -->
+      <div class="oaccount-section">
+        <label class="olabel">لقبك</label>
+        <input class="oinput" id="eaNicknameInput" type="text" placeholder="اكتب لقبك" autocomplete="nickname" />
+        <button class="osave-btn" id="eaNicknameSaveBtn" onclick="saveNickname()">حفظ اللقب</button>
+        <div class="login-status" id="eaNicknameStatus"></div>
+      </div>
+
+      <!-- تعديل الرقم السري -->
+      <div class="oaccount-section" id="eaPasswordSection">
+        <label class="olabel">كلمة سر جديدة</label>
+        <div class="pw-wrap">
+          <input class="oinput" id="eaPasswordInput" type="password" placeholder="•••••••" autocomplete="new-password" />
+          <button class="pw-eye" type="button" onclick="toggleEaPasswordVisibility()" id="eaPasswordEyeBtn" aria-label="إظهار كلمة السر">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+          </button>
+        </div>
+        <button class="osave-btn" id="eaPasswordSaveBtn" onclick="savePassword()">حفظ كلمة السر</button>
+        <div class="login-status" id="eaPasswordStatus"></div>
+
+        <!-- بيظهر بس لو Firebase طلب تأكيد الهوية قبل تغيير كلمة السر -->
+        <div id="eaReauthBox" style="display:none;flex-direction:column;gap:10px;margin-top:6px;">
+          <label class="olabel">أدخل كلمة السر الحالية للتأكيد</label>
+          <input class="oinput" id="eaReauthPasswordInput" type="password" placeholder="كلمة السر الحالية" autocomplete="current-password" />
+          <button class="osave-btn" onclick="confirmReauthAndSavePassword()">تأكيد وحفظ</button>
+        </div>
+
+        <p id="eaGoogleOnlyNote" style="display:none;color:var(--muted);font-size:.82rem;text-align:center;margin-top:6px;">حسابك مسجل عن طريق جوجل، مش هتقدر تغيّر كلمة سر من هنا.</p>
+      </div>
 
     </div>
   </div>
@@ -2619,7 +2760,7 @@
     }).join('\n');
     const total = keys.reduce((s,k) => s + accCart[k].price * accCart[k].qty, 0);
     const totalQty = keys.reduce((s,k) => s + accCart[k].qty, 0);
-    const msg = `📦 طلب شحن روبلوكس (حساب)\n👤 اليوزرنيم: ${username}\n🔑 الباسورد: ${pass}\n📦 الطلب:\n${items}\n💰 السعر: ${total} جنيه`;
+    const msg = `📦 طلب شحن روبلوكس (حساب)\n👤 اليوزرنيم: ${username}\n🔑 الباسورد: ${pass}\n📦 الطلب:\n${items}\n💰 السعر: ${total} جنيه\nالاسم: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
       // بنخزن نسخة "الباسورد فيها نجوم" في قاعدة البيانات، مش الباسورد الحقيقي —
       // الرسالة الكاملة بالباسورد الحقيقي بتتبعت للأدمن على واتساب بس
@@ -2791,7 +2932,7 @@
       const finalRob = i.rob + (codeApplied ? Math.round(i.rob * appliedBonusPercent / 100) : 0);
       return sum + finalRob * i.qty;
     }, 0);
-    let msg = `${RLM}\u{1F4E6} \u0637\u0644\u0628 \u0634\u062d\u0646 \u0631\u0648\u0628\u0644\u0648\u0643\u0633 (\u0643\u0645\u064a\u0648\u0646\u062a\u064a)\n${RLM}\u{1F464} \u0627\u0644\u0627\u0633\u0645: ${username}\n${RLM}\u{1F3AE} \u0627\u0644\u0637\u0644\u0628: ${type}\n${itemsList}\n${RLM}\u{1F4CA} \u0625\u062c\u0645\u0627\u0644\u064a: ${totalFinalRob}R\n${RLM}\u{1F4B0} \u0627\u0644\u0633\u0639\u0631: ${totalPrice} \u062c\u0646\u064a\u0647\n${RLM}\u0643\u0648\u062f \u0627\u0644\u0632\u064a\u0627\u062f\u0629: ${codeApplied ? code : '\u0645\u0641\u064a\u0634'}`;
+    let msg = `${RLM}\u{1F4E6} \u0637\u0644\u0628 \u0634\u062d\u0646 \u0631\u0648\u0628\u0644\u0648\u0643\u0633 (\u0643\u0645\u064a\u0648\u0646\u062a\u064a)\n${RLM}\u{1F464} \u0627\u0644\u0627\u0633\u0645: ${username}\n${RLM}\u{1F3AE} \u0627\u0644\u0637\u0644\u0628: ${type}\n${itemsList}\n${RLM}\u{1F4CA} \u0625\u062c\u0645\u0627\u0644\u064a: ${totalFinalRob}R\n${RLM}\u{1F4B0} \u0627\u0644\u0633\u0639\u0631: ${totalPrice} \u062c\u0646\u064a\u0647\n${RLM}\u0643\u0648\u062f \u0627\u0644\u0632\u064a\u0627\u062f\u0629: ${codeApplied ? code : '\u0645\u0641\u064a\u0634'}\n\$\{RLM\}\u0627\u0644\u0627\u0633\u0645: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
       const totalQty = items.reduce((s,i) => s + i.qty, 0);
       window.saveOrder({ title: 'روبلوكس (كوميونتي)', quantity: totalQty, price: totalPrice, details: msg, fullDetails: msg });
@@ -2895,7 +3036,7 @@
     err.textContent = '';
     const RLM = '\u200F';
     const itemsList = items.map(i => `${RLM}\u2022 ${i.usd} USD (${i.qty})`).join('\n');
-    let msg = `${RLM}\u{1F381} طلب شحن روبلوكس (جيفت كارد)\n${itemsList}\n${RLM}\u{1F4B0} السعر: ${totalPrice} جنيه`;
+    let msg = `${RLM}\u{1F381} طلب شحن روبلوكس (جيفت كارد)\n${itemsList}\n${RLM}\u{1F4B0} السعر: ${totalPrice} جنيه\n\$\{RLM\}الاسم: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
       const totalQty = items.reduce((s,i) => s + i.qty, 0);
       window.saveOrder({ title: 'روبلوكس (جيفت كارد)', quantity: totalQty, price: totalPrice, details: msg, fullDetails: msg });
@@ -3055,7 +3196,7 @@
     err.textContent = '';
     const items = keys.map(k => `• ${pubgLabel(pubgCart[k])} (${pubgCart[k].qty})`).join('\n');
     const total = keys.reduce((s,k) => s + pubgCart[k].price * pubgCart[k].qty, 0);
-    const msg = `🎮 طلب شحن ببجي\n🆔 الـ ID: ${idVal}\n📦 الطلب:\n${items}\n💰 السعر: ${total} جنيه`;
+    const msg = `🎮 طلب شحن ببجي\n🆔 الـ ID: ${idVal}\n📦 الطلب:\n${items}\n💰 السعر: ${total} جنيه\nالاسم: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
       const totalQty = keys.reduce((s,k) => s + pubgCart[k].qty, 0);
       window.saveOrder({ title: 'ببجي', quantity: totalQty, price: total, details: msg, fullDetails: msg });
@@ -3084,6 +3225,42 @@
   function closeSettingsPage() {
     document.getElementById('settingsPage').classList.remove('open');
     document.body.style.overflow = '';
+  }
+
+  // ── EDIT ACCOUNT ──
+  function openEditAccountPage() {
+    document.getElementById('editAccountPage').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    if (typeof window.populateEditAccountPage === 'function') window.populateEditAccountPage();
+  }
+  function closeEditAccountPage() {
+    document.getElementById('editAccountPage').classList.remove('open');
+    document.body.style.overflow = '';
+    // إخفاء صندوق تأكيد الهوية ومسح الحقول لما نقفل الصفحة
+    const reauthBox = document.getElementById('eaReauthBox');
+    if (reauthBox) reauthBox.style.display = 'none';
+    const pwInput = document.getElementById('eaPasswordInput');
+    if (pwInput) pwInput.value = '';
+    const reauthInput = document.getElementById('eaReauthPasswordInput');
+    if (reauthInput) reauthInput.value = '';
+    const pwStatus = document.getElementById('eaPasswordStatus');
+    if (pwStatus) { pwStatus.textContent = ''; pwStatus.className = 'login-status'; }
+    const nickStatus = document.getElementById('eaNicknameStatus');
+    if (nickStatus) { nickStatus.textContent = ''; nickStatus.className = 'login-status'; }
+  }
+  function toggleEaPasswordVisibility() {
+    const input = document.getElementById('eaPasswordInput');
+    const btn = document.getElementById('eaPasswordEyeBtn');
+    if (!input || !btn) return;
+    const eyeOpen = '<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>';
+    const eyeOff = '<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a20.4 20.4 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a20.3 20.3 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>';
+    if (input.type === 'password') {
+      input.type = 'text';
+      btn.innerHTML = eyeOff;
+    } else {
+      input.type = 'password';
+      btn.innerHTML = eyeOpen;
+    }
   }
 
   // ── MY ORDERS ──
@@ -3162,7 +3339,7 @@
     err.textContent = '';
     const pass  = brawlSelected.dataset.pass;
     const price = brawlSelected.dataset.price;
-    const msg = `⭐ طلب شحن براول ستارز\n📧 الإيميل: ${email}\n🎮 الطلب: ${pass}\n💰 السعر: ${price} جنيه`;
+    const msg = `⭐ طلب شحن براول ستارز\n📧 الإيميل: ${email}\n🎮 الطلب: ${pass}\n💰 السعر: ${price} جنيه\nالاسم: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
       window.saveOrder({ title: 'براول ستارز', quantity: 1, price: parseInt(price) || null, details: msg, fullDetails: msg });
     }
@@ -3281,7 +3458,7 @@
     err.textContent = '';
     const items = keys.map(k => `• ${pesCart[k].coin} Coins (${pesCart[k].qty})`).join('\n');
     const total = keys.reduce((s,k) => s + pesCart[k].price * pesCart[k].qty, 0);
-    const msg = `⚽ طلب شحن بيس (اندرويد)\n📧 الإيميل: ${email}\n🔑 الباسورد: ${pass}\n🪙 الطلب:\n${items}\n💰 السعر: ${total} جنيه`;
+    const msg = `⚽ طلب شحن بيس (اندرويد)\n📧 الإيميل: ${email}\n🔑 الباسورد: ${pass}\n🪙 الطلب:\n${items}\n💰 السعر: ${total} جنيه\nالاسم: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
       const totalQty = keys.reduce((s,k) => s + pesCart[k].qty, 0);
       const maskedMsg = window.maskSecret(msg, pass);
@@ -3306,7 +3483,7 @@
     const err = document.getElementById('visa-error');
     if (!request) { err.textContent = '⚠️ اكتب الحاجة اللي عايز تشحنها الأول'; return; }
     err.textContent = '';
-    const msg = `💳 طلب شحن بالفيزا\n📝 الطلب: ${request}`;
+    const msg = `💳 طلب شحن بالفيزا\n📝 الطلب: ${request}\nالاسم: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
       window.saveOrder({ title: 'فيزا', quantity: 1, price: null, details: msg, fullDetails: msg });
     }
@@ -3451,7 +3628,7 @@
       return `• ${item.label} (${item.qty})`;
     }).join('\n');
     const total = keys.reduce((s,k) => s + ffIdCart[k].price * ffIdCart[k].qty, 0);
-    const msg = `🔥 طلب شحن فري فاير (ID)\n🆔 الـ ID: ${idVal}\n💎 الطلب:\n${items}\n💰 السعر: ${total} جنيه`;
+    const msg = `🔥 طلب شحن فري فاير (ID)\n🆔 الـ ID: ${idVal}\n💎 الطلب:\n${items}\n💰 السعر: ${total} جنيه\nالاسم: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
       const totalQty = keys.reduce((s,k) => s + ffIdCart[k].qty, 0);
       window.saveOrder({ title: 'فري فاير (ID)', quantity: totalQty, price: total, details: msg, fullDetails: msg });
@@ -3556,7 +3733,7 @@
       return `• ${item.label} (${item.qty})`;
     }).join('\n');
     const total = keys.reduce((s,k) => s + ffAccCart[k].price * ffAccCart[k].qty, 0);
-    const msg = `🔥 طلب شحن فري فاير (حساب)\n📧 الإيميل: ${user}\n🔑 الباسورد: ${pass}\n🔗 نوع الربط: ${link}\n💎 الطلب:\n${items}\n💰 السعر: ${total} جنيه`;
+    const msg = `🔥 طلب شحن فري فاير (حساب)\n📧 الإيميل: ${user}\n🔑 الباسورد: ${pass}\n🔗 نوع الربط: ${link}\n💎 الطلب:\n${items}\n💰 السعر: ${total} جنيه\nالاسم: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
       const totalQty = keys.reduce((s,k) => s + ffAccCart[k].qty, 0);
       const maskedMsg = window.maskSecret(msg, pass);
@@ -3578,7 +3755,7 @@
     if (!desc) { err.textContent = '⚠️ اكتب وصف التصميم'; return; }
     err.textContent = '';
 
-    const msg = `👕 طلب تصميم ملابس روبلوكس\n🛍️ نوع التصميم: ${type}\n📝 الوصف: ${desc}`;
+    const msg = `👕 طلب تصميم ملابس روبلوكس\n🛍️ نوع التصميم: ${type}\n📝 الوصف: ${desc}\nالاسم: ${getCustomerName()}`;
     window.open('https://wa.me/201287724199?text=' + encodeURIComponent(msg), '_blank');
   }
 
@@ -3735,7 +3912,7 @@
 
     const RLM = '\u200F';
     const itemsList = items.map(i => `${RLM}• ${i.label} (${i.qty})`).join('\n');
-    const msg = `${RLM}⚽ طلب شحن فيفا\n${RLM}📧 الإيميل: ${user}\n${RLM}🪙 الطلب:\n${itemsList}\n${RLM}💰 السعر: ${totalPrice} جنيه`;
+    const msg = `${RLM}⚽ طلب شحن فيفا\n${RLM}📧 الإيميل: ${user}\n${RLM}🪙 الطلب:\n${itemsList}\n${RLM}💰 السعر: ${totalPrice} جنيه\n\$\{RLM\}الاسم: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
       const totalQty = items.reduce((s,i) => s + i.qty, 0);
       window.saveOrder({ title: 'فيفا', quantity: totalQty, price: totalPrice, details: msg, fullDetails: msg });
@@ -4165,6 +4342,28 @@
     }
   }
 
+  let toastTimer = null;
+  function showToast(msg) {
+    const el = document.getElementById('siteToast');
+    if (!el) return;
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove('show'), 2600);
+  }
+
+  function handleSettingsClick() {
+    if (window.isLoggedIn) {
+      openSettingsPage();
+    } else {
+      const navMenu = document.getElementById('navMenu');
+      if (navMenu) navMenu.classList.remove('open');
+      const navOverlay = document.querySelector('.nav-menu-overlay');
+      if (navOverlay) navOverlay.classList.remove('open');
+      showToast('سجل دخول عشان تشوف اعداداتك');
+    }
+  }
+
   function openLoginModal() {
     document.getElementById('loginModal').classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -4206,6 +4405,13 @@
 </script>
 
 <!-- FIREBASE AUTHENTICATION — Google + Email/Password (تسجيل الدخول اختياري بالكامل) -->
+<script>
+  // ضمان احتياطي: لو أي حاجة في Firebase فشلت (نت بطيء/حجب)، الموقع يفضل شغال
+  // وأي رسالة واتساب تتبعت باسم Guest بدل ما توقع بالخطأ ده
+  if (typeof window.getCustomerName !== 'function') {
+    window.getCustomerName = function () { return 'Guest'; };
+  }
+</script>
 <script type="module">
   import { getApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
   import {
@@ -4215,6 +4421,9 @@
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     updateProfile,
+    updatePassword,
+    EmailAuthProvider,
+    reauthenticateWithCredential,
     onAuthStateChanged,
     signOut
   } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
@@ -4375,6 +4584,16 @@
   }
   window.maskSecret = maskSecret;
 
+  // ============ اسم العميل اللي هيتضاف في آخر أي رسالة واتساب ============
+  // لو مسجل دخول: بيرجع اسمه (أو الإيميل لو مفيش اسم)
+  // لو مش مسجل دخول: بيرجع Guest
+  function getCustomerName() {
+    const user = auth.currentUser;
+    if (user) return user.displayName || user.email || 'Guest';
+    return 'Guest';
+  }
+  window.getCustomerName = getCustomerName;
+
   // ============ حفظ طلب جديد في Firestore (لو المستخدم مسجل دخول) ============
   // title: اسم اللعبة/الخدمة، quantity: الكمية اللي هتتعرض في القايمة،
   // price: السعر الإجمالي، details: نص التفاصيل اللي هيظهر في "طلباتي" فقط —
@@ -4524,6 +4743,140 @@
     }
   };
 
+  // هل المستخدم داخل بايميل وباسورد (يعني ممكن يغيّر كلمة سر) ولا عن طريق جوجل بس؟
+  function hasPasswordProvider(user) {
+    if (!user || !user.providerData) return false;
+    return user.providerData.some((p) => p.providerId === 'password');
+  }
+
+  // بتتنادى لما المستخدم يفتح صفحة "تعديل حسابي" — بتملأ الحقول ببياناته الحالية
+  window.populateEditAccountPage = function () {
+    const user = auth.currentUser;
+    const emailDisplay = document.getElementById('eaEmailDisplay');
+    const nicknameInput = document.getElementById('eaNicknameInput');
+    const passwordSection = document.getElementById('eaPasswordSection');
+    const googleNote = document.getElementById('eaGoogleOnlyNote');
+    const pwInput = document.getElementById('eaPasswordInput');
+    const pwSaveBtn = document.getElementById('eaPasswordSaveBtn');
+    const reauthBox = document.getElementById('eaReauthBox');
+
+    if (!user) return;
+    if (emailDisplay) emailDisplay.textContent = user.email || 'غير متاح';
+    if (nicknameInput) nicknameInput.value = user.displayName || '';
+    if (reauthBox) reauthBox.style.display = 'none';
+    if (pwInput) pwInput.value = '';
+
+    const canChangePassword = hasPasswordProvider(user);
+    if (pwInput) pwInput.style.display = canChangePassword ? 'block' : 'none';
+    if (pwSaveBtn) pwSaveBtn.style.display = canChangePassword ? 'block' : 'none';
+    const eyeBtn = document.getElementById('eaPasswordEyeBtn');
+    if (eyeBtn) eyeBtn.style.display = canChangePassword ? 'flex' : 'none';
+    if (googleNote) googleNote.style.display = canChangePassword ? 'none' : 'block';
+  };
+
+  window.saveNickname = async function () {
+    const user = auth.currentUser;
+    const input = document.getElementById('eaNicknameInput');
+    const statusEl = document.getElementById('eaNicknameStatus');
+    const btn = document.getElementById('eaNicknameSaveBtn');
+    if (!user || !input) return;
+    const newNickname = input.value.trim();
+    if (!newNickname) {
+      if (statusEl) { statusEl.textContent = 'من فضلك اكتب لقب'; statusEl.className = 'login-status err'; }
+      return;
+    }
+    btn.disabled = true;
+    if (statusEl) { statusEl.textContent = 'جاري الحفظ...'; statusEl.className = 'login-status'; }
+    try {
+      await updateProfile(user, { displayName: newNickname });
+      if (statusEl) { statusEl.textContent = 'تم تغيير اللقب بنجاح'; statusEl.className = 'login-status ok'; }
+      // تحديث الاسم في كل حتة ظاهر فيها (الهيدر، المنيو، صفحة الإعدادات)
+      refreshProfileDisplays(user);
+    } catch (err) {
+      if (statusEl) { statusEl.textContent = translateAuthError(err); statusEl.className = 'login-status err'; }
+    } finally {
+      btn.disabled = false;
+    }
+  };
+
+  window.savePassword = async function () {
+    const user = auth.currentUser;
+    const input = document.getElementById('eaPasswordInput');
+    const statusEl = document.getElementById('eaPasswordStatus');
+    const btn = document.getElementById('eaPasswordSaveBtn');
+    if (!user || !input) return;
+    const newPassword = input.value;
+    if (newPassword.length < 8) {
+      if (statusEl) { statusEl.textContent = 'كلمة المرور لازم تكون 8 أحرف على الأقل'; statusEl.className = 'login-status err'; }
+      return;
+    }
+    btn.disabled = true;
+    if (statusEl) { statusEl.textContent = 'جاري الحفظ...'; statusEl.className = 'login-status'; }
+    try {
+      await updatePassword(user, newPassword);
+      if (statusEl) { statusEl.textContent = 'تم تغيير كلمة السر بنجاح'; statusEl.className = 'login-status ok'; }
+      input.value = '';
+    } catch (err) {
+      const code = err && err.code ? err.code : '';
+      if (code.includes('requires-recent-login')) {
+        // Firebase محتاج تأكيد هوية قبل تغيير حاجة حساسة زي كلمة السر
+        pendingNewPassword = newPassword;
+        const reauthBox = document.getElementById('eaReauthBox');
+        if (reauthBox) reauthBox.style.display = 'flex';
+        if (statusEl) { statusEl.textContent = 'أدخل كلمة السر الحالية عشان نأكد هويتك'; statusEl.className = 'login-status'; }
+      } else {
+        if (statusEl) { statusEl.textContent = translateAuthError(err); statusEl.className = 'login-status err'; }
+      }
+    } finally {
+      btn.disabled = false;
+    }
+  };
+
+  let pendingNewPassword = null;
+  window.confirmReauthAndSavePassword = async function () {
+    const user = auth.currentUser;
+    const reauthInput = document.getElementById('eaReauthPasswordInput');
+    const statusEl = document.getElementById('eaPasswordStatus');
+    if (!user || !reauthInput || !pendingNewPassword) return;
+    const currentPassword = reauthInput.value;
+    if (!currentPassword) {
+      if (statusEl) { statusEl.textContent = 'من فضلك اكتب كلمة السر الحالية'; statusEl.className = 'login-status err'; }
+      return;
+    }
+    if (statusEl) { statusEl.textContent = 'جاري التأكيد...'; statusEl.className = 'login-status'; }
+    try {
+      const cred = EmailAuthProvider.credential(user.email, currentPassword);
+      await reauthenticateWithCredential(user, cred);
+      await updatePassword(user, pendingNewPassword);
+      if (statusEl) { statusEl.textContent = 'تم تغيير كلمة السر بنجاح'; statusEl.className = 'login-status ok'; }
+      pendingNewPassword = null;
+      reauthInput.value = '';
+      const pwInput = document.getElementById('eaPasswordInput');
+      if (pwInput) pwInput.value = '';
+      const reauthBox = document.getElementById('eaReauthBox');
+      if (reauthBox) reauthBox.style.display = 'none';
+    } catch (err) {
+      if (statusEl) { statusEl.textContent = translateAuthError(err); statusEl.className = 'login-status err'; }
+    }
+  };
+
+  // بتحدّث اسم اليوزر في كل الأماكن الظاهر فيها (الهيدر، المنيو الجانبي، صفحة الإعدادات) من غير ما نعيد تحميل الصفحة
+  function refreshProfileDisplays(user) {
+    if (!user) return;
+    const label = user.displayName || user.email || 'حسابي';
+    const shortLabel = label.length > 14 ? label.slice(0, 14) + '…' : label;
+    const btnText = document.getElementById('headerLoginBtnText');
+    const navBtnText = document.getElementById('navLoginBtnText');
+    const navIcon = document.getElementById('navProfileIcon');
+    const settingsIcon = document.getElementById('settingsProfileIcon');
+    const settingsName = document.getElementById('settingsProfileName');
+    if (btnText) btnText.textContent = shortLabel;
+    if (navBtnText) navBtnText.textContent = shortLabel;
+    if (navIcon) navIcon.textContent = label.trim().charAt(0).toUpperCase();
+    if (settingsIcon) settingsIcon.textContent = label.trim().charAt(0).toUpperCase();
+    if (settingsName) settingsName.textContent = label;
+  }
+
   window.logoutUser = async function () {
     try {
       await signOut(auth);
@@ -4563,13 +4916,13 @@
       checkUserRoleAndRedirect(user);
     } else {
       window.isLoggedIn = false;
-      if (btnText) btnText.textContent = 'Login';
-      if (navBtnText) navBtnText.textContent = 'Login';
+      if (btnText) btnText.textContent = 'سجل دخول';
+      if (navBtnText) navBtnText.textContent = 'سجل دخول';
       if (navIcon) navIcon.innerHTML = userIconSvg;
       if (formView) formView.style.display = 'block';
       if (accountView) accountView.style.display = 'none';
       if (settingsIcon) settingsIcon.innerHTML = userIconSvgLarge;
-      if (settingsName) settingsName.textContent = 'Login';
+      if (settingsName) settingsName.textContent = 'سجل دخول';
     }
   });
 </script>
