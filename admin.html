@@ -1,1680 +1,1640 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Arthur — Admin</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
-<!-- Hide the page immediately; only revealed once we've confirmed an admin role below -->
-<script>document.documentElement.style.visibility = 'hidden';</script>
-<!-- Firebase (Auth + Firestore) -->
-<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
-<script>
-const firebaseConfig = {
-  apiKey: "AIzaSyDOT9kXMEQrEy09vnDF_rbDGQpZB3Xyh7Y",
-  authDomain: "salaam-a7a05.firebaseapp.com",
-  projectId: "salaam-a7a05",
-  storageBucket: "salaam-a7a05.firebasestorage.app",
-  messagingSenderId: "980637704419",
-  appId: "1:980637704419:web:7ba4066d28cd5b069825d6",
-  measurementId: "G-W34G2K2CXR"
-};
-firebase.initializeApp(firebaseConfig);
-const fbAuth = firebase.auth();
-const fbDb   = firebase.firestore();
-
-// ══════════════ Admin access guard ══════════════
-// Anyone who isn't signed in, or whose Firestore role isn't "admin",
-// gets sent straight back to the normal site — they never see this page.
-fbAuth.onAuthStateChanged(async (fbUser) => {
-if (!fbUser){ window.location.replace('index.html'); return; }
-try{
-const snap = await fbDb.collection('users').doc(fbUser.uid).get();
-const role = snap.exists ? snap.data().role : null;
-if (role !== 'admin'){ window.location.replace('index.html'); return; }
-document.documentElement.style.visibility = 'visible';
-}catch(e){
-window.location.replace('index.html');
-}
-});
-</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>King&amp;cat - لوحة التحكم</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Bebas+Neue&display=swap" rel="stylesheet" />
 <style>
-:root{
---sky-top:#020a16;
---sky-mid:#03142c;
---app-max:480px;
---black:   #0d0d0d;
---white:   #f5f3ee;
---gold:    #1a5c8a;
---gold-lt: #7fb3e0;
---muted:   #888;
-}
-*{box-sizing:border-box;margin:0;padding:0; -webkit-tap-highlight-color:transparent;}
-button, a{ -webkit-tap-highlight-color:transparent; outline:none; }
-button:focus, a:focus{ outline:none; }
-html,body{height:100%; overflow-x:hidden; overscroll-behavior:none; touch-action:pan-y;}
-html{ background:var(--sky-mid); }
-body{
-font-family:'Tahoma','Segoe UI',sans-serif;
-color:#eaf1fb;
-min-height:100vh;
-min-height:100dvh;
-background:linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 100%);
-position:relative;
-}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html, body { -webkit-tap-highlight-color: transparent; }
+  a, button, [onclick] { -webkit-tap-highlight-color: transparent; outline: none; }
 
-/* Header — same as main site */
-header{
-position:relative; width:100%;
-z-index:20;
-display:flex; align-items:center; justify-content:space-between;
-padding:14px 20px;
-background:#000;
-}
-.brand-wrap{ display:flex; align-items:baseline; gap:10px; }
-.brand{
-font-size:1.5rem; font-weight:bold; letter-spacing:2px;
-background:linear-gradient(180deg,#fff 0%,#bfe0ff 55%,#7fb3e0 100%);
--webkit-background-clip:text; background-clip:text; color:transparent;
-}
-.brand-sub{
-font-family:'Cairo',sans-serif; font-size:.75rem; font-weight:700;
-color:var(--gold-lt); letter-spacing:1px; text-transform:uppercase;
-padding:3px 9px; border:1px solid rgba(127,179,224,.4); border-radius:20px;
-}
+  :root {
+    --sky-top: #020a16;
+    --sky-mid: #03142c;
+    --black:   linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 100%);
+    --white:   #f5f3ee;
+    --blue:    #2563eb;
+    --blue-lt: #60a5fa;
+    --gray:    #2a2a2a;
+    --muted:   #888;
+    --radius:  12px;
+  }
 
-/* Main */
-main{
-position:relative; z-index:10;
-max-width:var(--app-max);
-margin:0 auto;
-padding:26px 18px 40px;
-min-height:100vh;
-}
-.page-heading{
-font-family:'Cairo',sans-serif; font-weight:900; font-size:1.3rem;
-color:#eaf1fb; margin-bottom:4px;
-}
-.page-sub{
-font-size:.85rem; color:#8fa3c0; margin-bottom:22px;
-}
+  html { scroll-behavior: smooth; background: var(--sky-mid); }
 
-/* Admin category cards */
-.admin-grid{
-display:flex; flex-direction:column; gap:16px;
-}
-.admin-card{
-position:relative;
-display:flex; align-items:center; gap:16px;
-padding:20px;
-border-radius:16px;
-background:linear-gradient(135deg,#0d2f52,#1a5c8a);
-border:1px solid rgba(127,179,224,.25);
-cursor:pointer;
--webkit-tap-highlight-color:transparent;
--webkit-user-select:none; user-select:none;
-transition:transform .15s ease, border-color .15s ease;
-}
-.admin-card:active{ transform:scale(.98); }
-.admin-card:nth-child(2){ background:linear-gradient(135deg,#0a2540,#2a6ea8); }
-.admin-card:nth-child(3){ background:linear-gradient(135deg,#0d2f52,#1a5c8a); }
-.admin-card .icon{
-width:52px; height:52px; flex-shrink:0;
-border-radius:14px;
-background:rgba(0,0,0,.3);
-display:flex; align-items:center; justify-content:center;
-font-size:1.6rem;
-border:1px solid rgba(127,179,224,.35);
-}
-.admin-card .txt{ flex:1; }
-.admin-card .title{
-font-family:'Cairo',sans-serif; font-weight:900; font-size:1.05rem;
-color:#fff; margin-bottom:3px;
-}
-.admin-card .desc{
-font-size:.78rem; color:rgba(234,241,251,.65);
-}
-.admin-card .arrow{
-font-size:1.2rem; color:var(--gold-lt); flex-shrink:0;
-}
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Cairo', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
 
-/* Game slots inside Mobile Games */
-.game-slot-list{ display:flex; flex-direction:column; gap:14px; padding:20px 18px 40px; max-width:var(--app-max); margin:0 auto; width:100%; }
-.game-slot{
-position:relative;
-display:flex; align-items:center; gap:14px;
-padding:16px;
-border-radius:14px;
-background:rgba(127,179,224,.06);
-border:1px solid rgba(127,179,224,.2);
-cursor:pointer;
--webkit-user-select:none; user-select:none;
-transition:transform .15s ease;
-}
-.game-slot:active{ transform:scale(.98); }
-.game-slot.disabled{ opacity:.5; cursor:default; }
-.game-slot .icon{
-width:44px; height:44px; flex-shrink:0;
-border-radius:12px;
-background:rgba(0,0,0,.3);
-display:flex; align-items:center; justify-content:center;
-font-size:1.3rem;
-border:1px solid rgba(127,179,224,.3);
-overflow:hidden;
-}
-.game-slot .icon img{
-width:100%; height:100%; object-fit:cover; display:block; border-radius:12px;
-}
-.game-slot .title{ font-family:'Cairo',sans-serif; font-weight:700; font-size:.95rem; color:#eaf1fb; flex:1; }
-.game-slot .status{ font-size:.72rem; color:var(--muted); font-family:'Cairo',sans-serif; }
-.game-slot .status.ready{ color:#6fcf3a; }
-.game-slot .arrow{ font-size:1.1rem; color:var(--gold-lt); }
+  /* ── HEADER ── */
+  header {
+    position: fixed;
+    top: 0; right: 0; left: 0;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    height: 70px;
+    background: rgba(13,13,13,.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(37,99,235,.18);
+  }
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+  .hamburger span {
+    display: block;
+    width: 26px;
+    height: 2px;
+    background: var(--blue);
+    border-radius: 2px;
+    transition: transform .3s, opacity .3s;
+  }
+  .header-title {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-inline-start: 14px;
+  }
+  .header-title .name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: .06em;
+    color: var(--white);
+  }
+  .header-title .name span { color: var(--blue-lt); }
+  .header-title .badge {
+    font-size: .68rem;
+    font-weight: 800;
+    color: var(--blue-lt);
+    background: rgba(96,165,250,.12);
+    border: 1px solid rgba(96,165,250,.35);
+    border-radius: 20px;
+    padding: 3px 10px;
+    margin-inline-start: 10px;
+  }
+  .header-admin-icon {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: rgba(96,165,250,.12);
+    border: 1.5px solid rgba(96,165,250,.4);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--blue-lt);
+    font-weight: 900;
+    font-size: .9rem;
+    flex-shrink: 0;
+  }
 
-/* Price editor */
-.price-editor{ padding:18px; max-width:var(--app-max); margin:0 auto; width:100%; }
+  /* ── SIDE MENU ── */
+  .nav-menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.55);
+    backdrop-filter: blur(2px);
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s ease;
+  }
+  .nav-menu-overlay.open { opacity: 1; pointer-events: auto; }
+  .nav-menu {
+    position: fixed;
+    top: 0; right: 0;
+    height: 100vh; height: 100dvh;
+    width: 72%;
+    max-width: 320px;
+    background: #0d0d0d;
+    border-left: 1px solid rgba(37,99,235,.25);
+    box-shadow: -8px 0 32px rgba(0,0,0,.9);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 24px 0 20px;
+    z-index: 1001;
+    transform: translateX(100%);
+    transition: transform .32s cubic-bezier(.4,0,.2,1);
+  }
+  .nav-menu.open { transform: translateX(0); }
+  .nav-menu-close {
+    position: absolute;
+    top: 20px; left: 20px;
+    width: 34px; height: 34px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(37,99,235,.1);
+    border: 1px solid rgba(37,99,235,.25);
+    border-radius: 50%;
+    color: var(--white);
+    font-size: 1.1rem;
+    cursor: pointer;
+  }
+  .nav-menu-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 30px 8% 22px;
+    text-align: center;
+    background: rgba(96,165,250,.07);
+    border-bottom: 1px solid rgba(96,165,250,.2);
+  }
+  .nav-profile-icon {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: rgba(96,165,250,.15);
+    border: 1.5px solid rgba(96,165,250,.5);
+    color: var(--blue-lt);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 900;
+  }
+  .nav-menu-profile .nav-profile-text {
+    color: var(--blue-lt);
+    font-weight: 800;
+    font-size: .92rem;
+  }
+  .nav-menu-profile .nav-profile-sub {
+    color: var(--muted);
+    font-size: .75rem;
+  }
+  .nav-menu-links { display: flex; flex-direction: column; overflow-y: auto; }
+  .nav-menu a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 16px 8%;
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: .95rem;
+    border-bottom: 1px solid rgba(37,99,235,.1);
+    transition: color .2s, background .2s;
+    cursor: pointer;
+  }
+  .nav-menu a .ic { font-size: 1.1rem; width: 22px; text-align: center; }
+  .nav-menu a:hover, .nav-menu a.active { color: var(--blue-lt); background: rgba(37,99,235,.08); }
+  .nav-menu a.logout { color: #e05555; margin-top: auto; }
+  .nav-menu a.logout:hover { background: rgba(224,85,85,.08); }
 
-.accordion-section{
-border:1px solid rgba(127,179,224,.2);
-border-radius:14px;
-margin-bottom:14px;
-overflow:hidden;
-background:rgba(127,179,224,.04);
-}
-.accordion-header{
-display:flex; align-items:center; gap:10px;
-padding:15px 16px;
-cursor:pointer;
--webkit-user-select:none; user-select:none;
-}
-.accordion-header .name{
-font-family:'Cairo',sans-serif; font-weight:900; font-size:.95rem;
-color:var(--gold-lt); flex:1;
-}
-.accordion-header .count{
-font-size:.75rem; color:var(--muted); font-family:'Cairo',sans-serif;
-}
-.accordion-header .chev{
-font-size:.9rem; color:var(--gold-lt);
-transition:transform .25s ease;
-}
-.accordion-section.open .chev{ transform:rotate(90deg); }
-.accordion-body{
-display:grid;
-grid-template-rows:0fr;
-transition:grid-template-rows .28s ease;
-}
-.accordion-section.open .accordion-body{ grid-template-rows:1fr; }
-.accordion-body .acc-inner{
-overflow:hidden;
-min-height:0;
-padding:0 14px 14px;
-}
+  /* ── MAIN ── */
+  main {
+    padding: 100px 5% 60px;
+    min-height: 100vh;
+  }
 
-.price-row{
-display:flex; align-items:center; gap:8px;
-padding:10px 0; border-bottom:1px solid rgba(255,255,255,.06);
-}
-.price-row .field{
-display:flex; align-items:center; gap:6px;
-background:rgba(0,0,0,.3);
-border:1px solid rgba(127,179,224,.3);
-border-radius:8px;
-padding:6px 10px;
-flex:1;
-}
-.price-row .field input{
-width:100%; background:none; border:none; color:#fff;
-font-size:.85rem; text-align:center; font-family:'Tahoma','Segoe UI',sans-serif;
-}
-.price-row .field input:focus{ outline:none; }
-.price-row .field .unit{ font-size:.72rem; color:var(--muted); flex-shrink:0; }
-.price-row{ flex-wrap:wrap; }
-.price-row .field.flag-field{ flex:0 0 auto; padding:6px 6px; }
-.price-row .field.flag-field select{
-background:#04101f; border:none; color:#fff;
-font-size:.85rem; font-family:'Tahoma','Segoe UI',sans-serif;
-max-width:92px; text-overflow:ellipsis;
-}
-.price-row .field.flag-field select:focus{ outline:none; }
-.price-row .remove-row{
-width:30px; height:30px; flex-shrink:0; border-radius:8px;
-background:rgba(224,85,85,.12); border:1px solid rgba(224,85,85,.35);
-color:#e05555; font-size:1rem; cursor:pointer;
-display:flex; align-items:center; justify-content:center;
-}
-.add-row-btn{
-width:100%; margin-top:10px; padding:10px;
-border-radius:10px; border:1.5px dashed rgba(127,179,224,.4);
-background:transparent; color:var(--gold-lt);
-font-family:'Cairo',sans-serif; font-weight:700; font-size:.85rem;
-cursor:pointer;
-}
-.empty-hint{
-font-size:.78rem; color:var(--muted); text-align:center; padding:16px 0;
-}
+  .page-head { margin-bottom: 26px; }
+  .page-head .eyebrow {
+    color: var(--blue-lt);
+    font-size: .8rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+  .page-head h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.1rem;
+    letter-spacing: .04em;
+    color: var(--white);
+  }
+  .page-head p {
+    color: var(--muted);
+    font-size: .88rem;
+    margin-top: 4px;
+  }
 
-.save-bar{
-position:sticky; bottom:0; padding:14px 0 4px;
-background:linear-gradient(180deg, transparent, var(--sky-mid) 30%);
-}
-.save-btn{
-width:100%; padding:13px; border-radius:12px; border:none;
-background:var(--gold-lt); color:#04101f;
-font-family:'Cairo',sans-serif; font-weight:900; font-size:.95rem;
-cursor:pointer;
-}
-.save-btn:active{ transform:scale(.98); }
+  /* stat cards */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 30px;
+  }
+  .stat-card {
+    background: #141414;
+    border: 1px solid rgba(37,99,235,.2);
+    border-radius: var(--radius);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .stat-card .stat-icon {
+    width: 36px; height: 36px;
+    border-radius: 9px;
+    background: rgba(37,99,235,.12);
+    border: 1px solid rgba(37,99,235,.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    color: var(--blue-lt);
+  }
+  .stat-card .stat-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.7rem;
+    color: var(--white);
+    letter-spacing: .03em;
+  }
+  .stat-card .stat-label {
+    color: var(--muted);
+    font-size: .78rem;
+    font-weight: 600;
+  }
 
-/* Internal pages — same slide pattern as main site */
-.page{
-position:fixed; inset:0; z-index:40;
-background:linear-gradient(180deg,var(--sky-top) 0%,var(--sky-mid) 100%);
-display:flex; flex-direction:column;
-transform:translateX(100%);
-transition:transform .35s ease;
-overflow-y:auto;
--webkit-overflow-scrolling:touch;
-}
-.page.open{ transform:translateX(0); }
-.page-top{
-position:sticky; top:0; z-index:5;
-display:flex; align-items:center; gap:14px;
-padding:14px 22px; background:#000;
-}
-.back-btn{
-background:none; border:none; cursor:pointer;
-color:#eaf1fb; font-size:1.3rem;
-}
-.page-top span{ font-family:'Cairo',sans-serif; font-weight:700; font-size:1rem; color:#eaf1fb; }
-.page-body{
-flex:1; display:flex; align-items:center; justify-content:center;
-text-align:center; padding:24px;
-}
-.page-body .soon{
-color:var(--gold-lt); font-family:'Cairo',sans-serif; font-weight:700; font-size:1.05rem;
-}
-.orders-tabs{ display:flex; gap:10px; margin-bottom:22px; }
-.orders-tab-btn{
-flex:1; padding:12px; border-radius:12px;
-border:1.5px solid rgba(127,179,224,.3);
-background:rgba(127,179,224,.06); color:var(--gold-lt);
-font-family:'Cairo',sans-serif; font-weight:800; font-size:.9rem;
-cursor:pointer; -webkit-user-select:none; user-select:none;
-transition:background .15s ease, color .15s ease, border-color .15s ease;
-}
-.orders-tab-btn.active{
-background:var(--gold-lt); color:#04101f; border-color:var(--gold-lt);
-}
-.orders-tab-btn:active{ transform:scale(.98); }
-.orders-tab-content{
-padding:4px 0 40px;
-}
-.manual-order-box{
-border:1px solid rgba(127,179,224,.2);
-border-radius:14px;
-background:rgba(127,179,224,.04);
-padding:14px;
-margin-bottom:18px;
-}
-.manual-order-form{ margin-top:12px; }
-.manual-order-form .field{
-display:flex; align-items:center; gap:6px;
-background:rgba(0,0,0,.3);
-border:1px solid rgba(127,179,224,.3);
-border-radius:8px;
-padding:8px 10px;
-margin-bottom:10px;
-}
-.manual-order-form .field input,
-.manual-order-form .field textarea{
-width:100%; background:none; border:none; color:#fff;
-font-size:.85rem; font-family:'Tahoma','Segoe UI',sans-serif;
-resize:vertical;
-}
-.manual-order-form .field input:focus,
-.manual-order-form .field textarea:focus{ outline:none; }
-.order-card{
-position:relative;
-border:1px solid rgba(127,179,224,.2);
-border-radius:14px;
-background:rgba(127,179,224,.06);
-padding:14px 16px;
-margin-bottom:14px;
-}
-.order-top{
-display:flex; align-items:center; justify-content:space-between;
-margin-bottom:2px;
-}
-.order-game{
-font-family:'Cairo',sans-serif; font-weight:900; font-size:1rem; color:#fff;
-}
-.order-badge{
-font-family:'Cairo',sans-serif; font-weight:700; font-size:.68rem;
-color:var(--gold-lt); border:1px solid rgba(127,179,224,.4);
-border-radius:20px; padding:2px 9px; flex-shrink:0;
-}
-.order-person{
-font-family:'Cairo',sans-serif; font-weight:700; font-size:.85rem;
-color:var(--gold-lt); margin-bottom:8px;
-}
-.order-message{
-font-size:.82rem; color:rgba(234,241,251,.8);
-white-space:pre-wrap; word-break:break-word;
-margin-bottom:10px;
-}
-.order-time{
-font-size:.7rem; color:var(--muted); margin-bottom:10px;
-}
-.order-actions{ display:flex; gap:10px; }
-.order-btn{
-flex:1; padding:9px; border-radius:10px; border:1.5px solid transparent;
-font-family:'Cairo',sans-serif; font-weight:800; font-size:.82rem;
-cursor:pointer; -webkit-user-select:none; user-select:none;
-background:none;
-}
-.order-btn:active{ transform:scale(.97); }
-.order-btn.done{ background:rgba(111,207,58,.15); border-color:rgba(111,207,58,.4); color:#6fcf3a; }
-.order-btn.cancel{ background:rgba(224,85,85,.12); border-color:rgba(224,85,85,.35); color:#e05555; }
-.order-btn.trash{
-flex:none; width:42px; background:rgba(224,85,85,.12);
-border-color:rgba(224,85,85,.35); color:#e05555; font-size:1rem;
-}
-.orders-empty{
-font-size:.78rem; color:var(--muted); text-align:center; padding:30px 0;
-}
-.order-card{ cursor:pointer; -webkit-user-select:none; user-select:none; }
-.order-card:active{ transform:scale(.99); }
-.order-card .card-trash{
-position:absolute; top:12px; left:12px;
-width:34px; height:34px; padding:0; flex:none;
-display:flex; align-items:center; justify-content:center;
-}
+  /* section title */
+  .section-title {
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--white);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--blue-lt);
+  }
 
-/* Order details modal */
-.order-modal-overlay{
-position:fixed; inset:0; z-index:60;
-background:rgba(2,10,22,.72);
-display:none; align-items:center; justify-content:center;
-padding:24px;
--webkit-backdrop-filter:blur(2px); backdrop-filter:blur(2px);
-}
-.order-modal-overlay.open{ display:flex; }
-.order-modal{
-width:100%; max-width:380px;
-background:linear-gradient(180deg,var(--sky-top) 0%,var(--sky-mid) 100%);
-border:1px solid rgba(127,179,224,.3);
-border-radius:18px;
-overflow:hidden;
-max-height:80vh;
-display:flex; flex-direction:column;
-}
-.order-modal-top{
-display:flex; align-items:center; justify-content:space-between;
-padding:16px 18px; background:#000;
-font-family:'Cairo',sans-serif; font-weight:900; font-size:1.05rem; color:#fff;
-}
-.order-modal-close{
-background:none; border:none; color:#eaf1fb; font-size:1.4rem;
-cursor:pointer; line-height:1; padding:0 4px;
-}
-.order-modal-body{ padding:18px; overflow-y:auto; }
-.order-modal-person{
-font-family:'Cairo',sans-serif; font-weight:800; font-size:.9rem;
-color:var(--gold-lt); margin-bottom:12px;
-}
-.order-modal-message{
-font-size:.88rem; color:rgba(234,241,251,.85);
-white-space:pre-wrap; word-break:break-word;
-margin-bottom:14px; line-height:1.6;
-}
-.order-modal-time{ font-size:.72rem; color:var(--muted); }
-.order-modal-actions{ display:flex; gap:10px; padding:0 18px 18px; }
+  /* quick action cards (sections of the admin) */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 34px;
+  }
+  .admin-card {
+    background: #141414;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: var(--radius);
+    padding: 18px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    cursor: pointer;
+    transition: border-color .2s, transform .2s;
+  }
+  .admin-card:hover { border-color: var(--blue); transform: translateY(-2px); }
+  .admin-card .ac-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    background: rgba(37,99,235,.12);
+    border: 1px solid rgba(37,99,235,.3);
+    color: var(--blue-lt);
+  }
+  .admin-card .ac-title { font-weight: 800; font-size: .92rem; color: var(--white); }
+  .admin-card .ac-desc { font-size: .76rem; color: var(--muted); line-height: 1.5; }
+
+  .admin-card.orders-card { cursor: default; margin-bottom: 12px; }
+  .admin-card.orders-card:hover { border-color: rgba(255,255,255,.08); transform: none; }
+  .orders-card-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  /* ── ORDERS FILTER TABS ── */
+  .orders-tabs {
+    display: flex;
+    gap: 8px;
+    background: #141414;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: var(--radius);
+    padding: 5px;
+    margin-bottom: 16px;
+  }
+  .orders-tab {
+    flex: 1;
+    text-align: center;
+    padding: 10px 6px;
+    border-radius: 9px;
+    font-size: .84rem;
+    font-weight: 800;
+    color: var(--muted);
+    cursor: pointer;
+    transition: background .2s, color .2s;
+    user-select: none;
+  }
+  .orders-tab.active { background: rgba(37,99,235,.16); color: var(--blue-lt); }
+  .orders-tab:hover:not(.active) { color: #ccc; }
+
+  /* recent orders placeholder table */
+  .table-wrap {
+    background: #141414;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .order-row {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+    gap: 10px;
+  }
+  .order-row:last-child { border-bottom: none; }
+  .order-row .o-game { font-weight: 800; font-size: .88rem; color: var(--white); }
+  .order-row .o-user { font-size: .74rem; color: var(--muted); margin-top: 2px; }
+
+  .order-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .o-action-btn {
+    flex: 1;
+    min-width: 78px;
+    text-align: center;
+    font-family: 'Cairo', sans-serif;
+    font-size: .74rem;
+    font-weight: 800;
+    padding: 8px 6px;
+    border-radius: 8px;
+    cursor: pointer;
+    background: none;
+    transition: background .2s, opacity .2s;
+    white-space: nowrap;
+  }
+  .o-action-btn.done    { color: #6fcf3a; border: 1px solid rgba(111,207,58,.35); background: rgba(111,207,58,.06); }
+  .o-action-btn.done.active    { background: rgba(111,207,58,.25); }
+  .o-action-btn.pending { color: #f4a100; border: 1px solid rgba(244,161,0,.35); background: rgba(244,161,0,.06); }
+  .o-action-btn.pending.active { background: rgba(244,161,0,.25); }
+  .o-action-btn.cancel  { color: #e05555; border: 1px solid rgba(224,85,85,.35); background: rgba(224,85,85,.06); }
+  .o-action-btn.cancel:hover  { background: rgba(224,85,85,.2); }
+
+  .order-date-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .o-date-label { font-size: .75rem; color: var(--muted); font-weight: 700; white-space: nowrap; }
+  .o-date-input {
+    background: #1a1a1a;
+    border: 1.5px solid rgba(244,161,0,.35);
+    border-radius: 8px;
+    padding: 7px 10px;
+    color: #fff;
+    font-family: 'Cairo', sans-serif;
+    font-size: .82rem;
+    outline: none;
+    flex: 1;
+    min-width: 130px;
+    color-scheme: dark;
+  }
+  .o-date-input:focus { border-color: #f4a100; }
+
+  /* back button (orders page) */
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(37,99,235,.12);
+    border: 1px solid rgba(37,99,235,.3);
+    color: var(--blue-lt);
+    font-family: 'Cairo', sans-serif;
+    font-weight: 800;
+    font-size: .82rem;
+    padding: 8px 14px;
+    border-radius: 9px;
+    cursor: pointer;
+    margin-bottom: 14px;
+  }
+  .back-btn:hover { background: rgba(37,99,235,.22); }
+
+  .add-order-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    background: rgba(37,99,235,.12);
+    border: 1.5px dashed rgba(37,99,235,.4);
+    color: var(--blue-lt);
+    font-family: 'Cairo', sans-serif;
+    font-weight: 800;
+    font-size: .85rem;
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 16px;
+    transition: background .2s;
+  }
+  .add-order-btn:hover { background: rgba(37,99,235,.22); }
+
+  .order-top-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .o-trash-btn {
+    flex-shrink: 0;
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    border: 1px solid rgba(224,85,85,.35);
+    background: rgba(224,85,85,.06);
+    color: #e05555;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background .2s;
+  }
+  .o-trash-btn:hover { background: rgba(224,85,85,.2); }
+
+  .date-filter-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .date-filter-row .o-date-input { flex: 1; }
+  .date-filter-clear {
+    flex-shrink: 0;
+    background: rgba(37,99,235,.12);
+    border: 1px solid rgba(37,99,235,.3);
+    color: var(--blue-lt);
+    font-family: 'Cairo', sans-serif;
+    font-weight: 800;
+    font-size: .78rem;
+    padding: 10px 12px;
+    border-radius: 9px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .date-filter-clear:hover { background: rgba(37,99,235,.22); }
+
+  .o-due-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: .76rem;
+    font-weight: 800;
+    color: #f4a100;
+    background: rgba(244,161,0,.1);
+    border: 1px solid rgba(244,161,0,.35);
+    border-radius: 8px;
+    padding: 6px 10px;
+    white-space: nowrap;
+  }
+
+  /* ── LOGIN SCREEN ── */
+  .admin-login-wrap {
+    position: fixed;
+    inset: 0;
+    background: var(--black);
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .admin-login-wrap::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(37,99,235,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(37,99,235,.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+  .admin-login-box {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+    background: #101010;
+    border: 1.5px solid rgba(37,99,235,.3);
+    border-radius: 18px;
+    padding: 34px 26px;
+    box-shadow: 0 20px 50px rgba(0,0,0,.6);
+  }
+  .admin-login-logo {
+    text-align: center;
+    margin-bottom: 22px;
+  }
+  .admin-login-logo .name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: .06em;
+    color: var(--white);
+  }
+  .admin-login-logo .name span { color: var(--blue-lt); }
+  .admin-login-logo .sub {
+    color: var(--muted);
+    font-size: .8rem;
+    margin-top: 4px;
+  }
+  .order-form { display: flex; flex-direction: column; gap: 14px; }
+  .ofield { display: flex; flex-direction: column; gap: 6px; }
+  .olabel { font-size: .85rem; font-weight: 700; color: #ccc; }
+  .oinput {
+    background: #1a1a1a;
+    border: 1.5px solid rgba(255,255,255,.12);
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: #fff;
+    font-family: 'Cairo', sans-serif;
+    font-size: .95rem;
+    outline: none;
+    transition: border-color .2s;
+    direction: ltr;
+    text-align: right;
+  }
+  .oinput:focus { border-color: var(--blue-lt); }
+  .oinput::placeholder { color: #555; }
+  .login-submit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--blue-lt);
+    color: #04101f;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 900;
+    font-size: .95rem;
+    padding: 13px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: opacity .2s;
+    width: 100%;
+    margin-top: 6px;
+  }
+  .login-submit-btn:hover { opacity: .88; }
+  /* ── PRICING EDITOR (خانات صغيرة في سطر واحد، بس بتفضل جوه عرض الموبايل) ── */
+  .price-rows { display: flex; flex-direction: column; gap: 7px; }
+  .price-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: #1a1a1a;
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 8px;
+    padding: 6px;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+  .price-row .oinput {
+    padding: 7px 5px;
+    font-size: .7rem;
+    min-width: 0;   /* أهم حاجة: تمنع الـ input إنه يفرض عرضه الطبيعي ويطلع بره الصف */
+    width: 100%;
+    text-align: center;
+  }
+  .price-row .amt-input   { flex: .85 1 0; }
+  .price-row .price-input { flex: .85 1 0; }
+  .price-row .label-input { flex: 1.15 1 0; text-align: right; }
+  .price-row .custom-check {
+    display: flex; flex-direction: column; align-items: center; gap: 1px;
+    font-size: .56rem; color: var(--muted); line-height: 1.1;
+    flex-shrink: 0; white-space: nowrap; width: 30px;
+  }
+  .price-row .custom-check input { width: 13px; height: 13px; flex-shrink: 0; }
+
+  /* ── ACCORDION PRICE SECTIONS (iOS grouped-list style) ── */
+  .price-section {
+    margin-bottom: 12px;
+    background: #141414;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .price-section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .price-section-head-title { font-weight: 800; font-size: .95rem; color: var(--white); display: flex; align-items: center; gap: 8px; }
+  .price-section-count {
+    font-size: .7rem; font-weight: 800; color: var(--blue-lt);
+    background: rgba(96,165,250,.12); border: 1px solid rgba(96,165,250,.3);
+    border-radius: 20px; padding: 2px 9px; margin-inline-start: 4px;
+  }
+  .price-section-chevron { color: var(--blue-lt); font-size: .75rem; transition: transform .25s ease; flex-shrink: 0; }
+  .price-section.open .price-section-chevron { transform: rotate(180deg); }
+  .price-section-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .3s ease;
+  }
+  .price-section-body-inner { padding: 0 16px 16px; }
+  .price-section.open .price-section-body { max-height: 3000px; }
+  .remove-row-btn {
+    flex-shrink: 0;
+    width: 26px; height: 26px;
+    border-radius: 6px;
+    border: 1px solid rgba(224,85,85,.4);
+    background: rgba(224,85,85,.1);
+    color: #e05555;
+    cursor: pointer;
+    font-size: .68rem;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0;
+  }
+  .login-status {
+    font-size: .82rem;
+    font-weight: 700;
+    min-height: 18px;
+    margin-top: 10px;
+    text-align: center;
+  }
+  .login-status.err { color: #e05555; }
+  .login-status.ok { color: #6fcf3a; }
+
+  /* ── AUTH GATE (شاشة تحقق قبل عرض لوحة التحكم) ── */
+  #authGate {
+    position: fixed;
+    inset: 0;
+    z-index: 5000;
+    background: var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+  }
+  #authGate .gate-spinner {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    border: 3px solid rgba(96,165,250,.25);
+    border-top-color: var(--blue-lt);
+    animation: gateSpin .8s linear infinite;
+  }
+  #authGate .gate-text {
+    color: var(--muted);
+    font-size: .9rem;
+    font-weight: 700;
+  }
+  @keyframes gateSpin { to { transform: rotate(360deg); } }
+
+  /* ── PHONE FRAME (تخلي الصفحة تفضل شكل موبايل حتى لو اتفتحت على شاشة كمبيوتر) ── */
+  .phone-frame {
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+    position: relative;
+    /* بيعمل containing block جديد عشان position:fixed (الهيدر والقوائم والمودالز) تتحبس جوه الفريم بدل ما تاخد عرض الشاشة كلها */
+    transform: translateZ(0);
+    overflow-x: hidden;
+    background: var(--black);
+  }
+  @media (min-width: 481px) {
+    html { background: #000; }
+    body { background: #000; }
+    .phone-frame {
+      box-shadow: 0 0 0 1px rgba(96,165,250,.15), 0 30px 90px rgba(0,0,0,.85);
+    }
+  }
+  /* تصغير عام للمقاسات الكبيرة عشان تتناسب مع شاشة الموبايل دايمًا */
+  @media (max-width: 380px) {
+    .page-head h1 { font-size: 1.8rem; }
+    .stat-card .stat-value { font-size: 1.45rem; }
+    .admin-login-logo .name { font-size: 1.7rem; }
+  }
+
 </style>
 </head>
 <body>
+<div class="phone-frame">
 
-<header>
-<div class="brand-wrap">
-<span class="brand">Arthur</span>
-<span class="brand-sub">Admin</span>
+<!-- ============ شاشة التحقق من صلاحية الأدمن (تظهر لحد ما يتأكد الكود إنه أدمن فعلاً) ============ -->
+<div id="authGate">
+  <div class="gate-spinner"></div>
+  <div class="gate-text">جاري التحقق من الصلاحية...</div>
 </div>
-<button onclick="fbAuth.signOut().then(()=>window.location.replace('index.html'))" style="background:none;border:1px solid rgba(127,179,224,.4);color:#eaf1fb;border-radius:20px;padding:6px 14px;font-size:.78rem;cursor:pointer;">Log Out</button>
+
+<!-- ============ محتوى لوحة التحكم (مخفي لحد ما نتأكد إن اليوزر أدمن) ============ -->
+<div id="adminContent" style="display:none;">
+
+<!-- ============ HEADER ============ -->
+<header>
+  <button class="hamburger" id="menuBtn" aria-label="القائمة">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="header-title">
+    <span class="name">King<span>&amp;cat</span></span>
+    <span class="badge">أدمن</span>
+  </div>
+  <div class="header-admin-icon">A</div>
 </header>
 
-<main>
-<div class="page-heading">Dashboard</div>
-<div class="page-sub">Manage store data</div>
+<!-- ============ SIDE MENU ============ -->
+<div class="nav-menu-overlay" id="navMenuOverlay"></div>
+<nav class="nav-menu" id="navMenu">
+  <button class="nav-menu-close" id="navMenuClose" aria-label="اغلاق">✕</button>
+  <div class="nav-menu-profile">
+    <div class="nav-profile-icon">A</div>
+    <span class="nav-profile-text">حساب الأدمن</span>
+    <span class="nav-profile-sub">admin@kingcat.com</span>
+  </div>
+  <a href="javascript:void(0)" style="border-bottom:1px solid rgba(37,99,235,.1);"><span class="ic">⚙️</span> الإعدادات</a>
+  <div class="nav-menu-links">
+    <a href="javascript:void(0)" class="active" id="navHome" onclick="showDashboard()"><span class="ic">🏠</span> الرئيسية</a>
+    <a href="javascript:void(0)" id="navOrders" onclick="showOrdersPage()"><span class="ic">🧾</span> الطلبات</a>
+    <a href="javascript:void(0)" id="navPricing" onclick="showPricingPage()"><span class="ic">🎮</span> المنتجات والأسعار</a>
+    <a href="javascript:void(0)" class="logout" onclick="adminLogout()"><span class="ic">🚪</span> تسجيل الخروج</a>
+  </div>
+</nav>
 
-<div class="admin-grid">
+<!-- ============ MAIN DASHBOARD (شكل فقط) ============ -->
+<main id="dashboard">
+  <div class="page-head">
+    <div class="eyebrow">أهلاً بيك</div>
+    <h1>لوحة التحكم</h1>
+    <p>نظرة سريعة على حالة الموقع دلوقتي</p>
+  </div>
 
-<div class="admin-card" onclick="openAdminPage('ordersPage')">
-<div class="icon">🧾</div>
-<div class="txt">
-<div class="title">Orders</div>
-<div class="desc">View and manage customer orders</div>
-</div>
-<div class="arrow">‹</div>
-</div>
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">🧾</div>
+      <div class="stat-value" id="statTotalOrders">—</div>
+      <div class="stat-label">إجمالي الطلبات</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">⏳</div>
+      <div class="stat-value" id="statPendingOrders">—</div>
+      <div class="stat-label">طلبات قيد الانتظار</div>
+    </div>
+  </div>
 
-<div class="admin-card" onclick="openAdminPage('mobileGamesPage')">
-<div class="icon">📱</div>
-<div class="txt">
-<div class="title">Mobile Games</div>
-<div class="desc">Manage mobile games section</div>
-</div>
-<div class="arrow">‹</div>
-</div>
+  <div class="section-title"><span class="dot"></span> أقسام التحكم</div>
 
-<div class="admin-card" onclick="openAdminPage('giftCardsPage')">
-<div class="icon">🎁</div>
-<div class="txt">
-<div class="title">Gift Cards</div>
-<div class="desc">Manage gift cards section</div>
-</div>
-<div class="arrow">‹</div>
-</div>
-
-<div class="admin-card" onclick="openAdminPage('pcGamesPage')">
-<div class="icon">🖥️</div>
-<div class="txt">
-<div class="title">PC Games</div>
-<div class="desc">Manage PC games section</div>
-</div>
-<div class="arrow">‹</div>
-</div>
-
-</div>
+  <div class="cards-grid">
+    <div class="admin-card" onclick="showOrdersPage()">
+      <div class="ac-icon">🧾</div>
+      <div class="ac-title">الطلبات</div>
+      <div class="ac-desc">هنا بتوصلك كل الطلبات الجديدة</div>
+    </div>
+    <div class="admin-card" onclick="showPricingPage()">
+      <div class="ac-icon">🎮</div>
+      <div class="ac-title">المنتجات والأسعار</div>
+      <div class="ac-desc">تعديل أسعار الألعاب والكروت</div>
+    </div>
+    <div class="admin-card" onclick="showBonusCodesPage()">
+      <div class="ac-icon">🏷️</div>
+      <div class="ac-title">أكواد الزيادة</div>
+      <div class="ac-desc">تحكم في أكواد زيادة الروب بتاعة الكوميونتي</div>
+    </div>
+  </div>
 </main>
 
-<!-- Orders -->
-<div class="page" id="ordersPage">
-<div class="page-top"><button class="back-btn" onclick="closeAdminPage('ordersPage')">←</button><span>Orders</span></div>
-<div class="page-body" style="display:block;text-align:initial;align-items:initial;justify-content:initial;padding:20px 18px 40px;">
-<div class="orders-tabs">
-<button class="orders-tab-btn active" id="ordersTabBtn-pending" onclick="switchOrdersTab('pending')">Orders</button>
-<button class="orders-tab-btn" id="ordersTabBtn-done" onclick="switchOrdersTab('done')">Done</button>
-</div>
-<div class="orders-tab-content" id="ordersTabContent"></div>
-</div>
-</div>
-
-<!-- Order details modal -->
-<div class="order-modal-overlay" id="orderModalOverlay" onclick="if(event.target===this) closeOrderModal()">
-<div class="order-modal">
-<div class="order-modal-top">
-<span id="orderModalGame">Game</span>
-<button class="order-modal-close" onclick="closeOrderModal()">×</button>
-</div>
-<div class="order-modal-body">
-<div class="order-modal-person" id="orderModalPerson"></div>
-<div class="order-modal-message" id="orderModalMessage"></div>
-<div class="order-modal-time" id="orderModalTime"></div>
-</div>
-<div class="order-modal-actions" id="orderModalActions"></div>
-</div>
-</div>
-
-<!-- Mobile Games -->
-<div class="page" id="mobileGamesPage">
-<div class="page-top"><button class="back-btn" onclick="closeAdminPage('mobileGamesPage')">←</button><span>Mobile Games</span></div>
-<div class="game-slot-list">
-
-<div class="game-slot" onclick="openAdminPage('robloxSlotPage')">
-<div class="icon"><img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/images.jpeg" loading="lazy" alt="Roblox"></div>
-<div class="title">Roblox</div>
-<div class="status ready">Ready</div>
-<div class="arrow">‹</div>
-</div>
-
-<div class="game-slot" onclick="openAdminPage('pubgSlotPage')">
-<div class="icon"><img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/PlayerUnknown's_Battlegrounds_Mobile.webp" loading="lazy" alt="PUBG Mobile"></div>
-<div class="title">PUBG Mobile</div>
-<div class="status ready">Ready</div>
-<div class="arrow">‹</div>
-</div>
-
-<div class="game-slot" onclick="openAdminPage('fifaSlotPage')">
-<div class="icon"><img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/images%20(7).jpeg" loading="lazy" alt="FIFA"></div>
-<div class="title">FIFA</div>
-<div class="status ready">Ready</div>
-<div class="arrow">‹</div>
-</div>
-
-<div class="game-slot" onclick="openAdminPage('freefireSlotPage')">
-<div class="icon"><img src="https://raw.githubusercontent.com/King-cat11/Salam/main/IMG-20260707-WA0068.jpg" loading="lazy" alt="Free Fire"></div>
-<div class="title">Free Fire</div>
-<div class="status ready">Ready</div>
-<div class="arrow">‹</div>
-</div>
-
-</div>
-</div>
-
-<!-- FIFA package slot -->
-<div class="page" id="fifaSlotPage" style="z-index:41;">
-<div class="page-top"><button class="back-btn" onclick="closeAdminPage('fifaSlotPage')">←</button><span>FIFA — Packages</span></div>
-<div style="flex:1; overflow-y:auto;">
-<div class="price-editor">
-
-<div class="accordion-section" id="fifa-acc-coins">
-<div class="accordion-header" onclick="toggleAccordion('fifa-acc-coins')">
-<span class="name">FC / Silver</span>
-<span class="count" id="fifa-count-coins">0 packages</span>
-<span class="chev">›</span>
-</div>
-<div class="accordion-body">
-<div class="acc-inner">
-<div id="fifa-admin-coins"></div>
-<button class="add-row-btn" onclick="addFifaRow('coins')">+ Add Package</button>
-</div>
-</div>
-</div>
-
-<div class="accordion-section" id="fifa-acc-deals">
-<div class="accordion-header" onclick="toggleAccordion('fifa-acc-deals')">
-<span class="name">Deals</span>
-<span class="count" id="fifa-count-deals">0 packages</span>
-<span class="chev">›</span>
-</div>
-<div class="accordion-body">
-<div class="acc-inner">
-<div id="fifa-admin-deals"></div>
-<button class="add-row-btn" onclick="addFifaRow('deals')">+ Add Package</button>
-</div>
-</div>
-</div>
-
-<div class="save-bar">
-<button class="save-btn" onclick="saveFifaPrices()">Save Changes</button>
-</div>
-
-</div>
-</div>
-</div>
-
-<!-- Free Fire package slot -->
-<div class="page" id="freefireSlotPage" style="z-index:41;">
-<div class="page-top"><button class="back-btn" onclick="closeAdminPage('freefireSlotPage')">←</button><span>Free Fire — Packages</span></div>
-<div style="flex:1; overflow-y:auto;">
-<div class="price-editor">
-
-<div class="accordion-section" id="ff-acc-id">
-<div class="accordion-header" onclick="toggleAccordion('ff-acc-id')">
-<span class="name">By ID</span>
-<span class="count" id="ff-count-id">0 packages</span>
-<span class="chev">›</span>
-</div>
-<div class="accordion-body">
-<div class="acc-inner">
-<div id="ff-admin-id"></div>
-<button class="add-row-btn" onclick="addFreefireRow('id')">+ Add Package</button>
-</div>
-</div>
-</div>
-
-<div class="accordion-section" id="ff-acc-account">
-<div class="accordion-header" onclick="toggleAccordion('ff-acc-account')">
-<span class="name">Inside Account</span>
-<span class="count" id="ff-count-account">0 packages</span>
-<span class="chev">›</span>
-</div>
-<div class="accordion-body">
-<div class="acc-inner">
-<div id="ff-admin-account"></div>
-<button class="add-row-btn" onclick="addFreefireRow('account')">+ Add Package</button>
-</div>
-</div>
-</div>
-
-<div class="save-bar">
-<button class="save-btn" onclick="saveFreefirePrices()">Save Changes</button>
-</div>
-
-</div>
-</div>
-</div>
-
-<!-- PUBG package slot -->
-<div class="page" id="pubgSlotPage" style="z-index:41;">
-<div class="page-top"><button class="back-btn" onclick="closeAdminPage('pubgSlotPage')">←</button><span>PUBG Mobile — Packages</span></div>
-<div style="flex:1; overflow-y:auto;">
-<div class="price-editor">
-
-<div class="accordion-section" id="pubg-acc-uc">
-<div class="accordion-header" onclick="toggleAccordion('pubg-acc-uc')">
-<span class="name">UC</span>
-<span class="count" id="pubg-count-uc">0 packages</span>
-<span class="chev">›</span>
-</div>
-<div class="accordion-body">
-<div class="acc-inner">
-<div id="pubg-admin-uc"></div>
-<button class="add-row-btn" onclick="addPubgRow('uc')">+ Add Package</button>
-</div>
-</div>
-</div>
-
-<div class="accordion-section" id="pubg-acc-deals">
-<div class="accordion-header" onclick="toggleAccordion('pubg-acc-deals')">
-<span class="name">Deals</span>
-<span class="count" id="pubg-count-deals">0 packages</span>
-<span class="chev">›</span>
-</div>
-<div class="accordion-body">
-<div class="acc-inner">
-<div id="pubg-admin-deals"></div>
-<button class="add-row-btn" onclick="addPubgRow('deals')">+ Add Package</button>
-</div>
-</div>
-</div>
-
-<div class="save-bar">
-<button class="save-btn" onclick="savePubgPrices()">Save Changes</button>
-</div>
-
-</div>
-</div>
-</div>
-
-<!-- Roblox package slot -->
-<div class="page" id="robloxSlotPage" style="z-index:41;">
-<div class="page-top"><button class="back-btn" onclick="closeAdminPage('robloxSlotPage')">←</button><span>Roblox — Packages</span></div>
-<div style="flex:1; overflow-y:auto;">
-<div class="price-editor">
-
-<div class="accordion-section" id="rbx-acc-net">
-<div class="accordion-header" onclick="toggleAccordion('rbx-acc-net')">
-<span class="name">Net</span>
-<span class="count" id="rbx-count-net">0 packages</span>
-<span class="chev">›</span>
-</div>
-<div class="accordion-body">
-<div class="acc-inner">
-<div id="rbx-admin-net"></div>
-<button class="add-row-btn" onclick="addRobloxRow('net')">+ Add Package</button>
-</div>
-</div>
-</div>
-
-<div class="accordion-section" id="rbx-acc-gross">
-<div class="accordion-header" onclick="toggleAccordion('rbx-acc-gross')">
-<span class="name">Gross</span>
-<span class="count" id="rbx-count-gross">0 packages</span>
-<span class="chev">›</span>
-</div>
-<div class="accordion-body">
-<div class="acc-inner">
-<div id="rbx-admin-gross"></div>
-<button class="add-row-btn" onclick="addRobloxRow('gross')">+ Add Package</button>
-</div>
-</div>
-</div>
-
-<div class="save-bar">
-<button class="save-btn" onclick="saveRobloxPrices()">Save Changes</button>
-</div>
-
-</div>
-</div>
-</div>
-
-<!-- Gift Cards -->
-<div class="page" id="giftCardsPage">
-<div class="page-top"><button class="back-btn" onclick="closeAdminPage('giftCardsPage')">←</button><span>Gift Cards</span></div>
-<div class="game-slot-list">
-
-<div class="game-slot" onclick="openAdminPage('gc-steamPage')">
-<div class="icon"><img src="https://raw.githubusercontent.com/King-cat11/Salam/main/IMG-20260706-WA0301.jpg" loading="lazy" alt="Steam"></div>
-<div class="title">Steam</div>
-<div class="status ready">Ready</div>
-<div class="arrow">‹</div>
-</div>
-
-<div class="game-slot" onclick="openAdminPage('gc-xboxPage')">
-<div class="icon"><img src="https://raw.githubusercontent.com/King-cat11/Salam/main/IMG-20260706-WA0051.jpg" loading="lazy" alt="Xbox"></div>
-<div class="title">Xbox</div>
-<div class="status ready">Ready</div>
-<div class="arrow">‹</div>
-</div>
-
-<div class="game-slot" onclick="openAdminPage('gc-minecraftPage')">
-<div class="icon"><img src="https://raw.githubusercontent.com/King-cat11/Salam/main/IMG-20260705-WA0256.jpg" loading="lazy" alt="Minecraft"></div>
-<div class="title">Minecraft</div>
-<div class="status ready">Ready</div>
-<div class="arrow">‹</div>
-</div>
-
-<div class="game-slot" onclick="openAdminPage('gc-exitlagPage')">
-<div class="icon"><img src="https://raw.githubusercontent.com/King-cat11/Salam/main/IMG-20260705-WA0260.jpg" loading="lazy" alt="ExitLag"></div>
-<div class="title">ExitLag</div>
-<div class="status ready">Ready</div>
-<div class="arrow">‹</div>
-</div>
-
-<div class="game-slot" onclick="openAdminPage('gc-playstationPage')">
-<div class="icon"><img src="https://raw.githubusercontent.com/King-cat11/Salam/main/IMG-20260706-WA0303.jpg" loading="lazy" alt="PlayStation"></div>
-<div class="title">PlayStation</div>
-<div class="status ready">Ready</div>
-<div class="arrow">‹</div>
-</div>
-
-<div class="game-slot" onclick="openAdminPage('gc-nintendoPage')">
-<div class="icon"><img src="https://raw.githubusercontent.com/King-cat11/Salam/main/IMG-20260706-WA0052.jpg" loading="lazy" alt="Nintendo Switch"></div>
-<div class="title">Nintendo Switch</div>
-<div class="status ready">Ready</div>
-<div class="arrow">‹</div>
-</div>
-
-<div class="game-slot" onclick="openAdminPage('gc-valorantPage')">
-<div class="icon"><img src="https://raw.githubusercontent.com/King-cat11/Salam/main/IMG-20260714-WA0000.jpg" loading="lazy" alt="Valorant"></div>
-<div class="title">Valorant</div>
-<div class="status ready">Ready</div>
-<div class="arrow">‹</div>
-</div>
-
-<div class="game-slot" onclick="openAdminPage('gc-battlenetPage')">
-<div class="icon"><img src="https://raw.githubusercontent.com/King-cat11/Salam/main/IMG-20260714-WA0003.jpg" loading="lazy" alt="Battle.net"></div>
-<div class="title">Battle.net</div>
-<div class="status ready">Ready</div>
-<div class="arrow">‹</div>
-</div>
-
-<div class="game-slot" onclick="openAdminPage('gc-fc26Page')">
-<div class="icon"><img src="https://raw.githubusercontent.com/King-cat11/Salam/main/IMG-20260705-WA0258.jpg" loading="lazy" alt="FC 26 FC Points"></div>
-<div class="title">FC 26 FC Points</div>
-<div class="status ready">Ready</div>
-<div class="arrow">‹</div>
-</div>
-
-<div class="game-slot" onclick="openAdminPage('gc-lolPage')">
-<div class="icon"><img src="https://raw.githubusercontent.com/King-cat11/Salam/main/IMG-20260714-WA0006.jpg" loading="lazy" alt="League of Legends"></div>
-<div class="title">League of Legends</div>
-<div class="status ready">Ready</div>
-<div class="arrow">‹</div>
-</div>
-
-<div class="game-slot" onclick="openAdminPage('gc-gearupPage')">
-<div class="icon"><img src="https://raw.githubusercontent.com/King-cat11/Salam/main/IMG-20260714-WA0009.jpg" loading="lazy" alt="GearUP Booster PC"></div>
-<div class="title">GearUP Booster PC</div>
-<div class="status ready">Ready</div>
-<div class="arrow">‹</div>
-</div>
-
-<div class="game-slot" onclick="openAdminPage('gc-razergoldPage')">
-<div class="icon"><img src="https://raw.githubusercontent.com/King-cat11/Salam/main/IMG-20260714-WA0010.jpg" loading="lazy" alt="Razer Gold"></div>
-<div class="title">Razer Gold</div>
-<div class="status ready">Ready</div>
-<div class="arrow">‹</div>
-</div>
-
-</div>
-</div>
-
-<!-- Steam package slot -->
-<div class="page" id="gc-steamPage" style="z-index:41;">
-<div class="page-top"><button class="back-btn" onclick="closeAdminPage('gc-steamPage')">←</button><span>Steam — Packages</span></div>
-<div style="flex:1; overflow-y:auto;">
-<div class="price-editor">
-
-<div class="accordion-section" id="gc-acc-steam">
-<div class="accordion-header" onclick="toggleAccordion('gc-acc-steam')">
-<span class="name">Denominations</span>
-<span class="count" id="gc-count-steam">0 packages</span>
-<span class="chev">›</span>
-</div>
-<div class="accordion-body">
-<div class="acc-inner">
-<div id="gc-admin-steam"></div>
-<button class="add-row-btn" onclick="addGCRow('steam')">+ Add Package</button>
-</div>
-</div>
-</div>
-
-<div class="save-bar">
-<button class="save-btn" onclick="saveGCPrices('steam')">Save Changes</button>
-</div>
-
-</div>
-</div>
-</div>
-
-<!-- Xbox package slot -->
-<div class="page" id="gc-xboxPage" style="z-index:41;">
-<div class="page-top"><button class="back-btn" onclick="closeAdminPage('gc-xboxPage')">←</button><span>Xbox — Packages</span></div>
-<div style="flex:1; overflow-y:auto;">
-<div class="price-editor">
-
-<div class="accordion-section" id="gc-acc-xbox">
-<div class="accordion-header" onclick="toggleAccordion('gc-acc-xbox')">
-<span class="name">Denominations</span>
-<span class="count" id="gc-count-xbox">0 packages</span>
-<span class="chev">›</span>
-</div>
-<div class="accordion-body">
-<div class="acc-inner">
-<div id="gc-admin-xbox"></div>
-<button class="add-row-btn" onclick="addGCRow('xbox')">+ Add Package</button>
-</div>
-</div>
-</div>
-
-<div class="save-bar">
-<button class="save-btn" onclick="saveGCPrices('xbox')">Save Changes</button>
-</div>
-
-</div>
-</div>
-</div>
-
-<!-- Minecraft package slot -->
-<div class="page" id="gc-minecraftPage" style="z-index:41;">
-<div class="page-top"><button class="back-btn" onclick="closeAdminPage('gc-minecraftPage')">←</button><span>Minecraft — Packages</span></div>
-<div style="flex:1; overflow-y:auto;">
-<div class="price-editor">
-
-<div class="accordion-section" id="gc-acc-minecraft">
-<div class="accordion-header" onclick="toggleAccordion('gc-acc-minecraft')">
-<span class="name">Denominations</span>
-<span class="count" id="gc-count-minecraft">0 packages</span>
-<span class="chev">›</span>
-</div>
-<div class="accordion-body">
-<div class="acc-inner">
-<div id="gc-admin-minecraft"></div>
-<button class="add-row-btn" onclick="addGCRow('minecraft')">+ Add Package</button>
-</div>
-</div>
-</div>
-
-<div class="save-bar">
-<button class="save-btn" onclick="saveGCPrices('minecraft')">Save Changes</button>
-</div>
-
-</div>
-</div>
-</div>
-
-<!-- ExitLag package slot -->
-<div class="page" id="gc-exitlagPage" style="z-index:41;">
-<div class="page-top"><button class="back-btn" onclick="closeAdminPage('gc-exitlagPage')">←</button><span>ExitLag — Packages</span></div>
-<div style="flex:1; overflow-y:auto;">
-<div class="price-editor">
-
-<div class="accordion-section" id="gc-acc-exitlag">
-<div class="accordion-header" onclick="toggleAccordion('gc-acc-exitlag')">
-<span class="name">Denominations</span>
-<span class="count" id="gc-count-exitlag">0 packages</span>
-<span class="chev">›</span>
-</div>
-<div class="accordion-body">
-<div class="acc-inner">
-<div id="gc-admin-exitlag"></div>
-<button class="add-row-btn" onclick="addGCRow('exitlag')">+ Add Package</button>
-</div>
-</div>
-</div>
-
-<div class="save-bar">
-<button class="save-btn" onclick="saveGCPrices('exitlag')">Save Changes</button>
-</div>
-
-</div>
-</div>
-</div>
-
-<!-- PlayStation package slot -->
-<div class="page" id="gc-playstationPage" style="z-index:41;">
-<div class="page-top"><button class="back-btn" onclick="closeAdminPage('gc-playstationPage')">←</button><span>PlayStation — Packages</span></div>
-<div style="flex:1; overflow-y:auto;">
-<div class="price-editor">
-
-<div class="accordion-section" id="gc-acc-playstation">
-<div class="accordion-header" onclick="toggleAccordion('gc-acc-playstation')">
-<span class="name">Denominations</span>
-<span class="count" id="gc-count-playstation">0 packages</span>
-<span class="chev">›</span>
-</div>
-<div class="accordion-body">
-<div class="acc-inner">
-<div id="gc-admin-playstation"></div>
-<button class="add-row-btn" onclick="addGCRow('playstation')">+ Add Package</button>
-</div>
-</div>
-</div>
-
-<div class="save-bar">
-<button class="save-btn" onclick="saveGCPrices('playstation')">Save Changes</button>
-</div>
-
-</div>
-</div>
-</div>
-
-<!-- Nintendo Switch package slot -->
-<div class="page" id="gc-nintendoPage" style="z-index:41;">
-<div class="page-top"><button class="back-btn" onclick="closeAdminPage('gc-nintendoPage')">←</button><span>Nintendo Switch — Packages</span></div>
-<div style="flex:1; overflow-y:auto;">
-<div class="price-editor">
-
-<div class="accordion-section" id="gc-acc-nintendo">
-<div class="accordion-header" onclick="toggleAccordion('gc-acc-nintendo')">
-<span class="name">Denominations</span>
-<span class="count" id="gc-count-nintendo">0 packages</span>
-<span class="chev">›</span>
-</div>
-<div class="accordion-body">
-<div class="acc-inner">
-<div id="gc-admin-nintendo"></div>
-<button class="add-row-btn" onclick="addGCRow('nintendo')">+ Add Package</button>
-</div>
-</div>
-</div>
-
-<div class="save-bar">
-<button class="save-btn" onclick="saveGCPrices('nintendo')">Save Changes</button>
-</div>
-
-</div>
-</div>
-</div>
-
-<!-- Valorant package slot -->
-<div class="page" id="gc-valorantPage" style="z-index:41;">
-<div class="page-top"><button class="back-btn" onclick="closeAdminPage('gc-valorantPage')">←</button><span>Valorant — Packages</span></div>
-<div style="flex:1; overflow-y:auto;">
-<div class="price-editor">
-
-<div class="accordion-section" id="gc-acc-valorant">
-<div class="accordion-header" onclick="toggleAccordion('gc-acc-valorant')">
-<span class="name">Denominations</span>
-<span class="count" id="gc-count-valorant">0 packages</span>
-<span class="chev">›</span>
-</div>
-<div class="accordion-body">
-<div class="acc-inner">
-<div id="gc-admin-valorant"></div>
-<button class="add-row-btn" onclick="addGCRow('valorant')">+ Add Package</button>
-</div>
-</div>
-</div>
-
-<div class="save-bar">
-<button class="save-btn" onclick="saveGCPrices('valorant')">Save Changes</button>
-</div>
-
-</div>
-</div>
-</div>
-
-<!-- Battle.net package slot -->
-<div class="page" id="gc-battlenetPage" style="z-index:41;">
-<div class="page-top"><button class="back-btn" onclick="closeAdminPage('gc-battlenetPage')">←</button><span>Battle.net — Packages</span></div>
-<div style="flex:1; overflow-y:auto;">
-<div class="price-editor">
-
-<div class="accordion-section" id="gc-acc-battlenet">
-<div class="accordion-header" onclick="toggleAccordion('gc-acc-battlenet')">
-<span class="name">Denominations</span>
-<span class="count" id="gc-count-battlenet">0 packages</span>
-<span class="chev">›</span>
-</div>
-<div class="accordion-body">
-<div class="acc-inner">
-<div id="gc-admin-battlenet"></div>
-<button class="add-row-btn" onclick="addGCRow('battlenet')">+ Add Package</button>
-</div>
-</div>
-</div>
-
-<div class="save-bar">
-<button class="save-btn" onclick="saveGCPrices('battlenet')">Save Changes</button>
-</div>
-
-</div>
-</div>
-</div>
-
-<!-- FC 26 FC Points package slot -->
-<div class="page" id="gc-fc26Page" style="z-index:41;">
-<div class="page-top"><button class="back-btn" onclick="closeAdminPage('gc-fc26Page')">←</button><span>FC 26 FC Points — Packages</span></div>
-<div style="flex:1; overflow-y:auto;">
-<div class="price-editor">
-
-<div class="accordion-section" id="gc-acc-fc26">
-<div class="accordion-header" onclick="toggleAccordion('gc-acc-fc26')">
-<span class="name">Denominations</span>
-<span class="count" id="gc-count-fc26">0 packages</span>
-<span class="chev">›</span>
-</div>
-<div class="accordion-body">
-<div class="acc-inner">
-<div id="gc-admin-fc26"></div>
-<button class="add-row-btn" onclick="addGCRow('fc26')">+ Add Package</button>
-</div>
-</div>
-</div>
-
-<div class="save-bar">
-<button class="save-btn" onclick="saveGCPrices('fc26')">Save Changes</button>
-</div>
-
-</div>
-</div>
-</div>
-
-<!-- League of Legends package slot -->
-<div class="page" id="gc-lolPage" style="z-index:41;">
-<div class="page-top"><button class="back-btn" onclick="closeAdminPage('gc-lolPage')">←</button><span>League of Legends — Packages</span></div>
-<div style="flex:1; overflow-y:auto;">
-<div class="price-editor">
-
-<div class="accordion-section" id="gc-acc-lol">
-<div class="accordion-header" onclick="toggleAccordion('gc-acc-lol')">
-<span class="name">Denominations</span>
-<span class="count" id="gc-count-lol">0 packages</span>
-<span class="chev">›</span>
-</div>
-<div class="accordion-body">
-<div class="acc-inner">
-<div id="gc-admin-lol"></div>
-<button class="add-row-btn" onclick="addGCRow('lol')">+ Add Package</button>
-</div>
-</div>
-</div>
-
-<div class="save-bar">
-<button class="save-btn" onclick="saveGCPrices('lol')">Save Changes</button>
-</div>
-
-</div>
-</div>
-</div>
-
-<!-- GearUP Booster PC package slot -->
-<div class="page" id="gc-gearupPage" style="z-index:41;">
-<div class="page-top"><button class="back-btn" onclick="closeAdminPage('gc-gearupPage')">←</button><span>GearUP Booster PC — Packages</span></div>
-<div style="flex:1; overflow-y:auto;">
-<div class="price-editor">
-
-<div class="accordion-section" id="gc-acc-gearup">
-<div class="accordion-header" onclick="toggleAccordion('gc-acc-gearup')">
-<span class="name">Denominations</span>
-<span class="count" id="gc-count-gearup">0 packages</span>
-<span class="chev">›</span>
-</div>
-<div class="accordion-body">
-<div class="acc-inner">
-<div id="gc-admin-gearup"></div>
-<button class="add-row-btn" onclick="addGCRow('gearup')">+ Add Package</button>
-</div>
-</div>
-</div>
-
-<div class="save-bar">
-<button class="save-btn" onclick="saveGCPrices('gearup')">Save Changes</button>
-</div>
-
-</div>
-</div>
-</div>
-
-<!-- Razer Gold package slot -->
-<div class="page" id="gc-razergoldPage" style="z-index:41;">
-<div class="page-top"><button class="back-btn" onclick="closeAdminPage('gc-razergoldPage')">←</button><span>Razer Gold — Packages</span></div>
-<div style="flex:1; overflow-y:auto;">
-<div class="price-editor">
-
-<div class="accordion-section" id="gc-acc-razergold">
-<div class="accordion-header" onclick="toggleAccordion('gc-acc-razergold')">
-<span class="name">Denominations</span>
-<span class="count" id="gc-count-razergold">0 packages</span>
-<span class="chev">›</span>
-</div>
-<div class="accordion-body">
-<div class="acc-inner">
-<div id="gc-admin-razergold"></div>
-<button class="add-row-btn" onclick="addGCRow('razergold')">+ Add Package</button>
-</div>
-</div>
-</div>
-
-<div class="save-bar">
-<button class="save-btn" onclick="saveGCPrices('razergold')">Save Changes</button>
-</div>
-
-</div>
-</div>
-</div>
-
-
-<!-- PC Games -->
-<div class="page" id="pcGamesPage">
-<div class="page-top"><button class="back-btn" onclick="closeAdminPage('pcGamesPage')">←</button><span>PC Games</span></div>
-<div class="page-body"><div class="soon">🔜 Coming soon</div></div>
-</div>
+<!-- ============ صفحة الألعاب (كروت الألعاب) ============ -->
+<main id="pricingPage" style="display:none;">
+  <button class="back-btn" onclick="showDashboard()">→ رجوع للرئيسية</button>
+  <div class="page-head">
+    <div class="eyebrow">إدارة</div>
+    <h1>المنتجات والأسعار</h1>
+    <p>اختار اللعبة اللي عايز تعدل أسعارها</p>
+  </div>
+  <div class="cards-grid">
+    <div class="admin-card" onclick="showRobloxPricing()">
+      <div class="ac-icon">🎮</div>
+      <div class="ac-title">روبلكس</div>
+      <div class="ac-desc">تعديل أسعار كل طريقة شحن لوحدها</div>
+    </div>
+  </div>
+</main>
+
+<!-- ============ صفحة أسعار روبلكس ============ -->
+<main id="robloxPricingPage" style="display:none;">
+  <button class="back-btn" onclick="showPricingPage()">→ رجوع للألعاب</button>
+  <div class="page-head">
+    <div class="eyebrow">روبلكس</div>
+    <h1>تعديل أسعار روبلكس</h1>
+    <p>كل طريقة شحن ليها الأسعار بتاعتها لوحدها، عدّل زي ما تحب وابعت "حفظ" في الآخر</p>
+  </div>
+
+  <div id="rp-sec-acc" class="price-section open">
+    <div class="price-section-head" onclick="togglePriceSection('acc')">
+      <div class="price-section-head-title">📱 داخل الحساب <span class="price-section-count" id="count-acc"></span></div>
+      <span class="price-section-chevron">▾</span>
+    </div>
+    <div class="price-section-body"><div class="price-section-body-inner">
+      <div class="price-rows" id="rows-acc"></div>
+      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('acc')">➕ إضافة سعر جديد</button>
+    </div></div>
+  </div>
+
+  <div id="rp-sec-comFawri" class="price-section">
+    <div class="price-section-head" onclick="togglePriceSection('comFawri')">
+      <div class="price-section-head-title">⚡ كوميونتي فوري <span class="price-section-count" id="count-comFawri"></span></div>
+      <span class="price-section-chevron">▾</span>
+    </div>
+    <div class="price-section-body"><div class="price-section-body-inner">
+      <div class="price-rows" id="rows-comFawri"></div>
+      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('comFawri')">➕ إضافة سعر جديد</button>
+    </div></div>
+  </div>
+
+  <div id="rp-sec-comHagz" class="price-section">
+    <div class="price-section-head" onclick="togglePriceSection('comHagz')">
+      <div class="price-section-head-title">📅 كوميونتي حجز <span class="price-section-count" id="count-comHagz"></span></div>
+      <span class="price-section-chevron">▾</span>
+    </div>
+    <div class="price-section-body"><div class="price-section-body-inner">
+      <div class="price-rows" id="rows-comHagz"></div>
+      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('comHagz')">➕ إضافة سعر جديد</button>
+    </div></div>
+  </div>
+
+  <div id="rp-sec-giftcard" class="price-section">
+    <div class="price-section-head" onclick="togglePriceSection('giftcard')">
+      <div class="price-section-head-title">🎁 جيفت كارد <span class="price-section-count" id="count-giftcard"></span></div>
+      <span class="price-section-chevron">▾</span>
+    </div>
+    <div class="price-section-body"><div class="price-section-body-inner">
+      <div class="price-rows" id="rows-giftcard"></div>
+      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('giftcard')">➕ إضافة سعر جديد</button>
+    </div></div>
+  </div>
+
+  <div id="robloxPricingStatus" class="login-status" style="margin-top:14px;"></div>
+  <button class="login-submit-btn" style="margin-top:6px;" onclick="saveRobloxPricing()">💾 حفظ كل التعديلات</button>
+</main>
+
+<!-- ============ صفحة أكواد الزيادة ============ -->
+<main id="bonusCodesPage" style="display:none;">
+  <button class="back-btn" onclick="showDashboard()">→ رجوع للرئيسية</button>
+  <div class="page-head">
+    <div class="eyebrow">إدارة</div>
+    <h1>أكواد الزيادة</h1>
+    <p>ضيف كود جديد وحدد نسبة الروب الزيادة بتاعته، والكود يشتغل على طول في قسم الكوميونتي بالموقع الأساسي بعد الحفظ</p>
+  </div>
+
+  <div class="price-rows" id="rows-bonusCodes"></div>
+  <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="addBonusCodeRow()">➕ إضافة كود جديد</button>
+
+  <div id="bonusCodesStatus" class="login-status" style="margin-top:14px;"></div>
+  <button class="login-submit-btn" style="margin-top:6px;" onclick="saveBonusCodes()">💾 حفظ كل الأكواد</button>
+</main>
+
+<!-- ============ صفحة الطلبات (بال3 خانات: طلبات / قيد الانتظار / تم) ============ -->
+<main id="ordersPage" style="display:none;">
+  <button class="back-btn" onclick="showDashboard()">→ رجوع للرئيسية</button>
+
+  <button class="add-order-btn" onclick="openManualOrderModal()">➕ إضافة طلب يدوي (عميل مش مسجل)</button>
+
+  <div class="orders-tabs" id="ordersTabs">
+    <div class="orders-tab active" data-filter="new" onclick="filterOrders('new', this)">طلبات</div>
+    <div class="orders-tab" data-filter="pending" onclick="filterOrders('pending', this)">قيد الانتظار</div>
+    <div class="orders-tab" data-filter="done" onclick="filterOrders('done', this)">تم</div>
+  </div>
+
+  <div class="date-filter-row" id="doneDateFilterRow" style="display:none;">
+    <input type="date" class="o-date-input" id="doneDateInput" onchange="filterDoneByDate(this.value)" />
+    <button class="date-filter-clear" onclick="clearDoneDateFilter()">مسح الفلتر</button>
+  </div>
+
+  <div class="table-wrap" id="ordersTableWrap"></div>
+  <p id="ordersEmptyMsg" style="display:none;text-align:center;color:var(--muted);font-size:.85rem;padding:20px;">مفيش طلبات في القسم ده</p>
+</main>
+
+<!-- ============ مودال تفاصيل الطلب الكاملة ============ -->
+<div id="orderDetailOverlay" onclick="closeOrderDetail(event)" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:4000;align-items:center;justify-content:center;padding:20px;">
+  <div onclick="event.stopPropagation()" style="width:100%;max-width:420px;background:#141414;border:1.5px solid rgba(37,99,235,.35);border-radius:16px;padding:22px;max-height:80vh;overflow-y:auto;">
+    <div id="orderDetailTitleAdmin" style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--blue-lt);letter-spacing:.03em;margin-bottom:12px;"></div>
+    <div id="orderDetailBodyAdmin" style="white-space:pre-wrap;font-family:'Cairo',sans-serif;font-size:.9rem;line-height:1.9;color:var(--white);direction:rtl;"></div>
+    <button onclick="closeOrderDetail()" style="margin-top:18px;width:100%;padding:12px;border-radius:10px;border:1px solid rgba(37,99,235,.35);background:rgba(37,99,235,.1);color:var(--blue-lt);font-family:'Cairo',sans-serif;font-weight:800;font-size:.88rem;cursor:pointer;">قفل</button>
+  </div>
+</div>
+
+<!-- ============ مودال إضافة طلب يدوي (عميل مش مسجل بحساب) ============ -->
+<div id="manualOrderOverlay" onclick="closeManualOrderModal(event)" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:4000;align-items:center;justify-content:center;padding:20px;">
+  <div onclick="event.stopPropagation()" style="width:100%;max-width:420px;background:#141414;border:1.5px solid rgba(37,99,235,.35);border-radius:16px;padding:22px;max-height:85vh;overflow-y:auto;">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--blue-lt);letter-spacing:.03em;margin-bottom:6px;">إضافة طلب يدوي</div>
+    <p style="color:var(--muted);font-size:.78rem;margin-bottom:16px;">للطلبات اللي بتوصلك من عميل مش مسجل بحساب. اسمه هيتسجل "Guest"، وبياناته هتفضل عندك في لوحة التحكم بس، ومش بتتحذف ولا بتتشارك مع أي زبون.</p>
+    <div class="order-form">
+      <div class="ofield">
+        <label class="olabel">اكتب اللي عايزه (اسم العميل، رقم واتساب، تفاصيل الطلب، السعر... أي حاجة)</label>
+        <textarea class="oinput" id="manualOrderText" rows="6" style="resize:vertical;" placeholder="اكتب هنا أي تفاصيل عن الطلب..."></textarea>
+      </div>
+      <div class="ofield">
+        <label class="olabel">هيظهر في خانة</label>
+        <select class="oinput" id="manualOrderTargetStatus">
+          <option value="new">طلبات</option>
+          <option value="pending">قيد الانتظار</option>
+          <option value="done">تم</option>
+        </select>
+      </div>
+      <div id="manualOrderStatus" class="login-status"></div>
+      <button class="login-submit-btn" onclick="submitManualOrder()">إضافة الطلب</button>
+      <button class="back-btn" style="width:100%;justify-content:center;margin:0;" onclick="closeManualOrderModal()">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+</div>
+<!-- ============ نهاية محتوى لوحة التحكم ============ -->
+
+</div><!-- /.phone-frame -->
 
 <script>
-function openAdminPage(id){
-document.getElementById(id).classList.add('open');
-}
-function closeAdminPage(id){
-document.getElementById(id).classList.remove('open');
-}
+  // فتح وقفل القائمة الجانبية
+  const menuBtn = document.getElementById('menuBtn');
+  const navMenu = document.getElementById('navMenu');
+  const navMenuOverlay = document.getElementById('navMenuOverlay');
+  const navMenuClose = document.getElementById('navMenuClose');
 
-function toggleAccordion(id){
-document.getElementById(id).classList.toggle('open');
-}
+  function openMenu() { navMenu.classList.add('open'); navMenuOverlay.classList.add('open'); }
+  function closeMenu() { navMenu.classList.remove('open'); navMenuOverlay.classList.remove('open'); }
 
-// ══════════════ Orders system ══════════════
-// Order shape: { id, game, person, message, status:'pending'|'done', source:'manual'|'cloud', time }
-const ORDERS_KEY = 'arthur_orders_v1';
+  menuBtn.addEventListener('click', openMenu);
+  navMenuClose.addEventListener('click', closeMenu);
+  navMenuOverlay.addEventListener('click', closeMenu);
 
-function loadOrders(){
-try{ const raw = localStorage.getItem(ORDERS_KEY); return raw ? JSON.parse(raw) : []; }
-catch(e){ return []; }
-}
-function saveOrders(){
-try{ localStorage.setItem(ORDERS_KEY, JSON.stringify(ordersList)); }catch(e){}
-}
+  // ============ التنقل بين الرئيسية وصفحة الطلبات ============
+  function showOrdersPage() {
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('bonusCodesPage').style.display = 'none';
+    document.getElementById('ordersPage').style.display = 'block';
+    document.getElementById('navHome').classList.remove('active');
+    document.getElementById('navOrders').classList.add('active');
+    closeMenu();
+    window.scrollTo(0, 0);
+  }
 
-let ordersList = loadOrders();
-let orderSeq = ordersList.reduce((m,o)=>Math.max(m,o.id||0), 0) + 1;
-let currentOrdersTab = 'pending';
+  function showDashboard() {
+    document.getElementById('ordersPage').style.display = 'none';
+    document.getElementById('pricingPage').style.display = 'none';
+    document.getElementById('robloxPricingPage').style.display = 'none';
+    document.getElementById('bonusCodesPage').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    document.getElementById('navOrders').classList.remove('active');
+    document.getElementById('navPricing').classList.remove('active');
+    document.getElementById('navHome').classList.add('active');
+    closeMenu();
+    window.scrollTo(0, 0);
+  }
 
-function escapeHtml(str){
-const d = document.createElement('div');
-d.textContent = str == null ? '' : String(str);
-return d.innerHTML;
-}
+  // ============ التنقل لصفحة أكواد الزيادة ============
+  function showBonusCodesPage() {
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('bonusCodesPage').style.display = 'block';
+    window.scrollTo(0, 0);
+    if (typeof window.loadBonusCodes === 'function') window.loadBonusCodes();
+  }
+  window.showBonusCodesPage = showBonusCodesPage;
 
-function switchOrdersTab(tab){
-currentOrdersTab = tab;
-document.getElementById('ordersTabBtn-pending').classList.toggle('active', tab==='pending');
-document.getElementById('ordersTabBtn-done').classList.toggle('active', tab==='done');
-renderOrdersTab();
-}
+  // ============ التنقل لصفحة الألعاب وصفحة أسعار روبلكس ============
+  function showPricingPage() {
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('ordersPage').style.display = 'none';
+    document.getElementById('robloxPricingPage').style.display = 'none';
+    document.getElementById('bonusCodesPage').style.display = 'none';
+    document.getElementById('pricingPage').style.display = 'block';
+    document.getElementById('navHome').classList.remove('active');
+    document.getElementById('navPricing').classList.add('active');
+    closeMenu();
+    window.scrollTo(0, 0);
+  }
 
-function renderOrdersTab(){
-const container = document.getElementById('ordersTabContent');
-const list = ordersList.filter(o => o.status === currentOrdersTab)
-.sort((a,b) => b.id - a.id);
+  function showRobloxPricing() {
+    document.getElementById('pricingPage').style.display = 'none';
+    document.getElementById('robloxPricingPage').style.display = 'block';
+    window.scrollTo(0, 0);
+    if (typeof window.loadRobloxPricing === 'function') window.loadRobloxPricing();
+  }
+  window.showPricingPage = showPricingPage;
+  window.showRobloxPricing = showRobloxPricing;
 
-let html = '';
+  // ============ نظام إدارة الطلبات ============
+  // كل طلب بياخد id (Firestore doc id — نص مش رقم), بيانات اللعبة, حالته (new/pending/done),
+  // وتاريخ استلام لو قيد الانتظار. البيانات نفسها بتتحدث لايف من Firestore (تحت في سكريبت الـ module)
+  // الأزرار (تم / قيد الانتظار / إلغاء) بتظهر بس في تبويب "طلبات"
+  let ordersData = [];
+  let currentOrdersFilter = 'new';
+  let expandedDateIds = new Set(); // الطلبات اللي دلوقتي بتختار تاريخ الاستلام بتاعها
+  let selectedDoneDate = ''; // الفلتر بتاريخ لخانة "تم"
+  // بنعرّضهم على window عشان سكريبت الـ Firebase (تحت) يقدر يحدّثهم لايف من غير ما يعمل reassign
+  window.ordersData = ordersData;
+  window.expandedDateIds = expandedDateIds;
 
-if (currentOrdersTab === 'pending'){
-html += `
-<div class="manual-order-box">
-<button class="add-row-btn" onclick="toggleManualOrderForm()">+ Add Manual Order</button>
-<div class="manual-order-form" id="manualOrderForm" style="display:none;">
-<div class="field"><input type="text" id="manualOrderGame" placeholder="Game name"></div>
-<div class="field"><textarea id="manualOrderMsg" rows="3" placeholder="Write the order details..."></textarea></div>
-<button class="save-btn" onclick="addManualOrder()">Save Order</button>
-</div>
-</div>`;
-}
+  function defaultDatePlus14() {
+    const d = new Date();
+    d.setDate(d.getDate() + 14);
+    return d.toISOString().split('T')[0];
+  }
+  window.defaultDatePlus14 = defaultDatePlus14;
 
-if (!list.length){
-html += `<div class="orders-empty">No orders here yet</div>`;
-} else {
-html += list.map(o => `
-<div class="order-card" onclick="openOrderDetails(${o.id})">
-<div class="order-game">${escapeHtml(o.game)}</div>
-<div class="order-person">${escapeHtml(o.person)}</div>
-${o.status === 'done' ? `<button class="order-btn trash card-trash" onclick="event.stopPropagation(); deleteOrder(${o.id})">🗑</button>` : ''}
-</div>
-`).join('');
-}
+  function todayStr() {
+    return new Date().toISOString().split('T')[0];
+  }
 
-container.innerHTML = html;
-}
+  function esc(str) {
+    const d = document.createElement('div');
+    d.textContent = str == null ? '' : String(str);
+    return d.innerHTML;
+  }
 
-function toggleManualOrderForm(){
-const f = document.getElementById('manualOrderForm');
-f.style.display = (f.style.display === 'none' || !f.style.display) ? 'block' : 'none';
-}
+  function renderOrders() {
+    const wrap = document.getElementById('ordersTableWrap');
+    const emptyMsg = document.getElementById('ordersEmptyMsg');
+    let filtered = ordersData.filter(o => o.status === currentOrdersFilter);
+    if (currentOrdersFilter === 'done' && selectedDoneDate) {
+      filtered = filtered.filter(o => o.dateStr === selectedDoneDate);
+    }
 
-function addManualOrder(){
-const gameInput = document.getElementById('manualOrderGame');
-const msgInput  = document.getElementById('manualOrderMsg');
-const game = gameInput.value.trim() || 'Manual Order';
-const message = msgInput.value.trim();
-if (!message){ alert('Write the order details first'); return; }
+    if (filtered.length === 0) {
+      wrap.style.display = 'none';
+      emptyMsg.style.display = 'block';
+      return;
+    }
+    wrap.style.display = 'block';
+    emptyMsg.style.display = 'none';
 
-ordersList.push({
-id: orderSeq++,
-game,
-person: 'Guest',
-message,
-status: 'pending',
-source: 'manual',
-time: new Date().toLocaleString()
-});
-saveOrders();
-gameInput.value = '';
-msgInput.value = '';
-renderOrdersTab();
-}
+    const isNewTab = currentOrdersFilter === 'new';
 
-function markOrderDone(id){
-const o = ordersList.find(x => x.id === id);
-if (o){ o.status = 'done'; saveOrders(); renderOrdersTab(); }
-closeOrderModal();
-}
+    wrap.innerHTML = filtered.map(o => `
+      <div class="order-row" data-id="${esc(o.id)}">
+        <div class="order-top-row">
+          <div onclick="showOrderDetail('${o.id}')" style="cursor:pointer;flex:1;min-width:0;">
+            <div class="o-game">${esc(o.game)}</div>
+            <div class="o-user">${esc(o.user)} · ${esc(o.time)}${o.price ? ' · ' + esc(o.price) + ' جنيه' : ''}</div>
+          </div>
+          ${!isNewTab && o.status === 'done' ? `<button class="o-trash-btn" onclick="deleteOrderPermanently('${o.id}')" title="حذف الطلب">🗑️</button>` : ''}
+        </div>
+        ${isNewTab ? `
+        <div class="order-actions">
+          <button class="o-action-btn done" onclick="setOrderStatus('${o.id}', 'done')">تم</button>
+          <button class="o-action-btn pending" onclick="togglePendingDate('${o.id}')">قيد الانتظار</button>
+          <button class="o-action-btn cancel" onclick="cancelOrder('${o.id}')">إلغاء</button>
+        </div>
+        ${expandedDateIds.has(o.id) ? `
+        <div class="order-date-row">
+          <label class="o-date-label">تاريخ الاستلام:</label>
+          <input type="date" class="o-date-input" id="dateInput-${o.id}" value="${defaultDatePlus14()}" />
+          <button class="o-action-btn done" onclick="confirmPending('${o.id}')">تأكيد</button>
+        </div>` : ''}
+        ` : ''}
+        ${!isNewTab && o.status === 'pending' ? `
+        <div class="o-user">تاريخ الاستلام المتوقع: ${esc(o.date)}</div>
+        <div class="order-actions">
+          <button class="o-action-btn done" onclick="setOrderStatus('${o.id}', 'done')">تم</button>
+          <button class="o-action-btn pending" onclick="togglePendingDate('${o.id}')">تغيير المعاد</button>
+          <button class="o-action-btn cancel" onclick="cancelOrder('${o.id}')">إلغاء</button>
+        </div>
+        ${expandedDateIds.has(o.id) ? `
+        <div class="order-date-row">
+          <label class="o-date-label">المعاد الجديد:</label>
+          <input type="date" class="o-date-input" id="dateInput-${o.id}" value="${o.date || defaultDatePlus14()}" />
+          <button class="o-action-btn done" onclick="confirmPending('${o.id}')">تأكيد</button>
+        </div>` : ''}
+        ` : ''}
+      </div>
+    `).join('');
+  }
+  window.renderOrders = renderOrders;
 
-function cancelOrder(id){
-ordersList = ordersList.filter(x => x.id !== id);
-saveOrders();
-renderOrdersTab();
-closeOrderModal();
-}
+  // فلترة الطلبات (طلبات / قيد الانتظار / تم)
+  function filterOrders(status, tabEl) {
+    currentOrdersFilter = status;
+    document.querySelectorAll('#ordersTabs .orders-tab').forEach(t => t.classList.remove('active'));
+    tabEl.classList.add('active');
+    const doneDateRow = document.getElementById('doneDateFilterRow');
+    if (doneDateRow) doneDateRow.style.display = (status === 'done') ? 'flex' : 'none';
+    renderOrders();
+  }
 
-function deleteOrder(id){
-ordersList = ordersList.filter(x => x.id !== id);
-saveOrders();
-renderOrdersTab();
-closeOrderModal();
-}
+  // فلترة طلبات "تم" حسب تاريخ معين
+  function filterDoneByDate(val) {
+    selectedDoneDate = val || '';
+    renderOrders();
+  }
+  function clearDoneDateFilter() {
+    selectedDoneDate = '';
+    const input = document.getElementById('doneDateInput');
+    if (input) input.value = '';
+    renderOrders();
+  }
+  window.filterDoneByDate = filterDoneByDate;
+  window.clearDoneDateFilter = clearDoneDateFilter;
 
-// ── Order details popup ──
-function openOrderDetails(id){
-const o = ordersList.find(x => x.id === id);
-if (!o) return;
+  // فتح اختيار تاريخ الاستلام لطلب معين
+  function togglePendingDate(id) {
+    expandedDateIds.add(id);
+    renderOrders();
+  }
 
-document.getElementById('orderModalGame').textContent = o.game;
-document.getElementById('orderModalPerson').textContent = o.person;
-document.getElementById('orderModalMessage').textContent = o.message;
-document.getElementById('orderModalTime').textContent = o.time;
+  // عرض تفاصيل الطلب الكاملة (بدون إخفاء أي باسورد)
+  function showOrderDetail(id) {
+    const o = ordersData.find(x => x.id === id);
+    if (!o) return;
+    document.getElementById('orderDetailTitleAdmin').textContent = o.game || 'طلب';
+    document.getElementById('orderDetailBodyAdmin').textContent = o.fullDetails || 'مفيش تفاصيل إضافية';
+    document.getElementById('orderDetailOverlay').style.display = 'flex';
+  }
+  function closeOrderDetail(e) {
+    if (e && e.target !== document.getElementById('orderDetailOverlay')) return;
+    document.getElementById('orderDetailOverlay').style.display = 'none';
+  }
+  window.showOrderDetail = showOrderDetail;
+  window.closeOrderDetail = closeOrderDetail;
 
-const actions = document.getElementById('orderModalActions');
-actions.innerHTML = o.status === 'pending' ? `
-<button class="order-btn done" onclick="markOrderDone(${o.id})">✓ Done</button>
-<button class="order-btn cancel" onclick="cancelOrder(${o.id})">✕ Cancel</button>
-` : `
-<button class="order-btn trash" onclick="deleteOrder(${o.id})">🗑</button>
-`;
+  // ============ فتح/قفل مودال إضافة طلب يدوي ============
+  function openManualOrderModal() {
+    document.getElementById('manualOrderText').value = '';
+    document.getElementById('manualOrderTargetStatus').value = 'new';
+    document.getElementById('manualOrderStatus').textContent = '';
+    document.getElementById('manualOrderStatus').className = 'login-status';
+    document.getElementById('manualOrderOverlay').style.display = 'flex';
+  }
+  function closeManualOrderModal(e) {
+    if (e && e.target !== document.getElementById('manualOrderOverlay')) return;
+    document.getElementById('manualOrderOverlay').style.display = 'none';
+  }
+  window.openManualOrderModal = openManualOrderModal;
+  window.closeManualOrderModal = closeManualOrderModal;
 
-document.getElementById('orderModalOverlay').classList.add('open');
-}
+  renderOrders();
 
-function closeOrderModal(){
-document.getElementById('orderModalOverlay').classList.remove('open');
-}
+  // ============ صفوف تعديل أسعار روبلكس ============
+  // كل قسم (acc / comFawri / comHagz / giftcard) بياخد صف واحد لكل شريحة سعر
+  function priceRowHTML(section, item) {
+    item = item || {};
+    if (section === 'acc') {
+      const isCustom = !!item.custom;
+      return `<div class="price-row" data-section="acc">
+        <input type="text" class="oinput amt-input" placeholder="روبكس" value="${item.rob != null ? item.rob : ''}">
+        <input type="text" class="oinput label-input" placeholder="الاسم" value="${item.label != null ? item.label : ''}">
+        <input type="number" class="oinput price-input" placeholder="السعر" value="${item.price != null ? item.price : ''}">
+        <label class="custom-check"><input type="checkbox" ${isCustom ? 'checked' : ''}> نص</label>
+        <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
+      </div>`;
+    }
+    if (section === 'giftcard') {
+      return `<div class="price-row" data-section="giftcard">
+        <input type="text" class="oinput amt-input" placeholder="USD" value="${item.usd != null ? item.usd : ''}">
+        <input type="number" class="oinput price-input" placeholder="السعر" value="${item.price != null ? item.price : ''}">
+        <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
+      </div>`;
+    }
+    // comFawri / comHagz
+    return `<div class="price-row" data-section="${section}">
+      <input type="text" class="oinput amt-input" placeholder="روبكس" value="${item.rob != null ? item.rob : ''}">
+      <input type="number" class="oinput price-input" placeholder="السعر" value="${item.price != null ? item.price : ''}">
+      <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
+    </div>`;
+  }
 
-// ── Receiving orders from the main site ──
-// This listens for real-time messages broadcast from the main site when a customer
-// checks out. It works instantly across tabs/pages on the same site right now.
-// Once Firebase/Firestore is connected, replace this listener with an onSnapshot()
-// on the "orders" collection and call receiveCloudOrder(order) from there instead —
-// the rest of the logic (rendering, done/cancel, storage) stays the same.
-const ordersChannel = ('BroadcastChannel' in window) ? new BroadcastChannel('arthur-orders') : null;
-if (ordersChannel){
-ordersChannel.onmessage = (e) => {
-if (e.data && e.data.type === 'new-order') receiveCloudOrder(e.data.order);
-};
-}
+  function addPriceRow(section) {
+    const wrap = document.getElementById('rows-' + section);
+    if (!wrap) return;
+    wrap.insertAdjacentHTML('beforeend', priceRowHTML(section, {}));
+    updatePriceSectionCount(section);
+  }
+  window.addPriceRow = addPriceRow;
 
-function receiveCloudOrder(order){
-// Expected shape coming from the main site: { game, person, message }
-// "person" should already contain the customer's data (name/contact/etc.)
-// written into their message by the checkout flow on the main site.
-ordersList.push({
-id: orderSeq++,
-game: (order && order.game) || 'Order',
-person: (order && order.person) || 'Customer',
-message: (order && order.message) || '',
-status: 'pending',
-source: 'cloud',
-time: new Date().toLocaleString()
-});
-saveOrders();
-if (currentOrdersTab === 'pending') renderOrdersTab();
-}
+  function renderPriceRows(section, items) {
+    const wrap = document.getElementById('rows-' + section);
+    if (!wrap) return;
+    wrap.innerHTML = (items || []).map(item => priceRowHTML(section, item)).join('');
+    updatePriceSectionCount(section);
+  }
+  window.renderPriceRows = renderPriceRows;
 
-renderOrdersTab();
+  function updatePriceSectionCount(section) {
+    const countEl = document.getElementById('count-' + section);
+    const wrap = document.getElementById('rows-' + section);
+    if (!countEl || !wrap) return;
+    countEl.textContent = wrap.querySelectorAll('.price-row').length;
+  }
 
-// ── Roblox packages ──
-// No packages are hardcoded here on purpose: once Firebase is connected,
-// robloxPackages.net / robloxPackages.gross will be filled automatically
-// from the cloud on page load. For now you can add rows manually to test.
-let robloxPackages = {
-net:   [],
-gross: []
-};
-let rbxRowSeq = 0;
+  // بيشتغل مع كل زرار حذف صف سعر — بيمسح الصف وبعدين يحدّث عداد القسم لو الصف تابع لقسم روبلكس
+  function removePriceRow(btn) {
+    const row = btn.closest('.price-row');
+    if (!row) return;
+    const section = row.getAttribute('data-section');
+    row.remove();
+    if (section && section !== 'bonus') updatePriceSectionCount(section);
+  }
+  window.removePriceRow = removePriceRow;
 
-function buildRobloxAdminRows(){
-['net','gross'].forEach(type => {
-const container = document.getElementById('rbx-admin-' + type);
-const list = robloxPackages[type];
-document.getElementById('rbx-count-' + type).textContent = list.length + ' package' + (list.length === 1 ? '' : 's');
-if (!list.length){
-container.innerHTML = `<div class="empty-hint">No packages yet — will load automatically from the cloud, or add one manually below</div>`;
-return;
-}
-container.innerHTML = list.map(pkg => `
-<div class="price-row" data-row-id="${pkg.id}">
-<div class="field">
-<input type="number" inputmode="numeric" placeholder="Quantity" data-type="${type}" data-id="${pkg.id}" data-field="rbx" value="${pkg.rbx}">
-<span class="unit">Robux</span>
-</div>
-<div class="field">
-<input type="number" inputmode="numeric" placeholder="Price" data-type="${type}" data-id="${pkg.id}" data-field="price" value="${pkg.price}">
-<span class="unit">EGP</span>
-</div>
-<button class="remove-row" onclick="removeRobloxRow('${type}',${pkg.id})">×</button>
-</div>
-`).join('');
-});
-}
+  // ============ فتح/قفل أقسام أسعار روبلكس (أكورديون — قسم واحد مفتوح في نفس الوقت) ============
+  function togglePriceSection(key) {
+    const sections = ['acc', 'comFawri', 'comHagz', 'giftcard'];
+    sections.forEach(s => {
+      const el = document.getElementById('rp-sec-' + s);
+      if (!el) return;
+      if (s === key) el.classList.toggle('open');
+      else el.classList.remove('open');
+    });
+  }
+  window.togglePriceSection = togglePriceSection;
 
-function addRobloxRow(type){
-robloxPackages[type].push({ id: rbxRowSeq++, rbx: '', price: '' });
-buildRobloxAdminRows();
-document.getElementById('rbx-acc-' + type).classList.add('open');
-}
+  // بيلم كل الصفوف بتاعت قسم معين ويحولها لأراي بيانات جاهزة تتخزن
+  function collectPriceRows(section) {
+    const wrap = document.getElementById('rows-' + section);
+    if (!wrap) return [];
+    const rows = Array.from(wrap.querySelectorAll('.price-row'));
+    return rows.map(row => {
+      const amtInput   = row.querySelector('.amt-input');
+      const priceInput = row.querySelector('.price-input');
+      const labelInput = row.querySelector('.label-input');
+      const checkInput = row.querySelector('.custom-check input');
+      const price = parseInt(priceInput.value) || 0;
+      if (section === 'acc') {
+        const rob = parseInt(amtInput.value) || 0;
+        const label = (labelInput.value || '').trim() || (rob + ' روب');
+        return { rob, price, label, custom: !!(checkInput && checkInput.checked) };
+      }
+      if (section === 'giftcard') {
+        const usd = parseInt(amtInput.value) || 0;
+        return { usd, price };
+      }
+      const rob = parseInt(amtInput.value) || 0;
+      return { rob, price };
+    }).filter(item => item.price > 0);
+  }
+  window.collectPriceRows = collectPriceRows;
 
-function removeRobloxRow(type, id){
-robloxPackages[type] = robloxPackages[type].filter(p => p.id !== id);
-buildRobloxAdminRows();
-}
+  // ============ صفوف أكواد الزيادة ============
+  function bonusCodeRowHTML(item) {
+    item = item || {};
+    const isActive = item.active !== false; // فعّال افتراضيًا
+    return `<div class="price-row" data-section="bonus">
+      <input type="text" class="oinput label-input" placeholder="الكود" value="${item.code != null ? item.code : ''}" style="text-transform:uppercase;">
+      <input type="number" class="oinput price-input" placeholder="%" value="${item.percent != null ? item.percent : ''}">
+      <label class="custom-check"><input type="checkbox" ${isActive ? 'checked' : ''}> فعّال</label>
+      <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
+    </div>`;
+  }
 
-buildRobloxAdminRows();
+  function addBonusCodeRow() {
+    const wrap = document.getElementById('rows-bonusCodes');
+    if (!wrap) return;
+    wrap.insertAdjacentHTML('beforeend', bonusCodeRowHTML({}));
+  }
+  window.addBonusCodeRow = addBonusCodeRow;
 
-function saveRobloxPrices(){
-document.querySelectorAll('#robloxSlotPage input[data-field]').forEach(inp => {
-const type  = inp.dataset.type;
-const id    = parseInt(inp.dataset.id);
-const field = inp.dataset.field;
-const pkg = robloxPackages[type].find(p => p.id === id);
-if (pkg) pkg[field] = parseInt(inp.value) || 0;
-});
-// TODO: once Firebase is connected, write robloxPackages here instead of just logging it
-console.log('Roblox prices ready to sync:', robloxPackages);
-alert('Saved locally. This will sync to the live site once Firebase is connected.');
-}
+  function renderBonusCodes(items) {
+    const wrap = document.getElementById('rows-bonusCodes');
+    if (!wrap) return;
+    wrap.innerHTML = (items || []).map(bonusCodeRowHTML).join('');
+  }
+  window.renderBonusCodes = renderBonusCodes;
 
-// ── PUBG Mobile packages ──
-// Same idea as Roblox: nothing hardcoded, will be filled from the cloud once Firebase is connected.
-// "UC" packages have a quantity (UC) + price. "Deals" packages have a name + price instead of a plain quantity.
-let pubgPackages = {
-uc:    [],
-deals: []
-};
-let pubgRowSeq = 0;
+  // بيلم كل أكواد الزيادة من الفورم ويجهزها للحفظ — بيتجاهل أي صف الكود فاضي فيه أو النسبة صفر
+  function collectBonusCodes() {
+    const wrap = document.getElementById('rows-bonusCodes');
+    if (!wrap) return [];
+    const rows = Array.from(wrap.querySelectorAll('.price-row'));
+    return rows.map(row => {
+      const codeInput = row.querySelector('.label-input');
+      const percentInput = row.querySelector('.price-input');
+      const checkInput = row.querySelector('.custom-check input');
+      const code = (codeInput.value || '').trim().toUpperCase();
+      const percent = parseInt(percentInput.value) || 0;
+      return { code, percent, active: !!(checkInput && checkInput.checked) };
+    }).filter(item => item.code && item.percent > 0);
+  }
+  window.collectBonusCodes = collectBonusCodes;
+</script>
 
-function buildPubgAdminRows(){
-['uc','deals'].forEach(type => {
-const container = document.getElementById('pubg-admin-' + type);
-const list = pubgPackages[type];
-document.getElementById('pubg-count-' + type).textContent = list.length + ' package' + (list.length === 1 ? '' : 's');
-if (!list.length){
-container.innerHTML = `<div class="empty-hint">No packages yet — will load automatically from the cloud, or add one manually below</div>`;
-return;
-}
-container.innerHTML = list.map(pkg => type === 'uc' ? `
-<div class="price-row" data-row-id="${pkg.id}">
-<div class="field">
-<input type="number" inputmode="numeric" placeholder="Quantity" data-type="uc" data-id="${pkg.id}" data-field="uc" value="${pkg.uc}">
-<span class="unit">UC</span>
-</div>
-<div class="field">
-<input type="number" inputmode="numeric" placeholder="Price" data-type="uc" data-id="${pkg.id}" data-field="price" value="${pkg.price}">
-<span class="unit">EGP</span>
-</div>
-<button class="remove-row" onclick="removePubgRow('uc',${pkg.id})">×</button>
-</div>
-` : `
-<div class="price-row" data-row-id="${pkg.id}">
-<div class="field">
-<input type="text" placeholder="Package name" data-type="deals" data-id="${pkg.id}" data-field="label" value="${pkg.label}">
-</div>
-<div class="field">
-<input type="number" inputmode="numeric" placeholder="Price" data-type="deals" data-id="${pkg.id}" data-field="price" value="${pkg.price}">
-<span class="unit">EGP</span>
-</div>
-<button class="remove-row" onclick="removePubgRow('deals',${pkg.id})">×</button>
-</div>
-`).join('');
-});
-}
+<!-- ============ FIREBASE — حماية صفحة الأدمن (Auth Guard) ============ -->
+<script type="module">
+  import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+  import {
+    getAuth,
+    onAuthStateChanged,
+    signOut
+  } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
+  import {
+    getFirestore,
+    doc,
+    getDoc,
+    collection,
+    query,
+    orderBy,
+    onSnapshot,
+    updateDoc,
+    deleteDoc,
+    addDoc,
+    setDoc,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
-function addPubgRow(type){
-if (type === 'uc') pubgPackages.uc.push({ id: pubgRowSeq++, uc: '', price: '' });
-else pubgPackages.deals.push({ id: pubgRowSeq++, label: '', price: '' });
-buildPubgAdminRows();
-document.getElementById('pubg-acc-' + type).classList.add('open');
-}
+  // نفس إعدادات Firebase المستخدمة في index.html — لازم تكون متطابقة
+  const firebaseConfig = {
+    apiKey: "AIzaSyC4Zj-t41a8p51P26hi6cKe3Yt4TuT29ok",
+    authDomain: "king-cat11.firebaseapp.com",
+    projectId: "king-cat11",
+    storageBucket: "king-cat11.firebasestorage.app",
+    messagingSenderId: "379006916143",
+    appId: "1:379006916143:web:56af8e3230d9429575d8da"
+  };
 
-function removePubgRow(type, id){
-pubgPackages[type] = pubgPackages[type].filter(p => p.id !== id);
-buildPubgAdminRows();
-}
+  // بنستخدم getApps() عشان لو الصفحة مبدأتش فيها Firebase قبل كده، نبتدي واحد جديد
+  const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
 
-buildPubgAdminRows();
+  const authGate = document.getElementById('authGate');
+  const adminContent = document.getElementById('adminContent');
 
-function savePubgPrices(){
-document.querySelectorAll('#pubgSlotPage input[data-field]').forEach(inp => {
-const type  = inp.dataset.type;
-const id    = parseInt(inp.dataset.id);
-const field = inp.dataset.field;
-const pkg = pubgPackages[type].find(p => p.id === id);
-if (pkg) pkg[field] = field === 'price' || field === 'uc' ? (parseInt(inp.value) || 0) : inp.value;
-});
-// TODO: once Firebase is connected, write pubgPackages here instead of just logging it
-console.log('PUBG prices ready to sync:', pubgPackages);
-alert('Saved locally. This will sync to the live site once Firebase is connected.');
-}
+  function showAdminContent() {
+    if (authGate) authGate.style.display = 'none';
+    if (adminContent) adminContent.style.display = 'block';
+  }
 
-// ── FIFA packages ──
-// "FC / Silver" packages have a quantity (coins) + price. "Deals" packages have a name + price.
-let fifaPackages = {
-coins: [],
-deals: []
-};
-let fifaRowSeq = 0;
+  function rejectAndRedirect(message) {
+    if (message) alert(message);
+    window.location.href = "index.html";
+  }
 
-function buildFifaAdminRows(){
-['coins','deals'].forEach(type => {
-const container = document.getElementById('fifa-admin-' + type);
-const list = fifaPackages[type];
-document.getElementById('fifa-count-' + type).textContent = list.length + ' package' + (list.length === 1 ? '' : 's');
-if (!list.length){
-container.innerHTML = `<div class="empty-hint">No packages yet — will load automatically from the cloud, or add one manually below</div>`;
-return;
-}
-container.innerHTML = list.map(pkg => type === 'coins' ? `
-<div class="price-row" data-row-id="${pkg.id}">
-<div class="field">
-<input type="number" inputmode="numeric" placeholder="Quantity" data-type="coins" data-id="${pkg.id}" data-field="amount" value="${pkg.amount}">
-<span class="unit">FC/Silver</span>
-</div>
-<div class="field">
-<input type="number" inputmode="numeric" placeholder="Price" data-type="coins" data-id="${pkg.id}" data-field="price" value="${pkg.price}">
-<span class="unit">EGP</span>
-</div>
-<button class="remove-row" onclick="removeFifaRow('coins',${pkg.id})">×</button>
-</div>
-` : `
-<div class="price-row" data-row-id="${pkg.id}">
-<div class="field">
-<input type="text" placeholder="Package name" data-type="deals" data-id="${pkg.id}" data-field="label" value="${pkg.label}">
-</div>
-<div class="field">
-<input type="number" inputmode="numeric" placeholder="Price" data-type="deals" data-id="${pkg.id}" data-field="price" value="${pkg.price}">
-<span class="unit">EGP</span>
-</div>
-<button class="remove-row" onclick="removeFifaRow('deals',${pkg.id})">×</button>
-</div>
-`).join('');
-});
-}
+  // ============ حماية الصفحة: onAuthStateChanged + التحقق من role في Firestore ============
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      // مفيش مستخدم مسجل دخول خالص
+      rejectAndRedirect('لازم تسجل دخول الأول');
+      return;
+    }
 
-function addFifaRow(type){
-if (type === 'coins') fifaPackages.coins.push({ id: fifaRowSeq++, amount: '', price: '' });
-else fifaPackages.deals.push({ id: fifaRowSeq++, label: '', price: '' });
-buildFifaAdminRows();
-document.getElementById('fifa-acc-' + type).classList.add('open');
-}
+    try {
+      const userRef = doc(db, "users", user.uid);
+      const userSnap = await getDoc(userRef);
 
-function removeFifaRow(type, id){
-fifaPackages[type] = fifaPackages[type].filter(p => p.id !== id);
-buildFifaAdminRows();
-}
+      if (!userSnap.exists() || userSnap.data().role !== "admin") {
+        // مش أدمن
+        rejectAndRedirect('معندكش صلاحية الدخول للوحة التحكم');
+        return;
+      }
 
-buildFifaAdminRows();
+      // اتأكدنا إنه أدمن فعلاً
+      showAdminContent();
+      startOrdersListener();
+    } catch (err) {
+      console.error("تعذر التحقق من صلاحية الأدمن:", err);
+      rejectAndRedirect('حصلت مشكلة أثناء التحقق من صلاحيتك، حاول تاني');
+    }
+  });
 
-function saveFifaPrices(){
-document.querySelectorAll('#fifaSlotPage input[data-field]').forEach(inp => {
-const type  = inp.dataset.type;
-const id    = parseInt(inp.dataset.id);
-const field = inp.dataset.field;
-const pkg = fifaPackages[type].find(p => p.id === id);
-if (pkg) pkg[field] = field === 'label' ? inp.value : (parseInt(inp.value) || 0);
-});
-// TODO: once Firebase is connected, write fifaPackages here instead of just logging it
-console.log('FIFA prices ready to sync:', fifaPackages);
-alert('Saved locally. This will sync to the live site once Firebase is connected.');
-}
+  // ============ ترجمة الوقت لصيغة "منذ..." ============
+  function timeAgo(ts) {
+    if (!ts || !ts.toDate) return '';
+    const diffMs = Date.now() - ts.toDate().getTime();
+    const mins = Math.floor(diffMs / 60000);
+    if (mins < 1) return 'الآن';
+    if (mins < 60) return `منذ ${mins} دقيقة`;
+    const hrs = Math.floor(mins / 60);
+    if (hrs < 24) return `منذ ${hrs} ساعة`;
+    const days = Math.floor(hrs / 24);
+    return `منذ ${days} يوم`;
+  }
 
-// ── Free Fire packages ──
-// Both "By ID" and "Inside Account" packages have a name (gems amount or subscription like "Weekly") + price.
-let freefirePackages = {
-id:      [],
-account: []
-};
-let freefireRowSeq = 0;
+  // ============ بث حي لكل الطلبات (كل طلبات كل الزباين) ============
+  function startOrdersListener() {
+    const ordersRef = collection(db, 'orders');
+    // ملاحظة: من غير قصد orderBy('createdAt') في الاستعلام نفسه — لأن استخدام orderBy مع
+    // serverTimestamp() بيعمل مشكلة معروفة في Firestore: أي طلب جديد (زي طلب الضيف اللي
+    // بتضيفه يدوي) بيكون createdAt بتاعه لسه "معلق" (pending) لحد ما السيرفر يأكّده، وطول
+    // المدة دي الاستعلام المرتب بيستبعده تمامًا فبيبان إنه "اتحذف" أول ما تضيفه.
+    // الحل: نجيب الطلبات من غير ترتيب في الاستعلام، ونرتبهم إحنا في الجافاسكريبت بعد كده.
+    const q = query(ordersRef);
+    onSnapshot(q, (snap) => {
+      window.ordersData.length = 0;
+      snap.forEach((docSnap) => {
+        const d = docSnap.data();
+        window.ordersData.push({
+          id: docSnap.id,
+          game: d.title || 'طلب',
+          user: d.customerName || 'عميل',
+          time: timeAgo(d.createdAt),
+          status: d.status || 'new',
+          date: d.pendingDate || '',
+          dateStr: (d.createdAt && d.createdAt.toDate) ? d.createdAt.toDate().toISOString().split('T')[0] : '',
+          // لو createdAt لسه معلقة (لحظة الإضافة) بنعتبرها دلوقتي عشان تفضل فوق وميبانش إنها اتحذفت
+          sortTime: (d.createdAt && d.createdAt.toMillis) ? d.createdAt.toMillis() : Date.now(),
+          price: d.price || '',
+          fullDetails: d.fullDetails || d.details || ''
+        });
+      });
+      window.ordersData.sort((a, b) => b.sortTime - a.sortTime);
+      if (typeof window.renderOrders === 'function') window.renderOrders();
+      updateStatCards();
+    }, (err) => {
+      console.error('تعذر تحميل الطلبات:', err);
+    });
+  }
 
-function buildFreefireAdminRows(){
-['id','account'].forEach(type => {
-const container = document.getElementById('ff-admin-' + type);
-const list = freefirePackages[type];
-document.getElementById('ff-count-' + type).textContent = list.length + ' package' + (list.length === 1 ? '' : 's');
-if (!list.length){
-container.innerHTML = `<div class="empty-hint">No packages yet — will load automatically from the cloud, or add one manually below</div>`;
-return;
-}
-container.innerHTML = list.map(pkg => `
-<div class="price-row" data-row-id="${pkg.id}">
-<div class="field">
-<input type="text" placeholder="Package name" data-type="${type}" data-id="${pkg.id}" data-field="label" value="${pkg.label}">
-</div>
-<div class="field">
-<input type="number" inputmode="numeric" placeholder="Price" data-type="${type}" data-id="${pkg.id}" data-field="price" value="${pkg.price}">
-<span class="unit">EGP</span>
-</div>
-<button class="remove-row" onclick="removeFreefireRow('${type}',${pkg.id})">×</button>
-</div>
-`).join('');
-});
-}
+  function updateStatCards() {
+    const totalEl = document.getElementById('statTotalOrders');
+    const pendingEl = document.getElementById('statPendingOrders');
+    if (totalEl) totalEl.textContent = window.ordersData.length;
+    if (pendingEl) pendingEl.textContent = window.ordersData.filter(o => o.status !== 'done').length;
+  }
 
-function addFreefireRow(type){
-freefirePackages[type].push({ id: freefireRowSeq++, label: '', price: '' });
-buildFreefireAdminRows();
-document.getElementById('ff-acc-' + type).classList.add('open');
-}
+  // ============ تحديث حالة الطلب (تم / قيد الانتظار) — بيتغير عند الزبون لايف ============
+  window.setOrderStatus = async function (id, status) {
+    try {
+      await updateDoc(doc(db, 'orders', id), { status });
+      window.expandedDateIds.delete(id);
+    } catch (err) {
+      console.error('تعذر تحديث حالة الطلب:', err);
+      alert('حصلت مشكلة أثناء تحديث الطلب، حاول تاني');
+    }
+  };
 
-function removeFreefireRow(type, id){
-freefirePackages[type] = freefirePackages[type].filter(p => p.id !== id);
-buildFreefireAdminRows();
-}
+  // ============ تأكيد "قيد الانتظار" مع تاريخ استلام متوقع ============
+  window.confirmPending = async function (id) {
+    const input = document.getElementById(`dateInput-${id}`);
+    const chosenDate = input && input.value ? input.value : defaultDatePlus14();
+    try {
+      await updateDoc(doc(db, 'orders', id), { status: 'pending', pendingDate: chosenDate });
+      window.expandedDateIds.delete(id);
+    } catch (err) {
+      console.error('تعذر تحديث الطلب:', err);
+      alert('حصلت مشكلة أثناء تحديث الطلب، حاول تاني');
+    }
+  };
 
-buildFreefireAdminRows();
+  // ============ إلغاء الطلب: بيتمسح خالص من قاعدة البيانات ============
+  window.cancelOrder = async function (id) {
+    if (!confirm('متأكد إنك عايز تلغي الطلب ده؟ هيتمسح خالص من القايمة.')) return;
+    try {
+      await deleteDoc(doc(db, 'orders', id));
+      window.expandedDateIds.delete(id);
+    } catch (err) {
+      console.error('تعذر إلغاء الطلب:', err);
+      alert('حصلت مشكلة أثناء إلغاء الطلب، حاول تاني');
+    }
+  };
 
-function saveFreefirePrices(){
-document.querySelectorAll('#freefireSlotPage input[data-field]').forEach(inp => {
-const type  = inp.dataset.type;
-const id    = parseInt(inp.dataset.id);
-const field = inp.dataset.field;
-const pkg = freefirePackages[type].find(p => p.id === id);
-if (pkg) pkg[field] = field === 'label' ? inp.value : (parseInt(inp.value) || 0);
-});
-// TODO: once Firebase is connected, write freefirePackages here instead of just logging it
-console.log('Free Fire prices ready to sync:', freefirePackages);
-alert('Saved locally. This will sync to the live site once Firebase is connected.');
-}
+  // ============ حذف طلب خلاص من خانة "تم" (زرار علبة الزبالة) ============
+  window.deleteOrderPermanently = async function (id) {
+    if (!confirm('متأكد إنك عايز تحذف الطلب ده؟ هيتمسح خالص من القايمة.')) return;
+    try {
+      await deleteDoc(doc(db, 'orders', id));
+      window.expandedDateIds.delete(id);
+    } catch (err) {
+      console.error('تعذر حذف الطلب:', err);
+      alert('حصلت مشكلة أثناء حذف الطلب، حاول تاني');
+    }
+  };
 
-// ── Gift Cards ──
-// Every card uses the same simple shape: a flag (country/region) + a label (e.g. "$10", "1 Month") + a price.
-// Nothing hardcoded — will be filled automatically from the cloud once Firebase is connected.
-let giftCardPackages = { steam: [], xbox: [], minecraft: [], exitlag: [], playstation: [], nintendo: [], valorant: [], battlenet: [], fc26: [], lol: [], gearup: [], razergold: [] };
-let gcRowSeq = 0;
+  // ============ إضافة طلب يدوي لعميل مش مسجل — بيتسجل باسم "Guest" وبياناته الحقيقية بتفضل عند الأدمن بس ============
+  window.submitManualOrder = async function () {
+    const textInput = document.getElementById('manualOrderText');
+    const targetStatusInput = document.getElementById('manualOrderTargetStatus');
+    const statusEl = document.getElementById('manualOrderStatus');
 
-// Flags available to pick per package/denomination.
-const GC_FLAGS = [
-{ v:'🌍', label:'🌍 Global' },
-{ v:'🇺🇸', label:'🇺🇸 USA' },
-{ v:'🇬🇧', label:'🇬🇧 UK' },
-{ v:'🇪🇺', label:'🇪🇺 Europe' },
-{ v:'🇸🇦', label:'🇸🇦 Saudi Arabia' },
-{ v:'🇦🇪', label:'🇦🇪 UAE' },
-{ v:'🇪🇬', label:'🇪🇬 Egypt' },
-{ v:'🇹🇷', label:'🇹🇷 Turkey' },
-{ v:'🇨🇦', label:'🇨🇦 Canada' },
-{ v:'🇦🇺', label:'🇦🇺 Australia' },
-{ v:'🇮🇳', label:'🇮🇳 India' },
-{ v:'🇯🇵', label:'🇯🇵 Japan' },
-{ v:'🇰🇷', label:'🇰🇷 South Korea' },
-{ v:'🇧🇷', label:'🇧🇷 Brazil' },
-{ v:'🇷🇺', label:'🇷🇺 Russia' }
-];
+    const fullText = textInput.value.trim();
+    const targetStatus = targetStatusInput.value; // new / pending / done
 
-function gcFlagOptions(selected){
-return GC_FLAGS.map(f => `<option value="${f.v}" ${f.v === selected ? 'selected' : ''}>${f.label}</option>`).join('');
-}
+    if (!fullText) {
+      statusEl.textContent = 'لازم تكتب حاجة الأول';
+      statusEl.className = 'login-status err';
+      return;
+    }
 
-function buildGCRows(key){
-const container = document.getElementById('gc-admin-' + key);
-const list = giftCardPackages[key];
-document.getElementById('gc-count-' + key).textContent = list.length + ' package' + (list.length === 1 ? '' : 's');
-if (!list.length){
-container.innerHTML = `<div class="empty-hint">No packages yet — will load automatically from the cloud, or add one manually below</div>`;
-return;
-}
-container.innerHTML = list.map(pkg => `
-<div class="price-row" data-row-id="${pkg.id}">
-<div class="field flag-field">
-<select data-key="${key}" data-id="${pkg.id}" data-field="flag">${gcFlagOptions(pkg.flag)}</select>
-</div>
-<div class="field">
-<input type="text" placeholder="Package name" data-key="${key}" data-id="${pkg.id}" data-field="label" value="${pkg.label}">
-</div>
-<div class="field">
-<input type="number" inputmode="numeric" placeholder="Price" data-key="${key}" data-id="${pkg.id}" data-field="price" value="${pkg.price}">
-<span class="unit">EGP</span>
-</div>
-<button class="remove-row" onclick="removeGCRow('${key}',${pkg.id})">×</button>
-</div>
-`).join('');
-}
+    try {
+      const orderData = {
+        title: 'Guest', // عنوان الطلب في القايمة يبقى ثابت "Guest"
+        status: targetStatus,
+        fullDetails: fullText, // كل اللي كتبته — يظهر لك بس لما تضغط على الطلب
+        createdAt: serverTimestamp()
+      };
+      // لو هتحطه في "قيد الانتظار" مباشرة، بنديله تاريخ استلام مبدئي (يقدر الأدمن يغيّره بعدين)
+      if (targetStatus === 'pending') {
+        orderData.pendingDate = window.defaultDatePlus14 ? window.defaultDatePlus14() : '';
+      }
 
-function addGCRow(key){
-giftCardPackages[key].push({ id: gcRowSeq++, flag: '🌍', label: '', price: '' });
-buildGCRows(key);
-document.getElementById('gc-acc-' + key).classList.add('open');
-}
+      await addDoc(collection(db, 'orders'), orderData);
+      document.getElementById('manualOrderOverlay').style.display = 'none';
+    } catch (err) {
+      console.error('تعذر إضافة الطلب اليدوي:', err);
+      statusEl.textContent = 'حصلت مشكلة أثناء إضافة الطلب، حاول تاني';
+      statusEl.className = 'login-status err';
+    }
+  };
 
-function removeGCRow(key, id){
-giftCardPackages[key] = giftCardPackages[key].filter(p => p.id !== id);
-buildGCRows(key);
-}
+  // ============ الأسعار الافتراضية (نفس الموجودة دلوقتي في الموقع) — بتتحمل لو مفيش بيانات محفوظة لسه في Firestore ============
+  const DEFAULT_ROBLOX_PRICING = {
+    acc: [
+      { rob: 80,   price: 75,   label: '80 روب',   custom: false },
+      { rob: 160,  price: 150,  label: '160 روب',  custom: false },
+      { rob: 400,  price: 300,  label: '400 روب',  custom: false },
+      { rob: 800,  price: 600,  label: '800 روب',  custom: false },
+      { rob: 1700, price: 1200, label: '1700 روب', custom: false },
+      { rob: 0,    price: 350,  label: 'Plus',      custom: true }
+    ],
+    comFawri: [
+      { rob: 50, price: 35 }, { rob: 100, price: 70 }, { rob: 200, price: 120 },
+      { rob: 300, price: 170 }, { rob: 400, price: 220 }, { rob: 500, price: 270 }, { rob: 1000, price: 520 }
+    ],
+    comHagz: [
+      { rob: 53, price: 35 }, { rob: 105, price: 70 }, { rob: 210, price: 120 },
+      { rob: 315, price: 170 }, { rob: 420, price: 220 }, { rob: 525, price: 270 }, { rob: 1050, price: 520 }
+    ],
+    giftcard: [
+      { usd: 5, price: 360 }, { usd: 10, price: 620 }, { usd: 25, price: 1420 }, { usd: 50, price: 2950 }
+    ]
+  };
 
-Object.keys(giftCardPackages).forEach(buildGCRows);
+  // ============ تحميل أسعار روبلكس الحالية في صفحة التعديل ============
+  window.loadRobloxPricing = async function () {
+    const statusEl = document.getElementById('robloxPricingStatus');
+    if (statusEl) { statusEl.textContent = 'بيتحمل...'; statusEl.className = 'login-status'; }
+    try {
+      const snap = await getDoc(doc(db, 'pricing', 'roblox'));
+      const data = snap.exists() ? snap.data() : DEFAULT_ROBLOX_PRICING;
+      window.renderPriceRows('acc', data.acc && data.acc.length ? data.acc : DEFAULT_ROBLOX_PRICING.acc);
+      window.renderPriceRows('comFawri', data.comFawri && data.comFawri.length ? data.comFawri : DEFAULT_ROBLOX_PRICING.comFawri);
+      window.renderPriceRows('comHagz', data.comHagz && data.comHagz.length ? data.comHagz : DEFAULT_ROBLOX_PRICING.comHagz);
+      window.renderPriceRows('giftcard', data.giftcard && data.giftcard.length ? data.giftcard : DEFAULT_ROBLOX_PRICING.giftcard);
+      if (statusEl) statusEl.textContent = '';
+    } catch (err) {
+      console.error('تعذر تحميل أسعار روبلكس:', err);
+      // لو حصلت مشكلة في التحميل، نعرض الأسعار الافتراضية على الأقل عشان الصفحة متفضلش فاضية
+      window.renderPriceRows('acc', DEFAULT_ROBLOX_PRICING.acc);
+      window.renderPriceRows('comFawri', DEFAULT_ROBLOX_PRICING.comFawri);
+      window.renderPriceRows('comHagz', DEFAULT_ROBLOX_PRICING.comHagz);
+      window.renderPriceRows('giftcard', DEFAULT_ROBLOX_PRICING.giftcard);
+      if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء تحميل الأسعار المحفوظة، ده عرض افتراضي بس'; statusEl.className = 'login-status err'; }
+    }
+  };
 
-function saveGCPrices(key){
-document.querySelectorAll(`#gc-${key}Page [data-field]`).forEach(inp => {
-const id    = parseInt(inp.dataset.id);
-const field = inp.dataset.field;
-const pkg = giftCardPackages[key].find(p => p.id === id);
-if (pkg) pkg[field] = (field === 'label' || field === 'flag') ? inp.value : (parseInt(inp.value) || 0);
-});
-// TODO: once Firebase is connected, write giftCardPackages[key] here instead of just logging it
-console.log('{} prices ready to sync:'.replace('{}', key), giftCardPackages[key]);
-alert('Saved locally. This will sync to the live site once Firebase is connected.');
-}
+  // ============ حفظ أسعار روبلكس كلها مرة واحدة في Firestore ============
+  window.saveRobloxPricing = async function () {
+    const statusEl = document.getElementById('robloxPricingStatus');
+    try {
+      const payload = {
+        acc: window.collectPriceRows('acc'),
+        comFawri: window.collectPriceRows('comFawri'),
+        comHagz: window.collectPriceRows('comHagz'),
+        giftcard: window.collectPriceRows('giftcard'),
+        updatedAt: serverTimestamp()
+      };
+      await setDoc(doc(db, 'pricing', 'roblox'), payload);
+      if (statusEl) { statusEl.textContent = 'تم الحفظ بنجاح ✅ — هيتحدث على الموقع على طول'; statusEl.className = 'login-status ok'; }
+    } catch (err) {
+      console.error('تعذر حفظ أسعار روبلكس:', err);
+      if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء الحفظ، حاول تاني'; statusEl.className = 'login-status err'; }
+    }
+  };
 
+  // ============ تحميل أكواد الزيادة الحالية في صفحة التعديل ============
+  window.loadBonusCodes = async function () {
+    const statusEl = document.getElementById('bonusCodesStatus');
+    if (statusEl) { statusEl.textContent = 'بيتحمل...'; statusEl.className = 'login-status'; }
+    try {
+      const snap = await getDoc(doc(db, 'pricing', 'bonusCodes'));
+      const data = snap.exists() ? snap.data() : { codes: [] };
+      window.renderBonusCodes(data.codes || []);
+      if (statusEl) statusEl.textContent = '';
+    } catch (err) {
+      console.error('تعذر تحميل أكواد الزيادة:', err);
+      window.renderBonusCodes([]);
+      if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء تحميل الأكواد المحفوظة'; statusEl.className = 'login-status err'; }
+    }
+  };
+
+  // ============ حفظ أكواد الزيادة كلها مرة واحدة في Firestore — نفس الدوك اللي الموقع الأساسي بيقراه ============
+  window.saveBonusCodes = async function () {
+    const statusEl = document.getElementById('bonusCodesStatus');
+    try {
+      const payload = {
+        codes: window.collectBonusCodes(),
+        updatedAt: serverTimestamp()
+      };
+      await setDoc(doc(db, 'pricing', 'bonusCodes'), payload);
+      if (statusEl) { statusEl.textContent = 'تم الحفظ بنجاح ✅ — الأكواد شغالة في قسم الكوميونتي على طول'; statusEl.className = 'login-status ok'; }
+    } catch (err) {
+      console.error('تعذر حفظ أكواد الزيادة:', err);
+      if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء الحفظ، حاول تاني'; statusEl.className = 'login-status err'; }
+    }
+  };
+
+  // ============ تسجيل الخروج الحقيقي ============
+  window.adminLogout = async function () {
+    try {
+      await signOut(auth);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      window.location.href = "index.html";
+    }
+  };
 </script>
 
 </body>
