@@ -258,6 +258,49 @@
 
     /* glow blob removed */
 
+    /* ── SETTINGS PAGE — soft background system ── */
+    #settingsPage {
+      background:
+        radial-gradient(circle at 85% 15%, rgba(255,45,120,.18) 0%, transparent 62%),
+        radial-gradient(circle at 90% 85%, rgba(96,165,250,.16) 0%, transparent 60%),
+        radial-gradient(circle at 10% 85%, rgba(255,45,120,.15) 0%, transparent 60%),
+        radial-gradient(circle at 15% 10%, rgba(96,165,250,.14) 0%, transparent 60%),
+        radial-gradient(circle at 50% 50%, rgba(255,45,120,.07) 0%, transparent 70%),
+        #12182a;
+    }
+    #settingsPage .rpage-header {
+      background: transparent;
+      border-bottom: none;
+      position: fixed;
+      top: 0; right: 0; left: 0;
+      padding: 18px 5%;
+    }
+    #settingsPage .rpage-panels { padding-top: 78px !important; }
+
+    /* ── EDIT PROFILE PAGE — soft background system, no black header bar ── */
+    #editAccountPage {
+      background:
+        radial-gradient(circle at 85% 15%, rgba(255,45,120,.18) 0%, transparent 62%),
+        radial-gradient(circle at 90% 85%, rgba(96,165,250,.16) 0%, transparent 60%),
+        radial-gradient(circle at 10% 85%, rgba(255,45,120,.15) 0%, transparent 60%),
+        radial-gradient(circle at 15% 10%, rgba(96,165,250,.14) 0%, transparent 60%),
+        radial-gradient(circle at 50% 50%, rgba(255,45,120,.07) 0%, transparent 70%),
+        #12182a;
+    }
+    #editAccountPage .rpage-header {
+      background: transparent;
+      border-bottom: none;
+      position: fixed;
+      top: 0; right: 0; left: 0;
+      padding: 18px 5%;
+    }
+    #editAccountPage .rpage-panels { padding-top: 78px !important; }
+    #editAccountPage .oaccount-section {
+      gap: 10px;
+    }
+    #editAccountPage .olabel { color: #ff2d78; }
+    #editAccountPage .oinput:focus { border-color: #ff2d78; }
+
     /* ── ROBLOX YELLOW BACKGROUND ── */
     #robloxPage {
       background:
@@ -583,6 +626,8 @@
     }
     #fifatabMenu .rtab-menu-item:hover { background: rgba(111,207,58,.12) !important; }
     #fifatabMenu .rtab-menu-item.active { color: #6fcf3a !important; background: rgba(111,207,58,.18) !important; }
+    /* Edit Profile page — purple theme override */
+    #editAccountPage .osave-btn { background: rgba(255,45,120,.15); border-color: #ff2d78; color: #ff2d78; }
     /* Roblox blue theme override — no red/pink anywhere on this page */
     #robloxPage {
       --gold: #2563eb;
@@ -928,6 +973,49 @@
     .rtab-menu-item:last-child { border-bottom: none; }
     .rtab-menu-item:hover { background: rgba(37,99,235,.12); }
     .rtab-menu-item.active { color: #2563eb; background: rgba(37,99,235,.18); }
+
+    /* ── MY ORDERS PAGE — soft background system, no black header bar ── */
+    #ordersPage {
+      background:
+        radial-gradient(circle at 85% 15%, rgba(255,45,120,.18) 0%, transparent 62%),
+        radial-gradient(circle at 90% 85%, rgba(96,165,250,.16) 0%, transparent 60%),
+        radial-gradient(circle at 10% 85%, rgba(255,45,120,.15) 0%, transparent 60%),
+        radial-gradient(circle at 15% 10%, rgba(96,165,250,.14) 0%, transparent 60%),
+        radial-gradient(circle at 50% 50%, rgba(255,45,120,.07) 0%, transparent 70%),
+        #12182a;
+    }
+    /* طلباتي — صف بديل عن الهيدر: كلمة Back لوحدها بلون بنبي + تغيير الطريقة جنبها */
+    #ordersPage .orders-top-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 5%;
+      background: transparent;
+      border-bottom: none;
+      position: fixed;
+      top: 0; right: 0; left: 0;
+      z-index: 10;
+    }
+    #ordersPage .rpage-panels { padding-top: 78px !important; }
+    #ordersPage .orders-top-row .rpage-back {
+      border-color: rgba(255,45,120,.5);
+      color: #ff2d78;
+      flex: 0 0 auto;
+    }
+    #ordersPage .orders-top-row .rpage-back:hover { background: rgba(255,45,120,.1); }
+    #ordersPage .orders-top-row .rtab-select-wrap { flex: 0 0 auto; }
+    #ordersPage .orders-top-row .rtab-select-btn {
+      background: rgba(255,45,120,.1);
+      border-color: rgba(255,45,120,.45);
+      color: #ff2d78;
+      width: 180px;
+      padding: 7px 14px;
+      font-size: .85rem;
+    }
+    #ordersPage .orders-top-row .rtab-select-btn:hover { background: rgba(255,45,120,.16); }
+    #orderstabMenu { border-color: rgba(255,45,120,.4) !important; }
+    #orderstabMenu .rtab-menu-item:hover { background: rgba(255,45,120,.12) !important; }
+    #orderstabMenu .rtab-menu-item.active { color: #ff2d78 !important; background: rgba(255,45,120,.18) !important; }
 
     /* PUBG dropdown menu: red instead of blue */
     #pubgtabMenu { border-color: rgba(0,180,216,.4) !important; }
@@ -1381,6 +1469,12 @@
       flex-shrink: 0;
     }
     .header-login-btn:hover { background: rgba(255,45,120,.2); }
+    .header-login-btn.is-logged-in {
+      background: transparent;
+      border: none;
+      padding: 0;
+    }
+    .header-login-btn.is-logged-in:hover { background: transparent; }
     .header-login-btn .li-avatar {
       width: 18px; height: 18px;
       border-radius: 50%;
@@ -1392,6 +1486,10 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+    }
+    .header-login-btn.is-logged-in .li-avatar {
+      width: 32px; height: 32px;
+      font-size: 1rem;
     }
 
     .auth-en-badge {
@@ -1685,6 +1783,7 @@
     <span id="headerLoginBtnText">سجل دخول</span>
   </a>
 
+
 </header>
 
 <div class="nav-menu-overlay" id="navMenuOverlay"></div>
@@ -1699,7 +1798,7 @@
   <a href="javascript:void(0)" onclick="handleSettingsClick()">الإعدادات</a>
   <a href="javascript:void(0)" onclick="openSiteExplainModal()">الشرح</a>
   <a href="javascript:void(0)" onclick="openChannels()">قنواتنا</a>
-  <a href="https://wa.me/201069478690" target="_blank">تواصل معنا</a>
+  <a href="https://wa.me/201069478690" target="_blank" rel="noopener noreferrer">تواصل معنا</a>
 </nav>
 
 <!-- HERO -->
@@ -1791,7 +1890,7 @@
           <div class="login-title">حسابك</div>
           <div class="login-account-box">
             <div class="login-account-email" id="loggedInEmailText"></div>
-            <button class="login-logout-btn" onclick="logoutUser()">تسجيل الخروج</button>
+            <button class="login-logout-btn" onclick="logoutUser()">Logout</button>
           </div>
         </div>
 
@@ -1809,7 +1908,7 @@
       </div>
     </div>
     <div class="offer-slide o2" style="cursor:pointer;" onclick="openRobloxCommunity()">
-      <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/roblox-carousel.png" alt="اشحن الان مع الاكواد" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;" />
+      <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/images.jpeg" alt="اشحن الان مع الاكواد" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;" />
       <div class="offer-badge">جديد</div>
       <div class="offer-bottom-fade"></div>
       <div class="offer-text offer-text-bottom">
@@ -2039,7 +2138,7 @@
     <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--white);letter-spacing:.04em;margin-bottom:20px;text-align:center;">تابعنا على منصاتنا</div>
 
     <!-- واتساب -->
-    <a href="https://whatsapp.com/channel/0029VbBUU8zHAdNMukCnc80h" target="_blank" style="width:100%;max-width:420px;text-decoration:none;">
+    <a href="https://whatsapp.com/channel/0029VbBUU8zHAdNMukCnc80h" target="_blank" rel="noopener noreferrer" style="width:100%;max-width:420px;text-decoration:none;">
       <div style="display:flex;align-items:center;gap:16px;padding:20px 24px;background:#1a1a1a;border:1.5px solid rgba(37,211,102,.35);border-radius:16px;transition:border-color .2s,background .2s;" onmouseover="this.style.borderColor='#25d366';this.style.background='rgba(37,211,102,.08)'" onmouseout="this.style.borderColor='rgba(37,211,102,.35)';this.style.background='#1a1a1a'">
         <div style="width:52px;height:52px;background:#25d366;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.554 4.118 1.524 5.847L.057 23.686a.5.5 0 0 0 .612.612l5.807-1.484A11.944 11.944 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.648-.523-5.153-1.43l-.36-.216-3.734.955.988-3.636-.235-.374A9.964 9.964 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
@@ -2053,7 +2152,7 @@
     </a>
 
     <!-- روبلوكس -->
-    <a href="https://www.roblox.com/share/g/35176043" target="_blank" style="width:100%;max-width:420px;text-decoration:none;">
+    <a href="https://www.roblox.com/share/g/35176043" target="_blank" rel="noopener noreferrer" style="width:100%;max-width:420px;text-decoration:none;">
       <div style="display:flex;align-items:center;gap:16px;padding:20px 24px;background:#1a1a1a;border:1.5px solid rgba(0,162,255,.3);border-radius:16px;transition:border-color .2s,background .2s;" onmouseover="this.style.borderColor='#00a2ff';this.style.background='rgba(0,162,255,.08)'" onmouseout="this.style.borderColor='rgba(0,162,255,.3)';this.style.background='#1a1a1a'">
         <div style="width:52px;height:52px;background:#00a2ff;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M5.184 24L0 5.184 18.816 0 24 18.816zm10.647-7.568l-1.905-7.11-7.11 1.905 1.905 7.11z"/></svg>
@@ -2067,7 +2166,7 @@
     </a>
 
     <!-- تيك توك -->
-    <a href="https://tiktok.com/@kingxcat" target="_blank" style="width:100%;max-width:420px;text-decoration:none;">
+    <a href="https://tiktok.com/@kingxcat" target="_blank" rel="noopener noreferrer" style="width:100%;max-width:420px;text-decoration:none;">
       <div style="display:flex;align-items:center;gap:16px;padding:20px 24px;background:#1a1a1a;border:1.5px solid rgba(255,0,80,.3);border-radius:16px;transition:border-color .2s,background .2s;" onmouseover="this.style.borderColor='#ff0050';this.style.background='rgba(255,0,80,.08)'" onmouseout="this.style.borderColor='rgba(255,0,80,.3)';this.style.background='#1a1a1a'">
         <div style="width:52px;height:52px;background:#010101;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1.5px solid #ff0050;">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
@@ -2084,20 +2183,16 @@
 
 <!-- SETTINGS PAGE -->
 <div id="settingsPage" class="rpage">
-  <div class="rpage-header" style="border-bottom-color:rgba(37,99,235,.3);">
-    <button class="rpage-back" style="border-color:rgba(37,99,235,.5);color:#2563eb;" onclick="closeSettingsPage()">&#8594; Back</button>
-    <div class="rpage-title">
-      <span class="rpage-logo" style="color:#2563eb;">الحساب</span>
-      <span class="rpage-sub">King &amp; Cat – حسابك</span>
-    </div>
+  <div class="rpage-header" style="border-bottom:none;">
+    <button class="rpage-back" style="border-color:rgba(255,45,120,.5);color:#ff2d78;" onclick="closeSettingsPage()">&#8594; Back</button>
   </div>
 
-  <div class="rpage-panels" style="display:flex;flex-direction:column;align-items:center;padding:44px 5% 60px;">
+  <div class="rpage-panels" style="display:flex;flex-direction:column;align-items:center;padding:12px 5% 60px;">
     <div style="width:100%;max-width:420px;margin:0 auto;">
 
       <!-- profile -->
       <div style="display:flex;flex-direction:column;align-items:center;gap:12px;padding-bottom:28px;">
-        <span class="nav-profile-icon" id="settingsProfileIcon" style="width:72px;height:72px;font-size:1.6rem;border-width:2px;">
+        <span class="nav-profile-icon" id="settingsProfileIcon" style="width:72px;height:72px;font-size:1.6rem;border-width:2px;color:#ff2d78;border-color:rgba(255,45,120,.5);background:rgba(255,45,120,.15);">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
         </span>
         <span id="settingsProfileName" style="font-weight:800;font-size:1.15rem;color:var(--white);">سجل دخول</span>
@@ -2110,11 +2205,11 @@
           <span style="color:var(--muted);font-size:1.1rem;">‹</span>
         </a>
         <a href="javascript:void(0)" onclick="openOrdersPage()" style="display:flex;align-items:center;gap:14px;padding:18px 4px;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.08);transition:opacity .2s;">
-          <span style="flex:1;font-weight:700;font-size:.98rem;color:var(--white);">طلباتي</span>
+          <span style="flex:1;font-weight:700;font-size:.98rem;color:var(--white);">My Orders</span>
           <span style="color:var(--muted);font-size:1.1rem;">‹</span>
         </a>
         <a href="javascript:void(0)" onclick="logoutUser(); closeSettingsPage();" style="display:flex;align-items:center;gap:14px;padding:18px 4px;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.08);transition:opacity .2s;">
-          <span style="flex:1;font-weight:700;font-size:.98rem;color:#e05555;">تسجيل الخروج</span>
+          <span style="flex:1;font-weight:700;font-size:.98rem;color:#e05555;">Logout</span>
         </a>
       </div>
 
@@ -2126,15 +2221,11 @@
 
 <!-- EDIT ACCOUNT PAGE -->
 <div id="editAccountPage" class="rpage">
-  <div class="rpage-header" style="border-bottom-color:rgba(37,99,235,.3);">
-    <button class="rpage-back" style="border-color:rgba(37,99,235,.5);color:#2563eb;" onclick="closeEditAccountPage()">&#8594; Back</button>
-    <div class="rpage-title">
-      <span class="rpage-logo" style="color:#2563eb;">EDIT PROFILE</span>
-      <span class="rpage-sub">King &amp; Cat – حسابك</span>
-    </div>
+  <div class="rpage-header" style="border-bottom:none;">
+    <button class="rpage-back" style="border-color:rgba(255,45,120,.5);color:#ff2d78;" onclick="closeEditAccountPage()">&#8594; Back</button>
   </div>
 
-  <div class="rpage-panels" style="display:flex;flex-direction:column;align-items:center;padding:36px 5% 60px;">
+  <div class="rpage-panels" style="display:flex;flex-direction:column;align-items:center;padding:12px 5% 60px;">
     <div style="width:100%;max-width:420px;margin:0 auto;">
 
       <!-- البريد الإلكتروني (عرض فقط) -->
@@ -2146,22 +2237,18 @@
       <!-- تعديل اللقب -->
       <div class="oaccount-section">
         <label class="olabel">لقبك</label>
-        <input class="oinput" id="eaNicknameInput" type="text" placeholder="اكتب لقبك" autocomplete="nickname" />
-        <button class="osave-btn" id="eaNicknameSaveBtn" onclick="saveNickname()">حفظ اللقب</button>
-        <div class="login-status" id="eaNicknameStatus"></div>
+        <input class="oinput" id="eaNicknameInput" type="text" placeholder="اكتب لقبك" autocomplete="nickname" oninput="window.updateEaSaveButtonState && updateEaSaveButtonState()" />
       </div>
 
       <!-- تعديل الرقم السري -->
       <div class="oaccount-section" id="eaPasswordSection">
         <label class="olabel">كلمة سر جديدة</label>
         <div class="pw-wrap">
-          <input class="oinput" id="eaPasswordInput" type="password" placeholder="•••••••" autocomplete="new-password" />
+          <input class="oinput" id="eaPasswordInput" type="password" placeholder="•••••••" autocomplete="new-password" oninput="window.updateEaSaveButtonState && updateEaSaveButtonState()" />
           <button class="pw-eye" type="button" onclick="toggleEaPasswordVisibility()" id="eaPasswordEyeBtn" aria-label="إظهار كلمة السر">
             <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
           </button>
         </div>
-        <button class="osave-btn" id="eaPasswordSaveBtn" onclick="savePassword()">حفظ كلمة السر</button>
-        <div class="login-status" id="eaPasswordStatus"></div>
 
         <!-- بيظهر بس لو Firebase طلب تأكيد الهوية قبل تغيير كلمة السر -->
         <div id="eaReauthBox" style="display:none;flex-direction:column;gap:10px;margin-top:6px;">
@@ -2173,35 +2260,34 @@
         <p id="eaGoogleOnlyNote" style="display:none;color:var(--muted);font-size:.82rem;text-align:center;margin-top:6px;">حسابك مسجل عن طريق جوجل، مش هتقدر تغيّر كلمة سر من هنا.</p>
       </div>
 
+      <!-- زرار حفظ موحّد -->
+      <div class="oaccount-section" style="border-bottom:none;">
+        <button class="osave-btn" id="eaSaveAllBtn" onclick="saveAllChanges()" disabled>حفظ التعديلات</button>
+        <div class="login-status" id="eaSaveStatus"></div>
+      </div>
+
     </div>
   </div>
 </div>
 
 <!-- MY ORDERS PAGE -->
 <div id="ordersPage" class="rpage">
-  <div class="rpage-header" style="border-bottom-color:rgba(37,99,235,.3);">
-    <button class="rpage-back" style="border-color:rgba(37,99,235,.5);color:#2563eb;" onclick="closeOrdersPage()">&#8594; Back</button>
-    <div class="rpage-title">
-      <span class="rpage-logo" style="color:#2563eb;">طلباتي</span>
-      <span class="rpage-sub">King &amp; Cat – الطلبات</span>
+  <div class="orders-top-row">
+    <button class="rpage-back" onclick="closeOrdersPage()">&#8594; Back</button>
+    <div class="rtab-select-wrap" id="orderstabSelectWrap">
+      <button class="rtab-select-btn" onclick="toggleOrdersTabMenu()">
+        <span id="orderstabSelectedLabel">⏳ قيد الانتظار</span>
+        <span class="rtab-select-arrow">▾</span>
+      </button>
+      <div class="rtab-menu" id="orderstabMenu">
+        <button class="rtab-menu-item active" id="orderstab-item-pending" onclick="selectOrdersTab(this,'pending','⏳ قيد الانتظار')">⏳ قيد الانتظار</button>
+        <button class="rtab-menu-item" id="orderstab-item-completed" onclick="selectOrdersTab(this,'completed','✅ المكتملة')">✅ المكتملة</button>
+      </div>
     </div>
   </div>
 
-  <div class="rpage-panels" style="display:flex;flex-direction:column;align-items:center;padding:28px 5% 60px;">
+  <div class="rpage-panels" style="display:flex;flex-direction:column;align-items:center;padding:22px 5% 60px;">
     <div style="width:100%;max-width:480px;margin:0 auto;">
-
-      <div class="rtab-select-row" style="padding:0 0 18px;">
-        <div class="rtab-select-wrap" id="orderstabSelectWrap">
-          <button class="rtab-select-btn" style="width:200px;" onclick="toggleOrdersTabMenu()">
-            <span id="orderstabSelectedLabel">⏳ قيد الانتظار</span>
-            <span class="rtab-select-arrow">▾</span>
-          </button>
-          <div class="rtab-menu" id="orderstabMenu">
-            <button class="rtab-menu-item active" id="orderstab-item-pending" onclick="selectOrdersTab(this,'pending','⏳ قيد الانتظار')">⏳ قيد الانتظار</button>
-            <button class="rtab-menu-item" id="orderstab-item-completed" onclick="selectOrdersTab(this,'completed','✅ المكتملة')">✅ المكتملة</button>
-          </div>
-        </div>
-      </div>
 
       <div id="ordersListContainer" style="display:flex;flex-direction:column;">
         <div style="display:flex;align-items:center;justify-content:center;padding:40px 20px;color:var(--muted);font-size:.9rem;text-align:center;">
@@ -2211,7 +2297,7 @@
 
       <div id="orderDetailModal" class="ce-modal-overlay" onclick="closeOrderDetailModal()">
         <div class="ce-modal-box" onclick="event.stopPropagation()">
-          <div id="orderDetailTitle" style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:#2563eb;letter-spacing:.03em;margin-bottom:14px;text-align:center;"></div>
+          <div id="orderDetailTitle" style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:#ff2d78;letter-spacing:.03em;margin-bottom:14px;text-align:center;"></div>
           <div id="orderDetailBody" style="white-space:pre-wrap;font-family:'Cairo',sans-serif;font-size:.9rem;line-height:1.9;color:var(--white);text-align:right;"></div>
           <p style="text-align:center;color:var(--muted);font-size:.78rem;margin-top:18px;">اضغط في أي مكان عشان تقفل</p>
         </div>
@@ -2712,10 +2798,10 @@
     <div style="width:30%; max-width:115px; aspect-ratio:3/4; border:1.5px solid rgba(37,99,235,.4); border-radius:16px; overflow:hidden; box-shadow:0 0 10px rgba(37,99,235,.25); flex:0 0 auto;">
       <img id="robloxPageThumb" src="https://raw.githubusercontent.com/King-cat11/King-cat/main/b6153b0e699d5b0018791b75a51075921330fa25.png" alt="Roblox" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
     </div>
-    <a href="https://www.roblox.com/share/g/35176043" target="_blank" id="communityLinkTop" class="com-link" style="margin:0; flex:0 0 auto;">
+    <a href="https://www.roblox.com/share/g/35176043" target="_blank" id="communityLinkTop" class="com-link" rel="noopener noreferrer" style="margin:0; flex:0 0 auto;">
       🔗 رابط الكميونتي
     </a>
-    <a href="https://www.roblox.com/promocodes" target="_blank" id="giftcardLinkTop" class="com-link" style="margin:0; flex:0 0 auto; display:none;">
+    <a href="https://www.roblox.com/promocodes" target="_blank" id="giftcardLinkTop" class="com-link" rel="noopener noreferrer" style="margin:0; flex:0 0 auto; display:none;">
       🔗 رابط الاسترداد
     </a>
   </div>
@@ -3687,10 +3773,10 @@
     if (pwInput) pwInput.value = '';
     const reauthInput = document.getElementById('eaReauthPasswordInput');
     if (reauthInput) reauthInput.value = '';
-    const pwStatus = document.getElementById('eaPasswordStatus');
-    if (pwStatus) { pwStatus.textContent = ''; pwStatus.className = 'login-status'; }
-    const nickStatus = document.getElementById('eaNicknameStatus');
-    if (nickStatus) { nickStatus.textContent = ''; nickStatus.className = 'login-status'; }
+    const saveStatus = document.getElementById('eaSaveStatus');
+    if (saveStatus) { saveStatus.textContent = ''; saveStatus.className = 'login-status'; }
+    const saveBtn = document.getElementById('eaSaveAllBtn');
+    if (saveBtn) saveBtn.disabled = true;
   }
   function toggleEaPasswordVisibility() {
     const input = document.getElementById('eaPasswordInput');
@@ -5257,68 +5343,77 @@
     const passwordSection = document.getElementById('eaPasswordSection');
     const googleNote = document.getElementById('eaGoogleOnlyNote');
     const pwInput = document.getElementById('eaPasswordInput');
-    const pwSaveBtn = document.getElementById('eaPasswordSaveBtn');
     const reauthBox = document.getElementById('eaReauthBox');
 
     if (!user) return;
     if (emailDisplay) emailDisplay.textContent = user.email || 'غير متاح';
     if (nicknameInput) nicknameInput.value = user.displayName || '';
+    eaOriginalNickname = user.displayName || '';
     if (reauthBox) reauthBox.style.display = 'none';
     if (pwInput) pwInput.value = '';
 
     const canChangePassword = hasPasswordProvider(user);
     if (pwInput) pwInput.style.display = canChangePassword ? 'block' : 'none';
-    if (pwSaveBtn) pwSaveBtn.style.display = canChangePassword ? 'block' : 'none';
     const eyeBtn = document.getElementById('eaPasswordEyeBtn');
     if (eyeBtn) eyeBtn.style.display = canChangePassword ? 'flex' : 'none';
     if (googleNote) googleNote.style.display = canChangePassword ? 'none' : 'block';
+
+    const saveStatus = document.getElementById('eaSaveStatus');
+    if (saveStatus) { saveStatus.textContent = ''; saveStatus.className = 'login-status'; }
+    updateEaSaveButtonState();
   };
 
-  window.saveNickname = async function () {
-    const user = auth.currentUser;
-    const input = document.getElementById('eaNicknameInput');
-    const statusEl = document.getElementById('eaNicknameStatus');
-    const btn = document.getElementById('eaNicknameSaveBtn');
-    if (!user || !input) return;
-    const newNickname = input.value.trim();
-    if (!newNickname) {
-      if (statusEl) { statusEl.textContent = 'من فضلك اكتب لقب'; statusEl.className = 'login-status err'; }
-      return;
-    }
-    btn.disabled = true;
-    if (statusEl) { statusEl.textContent = 'جاري الحفظ...'; statusEl.className = 'login-status'; }
-    try {
-      await updateProfile(user, { displayName: newNickname });
-      if (statusEl) { statusEl.textContent = 'تم تغيير اللقب بنجاح'; statusEl.className = 'login-status ok'; }
-      // تحديث الاسم في كل حتة ظاهر فيها (الهيدر، المنيو، صفحة الإعدادات)
-      refreshProfileDisplays(user);
-    } catch (err) {
-      if (statusEl) { statusEl.textContent = translateAuthError(err); statusEl.className = 'login-status err'; }
-    } finally {
-      btn.disabled = false;
-    }
-  };
+  let eaOriginalNickname = '';
+  function updateEaSaveButtonState() {
+    const nicknameInput = document.getElementById('eaNicknameInput');
+    const pwInput = document.getElementById('eaPasswordInput');
+    const btn = document.getElementById('eaSaveAllBtn');
+    if (!btn) return;
+    const newNickname = nicknameInput ? nicknameInput.value.trim() : '';
+    const nickChanged = !!newNickname && newNickname !== eaOriginalNickname;
+    const pwFilled = !!(pwInput && pwInput.style.display !== 'none' && pwInput.value.length > 0);
+    btn.disabled = !(nickChanged || pwFilled);
+  }
+  window.updateEaSaveButtonState = updateEaSaveButtonState;
 
-  window.savePassword = async function () {
+  window.saveAllChanges = async function () {
     const user = auth.currentUser;
-    const input = document.getElementById('eaPasswordInput');
-    const statusEl = document.getElementById('eaPasswordStatus');
-    const btn = document.getElementById('eaPasswordSaveBtn');
-    if (!user || !input) return;
-    const newPassword = input.value;
-    if (newPassword.length < 8) {
+    const nicknameInput = document.getElementById('eaNicknameInput');
+    const pwInput = document.getElementById('eaPasswordInput');
+    const statusEl = document.getElementById('eaSaveStatus');
+    const btn = document.getElementById('eaSaveAllBtn');
+    if (!user || btn.disabled) return;
+
+    const newNickname = nicknameInput ? nicknameInput.value.trim() : '';
+    const nickChanged = !!newNickname && newNickname !== eaOriginalNickname;
+    const canChangePassword = pwInput && pwInput.style.display !== 'none';
+    const newPassword = canChangePassword ? pwInput.value : '';
+    const pwFilled = newPassword.length > 0;
+
+    if (!nickChanged && !pwFilled) return;
+
+    if (pwFilled && newPassword.length < 8) {
       if (statusEl) { statusEl.textContent = 'كلمة المرور لازم تكون 8 أحرف على الأقل'; statusEl.className = 'login-status err'; }
       return;
     }
+
     btn.disabled = true;
     if (statusEl) { statusEl.textContent = 'جاري الحفظ...'; statusEl.className = 'login-status'; }
+
     try {
-      await updatePassword(user, newPassword);
-      if (statusEl) { statusEl.textContent = 'تم تغيير كلمة السر بنجاح'; statusEl.className = 'login-status ok'; }
-      input.value = '';
+      if (nickChanged) {
+        await updateProfile(user, { displayName: newNickname });
+        eaOriginalNickname = newNickname;
+        refreshProfileDisplays(user);
+      }
+      if (pwFilled) {
+        await updatePassword(user, newPassword);
+        pwInput.value = '';
+      }
+      if (statusEl) { statusEl.textContent = 'تم حفظ التعديلات بنجاح'; statusEl.className = 'login-status ok'; }
     } catch (err) {
       const code = err && err.code ? err.code : '';
-      if (code.includes('requires-recent-login')) {
+      if (pwFilled && code.includes('requires-recent-login')) {
         // Firebase محتاج تأكيد هوية قبل تغيير حاجة حساسة زي كلمة السر
         pendingNewPassword = newPassword;
         const reauthBox = document.getElementById('eaReauthBox');
@@ -5328,7 +5423,7 @@
         if (statusEl) { statusEl.textContent = translateAuthError(err); statusEl.className = 'login-status err'; }
       }
     } finally {
-      btn.disabled = false;
+      updateEaSaveButtonState();
     }
   };
 
@@ -5336,7 +5431,7 @@
   window.confirmReauthAndSavePassword = async function () {
     const user = auth.currentUser;
     const reauthInput = document.getElementById('eaReauthPasswordInput');
-    const statusEl = document.getElementById('eaPasswordStatus');
+    const statusEl = document.getElementById('eaSaveStatus');
     if (!user || !reauthInput || !pendingNewPassword) return;
     const currentPassword = reauthInput.value;
     if (!currentPassword) {
@@ -5348,13 +5443,14 @@
       const cred = EmailAuthProvider.credential(user.email, currentPassword);
       await reauthenticateWithCredential(user, cred);
       await updatePassword(user, pendingNewPassword);
-      if (statusEl) { statusEl.textContent = 'تم تغيير كلمة السر بنجاح'; statusEl.className = 'login-status ok'; }
+      if (statusEl) { statusEl.textContent = 'تم حفظ التعديلات بنجاح'; statusEl.className = 'login-status ok'; }
       pendingNewPassword = null;
       reauthInput.value = '';
       const pwInput = document.getElementById('eaPasswordInput');
       if (pwInput) pwInput.value = '';
       const reauthBox = document.getElementById('eaReauthBox');
       if (reauthBox) reauthBox.style.display = 'none';
+      updateEaSaveButtonState();
     } catch (err) {
       if (statusEl) { statusEl.textContent = translateAuthError(err); statusEl.className = 'login-status err'; }
     }
@@ -5373,6 +5469,7 @@
     const settingsName = document.getElementById('settingsProfileName');
     if (btnText) btnText.style.display = 'none';
     if (headerIcon) { headerIcon.style.display = 'flex'; headerIcon.textContent = label.trim().charAt(0).toUpperCase(); }
+    if (document.getElementById('headerLoginBtn')) document.getElementById('headerLoginBtn').classList.add('is-logged-in');
     if (navBtnText) navBtnText.textContent = shortLabel;
     if (navIcon) navIcon.textContent = label.trim().charAt(0).toUpperCase();
     if (settingsIcon) settingsIcon.textContent = label.trim().charAt(0).toUpperCase();
@@ -5408,6 +5505,7 @@
       window.isLoggedIn = true;
       if (btnText) btnText.style.display = 'none';
       if (headerIcon) { headerIcon.style.display = 'flex'; headerIcon.textContent = label.trim().charAt(0).toUpperCase(); }
+      if (document.getElementById('headerLoginBtn')) document.getElementById('headerLoginBtn').classList.add('is-logged-in');
       if (navBtnText) navBtnText.textContent = shortLabel;
       if (navIcon) navIcon.textContent = label.trim().charAt(0).toUpperCase();
       if (formView) formView.style.display = 'none';
@@ -5422,6 +5520,7 @@
       window.isLoggedIn = false;
       if (btnText) { btnText.style.display = ''; btnText.textContent = 'سجل دخول'; }
       if (headerIcon) headerIcon.style.display = 'none';
+      if (document.getElementById('headerLoginBtn')) document.getElementById('headerLoginBtn').classList.remove('is-logged-in');
       if (navBtnText) navBtnText.textContent = 'سجل دخول';
       if (navIcon) navIcon.innerHTML = userIconSvg;
       if (formView) formView.style.display = 'block';
