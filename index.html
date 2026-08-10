@@ -1465,9 +1465,11 @@
       border-radius: 10px;
       cursor: pointer;
       white-space: nowrap;
-      transition: background .2s;
+      transition: background .2s, opacity .25s ease;
       flex-shrink: 0;
+      opacity: 0;
     }
+    .header-login-btn.auth-ready { opacity: 1; }
     .header-login-btn:hover { background: rgba(255,45,120,.2); }
     .header-login-btn.is-logged-in {
       background: transparent;
@@ -5528,6 +5530,10 @@
       if (settingsIcon) settingsIcon.innerHTML = userIconSvgLarge;
       if (settingsName) settingsName.textContent = 'سجل دخول';
     }
+
+    // نظهر زرار الدخول بس بعد ما نتأكد من الحالة الحقيقية (مسجل ولا لأ)
+    // عشان منورّيش "مش مسجل" للحظة قبل ما يترجع "مسجل" — بيمنع الفلاش
+    if (document.getElementById('headerLoginBtn')) document.getElementById('headerLoginBtn').classList.add('auth-ready');
   });
 </script>
 
@@ -5594,6 +5600,30 @@
       top.classList.remove('open');
     }
   });
+})();
+</script>
+
+<!-- منع اسكرول الصفحة اللي ورا لما تفتح أي مودال "شرح" (📖) — يفضل بس نص الشرح هو اللي ممكن يتاسكرول لو كان طويل -->
+<script>
+(function(){
+  function anyExplainModalOpen() {
+    return !!document.querySelector('.ce-modal-overlay.open');
+  }
+  function syncBodyScroll() {
+    var open = anyExplainModalOpen();
+    // يقفل اسكرول صفحة الموقع نفسها
+    document.body.style.overflow = open ? 'hidden' : '';
+    // بعض مودالات الشرح بتفتح جوه صفحة full-screen (زي صفحة تسجيل الدخول)
+    // واللي بتاسكرول جوّها هي (.rpage) مش الـ body — فلازم نقفلها هي كمان
+    document.querySelectorAll('.rpage.open').forEach(function(p){
+      p.style.overflowY = open ? 'hidden' : '';
+    });
+  }
+  var explainObserver = new MutationObserver(syncBodyScroll);
+  document.querySelectorAll('.ce-modal-overlay').forEach(function(el){
+    explainObserver.observe(el, { attributes: true, attributeFilter: ['class'] });
+  });
+  syncBodyScroll();
 })();
 </script>
 
