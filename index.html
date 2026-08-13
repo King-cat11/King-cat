@@ -3413,9 +3413,9 @@
     const total = keys.reduce((s,k) => s + accCart[k].price * accCart[k].qty, 0);
     if (accUseEGP && getUserBalance() > 0) {
       const discounted = accDiscountedTotal(total);
-      totDiv.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">💰 ${total} جنيه</div><div>💰 السعر: ${discounted} جنيه</div>`;
+      totDiv.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">💰 ${total} جنيه</div><div>💰 السعر: ${discounted} جنيه</div>${cashbackLineHTML()}`;
     } else {
-      totDiv.innerHTML = `💰 السعر: ${total} جنيه`;
+      totDiv.innerHTML = `💰 السعر: ${total} جنيه${cashbackLineHTML()}`;
     }
   }
 
@@ -3443,7 +3443,7 @@
       // الرسالة الكاملة بالباسورد الحقيقي بتتبعت للأدمن على واتساب بس
       const maskedPass = '•'.repeat(Math.max(pass.length, 6));
       const maskedMsg = `📦 طلب شحن روبلوكس (حساب)\n👤 اليوزرنيم: ${username}\n🔑 الباسورد: ${maskedPass}\n📦 الطلب:\n${items}\n💰 السعر: ${total} جنيه`;
-      window.saveOrder({ title: 'روبلوكس (حساب)', quantity: totalQty, price: total, details: maskedMsg, fullDetails: msg, egpUsed: rawTotal - total });
+      window.saveOrder({ title: 'روبلوكس (حساب)', quantity: totalQty, price: total, details: maskedMsg, fullDetails: msg, egpUsed: rawTotal - total, egpEarned: window.robloxCashbackEgp || 0 });
     }
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
@@ -3573,9 +3573,9 @@
     const bonusLabel = bonus ? ' — شامل ' + bonus + ' R هدية 🎁' : '';
     if (comUseEGP && getUserBalance() > 0) {
       const discounted = comDiscountedTotal(totalPrice);
-      grandEl.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">💰 ${totalPrice} جنيه (${finalRob} روب${bonusLabel})</div><div>💰 السعر: ${discounted} جنيه</div>`;
+      grandEl.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">💰 ${totalPrice} جنيه (${finalRob} روب${bonusLabel})</div><div>💰 السعر: ${discounted} جنيه</div>${cashbackLineHTML()}`;
     } else {
-      grandEl.innerHTML = `💰 السعر: ${totalPrice} جنيه (${finalRob} روب${bonusLabel})`;
+      grandEl.innerHTML = `💰 السعر: ${totalPrice} جنيه (${finalRob} روب${bonusLabel})${cashbackLineHTML()}`;
     }
   }
 
@@ -3642,7 +3642,7 @@
     let msg = `${RLM}\u{1F4E6} \u0637\u0644\u0628 \u0634\u062d\u0646 \u0631\u0648\u0628\u0644\u0648\u0643\u0633 (\u0643\u0645\u064a\u0648\u0646\u062a\u064a)\n${RLM}\u{1F464} \u0627\u0644\u0627\u0633\u0645: ${username}\n${RLM}\u{1F3AE} \u0627\u0644\u0637\u0644\u0628: ${type}\n${itemsList}\n${RLM}\u{1F4CA} \u0625\u062c\u0645\u0627\u0644\u064a: ${totalFinalRob}R\n${RLM}\u{1F4B0} \u0627\u0644\u0633\u0639\u0631: ${finalPrice} \u062c\u0646\u064a\u0647\n${RLM}\u0643\u0648\u062f \u0627\u0644\u0632\u064a\u0627\u062f\u0629: ${codeApplied ? code : '\u0645\u0641\u064a\u0634'}\n${RLM}\u0627\u0644\u0627\u0633\u0645: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
       const totalQty = items.reduce((s,i) => s + i.qty, 0);
-      window.saveOrder({ title: 'روبلوكس (كوميونتي)', quantity: totalQty, price: finalPrice, details: msg, fullDetails: msg, egpUsed: totalPrice - finalPrice });
+      window.saveOrder({ title: 'روبلوكس (كوميونتي)', quantity: totalQty, price: finalPrice, details: msg, fullDetails: msg, egpUsed: totalPrice - finalPrice, egpEarned: window.robloxCashbackEgp || 0 });
     }
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
@@ -3759,9 +3759,9 @@
     }).join('');
     if (giftUseEGP && getUserBalance() > 0) {
       const discounted = giftDiscountedTotal(totalPrice);
-      grandEl.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">💰 ${totalPrice} جنيه (${totalUsd} USD)</div><div>💰 السعر: ${discounted} جنيه</div>`;
+      grandEl.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">💰 ${totalPrice} جنيه (${totalUsd} USD)</div><div>💰 السعر: ${discounted} جنيه</div>${cashbackLineHTML()}`;
     } else {
-      grandEl.innerHTML = `💰 السعر: ${totalPrice} جنيه (${totalUsd} USD)`;
+      grandEl.innerHTML = `💰 السعر: ${totalPrice} جنيه (${totalUsd} USD)${cashbackLineHTML()}`;
     }
   }
   function sendGiftOrder() {
@@ -3775,7 +3775,7 @@
     let msg = `${RLM}\u{1F381} طلب شحن روبلوكس (جيفت كارد)\n${itemsList}\n${RLM}\u{1F4B0} السعر: ${total} جنيه\n${RLM}الاسم: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
       const totalQty = items.reduce((s,i) => s + i.qty, 0);
-      window.saveOrder({ title: 'روبلوكس (جيفت كارد)', quantity: totalQty, price: total, details: msg, fullDetails: msg, egpUsed: totalPrice - total });
+      window.saveOrder({ title: 'روبلوكس (جيفت كارد)', quantity: totalQty, price: total, details: msg, fullDetails: msg, egpUsed: totalPrice - total, egpEarned: window.robloxCashbackEgp || 0 });
     }
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
@@ -5511,6 +5511,8 @@
   function buildGiftCardHTML(item) {
     return `<div class="pcard" data-usd="${item.usd}" data-price="${item.price}" onclick="addGiftItem(this)"><span class="rob-qty"><span class="rob-val">${item.usd}</span><span class="rob" style="font-size:.72rem;margin-inline-start:3px;">USD</span></span><span class="egp">EGP ${item.price}</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeGiftQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeGiftQtyCard(this,1)">+</button></div></div>`;
   }
+  // كام EGP كاش باك بيتسجل للعميل من كل طلب روبلوكس (بيتحدد من لوحة الأدمن) — قيمة مشتركة لأنواع روبلوكس التلاتة
+  window.robloxCashbackEgp = 0;
   function applyRobloxPricing(data) {
     if (!data) return;
     try {
@@ -5522,9 +5524,19 @@
       if (fawriEl && Array.isArray(data.comFawri) && data.comFawri.length) fawriEl.innerHTML = data.comFawri.map(i => buildComCardHTML(i, false)).join('');
       if (hagzEl && Array.isArray(data.comHagz) && data.comHagz.length) hagzEl.innerHTML = data.comHagz.map(i => buildComCardHTML(i, true)).join('');
       if (giftEl && Array.isArray(data.giftcard) && data.giftcard.length) giftEl.innerHTML = data.giftcard.map(buildGiftCardHTML).join('');
+      window.robloxCashbackEgp = (typeof data.cashbackEgp === 'number' && data.cashbackEgp > 0) ? data.cashbackEgp : 0;
+      // لو الفاتورة ظاهرة بالفعل، حدّثها عشان سطر الكاش باك يتحدث لايف من غير ريفريش
+      if (typeof renderAccSummary === 'function') renderAccSummary();
+      if (typeof renderComSummary === 'function') renderComSummary();
+      if (typeof renderGiftSummary === 'function') renderGiftSummary();
     } catch (err) {
       console.error('تعذر تطبيق أسعار روبلكس:', err);
     }
+  }
+  // سطر الكاش باك اللي بيظهر تحت الفاتورة بس (مش هيتبعت في رسالة الواتساب خالص)
+  function cashbackLineHTML() {
+    if (!window.robloxCashbackEgp) return '';
+    return `<div style="font-size:.8rem;color:#6fcf3a;margin-top:6px;">🎁 هتاخد ${window.robloxCashbackEgp} EGP كاش باك لما الطلب يتنفذ</div>`;
   }
   // بث حي: أي تعديل في الأسعار من لوحة الأدمن بيتطبق هنا على طول من غير ما اليوزر يعمل ريفريش.
   // لو مفيش بيانات محفوظة لسه في Firestore، الأسعار الثابتة المكتوبة في الصفحة بتفضل زي ما هي.
@@ -5734,10 +5746,13 @@
   // price: السعر الإجمالي، details: نص التفاصيل اللي هيظهر في "طلباتي" فقط —
   // *** لازم يكون أي باسورد/رقم سري جواه متبدل بنجوم قبل ما يتبعت هنا (استخدم maskSecret) ***
   // fullDetails: نفس النص لكن كامل بدون إخفاء — ده اللي هيشوفه الأدمن بس في لوحة التحكم
-  window.saveOrder = async function ({ title, quantity, price, details, fullDetails, egpUsed }) {
+  // egpEarned: كام EGP كاش باك هيتسجل للعميل لو الأدمن أكّد إن الطلب ده اتنفذ (شوف completeOrder في admin.html) —
+  // ما بيتحسبش للعميل غير وقت التأكيد، ومش بيتبعت في رسالة الواتساب خالص، بيتسجل في الفاتورة/قاعدة البيانات بس
+  window.saveOrder = async function ({ title, quantity, price, details, fullDetails, egpUsed, egpEarned }) {
     const user = auth.currentUser;
     if (!user) return; // مفيش تسجيل دخول، مفيش حفظ (مينفعش نعرف الطلب ده بتاع مين)
     const usedAmount = (typeof egpUsed === 'number' && egpUsed > 0) ? egpUsed : 0;
+    const earnedAmount = (typeof egpEarned === 'number' && egpEarned > 0) ? egpEarned : 0;
     try {
       // لو العميل استخدم رصيد EGP في الطلب ده، بنخصمه من رصيده فورًا وقت إرسال الطلب —
       // ولو الأدمن لغى الطلب بعد كده، القيمة دي هي اللي هترجعله تاني (شوف cancelOrder في admin.html)
@@ -5752,6 +5767,7 @@
         quantity: quantity || 1,
         price: price || null,
         egpUsed: usedAmount,
+        egpEarned: earnedAmount,
         details: details || '',
         fullDetails: fullDetails || details || '',
         pendingDate: null,

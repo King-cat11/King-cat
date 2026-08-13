@@ -1016,6 +1016,17 @@
     </div></div>
   </div>
 
+  <div id="rp-sec-cashback" class="price-section">
+    <div class="price-section-head" onclick="togglePriceSection('cashback')">
+      <div class="price-section-head-title">💰 كاش باك EGP</div>
+      <span class="price-section-chevron">▾</span>
+    </div>
+    <div class="price-section-body"><div class="price-section-body-inner">
+      <p style="color:var(--muted);font-size:.8rem;margin:0 0 10px;">كام EGP يتسجل لرصيد العميل لما طلب روبلوكس (حساب / كوميونتي / جيفت كارد) يتأكد إنه اتنفذ. بيظهر للعميل تحت الفاتورة بس، ومش بيتبعت في رسالة الواتساب. لو الطلب اتلغى، مفيش حاجة بتتسجل.</p>
+      <input type="number" class="oinput" id="robloxCashbackInput" placeholder="مثلاً 5" style="width:100%;">
+    </div></div>
+  </div>
+
   <div id="rp-sec-bonusCodes" class="price-section">
     <div class="price-section-head" onclick="togglePriceSection('bonusCodes')">
       <div class="price-section-head-title">🏷️ أكواد الزيادة <span class="price-section-count" id="count-bonusCodes"></span></div>
@@ -1060,6 +1071,7 @@
       <div class="stat-label">سعر السحب</div>
     </div>
   </div>
+  <div id="robuxDataStatus" class="login-status" style="margin-top:10px;"></div>
 </main>
 
 <!-- ============ صفحة العملات (رصيد كل الزباين وإجمالي العملات) ============ -->
@@ -1077,10 +1089,7 @@
     </div>
   </div>
 
-  <div class="table-wrap" id="currencyUsersWrap"></div>
-  <p id="currencyEmptyMsg" style="display:none;text-align:center;color:var(--muted);font-size:.85rem;padding:20px;">مفيش مستخدمين مسجلين لسه</p>
-
-  <div class="price-section" style="margin-top:22px;">
+  <div class="price-section">
     <div class="price-section-head" onclick="toggleRedemptionSection()">
       <div class="price-section-head-title">🎟️ أكواد الاسترداد <span class="price-section-count" id="count-redemptionCodes"></span></div>
       <span class="price-section-chevron" id="redemptionChevron">▾</span>
@@ -1094,6 +1103,18 @@
       <div id="redemptionCodesStatus" class="login-status"></div>
       <div class="table-wrap" id="redemptionCodesWrap"></div>
       <p id="redemptionCodesEmptyMsg" style="display:none;text-align:center;color:var(--muted);font-size:.85rem;padding:12px;">مفيش أكواد استرداد لسه</p>
+    </div></div>
+  </div>
+
+  <div class="price-section" style="margin-top:14px;">
+    <div class="price-section-head" onclick="toggleCurrencyUsersSection()">
+      <div class="price-section-head-title">👥 حسابات العملاء <span class="price-section-count" id="count-currencyUsers"></span></div>
+      <span class="price-section-chevron" id="currencyUsersChevron">▾</span>
+    </div>
+    <div class="price-section-body" id="currencyUsersSectionBody"><div class="price-section-body-inner">
+      <input type="text" class="oinput" id="currencyUsersSearch" placeholder="🔍 دور بالاسم..." style="width:100%;margin-bottom:10px;" oninput="renderCurrencyUsers()">
+      <div class="table-wrap" id="currencyUsersWrap"></div>
+      <p id="currencyEmptyMsg" style="display:none;text-align:center;color:var(--muted);font-size:.85rem;padding:20px;">مفيش مستخدمين مسجلين لسه</p>
     </div></div>
   </div>
 </main>
@@ -1494,23 +1515,42 @@
   let usersData = [];
   window.usersData = usersData;
 
+  // ============ فتح/قفل قسم حسابات العملاء ============
+  function toggleCurrencyUsersSection() {
+    const el = document.getElementById('currencyUsersSectionBody').closest('.price-section');
+    const body = document.getElementById('currencyUsersSectionBody');
+    setSectionOpen(el, body, !el.classList.contains('open'));
+  }
+  window.toggleCurrencyUsersSection = toggleCurrencyUsersSection;
+
   function renderCurrencyUsers() {
     const wrap = document.getElementById('currencyUsersWrap');
     const emptyMsg = document.getElementById('currencyEmptyMsg');
     const totalEl = document.getElementById('currencyTotalValue');
     const statTotalEl = document.getElementById('statTotalCurrency');
+    const countEl = document.getElementById('count-currencyUsers');
+    const searchInput = document.getElementById('currencyUsersSearch');
     if (!wrap) return;
     const total = usersData.reduce((s, u) => s + (u.balance || 0), 0);
     if (totalEl) totalEl.textContent = total + ' EGP';
     if (statTotalEl) statTotalEl.textContent = total;
+    if (countEl) countEl.textContent = usersData.length ? `(${usersData.length})` : '';
     if (!usersData.length) {
       wrap.style.display = 'none';
       if (emptyMsg) emptyMsg.style.display = 'block';
       return;
     }
+    // فلترة بالاسم حسب اللي مكتوب في مربع البحث (لو فيه)
+    const term = searchInput ? searchInput.value.trim().toLowerCase() : '';
+    const filtered = term ? usersData.filter(u => (u.label || '').toLowerCase().includes(term)) : usersData;
+    if (!filtered.length) {
+      wrap.style.display = 'none';
+      if (emptyMsg) { emptyMsg.style.display = 'block'; emptyMsg.textContent = 'مفيش نتايج مطابقة للاسم ده'; }
+      return;
+    }
     wrap.style.display = 'block';
-    if (emptyMsg) emptyMsg.style.display = 'none';
-    wrap.innerHTML = usersData.map(u => `
+    if (emptyMsg) { emptyMsg.style.display = 'none'; emptyMsg.textContent = 'مفيش مستخدمين مسجلين لسه'; }
+    wrap.innerHTML = filtered.map(u => `
       <div class="order-row" data-uid="${esc(u.uid)}">
         <div class="o-game">${esc(u.label)}</div>
         <div class="o-user">الرصيد الحالي: <strong style="color:#6fcf3a;">${u.balance || 0} EGP</strong></div>
@@ -1606,16 +1646,32 @@
       updateRemainingRobuxStat();
     } catch (err) {
       console.error('تعذر تحميل بيانات حساباتي:', err);
+      const statusEl = document.getElementById('robuxDataStatus');
+      if (statusEl) {
+        const rawCode = err && err.code ? err.code : '';
+        statusEl.textContent = `تعذر تحميل البيانات المحفوظة [${rawCode || 'error'}: ${err && err.message ? err.message : err}]`;
+        statusEl.className = 'login-status err';
+      }
     }
   }
   window.loadRobuxData = loadRobuxData;
 
   // ============ حفظ بيانات "حساباتي" في السحابة كل ما تتغيّر ============
   async function saveRobuxDataToCloud() {
+    const statusEl = document.getElementById('robuxDataStatus');
     try {
       await setDoc(robuxDataRef, { ...robuxValues, updatedAt: serverTimestamp() }, { merge: true });
+      if (statusEl) { statusEl.textContent = 'اتحفظ ✅'; statusEl.className = 'login-status ok'; setTimeout(() => { if (statusEl.textContent === 'اتحفظ ✅') statusEl.textContent = ''; }, 2000); }
     } catch (err) {
       console.error('تعذر حفظ بيانات حساباتي:', err);
+      if (statusEl) {
+        const rawCode = err && err.code ? err.code : '';
+        const friendly = rawCode === 'permission-denied'
+          ? 'مفيش صلاحية كتابة على بيانات حساباتي — تأكد إن Firestore Rules متنشورة (Published) وفيها قسم adminData'
+          : 'تعذر حفظ البيانات، حاول تاني';
+        statusEl.textContent = `${friendly} [${rawCode || 'error'}: ${err && err.message ? err.message : err}]`;
+        statusEl.className = 'login-status err';
+      }
     }
   }
 
@@ -1779,7 +1835,7 @@
   }
 
   function togglePriceSection(key) {
-    const sections = ['acc', 'comFawri', 'bonusCodes', 'comHagz', 'giftcard'];
+    const sections = ['acc', 'comFawri', 'bonusCodes', 'comHagz', 'giftcard', 'cashback'];
     sections.forEach(s => {
       const el = document.getElementById('rp-sec-' + s);
       if (!el) return;
@@ -1987,6 +2043,7 @@
           status: d.status || 'new',
           date: d.pendingDate || '',
           egpUsed: typeof d.egpUsed === 'number' ? d.egpUsed : 0,
+          egpEarned: typeof d.egpEarned === 'number' ? d.egpEarned : 0,
           dateStr: (d.createdAt && d.createdAt.toDate) ? d.createdAt.toDate().toISOString().split('T')[0] : '',
           // لو createdAt لسه معلقة (لحظة الإضافة) بنعتبرها دلوقتي عشان تفضل فوق وميبانش إنها اتحذفت
           sortTime: (d.createdAt && d.createdAt.toMillis) ? d.createdAt.toMillis() : Date.now(),
@@ -2133,32 +2190,58 @@
   };
 
   // ============ إلغاء الطلب: بيرجع رصيد EGP المستخدم فيه (لو فيه) للعميل، وبعدين بيتمسح خالص من قاعدة البيانات ============
+  // ملحوظة: الحذف بيحصل حتى لو الاسترجاع فشل لأي سبب، عشان الطلب ميفضلش عالق في القايمة
   window.cancelOrder = async function (id) {
     if (!confirm('متأكد إنك عايز تلغي الطلب ده؟ هيتمسح خالص من القايمة.')) return;
-    try {
-      const order = (window.ordersData || []).find(o => o.id === id);
-      const refundAmount = order ? (order.egpUsed || 0) : 0;
-      const refundUid = order ? order.uid : '';
-      if (refundAmount > 0 && refundUid) {
+    const order = (window.ordersData || []).find(o => o.id === id);
+    const refundAmount = order ? (order.egpUsed || 0) : 0;
+    const refundUid = order ? order.uid : '';
+
+    if (refundAmount > 0 && refundUid) {
+      try {
         await updateDoc(doc(db, 'users', refundUid), { balance: increment(refundAmount) });
+      } catch (err) {
+        console.error('تعذر استرجاع رصيد EGP للعميل:', err);
+        alert(`تنبيه: الطلب هيتمسح لكن حصلت مشكلة في استرجاع ${refundAmount} EGP للعميل [${err && err.code ? err.code : ''}] — راجع صلاحيات Firestore وارجع اضبط رصيده يدوي من صفحة العملات`);
       }
+    }
+
+    try {
       await deleteDoc(doc(db, 'orders', id));
       window.expandedDateIds.delete(id);
     } catch (err) {
       console.error('تعذر إلغاء الطلب:', err);
-      alert('حصلت مشكلة أثناء إلغاء الطلب، حاول تاني');
+      const rawCode = err && err.code ? err.code : '';
+      alert(`حصلت مشكلة أثناء إلغاء الطلب، حاول تاني [${rawCode || 'error'}]`);
     }
   };
 
-  // ============ تأكيد إتمام الطلب: بيتمسح من القايمة برضو لكن من غير أي استرجاع لرصيد الـ EGP اللي اتخصم ============
+  // ============ تأكيد إتمام الطلب: بيتمسح من القايمة، من غير استرجاع للـ EGP اللي اتخصم، وبيسجل للعميل أي عملات EGP مكتسبة من الطلب ده (لو فيه) ============
   window.completeOrder = async function (id) {
-    if (!confirm('متأكد إن الطلب ده اتنفذ وخلص؟ هيتمسح من القايمة ومش هيترجع أي رصيد EGP.')) return;
+    const order = (window.ordersData || []).find(o => o.id === id);
+    const earnAmount = order ? (order.egpEarned || 0) : 0;
+    const earnUid = order ? order.uid : '';
+    const confirmMsg = earnAmount > 0
+      ? `متأكد إن الطلب ده اتنفذ وخلص؟ هيتمسح من القايمة، مش هيترجع أي رصيد EGP اتخصم، وهيتسجل للعميل ${earnAmount} EGP مكتسبة من الطلب ده.`
+      : 'متأكد إن الطلب ده اتنفذ وخلص؟ هيتمسح من القايمة ومش هيترجع أي رصيد EGP.';
+    if (!confirm(confirmMsg)) return;
+
+    if (earnAmount > 0 && earnUid) {
+      try {
+        await updateDoc(doc(db, 'users', earnUid), { balance: increment(earnAmount) });
+      } catch (err) {
+        console.error('تعذر تسجيل العملات المكتسبة للعميل:', err);
+        alert(`تنبيه: الطلب هيتمسح لكن حصلت مشكلة في تسجيل ${earnAmount} EGP المكتسبة للعميل [${err && err.code ? err.code : ''}] — راجع صلاحيات Firestore وارجع اضبط رصيده يدوي من صفحة العملات`);
+      }
+    }
+
     try {
       await deleteDoc(doc(db, 'orders', id));
       window.expandedDateIds.delete(id);
     } catch (err) {
       console.error('تعذر تأكيد إتمام الطلب:', err);
-      alert('حصلت مشكلة أثناء تأكيد الطلب، حاول تاني');
+      const rawCode = err && err.code ? err.code : '';
+      alert(`حصلت مشكلة أثناء تأكيد الطلب، حاول تاني [${rawCode || 'error'}]`);
     }
   };
 
@@ -2233,6 +2316,8 @@
       window.renderPriceRows('comFawri', data.comFawri && data.comFawri.length ? data.comFawri : DEFAULT_ROBLOX_PRICING.comFawri);
       window.renderPriceRows('comHagz', data.comHagz && data.comHagz.length ? data.comHagz : DEFAULT_ROBLOX_PRICING.comHagz);
       window.renderPriceRows('giftcard', data.giftcard && data.giftcard.length ? data.giftcard : DEFAULT_ROBLOX_PRICING.giftcard);
+      const cashbackInput = document.getElementById('robloxCashbackInput');
+      if (cashbackInput) cashbackInput.value = (typeof data.cashbackEgp === 'number' && data.cashbackEgp > 0) ? data.cashbackEgp : '';
       if (statusEl) statusEl.textContent = '';
     } catch (err) {
       console.error('تعذر تحميل أسعار روبلكس:', err);
@@ -2255,6 +2340,7 @@
         comFawri: window.collectPriceRows('comFawri'),
         comHagz: window.collectPriceRows('comHagz'),
         giftcard: window.collectPriceRows('giftcard'),
+        cashbackEgp: parseFloat(document.getElementById('robloxCashbackInput')?.value) || 0,
         updatedAt: serverTimestamp()
       };
       const bonusPayload = {
