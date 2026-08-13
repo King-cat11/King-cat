@@ -706,9 +706,16 @@
       z-index: 2010;
     }
     #brawlPage .rpage-header {
-      background: rgba(10,10,10,.5);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border-bottom: none;
+      box-shadow: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 2010;
     }
 
     .game-card .bg {
@@ -1003,26 +1010,52 @@
       flex: 0 0 auto;
     }
     #ordersPage .orders-top-row .rpage-back:hover { background: rgba(255,45,120,.1); }
-    #ordersPage .orders-top-row .rtab-select-wrap { flex: 0 0 auto; }
-    #ordersPage .orders-top-row .rtab-select-btn {
-      background: rgba(255,45,120,.1);
-      border-color: rgba(255,45,120,.45);
-      color: #ff2d78;
-      width: 180px;
-      padding: 7px 14px;
-      font-size: .85rem;
+
+    /* ── BALANCE PAGE — نفس نظام الخلفية والهيدر الشفاف بتاع باقي الصفحات ── */
+    #balancePage {
+      background:
+        radial-gradient(circle at 85% 15%, rgba(255,45,120,.18) 0%, transparent 62%),
+        radial-gradient(circle at 90% 85%, rgba(96,165,250,.16) 0%, transparent 60%),
+        radial-gradient(circle at 10% 85%, rgba(255,45,120,.15) 0%, transparent 60%),
+        radial-gradient(circle at 15% 10%, rgba(96,165,250,.14) 0%, transparent 60%),
+        radial-gradient(circle at 50% 50%, rgba(255,45,120,.07) 0%, transparent 70%),
+        #12182a;
     }
-    #ordersPage .orders-top-row .rtab-select-btn:hover { background: rgba(255,45,120,.16); }
-    #orderstabMenu { border-color: rgba(255,45,120,.4) !important; }
-    #orderstabMenu .rtab-menu-item:hover { background: rgba(255,45,120,.12) !important; }
-    #orderstabMenu .rtab-menu-item.active { color: #ff2d78 !important; background: rgba(255,45,120,.18) !important; }
+    #balancePage .orders-top-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 5%;
+      background: transparent;
+      border-bottom: none;
+      position: fixed;
+      top: 0; right: 0; left: 0;
+      z-index: 10;
+    }
+    #balancePage .rpage-panels { padding-top: 56px !important; }
+    #balancePage .orders-top-row .rpage-back {
+      border-color: rgba(255,45,120,.5);
+      color: #ff2d78;
+      flex: 0 0 auto;
+    }
+    #balancePage .orders-top-row .rpage-back:hover { background: rgba(255,45,120,.1); }
+    #balancePage .apply-btn {
+      background: rgba(255,45,120,.15);
+      border-color: #ff2d78;
+      color: #ff2d78;
+    }
+    #balancePage .apply-btn:hover { background: rgba(255,45,120,.28); }
+    #balancePage .oinput:focus { border-color: #ff2d78; }
 
     /* PUBG dropdown menu: red instead of blue */
     #pubgtabMenu { border-color: rgba(0,180,216,.4) !important; }
     #pestabMenu { border-color: rgba(111,207,58,.4) !important; }
     #fifatabMenu { border-color: rgba(111,207,58,.4) !important; }
+    #brawltabMenu { border-color: rgba(244,161,0,.4) !important; }
     #pubgtabMenu .rtab-menu-item:hover { background: rgba(0,180,216,.12) !important; }
     #pubgtabMenu .rtab-menu-item.active { color: #48cae4 !important; background: rgba(0,180,216,.18) !important; }
+    #brawltabMenu .rtab-menu-item:hover { background: rgba(244,161,0,.12) !important; }
+    #brawltabMenu .rtab-menu-item.active { color: #f4a100 !important; background: rgba(244,161,0,.18) !important; }
     #pestabMenu .rtab-menu-item:hover { background: rgba(111,207,58,.12) !important; }
     #pestabMenu .rtab-menu-item.active { color: #6fcf3a !important; background: rgba(111,207,58,.18) !important; }
 
@@ -1788,6 +1821,8 @@
 
 </header>
 
+
+
 <div class="nav-menu-overlay" id="navMenuOverlay"></div>
 <nav class="nav-menu" id="navMenu">
   <button class="nav-menu-close" id="navMenuClose" aria-label="اغلاق">✕</button>
@@ -1798,6 +1833,7 @@
     <span class="nav-profile-text" id="navLoginBtnText">سجل دخول</span>
   </a>
   <a href="javascript:void(0)" onclick="handleSettingsClick()">الإعدادات</a>
+  <a href="javascript:void(0)" id="navBackAdmin" style="display:none;color:#ff2d78;" onclick="sessionStorage.setItem('kc_adminStay','1'); window.location.href='admin.html';">↩️ رجوع لموقع الأدمن</a>
   <a href="javascript:void(0)" onclick="openSiteExplainModal()">الشرح</a>
   <a href="javascript:void(0)" onclick="openChannels()">قنواتنا</a>
   <a href="https://wa.me/201069478690" target="_blank" rel="noopener noreferrer">تواصل معنا</a>
@@ -2202,6 +2238,11 @@
 
       <!-- menu list -->
       <div style="border-top:1px solid rgba(255,255,255,.08);">
+        <a href="javascript:void(0)" onclick="openBalancePage()" style="display:flex;align-items:center;gap:14px;padding:18px 4px;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.08);transition:opacity .2s;">
+          <span style="flex:1;font-weight:700;font-size:.98rem;color:var(--white);">Balance</span>
+          <span id="settingsBalanceValue" style="color:var(--muted);font-size:.95rem;font-weight:700;">0 EGP</span>
+          <span style="color:var(--muted);font-size:1.1rem;">‹</span>
+        </a>
         <a href="javascript:void(0)" onclick="openEditAccountPage()" style="display:flex;align-items:center;gap:14px;padding:18px 4px;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.08);transition:opacity .2s;">
           <span style="flex:1;font-weight:700;font-size:.98rem;color:var(--white);">EDIT PROFILE</span>
           <span style="color:var(--muted);font-size:1.1rem;">‹</span>
@@ -2216,6 +2257,38 @@
       </div>
 
       <p style="text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px;">باقي خيارات الحساب هتتضاف قريباً</p>
+
+    </div>
+  </div>
+</div>
+
+<!-- BALANCE PAGE -->
+<div id="balancePage" class="rpage">
+  <div class="orders-top-row">
+    <button class="rpage-back" onclick="closeBalancePage()">&#8594; Back</button>
+  </div>
+
+  <div class="rpage-panels" style="display:flex;flex-direction:column;align-items:center;padding:22px 5% 60px;">
+    <div style="width:100%;max-width:420px;margin:0 auto;">
+
+      <!-- الرصيد -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:0;">
+        <span style="font-size:1.9rem;color:var(--muted);font-weight:800;">&nbsp;</span>
+        <div style="display:flex;align-items:baseline;gap:8px;">
+          <span id="balancePageValue" style="font-weight:800;font-size:5rem;color:#ff2d78;">0</span>
+          <span style="font-weight:700;font-size:1.1rem;color:var(--muted);">EGP</span>
+        </div>
+      </div>
+
+      <!-- رمز الاسترداد -->
+      <div class="ofield">
+        <label class="olabel">رمز الاسترداد</label>
+        <div class="code-row">
+          <input class="oinput" id="balance-redeem-code" type="text" placeholder="اكتب الكود هنا" />
+          <button class="apply-btn" onclick="applyRedeemCode()">تطبيق</button>
+        </div>
+        <div class="code-status" id="balance-redeem-status"></div>
+      </div>
 
     </div>
   </div>
@@ -2276,16 +2349,6 @@
 <div id="ordersPage" class="rpage">
   <div class="orders-top-row">
     <button class="rpage-back" onclick="closeOrdersPage()">&#8594; Back</button>
-    <div class="rtab-select-wrap" id="orderstabSelectWrap">
-      <button class="rtab-select-btn" onclick="toggleOrdersTabMenu()">
-        <span id="orderstabSelectedLabel">⏳ قيد الانتظار</span>
-        <span class="rtab-select-arrow">▾</span>
-      </button>
-      <div class="rtab-menu" id="orderstabMenu">
-        <button class="rtab-menu-item active" id="orderstab-item-pending" onclick="selectOrdersTab(this,'pending','⏳ قيد الانتظار')">⏳ قيد الانتظار</button>
-        <button class="rtab-menu-item" id="orderstab-item-completed" onclick="selectOrdersTab(this,'completed','✅ المكتملة')">✅ المكتملة</button>
-      </div>
-    </div>
   </div>
 
   <div class="rpage-panels" style="display:flex;flex-direction:column;align-items:center;padding:22px 5% 60px;">
@@ -2311,19 +2374,10 @@
 
 <!-- BRAWL STARS PAGE -->
 <div id="brawlPage" class="rpage">
-  <div class="rpage-header" style="border-bottom-color:rgba(244,161,0,.3);">
-    <button class="rpage-back" style="border-color:rgba(244,161,0,.5);color:#f4a100;" onclick="closeBrawl()">&#8594; Back</button>
-    <div class="rpage-title">
-      <span class="rpage-logo" style="color:#f4a100;">Brawl Stars</span>
-      <span class="rpage-sub"></span>
-    </div>
-  </div>
-
-  <!-- EXPLAIN ROW -->
-  <div class="rtab-select-row" style="border-bottom:1px solid rgba(244,161,0,.15); padding-bottom: 12px;">
-    <div class="rtab-select-label" style="background:rgba(244,161,0,.08); border-color:rgba(244,161,0,.4); color:#f4a100; cursor:pointer;" onclick="openBrawlExplainModal()">📖</div>
+  <div class="rpage-header" style="gap:10px;">
+    <button class="rpage-back" style="border-color:rgba(244,161,0,.5);color:#f4a100; height:46px; box-sizing:border-box; display:flex; align-items:center; justify-content:center;" onclick="closeBrawl()">&#8594; Back</button>
     <div class="rtab-select-wrap" id="brawltabSelectWrap">
-      <button class="rtab-select-btn" style="background:rgba(244,161,0,.08); border-color:rgba(244,161,0,.4); color:#f4a100;" onclick="toggleBrawlTabMenu()">
+      <button class="rtab-select-btn" style="background:rgba(244,161,0,.08); border-color:rgba(244,161,0,.4); color:#f4a100; height:46px; box-sizing:border-box;" onclick="toggleBrawlTabMenu()">
         <span id="brawltabSelectedLabel">💎 باس</span>
         <span class="rtab-select-arrow">▾</span>
       </button>
@@ -2331,10 +2385,20 @@
         <button class="rtab-menu-item active" id="brawltab-item-pass" onclick="selectBrawlTab(this,'pass','💎 باس')">💎 باس</button>
       </div>
     </div>
-    <div class="rtab-select-label" style="background:rgba(244,161,0,.08); border:1.5px solid rgba(244,161,0,.4); padding:0; margin-inline-start:auto; width:60px; height:60px; align-self:center; overflow:hidden; border-radius:14px;">
+    <div class="rtab-select-label" style="background:rgba(244,161,0,.08); border-color:rgba(244,161,0,.4); color:#f4a100; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="openBrawlExplainModal()">📖</div>
+  </div>
+
+  <!-- BRAWL CARD + EMAIL FIELD — card on the left, email field fills the space next to it -->
+  <div style="display:flex; align-items:flex-start; gap:14px; padding: 90px 5% 0; direction:ltr;">
+    <div style="width:30%; max-width:115px; aspect-ratio:3/4; border:1.5px solid rgba(244,161,0,.4); border-radius:16px; overflow:hidden; box-shadow:0 0 10px rgba(244,161,0,.25); flex:0 0 auto;">
       <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/images%20(10).jpeg" alt="Brawl Stars" style="width:100%;height:100%;object-fit:cover;display:block;">
     </div>
+    <div class="ofield" style="flex:1; min-width:0; direction:rtl; margin:0;">
+      <label class="olabel" style="font-size:.95rem;color:#f4a100;">الإيميل <span class="req">*</span></label>
+      <input class="oinput" id="brawl-email" type="email" placeholder="اكتب الإيميل هنا" style="border-color:rgba(244,161,0,.35);text-align:center;font-size:1.05rem;width:100%;" />
+    </div>
   </div>
+
   <div id="brawlExplainModal" class="ce-modal-overlay" onclick="closeBrawlExplainModal()">
     <div class="ce-modal-box" onclick="event.stopPropagation()">
       <p style="text-align:center;color:var(--gold-lt);font-weight:800;font-size:.85rem;margin-bottom:14px;">إزاي شحن Brawl Stars بيتم؟</p>
@@ -2344,30 +2408,37 @@
     </div>
   </div>
 
-  <div class="rpage-panels">
-
-    <div class="ofield" style="margin-bottom:20px;">
-      <label class="olabel" style="color:#f4a100;">الإيميل <span class="req">*</span></label>
-      <input class="oinput" id="brawl-email" type="email" placeholder="اكتب الإيميل هنا" style="border-color:rgba(244,161,0,.35);" />
-    </div>
+  <div class="rpage-panels" style="margin-top:16px;">
 
     <div class="price-grid" id="brawl-prices" style="grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px;">
-      <div class="pcard" style="border-color:rgba(244,161,0,.25); padding: 12px 10px; flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px;" data-pass="BRAWL PASS" data-price="310" onclick="selectBrawlAmt(this)">
+      <div class="pcard brawl-pcard" style="border-color:rgba(244,161,0,.25); padding: 12px 10px; flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px;" data-pass="BRAWL PASS" data-price="310" onclick="toggleBrawlAmt(this)">
         <span class="rob" style="font-size:.85rem;line-height:1.4;font-weight:900;">BRAWL PASS</span>
-        
         <span class="egp">EGP 310</span>
+        <div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(244,161,0,.5);color:#f4a100;background:rgba(244,161,0,.1);" onclick="event.stopPropagation();changeBrawlQtyCard(this,-1)">−</button><span class="qty-num" style="color:#f4a100;">0</span><button class="qty-btn" style="border-color:rgba(244,161,0,.5);color:#f4a100;background:rgba(244,161,0,.1);" onclick="event.stopPropagation();changeBrawlQtyCard(this,1)">+</button></div>
       </div>
-      <div class="pcard" style="border-color:rgba(244,161,0,.25); padding: 12px 10px; flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px;" data-pass="BRAWL PASS PLUS" data-price="410" onclick="selectBrawlAmt(this)">
+      <div class="pcard brawl-pcard" style="border-color:rgba(244,161,0,.25); padding: 12px 10px; flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px;" data-pass="BRAWL PASS PLUS" data-price="410" onclick="toggleBrawlAmt(this)">
         <span class="rob" style="font-size:.85rem;line-height:1.4;font-weight:900;">BRAWL PASS PLUS</span>
-        
         <span class="egp">EGP 410</span>
+        <div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(244,161,0,.5);color:#f4a100;background:rgba(244,161,0,.1);" onclick="event.stopPropagation();changeBrawlQtyCard(this,-1)">−</button><span class="qty-num" style="color:#f4a100;">0</span><button class="qty-btn" style="border-color:rgba(244,161,0,.5);color:#f4a100;background:rgba(244,161,0,.1);" onclick="event.stopPropagation();changeBrawlQtyCard(this,1)">+</button></div>
       </div>
     </div>
 
-    <div class="oerror" id="brawl-error" style="margin-top:10px;"></div>
-    <button class="com-wa-btn" onclick="sendBrawlOrder()" style="margin-top:16px;background:linear-gradient(135deg,#b87800,#f4a100);color:#0d0d0d;border:none;">
-      💬 شحن
-    </button>
+    <!-- SUMMARY (فاتورة الطلب) -->
+    <div id="brawl-summary" style="display:block; margin-top:14px; background:#241a05; border:1px solid rgba(244,161,0,.3); border-radius:12px; padding:14px;">
+      <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">🛒 طلبك:</div>
+      <div id="brawl-sum-rows"><div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div></div>
+      <div id="brawl-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(244,161,0,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#f4a100;text-align:center;letter-spacing:.04em;">💰 السعر: 0 جنيه</div>
+
+      <div id="brawl-egp-status" style="margin-top:6px;font-size:.8rem;text-align:center;"></div>
+
+      <div class="oerror" id="brawl-error" style="margin-top:10px;"></div>
+      <div style="display:flex;gap:10px;margin-top:14px;">
+        <button id="brawl-use-egp-btn" onclick="toggleBrawlUseEGP()" style="flex:1;width:auto;background:rgba(244,161,0,.12);border:1.5px solid #f4a100;color:#f4a100;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
+        <button class="com-wa-btn" onclick="sendBrawlOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#b87800,#f4a100);color:#0d0d0d;border:none;font-size:.85rem;padding:12px 6px;">
+          💬 شحن
+        </button>
+      </div>
+    </div>
 
   </div>
 </div>
@@ -2443,12 +2514,17 @@
         <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">🛒 طلبك:</div>
         <div id="pes-sum-rows"><div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div></div>
         <div id="pes-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(111,207,58,.25);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#6fcf3a;text-align:center;letter-spacing:.04em;">💰 السعر: 0 جنيه</div>
-      </div>
 
-      <div class="oerror" id="pes-error" style="margin-top:10px;"></div>
-      <button class="com-wa-btn" onclick="sendPesOrder()" style="margin-top:16px;background:linear-gradient(135deg,#1e7e34,#6fcf3a);color:#0d0d0d;border:none;">
-        💬 شحن
-      </button>
+        <div id="pes-egp-status" style="margin-top:6px;font-size:.8rem;text-align:center;"></div>
+
+        <div class="oerror" id="pes-error" style="margin-top:10px;"></div>
+        <div style="display:flex;gap:10px;margin-top:14px;">
+          <button id="pes-use-egp-btn" onclick="togglePesUseEGP()" style="flex:1;width:auto;background:rgba(111,207,58,.12);border:1.5px solid #6fcf3a;color:#6fcf3a;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
+          <button class="com-wa-btn" onclick="sendPesOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#1e7e34,#6fcf3a);color:#0d0d0d;border:none;font-size:.85rem;padding:12px 6px;">
+            💬 شحن
+          </button>
+        </div>
+      </div>
     </div>
 
     <!-- TAB 2: ايفون -->
@@ -2581,12 +2657,17 @@
         <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">🛒 طلبك:</div>
         <div id="ff-id-sum-rows"><div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div></div>
         <div id="ff-id-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(0,180,216,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#6bd4ff;text-align:center;letter-spacing:.04em;">💰 السعر: 0 جنيه</div>
-      </div>
 
-      <div class="oerror" id="ff-id-error" style="margin-top:10px;"></div>
-      <button class="com-wa-btn" onclick="sendFFIdOrder()" style="margin-top:16px;background:linear-gradient(135deg,#00b4d8,#6bd4ff);color:#fff;border:none;">
-        💬 شحن
-      </button>
+        <div id="ff-id-egp-status" style="margin-top:6px;font-size:.8rem;text-align:center;"></div>
+
+        <div class="oerror" id="ff-id-error" style="margin-top:10px;"></div>
+        <div style="display:flex;gap:10px;margin-top:14px;">
+          <button id="ff-id-use-egp-btn" onclick="toggleFFIdUseEGP()" style="flex:1;width:auto;background:rgba(0,180,216,.12);border:1.5px solid #00b4d8;color:#6bd4ff;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
+          <button class="com-wa-btn" onclick="sendFFIdOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#00b4d8,#6bd4ff);color:#fff;border:none;font-size:.85rem;padding:12px 6px;">
+            💬 شحن
+          </button>
+        </div>
+      </div>
     </div>
 
     <!-- TAB 2: داخل الحساب -->
@@ -2630,12 +2711,17 @@
         <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">🛒 طلبك:</div>
         <div id="ff-acc-sum-rows"><div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div></div>
         <div id="ff-acc-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(0,180,216,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#6bd4ff;text-align:center;letter-spacing:.04em;">💰 السعر: 0 جنيه</div>
-      </div>
 
-      <div class="oerror" id="ff-acc-error" style="margin-top:10px;"></div>
-      <button class="com-wa-btn" onclick="sendFFAccOrder()" style="margin-top:16px;background:linear-gradient(135deg,#00b4d8,#6bd4ff);color:#fff;border:none;">
-        💬 شحن
-      </button>
+        <div id="ff-acc-egp-status" style="margin-top:6px;font-size:.8rem;text-align:center;"></div>
+
+        <div class="oerror" id="ff-acc-error" style="margin-top:10px;"></div>
+        <div style="display:flex;gap:10px;margin-top:14px;">
+          <button id="ff-acc-use-egp-btn" onclick="toggleFFAccUseEGP()" style="flex:1;width:auto;background:rgba(0,180,216,.12);border:1.5px solid #00b4d8;color:#6bd4ff;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
+          <button class="com-wa-btn" onclick="sendFFAccOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#00b4d8,#6bd4ff);color:#fff;border:none;font-size:.85rem;padding:12px 6px;">
+            💬 شحن
+          </button>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -2764,10 +2850,15 @@
       <div id="pubg-sum-rows"><div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div></div>
       <div id="pubg-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(0,180,216,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--gold);text-align:center;letter-spacing:.04em;">💰 السعر: 0 جنيه</div>
 
+      <div id="pubg-egp-status" style="margin-top:6px;font-size:.8rem;text-align:center;"></div>
+
       <div class="oerror" id="pubg-error" style="margin-top:10px;"></div>
-      <button class="com-wa-btn" onclick="sendPubgOrder()" style="margin-top:14px;background:linear-gradient(135deg,#0088a8,#00b4d8);color:#0d0d0d;">
-        💬 شحن
-      </button>
+      <div style="display:flex;gap:10px;margin-top:14px;">
+        <button id="pubg-use-egp-btn" onclick="togglePubgUseEGP()" style="flex:1;width:auto;background:rgba(0,180,216,.12);border:1.5px solid #00b4d8;color:#00b4d8;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
+        <button class="com-wa-btn" onclick="sendPubgOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#0088a8,#00b4d8);color:#0d0d0d;font-size:.85rem;padding:12px 6px;">
+          💬 شحن
+        </button>
+      </div>
     </div>
 
   </div>
@@ -2897,10 +2988,15 @@
         <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">🛒 طلبك:</div>
         <div id="acc-sum-rows"><div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div></div>
         <div id="acc-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(37,99,235,.25);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#2563eb;text-align:center;letter-spacing:.04em;">💰 السعر: 0 جنيه</div>
-      </div>
 
-      <div class="oerror" id="acc-error" style="margin-top:12px;"></div>
-      <button class="com-wa-btn" onclick="sendAccOrder()" style="margin-top:12px;background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff;">💬 شحن</button>
+        <div id="acc-egp-status" style="margin-top:6px;font-size:.8rem;text-align:center;"></div>
+
+        <div class="oerror" id="acc-error" style="margin-top:10px;"></div>
+        <div style="display:flex;gap:10px;margin-top:14px;">
+          <button id="acc-use-egp-btn" onclick="toggleAccUseEGP()" style="flex:1;width:auto;background:rgba(37,99,235,.12);border:1.5px solid #2563eb;color:#60a5fa;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
+          <button class="com-wa-btn" onclick="sendAccOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff;font-size:.85rem;padding:12px 6px;">💬 شحن</button>
+        </div>
+      </div>
     </div>
 
     <div class="rpanel" id="rp-giftcard">
@@ -2915,10 +3011,15 @@
         <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">🛒 طلبك:</div>
         <div id="giftcard-sum-rows"><div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div></div>
         <div id="giftcard-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(37,99,235,.25);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#2563eb;text-align:center;letter-spacing:.04em;">💰 السعر: 0 جنيه</div>
-      </div>
 
-      <div class="oerror" id="giftcard-error" style="margin-top:12px;"></div>
-      <button class="com-wa-btn" onclick="sendGiftOrder()" style="margin-top:12px;background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff;">💬 شحن</button>
+        <div id="gift-egp-status" style="margin-top:6px;font-size:.8rem;text-align:center;"></div>
+
+        <div class="oerror" id="giftcard-error" style="margin-top:10px;"></div>
+        <div style="display:flex;gap:10px;margin-top:14px;">
+          <button id="gift-use-egp-btn" onclick="toggleGiftUseEGP()" style="flex:1;width:auto;background:rgba(37,99,235,.12);border:1.5px solid #2563eb;color:#60a5fa;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
+          <button class="com-wa-btn" onclick="sendGiftOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff;font-size:.85rem;padding:12px 6px;">💬 شحن</button>
+        </div>
+      </div>
     </div>
 
     <div class="rpanel active" id="rp-community">
@@ -2948,13 +3049,6 @@
         <div class="pcard hagz" data-rob="1050" data-price="520" onclick="addComItem(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">1050</span></span><span class="egp">EGP 520</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
       </div>
 
-      <!-- منيو الملخص -->
-      <div id="com-summary" style="display:block; margin-top:14px; background:#0f1f3a; border:1px solid rgba(37,99,235,.3); border-radius:12px; padding:14px;">
-        <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">🛒 طلبك:</div>
-        <div id="com-sum-rows"><div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div></div>
-        <div id="com-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(37,99,235,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#2563eb;text-align:center;letter-spacing:.04em;">💰 السعر: 0 جنيه</div>
-      </div>
-
       <!-- فورم الطلب -->
       <div class="order-form">
         <div class="ofield">
@@ -2969,10 +3063,23 @@
           </div>
           <div class="code-status" id="code-status"></div>
         </div>
-        <div class="oerror" id="com-error"></div>
-        <button class="com-wa-btn" id="com-wa-btn" onclick="sendComOrder()" style="background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff;">
-          💬 شحن
-        </button>
+      </div>
+
+      <!-- منيو الملخص -->
+      <div id="com-summary" style="display:block; margin-top:14px; background:#0f1f3a; border:1px solid rgba(37,99,235,.3); border-radius:12px; padding:14px;">
+        <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">🛒 طلبك:</div>
+        <div id="com-sum-rows"><div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div></div>
+        <div id="com-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(37,99,235,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#2563eb;text-align:center;letter-spacing:.04em;">💰 السعر: 0 جنيه</div>
+
+        <div id="com-egp-status" style="margin-top:6px;font-size:.8rem;text-align:center;"></div>
+
+        <div class="oerror" id="com-error" style="margin-top:10px;"></div>
+        <div style="display:flex;gap:10px;margin-top:14px;">
+          <button id="com-use-egp-btn" onclick="toggleComUseEGP()" style="flex:1;width:auto;background:rgba(37,99,235,.12);border:1.5px solid #2563eb;color:#60a5fa;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
+          <button class="com-wa-btn" id="com-wa-btn" onclick="sendComOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff;font-size:.85rem;padding:12px 6px;">
+            💬 شحن
+          </button>
+        </div>
       </div>
     </div>
 
@@ -3088,12 +3195,15 @@
     <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">🛒 طلبك:</div>
     <div id="fifa-sum-rows"><div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div></div>
     <div id="fifa-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(111,207,58,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#6fcf3a;text-align:center;letter-spacing:.04em;">💰 السعر: 0 جنيه</div>
-  </div>
 
-  <div class="order-form" style="margin-top:16px;">
-    <button class="com-wa-btn" onclick="sendFifaCoinsOrder()" style="margin-top:16px;background:linear-gradient(135deg,#1e7e34,#6fcf3a);color:#0d0d0d;border:none;">
-      💬 شحن
-    </button>
+    <div id="fifa-egp-status" style="margin-top:6px;font-size:.8rem;text-align:center;"></div>
+
+    <div style="display:flex;gap:10px;margin-top:14px;">
+      <button id="fifa-use-egp-btn" onclick="toggleFifaUseEGP()" style="flex:1;width:auto;background:rgba(111,207,58,.12);border:1.5px solid #6fcf3a;color:#6fcf3a;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
+      <button class="com-wa-btn" onclick="sendFifaCoinsOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#1e7e34,#6fcf3a);color:#0d0d0d;border:none;font-size:.85rem;padding:12px 6px;">
+        💬 شحن
+      </button>
+    </div>
   </div>
 
   </div>
@@ -3155,6 +3265,13 @@
   function closeRoblox() {
     document.getElementById('robloxPage').classList.remove('open');
     document.body.style.overflow = '';
+    accUseEGP = false; giftUseEGP = false; comUseEGP = false;
+    ['acc','gift','com'].forEach(p => {
+      const btn = document.getElementById(p + '-use-egp-btn');
+      const status = document.getElementById(p + '-egp-status');
+      if (btn) { btn.style.background = 'rgba(37,99,235,.12)'; btn.textContent = 'استخدام EGP'; }
+      if (status) status.textContent = '';
+    });
   }
   function switchPrice(type) {
     switchPriceCom(type);
@@ -3248,6 +3365,30 @@
     renderAccSummary();
   }
 
+  let accUseEGP = false;
+  function accDiscountedTotal(total) {
+    return Math.max(total - getUserBalance(), 0);
+  }
+  function toggleAccUseEGP() {
+    const balance = getUserBalance();
+    const statusDiv = document.getElementById('acc-egp-status');
+    const btn = document.getElementById('acc-use-egp-btn');
+    if (balance <= 0) {
+      accUseEGP = false;
+      if (statusDiv) { statusDiv.textContent = 'ليس معك عملات'; statusDiv.style.color = '#e05555'; }
+      if (btn) { btn.style.background = 'rgba(37,99,235,.12)'; btn.textContent = 'استخدام EGP'; }
+      renderAccSummary();
+      return;
+    }
+    accUseEGP = !accUseEGP;
+    if (statusDiv) statusDiv.textContent = '';
+    if (btn) {
+      btn.style.background = accUseEGP ? 'rgba(37,99,235,.35)' : 'rgba(37,99,235,.12)';
+      btn.textContent = accUseEGP ? 'تم التفعيل ✅' : 'استخدام EGP';
+    }
+    renderAccSummary();
+  }
+
   function renderAccSummary() {
     const keys    = Object.keys(accCart);
     const sumDiv  = document.getElementById('acc-summary');
@@ -3270,7 +3411,12 @@
       </div>`;
     }).join('');
     const total = keys.reduce((s,k) => s + accCart[k].price * accCart[k].qty, 0);
-    totDiv.innerHTML = `💰 السعر: ${total} جنيه`;
+    if (accUseEGP && getUserBalance() > 0) {
+      const discounted = accDiscountedTotal(total);
+      totDiv.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">💰 ${total} جنيه</div><div>💰 السعر: ${discounted} جنيه</div>`;
+    } else {
+      totDiv.innerHTML = `💰 السعر: ${total} جنيه`;
+    }
   }
 
   function sendAccOrder() {
@@ -3288,7 +3434,8 @@
       const item = accCart[k];
       return `• ${item.label} (${item.qty})`;
     }).join('\n');
-    const total = keys.reduce((s,k) => s + accCart[k].price * accCart[k].qty, 0);
+    const rawTotal = keys.reduce((s,k) => s + accCart[k].price * accCart[k].qty, 0);
+    const total = (accUseEGP && getUserBalance() > 0) ? accDiscountedTotal(rawTotal) : rawTotal;
     const totalQty = keys.reduce((s,k) => s + accCart[k].qty, 0);
     const msg = `📦 طلب شحن روبلوكس (حساب)\n👤 اليوزرنيم: ${username}\n🔑 الباسورد: ${pass}\n📦 الطلب:\n${items}\n💰 السعر: ${total} جنيه\nالاسم: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
@@ -3376,6 +3523,30 @@
     return { items, totalRob, totalPrice };
   }
 
+  let comUseEGP = false;
+  function comDiscountedTotal(total) {
+    return Math.max(total - getUserBalance(), 0);
+  }
+  function toggleComUseEGP() {
+    const balance = getUserBalance();
+    const statusDiv = document.getElementById('com-egp-status');
+    const btn = document.getElementById('com-use-egp-btn');
+    if (balance <= 0) {
+      comUseEGP = false;
+      if (statusDiv) { statusDiv.textContent = 'ليس معك عملات'; statusDiv.style.color = '#e05555'; }
+      if (btn) { btn.style.background = 'rgba(37,99,235,.12)'; btn.textContent = 'استخدام EGP'; }
+      renderComSummary();
+      return;
+    }
+    comUseEGP = !comUseEGP;
+    if (statusDiv) statusDiv.textContent = '';
+    if (btn) {
+      btn.style.background = comUseEGP ? 'rgba(37,99,235,.35)' : 'rgba(37,99,235,.12)';
+      btn.textContent = comUseEGP ? 'تم التفعيل ✅' : 'استخدام EGP';
+    }
+    renderComSummary();
+  }
+
   function renderComSummary() {
     const { items, totalRob, totalPrice } = getComSelections();
     const sumDiv  = document.getElementById('com-summary');
@@ -3399,7 +3570,13 @@
         </div>
       </div>`;
     }).join('');
-    grandEl.innerHTML = `💰 السعر: ${totalPrice} جنيه (${finalRob} روب${bonus ? ' — شامل ' + bonus + ' R هدية 🎁' : ''})`;
+    const bonusLabel = bonus ? ' — شامل ' + bonus + ' R هدية 🎁' : '';
+    if (comUseEGP && getUserBalance() > 0) {
+      const discounted = comDiscountedTotal(totalPrice);
+      grandEl.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">💰 ${totalPrice} جنيه (${finalRob} روب${bonusLabel})</div><div>💰 السعر: ${discounted} جنيه</div>`;
+    } else {
+      grandEl.innerHTML = `💰 السعر: ${totalPrice} جنيه (${finalRob} روب${bonusLabel})`;
+    }
   }
 
   function updateCardDisplay() {
@@ -3461,10 +3638,11 @@
       const finalRob = i.rob + (codeApplied ? Math.round(i.rob * appliedBonusPercent / 100) : 0);
       return sum + finalRob * i.qty;
     }, 0);
-    let msg = `${RLM}\u{1F4E6} \u0637\u0644\u0628 \u0634\u062d\u0646 \u0631\u0648\u0628\u0644\u0648\u0643\u0633 (\u0643\u0645\u064a\u0648\u0646\u062a\u064a)\n${RLM}\u{1F464} \u0627\u0644\u0627\u0633\u0645: ${username}\n${RLM}\u{1F3AE} \u0627\u0644\u0637\u0644\u0628: ${type}\n${itemsList}\n${RLM}\u{1F4CA} \u0625\u062c\u0645\u0627\u0644\u064a: ${totalFinalRob}R\n${RLM}\u{1F4B0} \u0627\u0644\u0633\u0639\u0631: ${totalPrice} \u062c\u0646\u064a\u0647\n${RLM}\u0643\u0648\u062f \u0627\u0644\u0632\u064a\u0627\u062f\u0629: ${codeApplied ? code : '\u0645\u0641\u064a\u0634'}\n${RLM}\u0627\u0644\u0627\u0633\u0645: ${getCustomerName()}`;
+    const finalPrice = (comUseEGP && getUserBalance() > 0) ? comDiscountedTotal(totalPrice) : totalPrice;
+    let msg = `${RLM}\u{1F4E6} \u0637\u0644\u0628 \u0634\u062d\u0646 \u0631\u0648\u0628\u0644\u0648\u0643\u0633 (\u0643\u0645\u064a\u0648\u0646\u062a\u064a)\n${RLM}\u{1F464} \u0627\u0644\u0627\u0633\u0645: ${username}\n${RLM}\u{1F3AE} \u0627\u0644\u0637\u0644\u0628: ${type}\n${itemsList}\n${RLM}\u{1F4CA} \u0625\u062c\u0645\u0627\u0644\u064a: ${totalFinalRob}R\n${RLM}\u{1F4B0} \u0627\u0644\u0633\u0639\u0631: ${finalPrice} \u062c\u0646\u064a\u0647\n${RLM}\u0643\u0648\u062f \u0627\u0644\u0632\u064a\u0627\u062f\u0629: ${codeApplied ? code : '\u0645\u0641\u064a\u0634'}\n${RLM}\u0627\u0644\u0627\u0633\u0645: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
       const totalQty = items.reduce((s,i) => s + i.qty, 0);
-      window.saveOrder({ title: 'روبلوكس (كوميونتي)', quantity: totalQty, price: totalPrice, details: msg, fullDetails: msg });
+      window.saveOrder({ title: 'روبلوكس (كوميونتي)', quantity: totalQty, price: finalPrice, details: msg, fullDetails: msg });
     }
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
@@ -3534,6 +3712,30 @@
     });
     return { items, totalUsd, totalPrice };
   }
+  let giftUseEGP = false;
+  function giftDiscountedTotal(total) {
+    return Math.max(total - getUserBalance(), 0);
+  }
+  function toggleGiftUseEGP() {
+    const balance = getUserBalance();
+    const statusDiv = document.getElementById('gift-egp-status');
+    const btn = document.getElementById('gift-use-egp-btn');
+    if (balance <= 0) {
+      giftUseEGP = false;
+      if (statusDiv) { statusDiv.textContent = 'ليس معك عملات'; statusDiv.style.color = '#e05555'; }
+      if (btn) { btn.style.background = 'rgba(37,99,235,.12)'; btn.textContent = 'استخدام EGP'; }
+      renderGiftSummary();
+      return;
+    }
+    giftUseEGP = !giftUseEGP;
+    if (statusDiv) statusDiv.textContent = '';
+    if (btn) {
+      btn.style.background = giftUseEGP ? 'rgba(37,99,235,.35)' : 'rgba(37,99,235,.12)';
+      btn.textContent = giftUseEGP ? 'تم التفعيل ✅' : 'استخدام EGP';
+    }
+    renderGiftSummary();
+  }
+
   function renderGiftSummary() {
     const { items, totalUsd, totalPrice } = getGiftSelections();
     const sumDiv  = document.getElementById('giftcard-summary');
@@ -3555,19 +3757,25 @@
         </div>
       </div>`;
     }).join('');
-    grandEl.innerHTML = `💰 السعر: ${totalPrice} جنيه (${totalUsd} USD)`;
+    if (giftUseEGP && getUserBalance() > 0) {
+      const discounted = giftDiscountedTotal(totalPrice);
+      grandEl.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">💰 ${totalPrice} جنيه (${totalUsd} USD)</div><div>💰 السعر: ${discounted} جنيه</div>`;
+    } else {
+      grandEl.innerHTML = `💰 السعر: ${totalPrice} جنيه (${totalUsd} USD)`;
+    }
   }
   function sendGiftOrder() {
     const err = document.getElementById('giftcard-error');
     const { items, totalUsd, totalPrice } = getGiftSelections();
     if (items.length === 0) { err.textContent = '⚠️ لازم تختار الكمية الأول'; return; }
     err.textContent = '';
+    const total = (giftUseEGP && getUserBalance() > 0) ? giftDiscountedTotal(totalPrice) : totalPrice;
     const RLM = '\u200F';
     const itemsList = items.map(i => `${RLM}\u2022 ${i.usd} USD (${i.qty})`).join('\n');
-    let msg = `${RLM}\u{1F381} طلب شحن روبلوكس (جيفت كارد)\n${itemsList}\n${RLM}\u{1F4B0} السعر: ${totalPrice} جنيه\n${RLM}الاسم: ${getCustomerName()}`;
+    let msg = `${RLM}\u{1F381} طلب شحن روبلوكس (جيفت كارد)\n${itemsList}\n${RLM}\u{1F4B0} السعر: ${total} جنيه\n${RLM}الاسم: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
       const totalQty = items.reduce((s,i) => s + i.qty, 0);
-      window.saveOrder({ title: 'روبلوكس (جيفت كارد)', quantity: totalQty, price: totalPrice, details: msg, fullDetails: msg });
+      window.saveOrder({ title: 'روبلوكس (جيفت كارد)', quantity: totalQty, price: total, details: msg, fullDetails: msg });
     }
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
@@ -3614,6 +3822,11 @@
     document.body.style.overflow = '';
     document.getElementById('pubg-id').value = '';
     document.getElementById('pubg-error').textContent = '';
+    pubgUseEGP = false;
+    const egpBtn = document.getElementById('pubg-use-egp-btn');
+    const egpStatus = document.getElementById('pubg-egp-status');
+    if (egpBtn) { egpBtn.style.background = 'rgba(0,180,216,.12)'; egpBtn.textContent = 'استخدام EGP'; }
+    if (egpStatus) egpStatus.textContent = '';
     document.querySelectorAll('#pubgPage .pubg-pcard').forEach(c => {
       c.style.borderColor = 'rgba(0,180,216,.2)';
       c.style.background = '#1a1a1a';
@@ -3693,6 +3906,36 @@
     renderPubgSummary();
   }
 
+  let pubgUseEGP = false;
+  function getUserBalance() {
+    const el = document.getElementById('settingsBalanceValue');
+    if (!el) return 0;
+    const n = parseFloat((el.textContent || '').replace(/[^\d.]/g, ''));
+    return isNaN(n) ? 0 : n;
+  }
+  function pubgDiscountedTotal(total) {
+    return Math.max(total - getUserBalance(), 0);
+  }
+  function togglePubgUseEGP() {
+    const balance = getUserBalance();
+    const statusDiv = document.getElementById('pubg-egp-status');
+    const btn = document.getElementById('pubg-use-egp-btn');
+    if (balance <= 0) {
+      pubgUseEGP = false;
+      if (statusDiv) { statusDiv.textContent = 'ليس معك عملات'; statusDiv.style.color = '#e05555'; }
+      if (btn) { btn.style.background = 'rgba(0,180,216,.12)'; btn.textContent = 'استخدام EGP'; }
+      renderPubgSummary();
+      return;
+    }
+    pubgUseEGP = !pubgUseEGP;
+    if (statusDiv) statusDiv.textContent = '';
+    if (btn) {
+      btn.style.background = pubgUseEGP ? 'rgba(0,180,216,.35)' : 'rgba(0,180,216,.12)';
+      btn.textContent = pubgUseEGP ? 'تم التفعيل ✅' : 'استخدام EGP';
+    }
+    renderPubgSummary();
+  }
+
   function renderPubgSummary() {
     const keys    = Object.keys(pubgCart);
     const sumDiv  = document.getElementById('pubg-summary');
@@ -3715,7 +3958,12 @@
       </div>`;
     }).join('');
     const total = keys.reduce((s,k) => s + pubgCart[k].price * pubgCart[k].qty, 0);
-    totDiv.innerHTML = `💰 السعر: ${total} جنيه`;
+    if (pubgUseEGP && getUserBalance() > 0) {
+      const discounted = pubgDiscountedTotal(total);
+      totDiv.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">💰 ${total} جنيه</div><div>💰 السعر: ${discounted} جنيه</div>`;
+    } else {
+      totDiv.innerHTML = `💰 السعر: ${total} جنيه`;
+    }
   }
 
   function sendPubgOrder() {
@@ -3727,7 +3975,8 @@
     if (!keys.length) { err.textContent = '⚠️ اختار الكمية الأول'; return; }
     err.textContent = '';
     const items = keys.map(k => `• ${pubgLabel(pubgCart[k])} (${pubgCart[k].qty})`).join('\n');
-    const total = keys.reduce((s,k) => s + pubgCart[k].price * pubgCart[k].qty, 0);
+    const rawTotal = keys.reduce((s,k) => s + pubgCart[k].price * pubgCart[k].qty, 0);
+    const total = (pubgUseEGP && getUserBalance() > 0) ? pubgDiscountedTotal(rawTotal) : rawTotal;
     const msg = `🎮 طلب شحن ببجي\n🆔 الـ ID: ${idVal}\n📦 الطلب:\n${items}\n💰 السعر: ${total} جنيه\nالاسم: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
       const totalQty = keys.reduce((s,k) => s + pubgCart[k].qty, 0);
@@ -3795,35 +4044,37 @@
     }
   }
 
+  // ── BALANCE ──
+  function openBalancePage() {
+    document.getElementById('balancePage').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    const src = document.getElementById('settingsBalanceValue');
+    const dest = document.getElementById('balancePageValue');
+    if (src && dest) dest.textContent = src.textContent.replace(/[^\d.]/g, '') || '0';
+  }
+  function closeBalancePage() {
+    document.getElementById('balancePage').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  // ملحوظة: applyRedeemCode بيتنفذ فعليًا جوه سكريبت الـ module تحت (window.applyRedeemCode) عشان يقدر يوصل لـ Firestore مباشرة
+
   // ── MY ORDERS ──
-  let currentOrdersTab = 'pending';
   function openOrdersPage() {
     document.getElementById('ordersPage').classList.add('open');
     document.body.style.overflow = 'hidden';
-    loadOrdersTab(currentOrdersTab);
+    loadOrdersTab();
   }
   function closeOrdersPage() {
     document.getElementById('ordersPage').classList.remove('open');
     document.body.style.overflow = '';
     if (typeof window.stopOrdersListener === 'function') window.stopOrdersListener();
   }
-  function toggleOrdersTabMenu() {
-    document.getElementById('orderstabSelectWrap').classList.toggle('open');
-  }
-  function selectOrdersTab(el, status, label) {
-    document.querySelectorAll('#orderstabMenu .rtab-menu-item').forEach(t => t.classList.remove('active'));
-    el.classList.add('active');
-    document.getElementById('orderstabSelectedLabel').textContent = label;
-    document.getElementById('orderstabSelectWrap').classList.remove('open');
-    loadOrdersTab(status);
-  }
-  function loadOrdersTab(status) {
-    currentOrdersTab = status;
+  function loadOrdersTab() {
     const container = document.getElementById('ordersListContainer');
     if (!container) return;
     container.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;padding:40px 20px;color:var(--muted);font-size:.9rem;text-align:center;">جاري التحميل...</div>';
     if (typeof window.loadUserOrders === 'function') {
-      window.loadUserOrders(status);
+      window.loadUserOrders();
     }
   }
   function openOrderDetailModal(title, details) {
@@ -3846,34 +4097,149 @@
     document.body.style.overflow = '';
     document.getElementById('brawl-email').value = '';
     document.getElementById('brawl-error').textContent = '';
-    brawlSelected = null;
-    document.querySelectorAll('#brawl-prices .pcard').forEach(c => {
+    brawlCart = {};
+    brawlUseEGP = false;
+    const egpBtn = document.getElementById('brawl-use-egp-btn');
+    const egpStatus = document.getElementById('brawl-egp-status');
+    if (egpBtn) { egpBtn.style.background = 'rgba(244,161,0,.12)'; egpBtn.textContent = 'استخدام EGP'; }
+    if (egpStatus) egpStatus.textContent = '';
+    document.querySelectorAll('#brawl-prices .brawl-pcard').forEach(c => {
       c.style.borderColor = 'rgba(244,161,0,.25)';
       c.style.background = '';
+      const qc = c.querySelector('.qty-ctrl');
+      if (qc) { qc.style.display = 'none'; c.querySelector('.qty-num').textContent = '0'; }
     });
+    renderBrawlSummary();
   }
-  let brawlSelected = null;
-  function selectBrawlAmt(el) {
-    document.querySelectorAll('#brawl-prices .pcard').forEach(c => {
-      c.style.borderColor = 'rgba(244,161,0,.25)';
-      c.style.background = '';
-    });
-    el.style.borderColor = '#f4a100';
-    el.style.background = 'rgba(244,161,0,.15)';
-    brawlSelected = el;
+
+  // Cart (زي ببجي بالظبط)
+  let brawlCart = {};
+  let brawlUseEGP = false;
+
+  function brawlKey(card) {
+    return card.dataset.pass + '__' + card.dataset.price;
+  }
+
+  function toggleBrawlAmt(card) {
+    const pass  = card.dataset.pass;
+    const price = parseInt(card.dataset.price);
+    const key   = brawlKey(card);
+    const qtyCtrl = card.querySelector('.qty-ctrl');
+    const qtyNum  = card.querySelector('.qty-num');
+    if (brawlCart[key]) {
+      delete brawlCart[key];
+      card.style.borderColor = 'rgba(244,161,0,.25)';
+      card.style.background = '';
+      if (qtyCtrl) { qtyCtrl.style.display = 'none'; if (qtyNum) qtyNum.textContent = '0'; }
+    } else {
+      brawlCart[key] = { pass, price, qty: 1 };
+      card.style.borderColor = '#f4a100';
+      card.style.background = 'rgba(244,161,0,.15)';
+      if (qtyCtrl) { qtyCtrl.style.display = 'flex'; if (qtyNum) qtyNum.textContent = '1'; }
+    }
+    renderBrawlSummary();
     document.getElementById('brawl-error').textContent = '';
   }
+
+  function changeBrawlQtyCard(btn, delta) {
+    const card = btn.closest('.pcard');
+    const key  = brawlKey(card);
+    if (!brawlCart[key]) return;
+    brawlCart[key].qty = Math.max(1, brawlCart[key].qty + delta);
+    card.querySelector('.qty-num').textContent = brawlCart[key].qty;
+    renderBrawlSummary();
+  }
+
+  function changeBrawlQty(key, delta) {
+    if (!brawlCart[key]) return;
+    brawlCart[key].qty += delta;
+    if (brawlCart[key].qty <= 0) {
+      delete brawlCart[key];
+      document.querySelectorAll('#brawl-prices .brawl-pcard').forEach(c => {
+        if (brawlKey(c) === key) {
+          c.style.borderColor = 'rgba(244,161,0,.25)';
+          c.style.background = '';
+          const qc = c.querySelector('.qty-ctrl');
+          if (qc) { qc.style.display = 'none'; c.querySelector('.qty-num').textContent = '0'; }
+        }
+      });
+    } else {
+      document.querySelectorAll('#brawl-prices .brawl-pcard').forEach(c => {
+        if (brawlKey(c) === key) {
+          const qn = c.querySelector('.qty-num');
+          if (qn) qn.textContent = brawlCart[key].qty;
+        }
+      });
+    }
+    renderBrawlSummary();
+  }
+
+  function brawlDiscountedTotal(total) {
+    return Math.max(total - getUserBalance(), 0);
+  }
+  function toggleBrawlUseEGP() {
+    const balance = getUserBalance();
+    const statusDiv = document.getElementById('brawl-egp-status');
+    const btn = document.getElementById('brawl-use-egp-btn');
+    if (balance <= 0) {
+      brawlUseEGP = false;
+      if (statusDiv) { statusDiv.textContent = 'ليس معك عملات'; statusDiv.style.color = '#e05555'; }
+      if (btn) { btn.style.background = 'rgba(244,161,0,.12)'; btn.textContent = 'استخدام EGP'; }
+      renderBrawlSummary();
+      return;
+    }
+    brawlUseEGP = !brawlUseEGP;
+    if (statusDiv) statusDiv.textContent = '';
+    if (btn) {
+      btn.style.background = brawlUseEGP ? 'rgba(244,161,0,.35)' : 'rgba(244,161,0,.12)';
+      btn.textContent = brawlUseEGP ? 'تم التفعيل ✅' : 'استخدام EGP';
+    }
+    renderBrawlSummary();
+  }
+
+  function renderBrawlSummary() {
+    const keys    = Object.keys(brawlCart);
+    const rowsDiv = document.getElementById('brawl-sum-rows');
+    const totDiv  = document.getElementById('brawl-grand-total');
+    if (!keys.length) {
+      rowsDiv.innerHTML = '<div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div>';
+      totDiv.innerHTML = '💰 السعر: 0 جنيه';
+      return;
+    }
+    rowsDiv.innerHTML = keys.map(k => {
+      const item = brawlCart[k];
+      return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(244,161,0,.12);gap:8px;">
+        <span style="flex:1;">⭐ ${item.pass} (${item.qty})</span>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <button onclick="changeBrawlQty('${k}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:#1a1a1a;color:#f4a100;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">−</button>
+          <button onclick="changeBrawlQty('${k}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(244,161,0,.5);background:#1a1a1a;color:#f4a100;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
+        </div>
+      </div>`;
+    }).join('');
+    const total = keys.reduce((s,k) => s + brawlCart[k].price * brawlCart[k].qty, 0);
+    if (brawlUseEGP && getUserBalance() > 0) {
+      const discounted = brawlDiscountedTotal(total);
+      totDiv.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">💰 ${total} جنيه</div><div>💰 السعر: ${discounted} جنيه</div>`;
+    } else {
+      totDiv.innerHTML = `💰 السعر: ${total} جنيه`;
+    }
+  }
+
   function sendBrawlOrder() {
     const email = document.getElementById('brawl-email').value.trim();
     const err   = document.getElementById('brawl-error');
-    if (!email) { err.textContent = '⚠️ اكتب الإيميل الأول'; return; }
-    if (!brawlSelected) { err.textContent = '⚠️ اختار الباس الأول'; return; }
+    const keys  = Object.keys(brawlCart);
+    if (!email && !keys.length) { err.textContent = '⚠️ اكتب الإيميل واختار الباس الأول'; return; }
+    if (!email) { err.textContent = '⚠️ اكتب الإيميل الأول'; document.getElementById('brawl-email').focus(); return; }
+    if (!keys.length) { err.textContent = '⚠️ اختار الباس الأول'; return; }
     err.textContent = '';
-    const pass  = brawlSelected.dataset.pass;
-    const price = brawlSelected.dataset.price;
-    const msg = `⭐ طلب شحن براول ستارز\n📧 الإيميل: ${email}\n🎮 الطلب: ${pass}\n💰 السعر: ${price} جنيه\nالاسم: ${getCustomerName()}`;
+    const items = keys.map(k => `• ${brawlCart[k].pass} (${brawlCart[k].qty})`).join('\n');
+    const rawTotal = keys.reduce((s,k) => s + brawlCart[k].price * brawlCart[k].qty, 0);
+    const total = (brawlUseEGP && getUserBalance() > 0) ? brawlDiscountedTotal(rawTotal) : rawTotal;
+    const msg = `⭐ طلب شحن براول ستارز\n📧 الإيميل: ${email}\n📦 الطلب:\n${items}\n💰 السعر: ${total} جنيه\nالاسم: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
-      window.saveOrder({ title: 'براول ستارز', quantity: 1, price: parseInt(price) || null, details: msg, fullDetails: msg });
+      const totalQty = keys.reduce((s,k) => s + brawlCart[k].qty, 0);
+      window.saveOrder({ title: 'براول ستارز', quantity: totalQty, price: total, details: msg, fullDetails: msg });
     }
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
@@ -3903,6 +4269,26 @@
 
   // ── PES CART (شحن متعدد) ──
   let pesCart = {};
+  let pesUseEGP = false;
+  function togglePesUseEGP() {
+    const balance = getUserBalance();
+    const statusDiv = document.getElementById('pes-egp-status');
+    const btn = document.getElementById('pes-use-egp-btn');
+    if (balance <= 0) {
+      pesUseEGP = false;
+      if (statusDiv) { statusDiv.textContent = 'ليس معك عملات'; statusDiv.style.color = '#e05555'; }
+      if (btn) { btn.style.background = 'rgba(111,207,58,.12)'; btn.textContent = 'استخدام EGP'; }
+      renderPesSummary();
+      return;
+    }
+    pesUseEGP = !pesUseEGP;
+    if (statusDiv) statusDiv.textContent = '';
+    if (btn) {
+      btn.style.background = pesUseEGP ? 'rgba(111,207,58,.35)' : 'rgba(111,207,58,.12)';
+      btn.textContent = pesUseEGP ? 'تم التفعيل ✅' : 'استخدام EGP';
+    }
+    renderPesSummary();
+  }
 
   function togglePesAmt(card) {
     const coin  = card.dataset.coin;
@@ -3980,7 +4366,12 @@
       </div>`;
     }).join('');
     const total = keys.reduce((s,k) => s + pesCart[k].price * pesCart[k].qty, 0);
-    totDiv.innerHTML = `💰 السعر: ${total} جنيه`;
+    if (pesUseEGP && getUserBalance() > 0) {
+      const discounted = Math.max(total - getUserBalance(), 0);
+      totDiv.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">💰 ${total} جنيه</div><div>💰 السعر: ${discounted} جنيه</div>`;
+    } else {
+      totDiv.innerHTML = `💰 السعر: ${total} جنيه`;
+    }
   }
 
   function sendPesOrder() {
@@ -3993,7 +4384,8 @@
     if (!keys.length) { err.textContent = '⚠️ اختار الكمية الأول'; return; }
     err.textContent = '';
     const items = keys.map(k => `• ${pesCart[k].coin} Coins (${pesCart[k].qty})`).join('\n');
-    const total = keys.reduce((s,k) => s + pesCart[k].price * pesCart[k].qty, 0);
+    const rawTotal = keys.reduce((s,k) => s + pesCart[k].price * pesCart[k].qty, 0);
+    const total = (pesUseEGP && getUserBalance() > 0) ? Math.max(rawTotal - getUserBalance(), 0) : rawTotal;
     const msg = `⚽ طلب شحن بيس (اندرويد)\n📧 الإيميل: ${email}\n🔑 الباسورد: ${pass}\n🪙 الطلب:\n${items}\n💰 السعر: ${total} جنيه\nالاسم: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
       const totalQty = keys.reduce((s,k) => s + pesCart[k].qty, 0);
@@ -4072,6 +4464,26 @@
 
   // ── FF ID CART ──
   let ffIdCart = {};
+  let ffIdUseEGP = false;
+  function toggleFFIdUseEGP() {
+    const balance = getUserBalance();
+    const statusDiv = document.getElementById('ff-id-egp-status');
+    const btn = document.getElementById('ff-id-use-egp-btn');
+    if (balance <= 0) {
+      ffIdUseEGP = false;
+      if (statusDiv) { statusDiv.textContent = 'ليس معك عملات'; statusDiv.style.color = '#e05555'; }
+      if (btn) { btn.style.background = 'rgba(0,180,216,.12)'; btn.textContent = 'استخدام EGP'; }
+      renderFFIdSummary();
+      return;
+    }
+    ffIdUseEGP = !ffIdUseEGP;
+    if (statusDiv) statusDiv.textContent = '';
+    if (btn) {
+      btn.style.background = ffIdUseEGP ? 'rgba(0,180,216,.35)' : 'rgba(0,180,216,.12)';
+      btn.textContent = ffIdUseEGP ? 'تم التفعيل ✅' : 'استخدام EGP';
+    }
+    renderFFIdSummary();
+  }
 
   function toggleFFIdAmt(card) {
     const key   = card.dataset.diamond + '_' + card.dataset.price;
@@ -4152,7 +4564,12 @@
       </div>`;
     }).join('');
     const total = keys.reduce((s,k) => s + ffIdCart[k].price * ffIdCart[k].qty, 0);
-    totDiv.innerHTML = `💰 السعر: ${total} جنيه`;
+    if (ffIdUseEGP && getUserBalance() > 0) {
+      const discounted = Math.max(total - getUserBalance(), 0);
+      totDiv.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">💰 ${total} جنيه</div><div>💰 السعر: ${discounted} جنيه</div>`;
+    } else {
+      totDiv.innerHTML = `💰 السعر: ${total} جنيه`;
+    }
   }
 
   function sendFFIdOrder() {
@@ -4167,7 +4584,8 @@
       const item = ffIdCart[k];
       return `• ${item.label} (${item.qty})`;
     }).join('\n');
-    const total = keys.reduce((s,k) => s + ffIdCart[k].price * ffIdCart[k].qty, 0);
+    const rawTotal = keys.reduce((s,k) => s + ffIdCart[k].price * ffIdCart[k].qty, 0);
+    const total = (ffIdUseEGP && getUserBalance() > 0) ? Math.max(rawTotal - getUserBalance(), 0) : rawTotal;
     const msg = `🔥 طلب شحن فري فاير (ID)\n🆔 الـ ID: ${idVal}\n💎 الطلب:\n${items}\n💰 السعر: ${total} جنيه\nالاسم: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
       const totalQty = keys.reduce((s,k) => s + ffIdCart[k].qty, 0);
@@ -4178,6 +4596,26 @@
 
   // ── FF ACCOUNT CART ──
   let ffAccCart = {};
+  let ffAccUseEGP = false;
+  function toggleFFAccUseEGP() {
+    const balance = getUserBalance();
+    const statusDiv = document.getElementById('ff-acc-egp-status');
+    const btn = document.getElementById('ff-acc-use-egp-btn');
+    if (balance <= 0) {
+      ffAccUseEGP = false;
+      if (statusDiv) { statusDiv.textContent = 'ليس معك عملات'; statusDiv.style.color = '#e05555'; }
+      if (btn) { btn.style.background = 'rgba(0,180,216,.12)'; btn.textContent = 'استخدام EGP'; }
+      renderFFAccSummary();
+      return;
+    }
+    ffAccUseEGP = !ffAccUseEGP;
+    if (statusDiv) statusDiv.textContent = '';
+    if (btn) {
+      btn.style.background = ffAccUseEGP ? 'rgba(0,180,216,.35)' : 'rgba(0,180,216,.12)';
+      btn.textContent = ffAccUseEGP ? 'تم التفعيل ✅' : 'استخدام EGP';
+    }
+    renderFFAccSummary();
+  }
 
   function toggleFFAccAmt(card) {
     const key   = card.dataset.diamond + '_' + card.dataset.price;
@@ -4258,7 +4696,12 @@
       </div>`;
     }).join('');
     const total = keys.reduce((s,k) => s + ffAccCart[k].price * ffAccCart[k].qty, 0);
-    totDiv.innerHTML = `💰 السعر: ${total} جنيه`;
+    if (ffAccUseEGP && getUserBalance() > 0) {
+      const discounted = Math.max(total - getUserBalance(), 0);
+      totDiv.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">💰 ${total} جنيه</div><div>💰 السعر: ${discounted} جنيه</div>`;
+    } else {
+      totDiv.innerHTML = `💰 السعر: ${total} جنيه`;
+    }
   }
 
   function sendFFAccOrder() {
@@ -4276,7 +4719,8 @@
       const item = ffAccCart[k];
       return `• ${item.label} (${item.qty})`;
     }).join('\n');
-    const total = keys.reduce((s,k) => s + ffAccCart[k].price * ffAccCart[k].qty, 0);
+    const rawTotal = keys.reduce((s,k) => s + ffAccCart[k].price * ffAccCart[k].qty, 0);
+    const total = (ffAccUseEGP && getUserBalance() > 0) ? Math.max(rawTotal - getUserBalance(), 0) : rawTotal;
     const msg = `🔥 طلب شحن فري فاير (حساب)\n📧 الإيميل: ${user}\n🔑 الباسورد: ${pass}\n🔗 نوع الربط: ${link}\n💎 الطلب:\n${items}\n💰 السعر: ${total} جنيه\nالاسم: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
       const totalQty = keys.reduce((s,k) => s + ffAccCart[k].qty, 0);
@@ -4366,6 +4810,26 @@
   }
 
   let fifaCart = {};
+  let fifaUseEGP = false;
+  function toggleFifaUseEGP() {
+    const balance = getUserBalance();
+    const statusDiv = document.getElementById('fifa-egp-status');
+    const btn = document.getElementById('fifa-use-egp-btn');
+    if (balance <= 0) {
+      fifaUseEGP = false;
+      if (statusDiv) { statusDiv.textContent = 'ليس معك عملات'; statusDiv.style.color = '#e05555'; }
+      if (btn) { btn.style.background = 'rgba(111,207,58,.12)'; btn.textContent = 'استخدام EGP'; }
+      renderFifaSummary();
+      return;
+    }
+    fifaUseEGP = !fifaUseEGP;
+    if (statusDiv) statusDiv.textContent = '';
+    if (btn) {
+      btn.style.background = fifaUseEGP ? 'rgba(111,207,58,.35)' : 'rgba(111,207,58,.12)';
+      btn.textContent = fifaUseEGP ? 'تم التفعيل ✅' : 'استخدام EGP';
+    }
+    renderFifaSummary();
+  }
   function addFifaItem(card) {
     const amt   = parseInt(card.dataset.amt);
     const price = parseInt(card.dataset.price);
@@ -4445,17 +4909,23 @@
         </div>
       </div>`;
     }).join('');
-    totDiv.innerHTML = `💰 السعر: ${totalPrice} جنيه`;
+    if (fifaUseEGP && getUserBalance() > 0) {
+      const discounted = Math.max(totalPrice - getUserBalance(), 0);
+      totDiv.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">💰 ${totalPrice} جنيه</div><div>💰 السعر: ${discounted} جنيه</div>`;
+    } else {
+      totDiv.innerHTML = `💰 السعر: ${totalPrice} جنيه`;
+    }
   }
   function sendFifaCoinsOrder() {
     const user = document.getElementById('fifa-user').value.trim();
     const err  = document.getElementById('fifa-coins-error');
-    const { items, totalPrice } = getFifaSelections();
+    const { items, totalPrice: rawTotal } = getFifaSelections();
 
     if (!user) { err.textContent = '⚠️ اكتب الإيميل'; return; }
     if (items.length === 0) { err.textContent = '⚠️ اختار الكمية المطلوبة'; return; }
     err.textContent = '';
 
+    const totalPrice = (fifaUseEGP && getUserBalance() > 0) ? Math.max(rawTotal - getUserBalance(), 0) : rawTotal;
     const RLM = '\u200F';
     const itemsList = items.map(i => `${RLM}• ${i.label} (${i.qty})`).join('\n');
     const msg = `${RLM}⚽ طلب شحن فيفا\n${RLM}📧 الإيميل: ${user}\n${RLM}🪙 الطلب:\n${itemsList}\n${RLM}💰 السعر: ${totalPrice} جنيه\n${RLM}الاسم: ${getCustomerName()}`;
@@ -4572,10 +5042,6 @@
     const brawlWrap = document.getElementById('brawltabSelectWrap');
     if (brawlWrap && brawlWrap.classList.contains('open') && !brawlWrap.contains(e.target)) {
       brawlWrap.classList.remove('open');
-    }
-    const ordersWrap = document.getElementById('orderstabSelectWrap');
-    if (ordersWrap && ordersWrap.classList.contains('open') && !ordersWrap.contains(e.target)) {
-      ordersWrap.classList.remove('open');
     }
   });
 
@@ -5014,6 +5480,9 @@
     getDoc,
     setDoc,
     addDoc,
+    deleteDoc,
+    updateDoc,
+    increment,
     serverTimestamp,
     collection,
     query,
@@ -5092,14 +5561,99 @@
       }
 
       const userData = userSnap.data();
+      const navBackAdminBtn = document.getElementById('navBackAdmin');
       if (userData && userData.role === "admin") {
-        window.location.href = "admin.html";
+        if (navBackAdminBtn) navBackAdminBtn.style.display = 'flex';
+        // لو جاي من زرار "رجوع للموقع الاساسي" في لوحة الأدمن، منمنعش التحويل التلقائي ونسيبه يتصفح الموقع
+        if (sessionStorage.getItem('kc_adminStay') === '1') {
+          sessionStorage.removeItem('kc_adminStay');
+        } else {
+          window.location.href = "admin.html";
+        }
+      } else if (navBackAdminBtn) {
+        navBackAdminBtn.style.display = 'none';
       }
       // لو role مش admin، المستخدم يفضل في الموقع العادي (index.html) من غير أي تحويل
     } catch (err) {
       console.error("تعذر التحقق من صلاحية المستخدم:", err);
     }
   }
+
+  // ============ رصيد EGP الحقيقي للمستخدم — بيتحدث لايف من غير ريفريش لو الأدمن عدّل الرصيد من لوحة التحكم ============
+  let userBalanceUnsub = null;
+  function listenUserBalance(uid) {
+    if (userBalanceUnsub) { userBalanceUnsub(); userBalanceUnsub = null; }
+    userBalanceUnsub = onSnapshot(doc(db, 'users', uid), (snap) => {
+      const balance = (snap.exists() && typeof snap.data().balance === 'number') ? snap.data().balance : 0;
+      const settingsBalance = document.getElementById('settingsBalanceValue');
+      const balancePageValue = document.getElementById('balancePageValue');
+      if (settingsBalance) settingsBalance.textContent = balance + ' EGP';
+      if (balancePageValue) balancePageValue.textContent = balance;
+    }, (err) => {
+      console.error('تعذر تحميل رصيد المستخدم:', err);
+    });
+  }
+  function stopUserBalanceListener() {
+    if (userBalanceUnsub) { userBalanceUnsub(); userBalanceUnsub = null; }
+    const settingsBalance = document.getElementById('settingsBalanceValue');
+    const balancePageValue = document.getElementById('balancePageValue');
+    if (settingsBalance) settingsBalance.textContent = '0 EGP';
+    if (balancePageValue) balancePageValue.textContent = '0';
+  }
+
+  // ============ تطبيق كود استرداد رصيد EGP — الكود بييجي من لوحة الأدمن (مجموعة redemptionCodes) ============
+  // كل كود بيتضاف بمبلغ معين، ولما العميل يطبقه بيتضاف المبلغ لرصيده وبعدين الكود بيتمسح فورًا
+  // عشان يبقى صالح للاستخدام مرة واحدة بس ومينفعش حد يستخدمه تاني
+  window.applyRedeemCode = async function () {
+    const input = document.getElementById('balance-redeem-code');
+    const status = document.getElementById('balance-redeem-status');
+    if (!input || !status) return;
+    const code = input.value.trim().toUpperCase();
+
+    if (!code) {
+      status.textContent = 'اكتب الكود الأول';
+      status.style.color = '#e05555';
+      return;
+    }
+    const user = auth.currentUser;
+    if (!user) {
+      status.textContent = 'سجل دخولك الأول عشان تقدر تستخدم الكود';
+      status.style.color = '#e05555';
+      return;
+    }
+
+    status.textContent = 'جاري التحقق من الكود...';
+    status.style.color = 'var(--muted)';
+
+    try {
+      const codeRef = doc(db, 'redemptionCodes', code);
+      const codeSnap = await getDoc(codeRef);
+
+      if (!codeSnap.exists()) {
+        status.textContent = 'الكود ده مش صحيح أو اتستخدم قبل كده';
+        status.style.color = '#e05555';
+        return;
+      }
+
+      const amount = codeSnap.data().amount;
+      if (!amount || amount <= 0) {
+        status.textContent = 'حصلت مشكلة في الكود ده، جرب كود تاني';
+        status.style.color = '#e05555';
+        return;
+      }
+
+      await updateDoc(doc(db, 'users', user.uid), { balance: increment(amount) });
+      await deleteDoc(codeRef);
+
+      status.textContent = `تم! اتضاف ${amount} EGP لرصيدك ✅`;
+      status.style.color = '#6fcf3a';
+      input.value = '';
+    } catch (err) {
+      console.error('تعذر تطبيق كود الاسترداد:', err);
+      status.textContent = 'حصلت مشكلة أثناء تطبيق الكود، حاول تاني';
+      status.style.color = '#e05555';
+    }
+  };
 
   function setStatus(msg, type) {
     const el = document.getElementById('loginStatusMsg');
@@ -5206,7 +5760,7 @@
   window.stopOrdersListener = function () {
     if (ordersUnsub) { ordersUnsub(); ordersUnsub = null; }
   };
-  window.loadUserOrders = function (tab) {
+  window.loadUserOrders = function () {
     const container = document.getElementById('ordersListContainer');
     if (!container) return;
     const user = auth.currentUser;
@@ -5228,11 +5782,11 @@
       const q = query(ordersRef, where('uid', '==', user.uid));
 
       ordersUnsub = onSnapshot(q, (snap) => {
-        // تبويب "قيد الانتظار" بيشمل حالتين من عند الأدمن (new + pending)، وتبويب "المكتملة" بيشمل done بس
+        // بنعرض الطلبات اللي لسه قيد الانتظار بس (new أو pending) — الطلبات المكتملة (done) اتشالت من الموقع الأساسي
         const docs = snap.docs
           .filter((docSnap) => {
             const st = docSnap.data().status || 'new';
-            return tab === 'completed' ? st === 'done' : (st === 'new' || st === 'pending');
+            return st === 'new' || st === 'pending';
           })
           .sort((a, b) => {
             // لو createdAt لسه معلقة (لحظة إرسال الطلب) بنعتبرها دلوقتي عشان تفضل فوق
@@ -5242,8 +5796,7 @@
           });
 
         if (docs.length === 0) {
-          const emptyMsg = tab === 'completed' ? 'مفيش طلبات مكتملة لسه' : 'مفيش طلبات قيد الانتظار حالياً';
-          container.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;padding:40px 20px;color:var(--muted);font-size:.9rem;text-align:center;">${emptyMsg}</div>`;
+          container.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;padding:40px 20px;color:var(--muted);font-size:.9rem;text-align:center;">مفيش طلبات قيد الانتظار حالياً</div>';
           return;
         }
         container.innerHTML = '';
@@ -5518,6 +6071,9 @@
 
       // التحقق من الـ role وتوجيه الأدمن لصفحة admin.html تلقائياً
       checkUserRoleAndRedirect(user);
+
+      // تشغيل بث رصيد EGP الحقيقي بتاع المستخدم ده (لايف من غير ريفريش)
+      listenUserBalance(user.uid);
     } else {
       window.isLoggedIn = false;
       if (btnText) { btnText.style.display = ''; btnText.textContent = 'سجل دخول'; }
@@ -5529,6 +6085,7 @@
       if (accountView) accountView.style.display = 'none';
       if (settingsIcon) settingsIcon.innerHTML = userIconSvgLarge;
       if (settingsName) settingsName.textContent = 'سجل دخول';
+      stopUserBalanceListener();
     }
 
     // نظهر زرار الدخول بس بعد ما نتأكد من الحالة الحقيقية (مسجل ولا لأ)
@@ -5546,6 +6103,7 @@
     settingsPage: 'closeSettingsPage',
     editAccountPage: 'closeEditAccountPage',
     ordersPage: 'closeOrdersPage',
+    balancePage: 'closeBalancePage',
     brawlPage: 'closeBrawl',
     pesPage: 'closePes',
     visaPage: 'closeVisa',

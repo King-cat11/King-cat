@@ -4,25 +4,32 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>King&amp;cat - لوحة التحكم</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Bebas+Neue&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Bebas+Neue&family=Cinzel:wght@600;700;800&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet" />
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   html, body { -webkit-tap-highlight-color: transparent; }
-  a, button, [onclick] { -webkit-tap-highlight-color: transparent; outline: none; }
+  a, button, [onclick] { -webkit-tap-highlight-color: transparent; outline: none; touch-action: manipulation; }
 
   :root {
-    --sky-top: #020a16;
-    --sky-mid: #03142c;
-    --black:   linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 100%);
+    --black:
+      radial-gradient(circle at 85% 15%, rgba(255,45,120,.28) 0%, transparent 62%),
+      radial-gradient(circle at 90% 85%, rgba(96,165,250,.30) 0%, transparent 60%),
+      radial-gradient(circle at 10% 85%, rgba(255,45,120,.24) 0%, transparent 60%),
+      radial-gradient(circle at 15% 10%, rgba(96,165,250,.26) 0%, transparent 60%),
+      radial-gradient(circle at 50% 50%, rgba(255,45,120,.12) 0%, transparent 70%),
+      #0b1220;
     --white:   #f5f3ee;
     --blue:    #2563eb;
     --blue-lt: #60a5fa;
+    --pink:    #ff2d78;
+    --pink-lt: #ff9dc6;
+    --cream:   #f3e6c8;
     --gray:    #2a2a2a;
     --muted:   #888;
     --radius:  12px;
   }
 
-  html { scroll-behavior: smooth; background: var(--sky-mid); }
+  html { scroll-behavior: smooth; background: #0b1220; }
 
   body {
     background: var(--black);
@@ -45,9 +52,9 @@
     justify-content: space-between;
     padding: 0 5%;
     height: 70px;
-    background: rgba(13,13,13,.92);
+    background: linear-gradient(120deg, rgba(11,18,32,.94) 0%, rgba(30,15,35,.94) 50%, rgba(11,18,32,.94) 100%);
     backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(37,99,235,.18);
+    border-bottom: 1px solid rgba(255,45,120,.35);
   }
   .hamburger {
     display: flex;
@@ -62,7 +69,7 @@
     display: block;
     width: 26px;
     height: 2px;
-    background: var(--blue);
+    background: var(--pink);
     border-radius: 2px;
     transition: transform .3s, opacity .3s;
   }
@@ -74,18 +81,27 @@
     margin-inline-start: 14px;
   }
   .header-title .name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.5rem;
-    letter-spacing: .06em;
-    color: var(--white);
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 1.4rem;
+    letter-spacing: .04em;
+    color: var(--cream);
   }
-  .header-title .name span { color: var(--blue-lt); }
+  .header-title .name .amp {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 700;
+    font-size: 1.25em;
+    color: var(--pink);
+    display: inline-block;
+    margin: 0 3px;
+  }
   .header-title .badge {
     font-size: .68rem;
     font-weight: 800;
-    color: var(--blue-lt);
-    background: rgba(96,165,250,.12);
-    border: 1px solid rgba(96,165,250,.35);
+    color: var(--pink-lt);
+    background: rgba(255,45,120,.12);
+    border: 1px solid rgba(255,45,120,.35);
     border-radius: 20px;
     padding: 3px 10px;
     margin-inline-start: 10px;
@@ -93,10 +109,10 @@
   .header-admin-icon {
     width: 38px; height: 38px;
     border-radius: 50%;
-    background: rgba(96,165,250,.12);
-    border: 1.5px solid rgba(96,165,250,.4);
+    background: rgba(255,45,120,.12);
+    border: 1.5px solid rgba(255,45,120,.4);
     display: flex; align-items: center; justify-content: center;
-    color: var(--blue-lt);
+    color: var(--pink-lt);
     font-weight: 900;
     font-size: .9rem;
     flex-shrink: 0;
@@ -121,12 +137,12 @@
     width: 72%;
     max-width: 320px;
     background: #0d0d0d;
-    border-left: 1px solid rgba(37,99,235,.25);
+    border-left: 1px solid rgba(255,45,120,.25);
     box-shadow: -8px 0 32px rgba(0,0,0,.9);
     display: flex;
     flex-direction: column;
     gap: 0;
-    padding: 24px 0 20px;
+    padding: 0 0 20px;
     z-index: 1001;
     transform: translateX(100%);
     transition: transform .32s cubic-bezier(.4,0,.2,1);
@@ -137,8 +153,8 @@
     top: 20px; left: 20px;
     width: 34px; height: 34px;
     display: flex; align-items: center; justify-content: center;
-    background: rgba(37,99,235,.1);
-    border: 1px solid rgba(37,99,235,.25);
+    background: rgba(255,45,120,.1);
+    border: 1px solid rgba(255,45,120,.25);
     border-radius: 50%;
     color: var(--white);
     font-size: 1.1rem;
@@ -150,23 +166,23 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    padding: 30px 8% 22px;
+    padding: 54px 8% 22px;
     text-align: center;
-    background: rgba(96,165,250,.07);
-    border-bottom: 1px solid rgba(96,165,250,.2);
+    background: rgba(255,45,120,.07);
+    border-bottom: 1px solid rgba(255,45,120,.2);
   }
   .nav-profile-icon {
     width: 52px; height: 52px;
     border-radius: 50%;
-    background: rgba(96,165,250,.15);
-    border: 1.5px solid rgba(96,165,250,.5);
-    color: var(--blue-lt);
+    background: rgba(255,45,120,.15);
+    border: 1.5px solid rgba(255,45,120,.5);
+    color: var(--pink-lt);
     display: flex; align-items: center; justify-content: center;
     font-size: 1.2rem;
     font-weight: 900;
   }
   .nav-menu-profile .nav-profile-text {
-    color: var(--blue-lt);
+    color: var(--pink-lt);
     font-weight: 800;
     font-size: .92rem;
   }
@@ -185,20 +201,23 @@
     text-decoration: none;
     font-weight: 700;
     font-size: .95rem;
-    border-bottom: 1px solid rgba(37,99,235,.1);
+    border-bottom: 1px solid rgba(255,45,120,.1);
     transition: color .2s, background .2s;
     cursor: pointer;
   }
   .nav-menu a .ic { font-size: 1.1rem; width: 22px; text-align: center; }
-  .nav-menu a:hover, .nav-menu a.active { color: var(--blue-lt); background: rgba(37,99,235,.08); }
+  .nav-menu a:hover, .nav-menu a.active { color: var(--pink-lt); background: rgba(255,45,120,.08); }
   .nav-menu a.logout { color: #e05555; margin-top: auto; }
   .nav-menu a.logout:hover { background: rgba(224,85,85,.08); }
 
   /* ── MAIN ── */
   main {
-    padding: 100px 5% 60px;
+    padding: 100px 5% 110px;
     min-height: 100vh;
   }
+  /* الهيدر يفضل ظاهر بس في صفحة الرئيسية */
+  body.no-header header { display: none; }
+  body.no-header main { padding-top: 24px; }
 
   .page-head { margin-bottom: 26px; }
   .page-head .eyebrow {
@@ -207,6 +226,22 @@
     font-weight: 800;
     margin-bottom: 6px;
   }
+  .eyebrow.roblox-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 1.6rem;
+    letter-spacing: .04em;
+    color: var(--cream);
+  }
+  .rp-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 26px;
+  }
+  .rp-header-row .back-btn { margin: 0; }
+  .rp-header-row .eyebrow.roblox-eyebrow { margin: 0; }
   .page-head h1 {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 2.1rem;
@@ -222,39 +257,70 @@
   /* stat cards */
   .stats-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
     margin-bottom: 30px;
   }
   .stat-card {
     background: #141414;
     border: 1px solid rgba(37,99,235,.2);
-    border-radius: var(--radius);
-    padding: 16px;
+    border-radius: 10px;
+    padding: 10px 8px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 5px;
   }
   .stat-card .stat-icon {
-    width: 36px; height: 36px;
-    border-radius: 9px;
+    width: 28px; height: 28px;
+    border-radius: 7px;
     background: rgba(37,99,235,.12);
     border: 1px solid rgba(37,99,235,.3);
     display: flex; align-items: center; justify-content: center;
-    font-size: 1rem;
+    font-size: .8rem;
     color: var(--blue-lt);
   }
   .stat-card .stat-value {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.7rem;
+    font-size: 1.3rem;
     color: var(--white);
     letter-spacing: .03em;
   }
   .stat-card .stat-label {
     color: var(--muted);
-    font-size: .78rem;
+    font-size: .66rem;
     font-weight: 600;
+    line-height: 1.3;
   }
+
+  /* ── ROBUX CALC PAGE (أدمن بس، مش بيروح للموقع الأساسي) ── */
+  .robux-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .robux-stats-grid .stat-card {
+    cursor: pointer;
+    padding: 10px 8px;
+    gap: 6px;
+    background: #141414;
+    border-color: rgba(255,45,120,.35);
+    transition: border-color .2s, transform .2s;
+  }
+  .robux-stats-grid .stat-card:hover { border-color: #ff2d78; transform: translateY(-2px); }
+  .robux-stats-grid .stat-card .stat-icon {
+    width: 26px; height: 26px;
+    border-radius: 7px;
+    background: rgba(255,45,120,.15);
+    border-color: rgba(255,45,120,.4);
+    color: #ff2d78;
+    font-size: .75rem;
+  }
+  .robux-stats-grid .stat-card .stat-value {
+    font-size: 1.15rem;
+    color: #ff2d78;
+  }
+  #robuxCard-withdrawnPrice { cursor: default; }
+  #robuxCard-withdrawnPrice:hover { border-color: rgba(255,45,120,.35); transform: none; }
 
   /* section title */
   .section-title {
@@ -270,6 +336,21 @@
     width: 8px; height: 8px;
     border-radius: 50%;
     background: var(--blue-lt);
+  }
+
+  /* الصفحة الرئيسية بس — أي حاجة كانت زرقاء تتحول وردي */
+  #dashboard .stat-card { border-color: rgba(255,45,120,.2); }
+  #dashboard .stat-card .stat-icon {
+    background: rgba(255,45,120,.12);
+    border-color: rgba(255,45,120,.3);
+    color: var(--pink-lt);
+  }
+  #dashboard .section-title .dot { background: var(--pink-lt); }
+  #dashboard .admin-card:hover { border-color: var(--pink); }
+  #dashboard .admin-card .ac-icon {
+    background: rgba(255,45,120,.12);
+    border-color: rgba(255,45,120,.3);
+    color: var(--pink-lt);
   }
 
   /* quick action cards (sections of the admin) */
@@ -302,6 +383,11 @@
   }
   .admin-card .ac-title { font-weight: 800; font-size: .92rem; color: var(--white); }
   .admin-card .ac-desc { font-size: .76rem; color: var(--muted); line-height: 1.5; }
+  .admin-card.admin-card-row { flex-direction: row; align-items: center; }
+  .admin-card.admin-card-row .ac-title { font-size: 1rem; }
+  .admin-card.admin-card-compact { padding: 12px 10px; gap: 6px; align-items: center; }
+  .admin-card.admin-card-compact .ac-icon { width: 32px; height: 32px; font-size: 1rem; border-radius: 8px; }
+  .admin-card.admin-card-compact .ac-title { font-size: .82rem; text-align: center; }
 
   .admin-card.orders-card { cursor: default; margin-bottom: 12px; }
   .admin-card.orders-card:hover { border-color: rgba(255,255,255,.08); transform: none; }
@@ -333,8 +419,9 @@
     transition: background .2s, color .2s;
     user-select: none;
   }
-  .orders-tab.active { background: rgba(37,99,235,.16); color: var(--blue-lt); }
+  .orders-tab.active { background: rgba(255,45,120,.16); color: var(--pink-lt); }
   .orders-tab:hover:not(.active) { color: #ccc; }
+  .add-order-tab:hover { background: rgba(255,45,120,.28); color: var(--pink-lt); }
 
   /* recent orders placeholder table */
   .table-wrap {
@@ -374,8 +461,8 @@
   .o-action-btn.done.active    { background: rgba(111,207,58,.25); }
   .o-action-btn.pending { color: #f4a100; border: 1px solid rgba(244,161,0,.35); background: rgba(244,161,0,.06); }
   .o-action-btn.pending.active { background: rgba(244,161,0,.25); }
-  .o-action-btn.cancel  { color: #e05555; border: 1px solid rgba(224,85,85,.35); background: rgba(224,85,85,.06); }
-  .o-action-btn.cancel:hover  { background: rgba(224,85,85,.2); }
+  .o-action-btn.cancel  { color: var(--pink); border: 1px solid rgba(255,45,120,.35); background: rgba(255,45,120,.06); }
+  .o-action-btn.cancel:hover  { background: rgba(255,45,120,.2); }
 
   .order-date-row {
     display: flex;
@@ -416,26 +503,44 @@
     margin-bottom: 14px;
   }
   .back-btn:hover { background: rgba(37,99,235,.22); }
-
-  .add-order-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    width: 100%;
-    background: rgba(37,99,235,.12);
-    border: 1.5px dashed rgba(37,99,235,.4);
-    color: var(--blue-lt);
-    font-family: 'Cairo', sans-serif;
-    font-weight: 800;
-    font-size: .85rem;
-    padding: 12px;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-bottom: 16px;
-    transition: background .2s;
+  #robloxPricingPage .back-btn {
+    background: rgba(255,45,120,.12);
+    border-color: rgba(255,45,120,.3);
+    color: #ff2d78;
   }
-  .add-order-btn:hover { background: rgba(37,99,235,.22); }
+  #robloxPricingPage .back-btn:hover { background: rgba(255,45,120,.22); }
+  #pricingPage .back-btn {
+    background: rgba(255,45,120,.12);
+    border-color: rgba(255,45,120,.3);
+    color: #ff2d78;
+  }
+  #pricingPage .back-btn:hover { background: rgba(255,45,120,.22); }
+  #pricingPage .admin-card:hover { border-color: #ff2d78; }
+  #pricingPage .admin-card .ac-icon {
+    background: rgba(255,45,120,.12);
+    border-color: rgba(255,45,120,.3);
+    color: #ff2d78;
+  }
+  #ordersPage .back-btn {
+    background: rgba(255,45,120,.12);
+    border-color: rgba(255,45,120,.3);
+    color: #ff2d78;
+  }
+  #ordersPage .back-btn:hover { background: rgba(255,45,120,.22); }
+
+  #currencyPage .back-btn {
+    background: rgba(255,45,120,.12);
+    border-color: rgba(255,45,120,.3);
+    color: #ff2d78;
+  }
+  #currencyPage .back-btn:hover { background: rgba(255,45,120,.22); }
+  #currencyPage .stat-card { border-color: rgba(255,45,120,.2); }
+  #currencyPage .stat-card .stat-icon {
+    background: rgba(255,45,120,.12);
+    border-color: rgba(255,45,120,.3);
+    color: #ff2d78;
+  }
+  #currencyPage .oinput:focus { border-color: #ff2d78; }
 
   .order-top-row {
     display: flex;
@@ -466,9 +571,9 @@
   .date-filter-row .o-date-input { flex: 1; }
   .date-filter-clear {
     flex-shrink: 0;
-    background: rgba(37,99,235,.12);
-    border: 1px solid rgba(37,99,235,.3);
-    color: var(--blue-lt);
+    background: rgba(255,45,120,.12);
+    border: 1px solid rgba(255,45,120,.3);
+    color: #ff2d78;
     font-family: 'Cairo', sans-serif;
     font-weight: 800;
     font-size: .78rem;
@@ -477,7 +582,7 @@
     cursor: pointer;
     white-space: nowrap;
   }
-  .date-filter-clear:hover { background: rgba(37,99,235,.22); }
+  .date-filter-clear:hover { background: rgba(255,45,120,.22); }
 
   .o-due-badge {
     display: inline-flex;
@@ -558,6 +663,10 @@
   }
   .oinput:focus { border-color: var(--blue-lt); }
   .oinput::placeholder { color: #555; }
+  #robuxEditOverlay .oinput:focus { border-color: #ff2d78; }
+  #robloxPricingPage .oinput:focus { border-color: #ff2d78; }
+  #manualOrderOverlay .oinput:focus { border-color: #ff2d78; }
+  #manualOrderOverlay .login-submit-btn { background: #ff2d78; }
   .login-submit-btn {
     display: flex;
     align-items: center;
@@ -600,6 +709,7 @@
   }
   .price-row .amt-input   { flex: .85 1 0; }
   .price-row .price-input { flex: .85 1 0; }
+  .price-row .egp-input   { flex: .7 1 0; }
   .price-row .label-input { flex: 1.15 1 0; text-align: right; }
   .price-row .custom-check {
     display: flex; flex-direction: column; align-items: center; gap: 1px;
@@ -607,6 +717,25 @@
     flex-shrink: 0; white-space: nowrap; width: 30px;
   }
   .price-row .custom-check input { width: 13px; height: 13px; flex-shrink: 0; }
+  #robloxPricingPage .custom-check input { accent-color: #ff2d78; }
+  .price-cols-head {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 6px 5px;
+  }
+  .price-cols-head span {
+    font-size: .62rem;
+    font-weight: 800;
+    color: var(--muted);
+    text-align: center;
+  }
+  .price-cols-head .amt-col   { flex: .85 1 0; }
+  .price-cols-head .price-col { flex: .85 1 0; }
+  .price-cols-head .egp-col   { flex: .7 1 0; }
+  .price-cols-head .label-col { flex: 1.15 1 0; text-align: right; }
+  .price-cols-head .spacer-check  { flex-shrink: 0; width: 30px; }
+  .price-cols-head .spacer-remove { flex-shrink: 0; width: 26px; }
 
   /* ── ACCORDION PRICE SECTIONS (iOS grouped-list style) ── */
   .price-section {
@@ -615,6 +744,7 @@
     border: 1px solid rgba(255,255,255,.08);
     border-radius: var(--radius);
     overflow: hidden;
+    contain: layout style;
   }
   .price-section-head {
     display: flex;
@@ -626,19 +756,18 @@
   }
   .price-section-head-title { font-weight: 800; font-size: .95rem; color: var(--white); display: flex; align-items: center; gap: 8px; }
   .price-section-count {
-    font-size: .7rem; font-weight: 800; color: var(--blue-lt);
-    background: rgba(96,165,250,.12); border: 1px solid rgba(96,165,250,.3);
+    font-size: .7rem; font-weight: 800; color: var(--pink-lt);
+    background: rgba(255,45,120,.12); border: 1px solid rgba(255,45,120,.3);
     border-radius: 20px; padding: 2px 9px; margin-inline-start: 4px;
   }
-  .price-section-chevron { color: var(--blue-lt); font-size: .75rem; transition: transform .25s ease; flex-shrink: 0; }
+  .price-section-chevron { color: var(--pink-lt); font-size: .75rem; flex-shrink: 0; }
   .price-section.open .price-section-chevron { transform: rotate(180deg); }
   .price-section-body {
-    max-height: 0;
+    height: 0;
     overflow: hidden;
-    transition: max-height .3s ease;
+    visibility: hidden;
   }
   .price-section-body-inner { padding: 0 16px 16px; }
-  .price-section.open .price-section-body { max-height: 3000px; }
   .remove-row-btn {
     flex-shrink: 0;
     width: 26px; height: 26px;
@@ -700,8 +829,7 @@
     background: var(--black);
   }
   @media (min-width: 481px) {
-    html { background: #000; }
-    body { background: #000; }
+    html { background: #0b1220; }
     .phone-frame {
       box-shadow: 0 0 0 1px rgba(96,165,250,.15), 0 30px 90px rgba(0,0,0,.85);
     }
@@ -733,7 +861,7 @@
     <span></span><span></span><span></span>
   </button>
   <div class="header-title">
-    <span class="name">King<span>&amp;cat</span></span>
+    <span class="name">King<span class="amp">&amp;</span>Cat</span>
     <span class="badge">أدمن</span>
   </div>
   <div class="header-admin-icon">A</div>
@@ -748,89 +876,90 @@
     <span class="nav-profile-text">حساب الأدمن</span>
     <span class="nav-profile-sub">admin@kingcat.com</span>
   </div>
-  <a href="javascript:void(0)" style="border-bottom:1px solid rgba(37,99,235,.1);"><span class="ic">⚙️</span> الإعدادات</a>
   <div class="nav-menu-links">
     <a href="javascript:void(0)" class="active" id="navHome" onclick="showDashboard()"><span class="ic">🏠</span> الرئيسية</a>
-    <a href="javascript:void(0)" id="navOrders" onclick="showOrdersPage()"><span class="ic">🧾</span> الطلبات</a>
-    <a href="javascript:void(0)" id="navPricing" onclick="showPricingPage()"><span class="ic">🎮</span> المنتجات والأسعار</a>
+    <a href="javascript:void(0)" id="navBackSite" onclick="sessionStorage.setItem('kc_adminStay','1'); window.location.href='index.html';"><span class="ic">↩️</span> رجوع للموقع الاساسي</a>
     <a href="javascript:void(0)" class="logout" onclick="adminLogout()"><span class="ic">🚪</span> تسجيل الخروج</a>
   </div>
 </nav>
 
 <!-- ============ MAIN DASHBOARD (شكل فقط) ============ -->
 <main id="dashboard">
-  <div class="page-head">
-    <div class="eyebrow">أهلاً بيك</div>
-    <h1>لوحة التحكم</h1>
-    <p>نظرة سريعة على حالة الموقع دلوقتي</p>
-  </div>
-
   <div class="stats-grid">
     <div class="stat-card">
-      <div class="stat-icon">🧾</div>
-      <div class="stat-value" id="statTotalOrders">—</div>
-      <div class="stat-label">إجمالي الطلبات</div>
+      <div class="stat-icon">🪙</div>
+      <div class="stat-value" id="statRemainingRobux">—</div>
+      <div class="stat-label">إجمالي الروب المتبقي</div>
     </div>
     <div class="stat-card">
-      <div class="stat-icon">⏳</div>
+      <div class="stat-icon">🧾</div>
       <div class="stat-value" id="statPendingOrders">—</div>
-      <div class="stat-label">طلبات قيد الانتظار</div>
+      <div class="stat-label">طلبات</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">💰</div>
+      <div class="stat-value" id="statTotalCurrency">—</div>
+      <div class="stat-label">إجمالي العملات EGP</div>
     </div>
   </div>
 
-  <div class="section-title"><span class="dot"></span> أقسام التحكم</div>
+  <div class="section-title"><span class="dot"></span> لوحة عناصر التحكم</div>
 
-  <div class="cards-grid">
-    <div class="admin-card" onclick="showOrdersPage()">
+  <div class="cards-grid" style="grid-template-columns:repeat(3,1fr);">
+    <div class="admin-card admin-card-compact" onclick="showRobuxCalcPage()">
+      <div class="ac-icon">🪙</div>
+      <div class="ac-title">حساباتي</div>
+    </div>
+    <div class="admin-card admin-card-compact" onclick="showOrdersPage()">
       <div class="ac-icon">🧾</div>
       <div class="ac-title">الطلبات</div>
-      <div class="ac-desc">هنا بتوصلك كل الطلبات الجديدة</div>
     </div>
-    <div class="admin-card" onclick="showPricingPage()">
+    <div class="admin-card admin-card-compact" onclick="showPricingPage()">
       <div class="ac-icon">🎮</div>
-      <div class="ac-title">المنتجات والأسعار</div>
-      <div class="ac-desc">تعديل أسعار الألعاب والكروت</div>
+      <div class="ac-title">الألعاب</div>
     </div>
-    <div class="admin-card" onclick="showBonusCodesPage()">
-      <div class="ac-icon">🏷️</div>
-      <div class="ac-title">أكواد الزيادة</div>
-      <div class="ac-desc">تحكم في أكواد زيادة الروب بتاعة الكوميونتي</div>
+    <div class="admin-card admin-card-compact" onclick="showCurrencyPage()">
+      <div class="ac-icon">💰</div>
+      <div class="ac-title">العملات</div>
     </div>
   </div>
 </main>
 
 <!-- ============ صفحة الألعاب (كروت الألعاب) ============ -->
 <main id="pricingPage" style="display:none;">
-  <button class="back-btn" onclick="showDashboard()">→ رجوع للرئيسية</button>
-  <div class="page-head">
-    <div class="eyebrow">إدارة</div>
-    <h1>المنتجات والأسعار</h1>
-    <p>اختار اللعبة اللي عايز تعدل أسعارها</p>
+  <div class="rp-header-row">
+    <button class="back-btn" onclick="showDashboard()">→ Back</button>
+    <div class="eyebrow roblox-eyebrow">Games</div>
   </div>
-  <div class="cards-grid">
-    <div class="admin-card" onclick="showRobloxPricing()">
+  <div class="cards-grid" style="grid-template-columns:1fr;">
+    <div class="admin-card admin-card-row" onclick="showRobloxPricing()">
       <div class="ac-icon">🎮</div>
       <div class="ac-title">روبلكس</div>
-      <div class="ac-desc">تعديل أسعار كل طريقة شحن لوحدها</div>
     </div>
   </div>
 </main>
 
 <!-- ============ صفحة أسعار روبلكس ============ -->
 <main id="robloxPricingPage" style="display:none;">
-  <button class="back-btn" onclick="showPricingPage()">→ رجوع للألعاب</button>
-  <div class="page-head">
-    <div class="eyebrow">روبلكس</div>
-    <h1>تعديل أسعار روبلكس</h1>
-    <p>كل طريقة شحن ليها الأسعار بتاعتها لوحدها، عدّل زي ما تحب وابعت "حفظ" في الآخر</p>
+  <div class="rp-header-row">
+    <button class="back-btn" onclick="showPricingPage()">→ Back</button>
+    <div class="eyebrow roblox-eyebrow">Roblox</div>
   </div>
 
-  <div id="rp-sec-acc" class="price-section open">
+  <div id="rp-sec-acc" class="price-section">
     <div class="price-section-head" onclick="togglePriceSection('acc')">
       <div class="price-section-head-title">📱 داخل الحساب <span class="price-section-count" id="count-acc"></span></div>
       <span class="price-section-chevron">▾</span>
     </div>
     <div class="price-section-body"><div class="price-section-body-inner">
+      <div class="price-cols-head">
+        <span class="amt-col">روبكس</span>
+        <span class="label-col">الاسم</span>
+        <span class="price-col">السعر</span>
+        <span class="egp-col">EGP</span>
+        <span class="spacer-check"></span>
+        <span class="spacer-remove"></span>
+      </div>
       <div class="price-rows" id="rows-acc"></div>
       <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('acc')">➕ إضافة سعر جديد</button>
     </div></div>
@@ -842,6 +971,12 @@
       <span class="price-section-chevron">▾</span>
     </div>
     <div class="price-section-body"><div class="price-section-body-inner">
+      <div class="price-cols-head">
+        <span class="amt-col">روبكس</span>
+        <span class="price-col">السعر</span>
+        <span class="egp-col">EGP</span>
+        <span class="spacer-remove"></span>
+      </div>
       <div class="price-rows" id="rows-comFawri"></div>
       <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('comFawri')">➕ إضافة سعر جديد</button>
     </div></div>
@@ -853,6 +988,12 @@
       <span class="price-section-chevron">▾</span>
     </div>
     <div class="price-section-body"><div class="price-section-body-inner">
+      <div class="price-cols-head">
+        <span class="amt-col">روبكس</span>
+        <span class="price-col">السعر</span>
+        <span class="egp-col">EGP</span>
+        <span class="spacer-remove"></span>
+      </div>
       <div class="price-rows" id="rows-comHagz"></div>
       <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('comHagz')">➕ إضافة سعر جديد</button>
     </div></div>
@@ -864,46 +1005,110 @@
       <span class="price-section-chevron">▾</span>
     </div>
     <div class="price-section-body"><div class="price-section-body-inner">
+      <div class="price-cols-head">
+        <span class="amt-col">USD</span>
+        <span class="price-col">السعر</span>
+        <span class="egp-col">EGP</span>
+        <span class="spacer-remove"></span>
+      </div>
       <div class="price-rows" id="rows-giftcard"></div>
       <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('giftcard')">➕ إضافة سعر جديد</button>
     </div></div>
   </div>
 
-  <div id="robloxPricingStatus" class="login-status" style="margin-top:14px;"></div>
-  <button class="login-submit-btn" style="margin-top:6px;" onclick="saveRobloxPricing()">💾 حفظ كل التعديلات</button>
-</main>
-
-<!-- ============ صفحة أكواد الزيادة ============ -->
-<main id="bonusCodesPage" style="display:none;">
-  <button class="back-btn" onclick="showDashboard()">→ رجوع للرئيسية</button>
-  <div class="page-head">
-    <div class="eyebrow">إدارة</div>
-    <h1>أكواد الزيادة</h1>
-    <p>ضيف كود جديد وحدد نسبة الروب الزيادة بتاعته، والكود يشتغل على طول في قسم الكوميونتي بالموقع الأساسي بعد الحفظ</p>
+  <div id="rp-sec-bonusCodes" class="price-section">
+    <div class="price-section-head" onclick="togglePriceSection('bonusCodes')">
+      <div class="price-section-head-title">🏷️ أكواد الزيادة <span class="price-section-count" id="count-bonusCodes"></span></div>
+      <span class="price-section-chevron">▾</span>
+    </div>
+    <div class="price-section-body"><div class="price-section-body-inner">
+      <div class="price-rows" id="rows-bonusCodes"></div>
+      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addBonusCodeRow()">➕ إضافة كود جديد</button>
+    </div></div>
   </div>
 
-  <div class="price-rows" id="rows-bonusCodes"></div>
-  <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="addBonusCodeRow()">➕ إضافة كود جديد</button>
-
-  <div id="bonusCodesStatus" class="login-status" style="margin-top:14px;"></div>
-  <button class="login-submit-btn" style="margin-top:6px;" onclick="saveBonusCodes()">💾 حفظ كل الأكواد</button>
+  <div id="robloxPricingStatus" class="login-status" style="margin-top:14px;"></div>
+  <button class="login-submit-btn" style="margin-top:6px;background:#ff2d78;" onclick="saveRobloxPricing()">💾 حفظ كل التعديلات</button>
 </main>
 
-<!-- ============ صفحة الطلبات (بال3 خانات: طلبات / قيد الانتظار / تم) ============ -->
-<main id="ordersPage" style="display:none;">
-  <button class="back-btn" onclick="showDashboard()">→ رجوع للرئيسية</button>
+<!-- ============ صفحة حسبة الروبوكس (أدمن بس) ============ -->
+<main id="robuxCalcPage" style="display:none;">
+  <div class="rp-header-row">
+    <button class="back-btn" style="background:rgba(255,45,120,.12);border-color:rgba(255,45,120,.35);color:#ff2d78;" onclick="showDashboard()">→ Back</button>
+    <div class="eyebrow roblox-eyebrow">Accounts</div>
+  </div>
 
-  <button class="add-order-btn" onclick="openManualOrderModal()">➕ إضافة طلب يدوي (عميل مش مسجل)</button>
+  <div class="stats-grid robux-stats-grid">
+    <div class="stat-card" onclick="openRobuxEdit('priceThousand','سعر الالف')">
+      <div class="stat-icon">💵</div>
+      <div class="stat-value" id="robuxVal-priceThousand">—</div>
+      <div class="stat-label">سعر الألف</div>
+    </div>
+    <div class="stat-card" onclick="openRobuxEdit('bought','الكمية الأساسية')">
+      <div class="stat-icon">🛒</div>
+      <div class="stat-value" id="robuxVal-bought">—</div>
+      <div class="stat-label">الكمية الأساسية</div>
+    </div>
+    <div class="stat-card" onclick="openRobuxEdit('remaining','الكمية المتبقية')">
+      <div class="stat-icon">📦</div>
+      <div class="stat-value" id="robuxVal-remaining">—</div>
+      <div class="stat-label">الكمية المتبقية</div>
+    </div>
+    <div class="stat-card" id="robuxCard-withdrawnPrice">
+      <div class="stat-icon">📤</div>
+      <div class="stat-value" id="robuxVal-withdrawnPrice">—</div>
+      <div class="stat-label">سعر السحب</div>
+    </div>
+  </div>
+</main>
+
+<!-- ============ صفحة العملات (رصيد كل الزباين وإجمالي العملات) ============ -->
+<main id="currencyPage" style="display:none;">
+  <div class="rp-header-row">
+    <button class="back-btn" onclick="showDashboard()">→ Back</button>
+    <div class="eyebrow roblox-eyebrow">Currency</div>
+  </div>
+
+  <div class="stats-grid" style="grid-template-columns:1fr;margin-bottom:18px;">
+    <div class="stat-card">
+      <div class="stat-icon">💰</div>
+      <div class="stat-value" id="currencyTotalValue">—</div>
+      <div class="stat-label">إجمالي العملات (كل الزباين) EGP</div>
+    </div>
+  </div>
+
+  <div class="table-wrap" id="currencyUsersWrap"></div>
+  <p id="currencyEmptyMsg" style="display:none;text-align:center;color:var(--muted);font-size:.85rem;padding:20px;">مفيش مستخدمين مسجلين لسه</p>
+
+  <div class="price-section" style="margin-top:22px;">
+    <div class="price-section-head" onclick="toggleRedemptionSection()">
+      <div class="price-section-head-title">🎟️ أكواد الاسترداد <span class="price-section-count" id="count-redemptionCodes"></span></div>
+      <span class="price-section-chevron" id="redemptionChevron">▾</span>
+    </div>
+    <div class="price-section-body" id="redemptionSectionBody"><div class="price-section-body-inner">
+      <div class="order-actions" style="margin-bottom:10px;">
+        <input type="text" class="oinput" id="newRedemptionCode" placeholder="الكود" style="flex:1;min-width:90px;text-transform:uppercase;">
+        <input type="number" class="oinput" id="newRedemptionAmount" placeholder="القيمة EGP" style="flex:1;min-width:90px;">
+        <button class="o-action-btn done" style="flex:0 0 auto;min-width:0;font-size:.68rem;padding:8px 10px;white-space:normal;" onclick="addRedemptionCode()">➕ إضافة</button>
+      </div>
+      <div id="redemptionCodesStatus" class="login-status"></div>
+      <div class="table-wrap" id="redemptionCodesWrap"></div>
+      <p id="redemptionCodesEmptyMsg" style="display:none;text-align:center;color:var(--muted);font-size:.85rem;padding:12px;">مفيش أكواد استرداد لسه</p>
+    </div></div>
+  </div>
+</main>
+
+<!-- ============ صفحة الطلبات (بخانتين: طلبات / قيد الانتظار) ============ -->
+<main id="ordersPage" style="display:none;">
+  <div class="rp-header-row">
+    <button class="back-btn" onclick="showDashboard()">→ Back</button>
+    <div class="eyebrow roblox-eyebrow">Orders</div>
+  </div>
 
   <div class="orders-tabs" id="ordersTabs">
+    <div class="orders-tab add-order-tab" onclick="openManualOrderModal()">➕ طلب</div>
     <div class="orders-tab active" data-filter="new" onclick="filterOrders('new', this)">طلبات</div>
-    <div class="orders-tab" data-filter="pending" onclick="filterOrders('pending', this)">قيد الانتظار</div>
-    <div class="orders-tab" data-filter="done" onclick="filterOrders('done', this)">تم</div>
-  </div>
-
-  <div class="date-filter-row" id="doneDateFilterRow" style="display:none;">
-    <input type="date" class="o-date-input" id="doneDateInput" onchange="filterDoneByDate(this.value)" />
-    <button class="date-filter-clear" onclick="clearDoneDateFilter()">مسح الفلتر</button>
+    <div class="orders-tab" data-filter="pending" onclick="filterOrders('pending', this)">انتظار</div>
   </div>
 
   <div class="table-wrap" id="ordersTableWrap"></div>
@@ -912,21 +1117,19 @@
 
 <!-- ============ مودال تفاصيل الطلب الكاملة ============ -->
 <div id="orderDetailOverlay" onclick="closeOrderDetail(event)" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:4000;align-items:center;justify-content:center;padding:20px;">
-  <div onclick="event.stopPropagation()" style="width:100%;max-width:420px;background:#141414;border:1.5px solid rgba(37,99,235,.35);border-radius:16px;padding:22px;max-height:80vh;overflow-y:auto;">
-    <div id="orderDetailTitleAdmin" style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--blue-lt);letter-spacing:.03em;margin-bottom:12px;"></div>
+  <div onclick="event.stopPropagation()" style="width:100%;max-width:420px;background:#141414;border:1.5px solid rgba(255,45,120,.35);border-radius:16px;padding:22px;max-height:80vh;overflow-y:auto;">
+    <div id="orderDetailTitleAdmin" style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:#ff2d78;letter-spacing:.03em;margin-bottom:12px;"></div>
     <div id="orderDetailBodyAdmin" style="white-space:pre-wrap;font-family:'Cairo',sans-serif;font-size:.9rem;line-height:1.9;color:var(--white);direction:rtl;"></div>
-    <button onclick="closeOrderDetail()" style="margin-top:18px;width:100%;padding:12px;border-radius:10px;border:1px solid rgba(37,99,235,.35);background:rgba(37,99,235,.1);color:var(--blue-lt);font-family:'Cairo',sans-serif;font-weight:800;font-size:.88rem;cursor:pointer;">قفل</button>
+    <button onclick="closeOrderDetail()" style="margin-top:18px;width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,45,120,.35);background:rgba(255,45,120,.1);color:#ff2d78;font-family:'Cairo',sans-serif;font-weight:800;font-size:.88rem;cursor:pointer;">قفل</button>
   </div>
 </div>
 
 <!-- ============ مودال إضافة طلب يدوي (عميل مش مسجل بحساب) ============ -->
 <div id="manualOrderOverlay" onclick="closeManualOrderModal(event)" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:4000;align-items:center;justify-content:center;padding:20px;">
-  <div onclick="event.stopPropagation()" style="width:100%;max-width:420px;background:#141414;border:1.5px solid rgba(37,99,235,.35);border-radius:16px;padding:22px;max-height:85vh;overflow-y:auto;">
-    <div style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--blue-lt);letter-spacing:.03em;margin-bottom:6px;">إضافة طلب يدوي</div>
-    <p style="color:var(--muted);font-size:.78rem;margin-bottom:16px;">للطلبات اللي بتوصلك من عميل مش مسجل بحساب. اسمه هيتسجل "Guest"، وبياناته هتفضل عندك في لوحة التحكم بس، ومش بتتحذف ولا بتتشارك مع أي زبون.</p>
+  <div onclick="event.stopPropagation()" style="width:100%;max-width:420px;background:#141414;border:1.5px solid rgba(255,45,120,.35);border-radius:16px;padding:22px;max-height:85vh;overflow-y:auto;">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:#ff2d78;letter-spacing:.03em;margin-bottom:16px;">إضافة طلب</div>
     <div class="order-form">
       <div class="ofield">
-        <label class="olabel">اكتب اللي عايزه (اسم العميل، رقم واتساب، تفاصيل الطلب، السعر... أي حاجة)</label>
         <textarea class="oinput" id="manualOrderText" rows="6" style="resize:vertical;" placeholder="اكتب هنا أي تفاصيل عن الطلب..."></textarea>
       </div>
       <div class="ofield">
@@ -934,12 +1137,27 @@
         <select class="oinput" id="manualOrderTargetStatus">
           <option value="new">طلبات</option>
           <option value="pending">قيد الانتظار</option>
-          <option value="done">تم</option>
         </select>
       </div>
       <div id="manualOrderStatus" class="login-status"></div>
       <button class="login-submit-btn" onclick="submitManualOrder()">إضافة الطلب</button>
-      <button class="back-btn" style="width:100%;justify-content:center;margin:0;" onclick="closeManualOrderModal()">إلغاء</button>
+      <button class="back-btn" style="width:100%;justify-content:center;margin:0;background:rgba(255,45,120,.12);border-color:rgba(255,45,120,.35);color:#ff2d78;" onclick="closeManualOrderModal()">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ مودال تعديل خانة روبوكس واحدة ============ -->
+<div id="robuxEditOverlay" onclick="closeRobuxEdit(event)" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:4000;align-items:center;justify-content:center;padding:20px;">
+  <div onclick="event.stopPropagation()" style="width:100%;max-width:360px;background:#141414;border:1.5px solid rgba(255,45,120,.4);border-radius:16px;padding:22px;">
+    <div id="robuxEditTitle" style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#ff2d78;letter-spacing:.03em;margin-bottom:16px;"></div>
+    <input type="number" class="oinput" id="robuxEditInput" style="width:100%;text-align:center;font-size:1rem;padding:12px;margin-bottom:16px;" placeholder="اكتب القيمة">
+    <div id="robuxNormalButtons" style="display:flex;gap:8px;">
+      <button class="login-submit-btn" id="robuxSaveNormalBtn" style="flex:1;background:#ff2d78;margin-top:0;" onclick="saveRobuxEdit()">💾 حفظ</button>
+      <button class="back-btn" style="flex:1;justify-content:center;margin:0;background:rgba(255,45,120,.12);border-color:rgba(255,45,120,.35);color:#ff2d78;" onclick="closeRobuxEdit()">إلغاء</button>
+    </div>
+    <div id="robuxBuySellButtons" style="display:none;gap:8px;">
+      <button class="login-submit-btn" style="flex:1;background:#6fcf3a;margin-top:0;" onclick="saveRobuxAdjust('buy')">➕ شراء</button>
+      <button class="login-submit-btn" style="flex:1;background:#e05555;margin-top:0;" onclick="saveRobuxAdjust('sell')">➖ بيع</button>
     </div>
   </div>
 </div>
@@ -956,57 +1174,176 @@
   const navMenuOverlay = document.getElementById('navMenuOverlay');
   const navMenuClose = document.getElementById('navMenuClose');
 
-  function openMenu() { navMenu.classList.add('open'); navMenuOverlay.classList.add('open'); }
-  function closeMenu() { navMenu.classList.remove('open'); navMenuOverlay.classList.remove('open'); }
+  let scrollLockY = 0;
+  function hideMenuDom() {
+    navMenu.classList.remove('open');
+    navMenuOverlay.classList.remove('open');
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.width = '';
+    window.scrollTo(0, scrollLockY);
+  }
+  function openMenu() {
+    scrollLockY = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = -scrollLockY + 'px';
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.width = '100%';
+    navMenu.classList.add('open');
+    navMenuOverlay.classList.add('open');
+    adminNavSetOverlay('menu', {});
+  }
+  function closeMenu() {
+    adminNavCloseOverlay('menu', hideMenuDom);
+  }
 
   menuBtn.addEventListener('click', openMenu);
   navMenuClose.addEventListener('click', closeMenu);
   navMenuOverlay.addEventListener('click', closeMenu);
 
+  // بتقفل أي بوب أب/مودال/منيو ظاهر دلوقتي — مباشرة، من غير ما تلمس تاريخ المتصفح (dom بس)
+  // بتتنادى قبل ما نطبّق أي حالة راجعة من popstate، وبرضو من كل showXxxPage() عشان نبدأ الصفحة الجديدة نضيفة
+  function adminNavCloseAllOverlaysDom() {
+    hideMenuDom();
+    hideOrderDetailDom();
+    hideManualOrderDom();
+    hideRobuxEditDom();
+  }
+
+  // ============ نظام تنقل موحّد بزرار رجوع الفون (History API) ============
+  // القاعدة: أي "شاشة" في اللوحة — سواء صفحة كاملة (زي الطلبات) أو بوب أب/مودال (زي تفاصيل الطلب) أو المنيو الجانبي —
+  // بتتسجل هنا كخطوة في تاريخ المتصفح. زرار رجوع الفون بيرجع خطوة جوه اللوحة بدل ما يقفلها أو يطلع المستخدم برة.
+  //
+  // إزاي تضيف شاشة جديدة بنفس النظام (صفحة جديدة أو بوب أب جديد):
+  //   • صفحة جديدة: اعمل زي أي showXxxPage() موجودة تحت — في آخرها نادي adminNavGoToPage('xxxKey')
+  //     بدل ما تنادي closeMenu() نادي adminNavCloseAllOverlaysDom()
+  //   • بوب أب/مودال جديد: في دالة الفتح (openXxx) نادي adminNavSetOverlay('xxxKey', { أي بيانات محتاجها })
+  //     في دالة القفل (closeXxx) استخدم نفس الشكل اللي تحت في closeOrderDetail/closeManualOrderModal/closeRobuxEdit/closeMenu
+  //     (لو isApplyingNavHistory شغال اقفل مباشرة، لو مش شغال ولسه الشاشة دي هي المفتوحة نادي history.back())
+  //   • سجّل الشاشة الجديدة في adminPageRenderers أو adminOverlayRenderers تحت عشان الرجوع يعرف يفتحها تاني
+
+  let currentAdminPage = 'dashboard';
+  let currentOverlay = null;       // 'menu' | 'orderDetail' | 'manualOrder' | 'robuxEdit' | null
+  let currentOverlayData = null;
+  let isApplyingNavHistory = false; // true وقت إننا بنطبق حالة راجعة من popstate، عشان منسجلش خطوة جديدة تاني
+
+  function pushAdminNavState() {
+    if (isApplyingNavHistory) return; // ده رجوع بالفعل، مش دخول جديد — متسجلش خطوة زيادة
+    history.pushState({ adminPage: currentAdminPage, overlay: currentOverlay, overlayData: currentOverlayData }, '');
+  }
+
+  // بتتنادى من كل showXxxPage() — بتقفل أي بوب أب مفتوح (مباشرة من غير رجوع في التاريخ) وتسجل خطوة واحدة للصفحة الجديدة
+  function adminNavGoToPage(pageKey) {
+    currentAdminPage = pageKey;
+    currentOverlay = null;
+    currentOverlayData = null;
+    pushAdminNavState();
+  }
+
+  // بتتنادى من كل openXxx (بوب أب/مودال/منيو) — بتسجل خطوة فوق الصفحة الحالية
+  function adminNavSetOverlay(overlayKey, data) {
+    currentOverlay = overlayKey;
+    currentOverlayData = data || null;
+    pushAdminNavState();
+  }
+
+  // بيتنادوا من دوال القفل (closeXxx) — لو الشاشة دي فعلاً هي اللي مسجلة، رجّع خطوة في التاريخ عشان تفضل متزامنة معاه
+  function adminNavCloseOverlay(overlayKey, hideDomFn) {
+    if (isApplyingNavHistory) { hideDomFn(); return; }
+    if (currentOverlay === overlayKey) { history.back(); }
+    else { hideDomFn(); } // احتياطي بس — الحالة دي مسجلاش أي خطوة فعلًا
+  }
+
+  const adminPageRenderers = {
+    dashboard: () => showDashboard(),
+    orders: () => showOrdersPage(),
+    currency: () => showCurrencyPage(),
+    pricing: () => showPricingPage(),
+    robloxPricing: () => { showPricingPage(); showRobloxPricing(); },
+    robuxCalc: () => showRobuxCalcPage()
+  };
+
+  const adminOverlayRenderers = {
+    menu: () => openMenu(),
+    orderDetail: (data) => showOrderDetail(data && data.id),
+    manualOrder: () => openManualOrderModal(),
+    robuxEdit: (data) => openRobuxEdit(data && data.key, data && data.label)
+  };
+
+  window.addEventListener('popstate', (e) => {
+    const state = e.state || { adminPage: 'dashboard', overlay: null, overlayData: null };
+    isApplyingNavHistory = true;
+    adminNavCloseAllOverlaysDom(); // اقفل أي بوب أب ظاهر دلوقتي مباشرة قبل ما نطبّق الحالة الجديدة
+    (adminPageRenderers[state.adminPage] || adminPageRenderers.dashboard)();
+    if (state.overlay && adminOverlayRenderers[state.overlay]) {
+      adminOverlayRenderers[state.overlay](state.overlayData);
+    }
+    isApplyingNavHistory = false;
+  });
+
+  // بتتنادى مرة واحدة بعد ما نتأكد إن المستخدم أدمن فعلاً، عشان نسجل أول خطوة (الرئيسية) في التاريخ
+  function initAdminNavHistory() {
+    history.replaceState({ adminPage: 'dashboard', overlay: null, overlayData: null }, '');
+  }
+  window.initAdminNavHistory = initAdminNavHistory;
+
   // ============ التنقل بين الرئيسية وصفحة الطلبات ============
   function showOrdersPage() {
     document.getElementById('dashboard').style.display = 'none';
-    document.getElementById('bonusCodesPage').style.display = 'none';
+    document.getElementById('currencyPage').style.display = 'none';
     document.getElementById('ordersPage').style.display = 'block';
     document.getElementById('navHome').classList.remove('active');
-    document.getElementById('navOrders').classList.add('active');
-    closeMenu();
+    document.body.classList.add('no-header');
+    adminNavCloseAllOverlaysDom();
     window.scrollTo(0, 0);
+    adminNavGoToPage('orders');
   }
 
   function showDashboard() {
     document.getElementById('ordersPage').style.display = 'none';
     document.getElementById('pricingPage').style.display = 'none';
     document.getElementById('robloxPricingPage').style.display = 'none';
-    document.getElementById('bonusCodesPage').style.display = 'none';
+    document.getElementById('currencyPage').style.display = 'none';
+    document.getElementById('robuxCalcPage').style.display = 'none';
     document.getElementById('dashboard').style.display = 'block';
-    document.getElementById('navOrders').classList.remove('active');
-    document.getElementById('navPricing').classList.remove('active');
     document.getElementById('navHome').classList.add('active');
-    closeMenu();
+    document.body.classList.remove('no-header');
+    adminNavCloseAllOverlaysDom();
     window.scrollTo(0, 0);
+    adminNavGoToPage('dashboard');
   }
 
-  // ============ التنقل لصفحة أكواد الزيادة ============
-  function showBonusCodesPage() {
+  // ============ التنقل لصفحة العملات ============
+  function showCurrencyPage() {
     document.getElementById('dashboard').style.display = 'none';
-    document.getElementById('bonusCodesPage').style.display = 'block';
+    document.getElementById('ordersPage').style.display = 'none';
+    document.getElementById('pricingPage').style.display = 'none';
+    document.getElementById('robloxPricingPage').style.display = 'none';
+    document.getElementById('currencyPage').style.display = 'block';
+    document.getElementById('navHome').classList.remove('active');
+    document.body.classList.add('no-header');
+    adminNavCloseAllOverlaysDom();
     window.scrollTo(0, 0);
-    if (typeof window.loadBonusCodes === 'function') window.loadBonusCodes();
+    if (typeof window.renderCurrencyUsers === 'function') window.renderCurrencyUsers();
+    adminNavGoToPage('currency');
   }
-  window.showBonusCodesPage = showBonusCodesPage;
+  window.showCurrencyPage = showCurrencyPage;
 
   // ============ التنقل لصفحة الألعاب وصفحة أسعار روبلكس ============
   function showPricingPage() {
     document.getElementById('dashboard').style.display = 'none';
     document.getElementById('ordersPage').style.display = 'none';
     document.getElementById('robloxPricingPage').style.display = 'none';
-    document.getElementById('bonusCodesPage').style.display = 'none';
+    document.getElementById('currencyPage').style.display = 'none';
     document.getElementById('pricingPage').style.display = 'block';
     document.getElementById('navHome').classList.remove('active');
-    document.getElementById('navPricing').classList.add('active');
-    closeMenu();
+    document.body.classList.add('no-header');
+    adminNavCloseAllOverlaysDom();
     window.scrollTo(0, 0);
+    adminNavGoToPage('pricing');
   }
 
   function showRobloxPricing() {
@@ -1014,18 +1351,36 @@
     document.getElementById('robloxPricingPage').style.display = 'block';
     window.scrollTo(0, 0);
     if (typeof window.loadRobloxPricing === 'function') window.loadRobloxPricing();
+    if (typeof window.loadBonusCodes === 'function') window.loadBonusCodes();
+    adminNavGoToPage('robloxPricing');
   }
   window.showPricingPage = showPricingPage;
   window.showRobloxPricing = showRobloxPricing;
 
+  // ============ التنقل لصفحة حسبة الروبوكس (أدمن بس) ============
+  function showRobuxCalcPage() {
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('ordersPage').style.display = 'none';
+    document.getElementById('pricingPage').style.display = 'none';
+    document.getElementById('robloxPricingPage').style.display = 'none';
+    document.getElementById('currencyPage').style.display = 'none';
+    document.getElementById('robuxCalcPage').style.display = 'block';
+    document.getElementById('navHome').classList.remove('active');
+    document.body.classList.add('no-header');
+    adminNavCloseAllOverlaysDom();
+    window.scrollTo(0, 0);
+    if (typeof window.recalcRobuxWithdrawn === 'function') window.recalcRobuxWithdrawn();
+    adminNavGoToPage('robuxCalc');
+  }
+  window.showRobuxCalcPage = showRobuxCalcPage;
+
   // ============ نظام إدارة الطلبات ============
-  // كل طلب بياخد id (Firestore doc id — نص مش رقم), بيانات اللعبة, حالته (new/pending/done),
+  // كل طلب بياخد id (Firestore doc id — نص مش رقم), بيانات اللعبة, حالته (new/pending),
   // وتاريخ استلام لو قيد الانتظار. البيانات نفسها بتتحدث لايف من Firestore (تحت في سكريبت الـ module)
-  // الأزرار (تم / قيد الانتظار / إلغاء) بتظهر بس في تبويب "طلبات"
+  // الأزرار (قيد الانتظار / إلغاء) بتظهر بس في تبويب "طلبات"
   let ordersData = [];
   let currentOrdersFilter = 'new';
   let expandedDateIds = new Set(); // الطلبات اللي دلوقتي بتختار تاريخ الاستلام بتاعها
-  let selectedDoneDate = ''; // الفلتر بتاريخ لخانة "تم"
   // بنعرّضهم على window عشان سكريبت الـ Firebase (تحت) يقدر يحدّثهم لايف من غير ما يعمل reassign
   window.ordersData = ordersData;
   window.expandedDateIds = expandedDateIds;
@@ -1051,9 +1406,6 @@
     const wrap = document.getElementById('ordersTableWrap');
     const emptyMsg = document.getElementById('ordersEmptyMsg');
     let filtered = ordersData.filter(o => o.status === currentOrdersFilter);
-    if (currentOrdersFilter === 'done' && selectedDoneDate) {
-      filtered = filtered.filter(o => o.dateStr === selectedDoneDate);
-    }
 
     if (filtered.length === 0) {
       wrap.style.display = 'none';
@@ -1072,11 +1424,9 @@
             <div class="o-game">${esc(o.game)}</div>
             <div class="o-user">${esc(o.user)} · ${esc(o.time)}${o.price ? ' · ' + esc(o.price) + ' جنيه' : ''}</div>
           </div>
-          ${!isNewTab && o.status === 'done' ? `<button class="o-trash-btn" onclick="deleteOrderPermanently('${o.id}')" title="حذف الطلب">🗑️</button>` : ''}
         </div>
         ${isNewTab ? `
         <div class="order-actions">
-          <button class="o-action-btn done" onclick="setOrderStatus('${o.id}', 'done')">تم</button>
           <button class="o-action-btn pending" onclick="togglePendingDate('${o.id}')">قيد الانتظار</button>
           <button class="o-action-btn cancel" onclick="cancelOrder('${o.id}')">إلغاء</button>
         </div>
@@ -1090,7 +1440,6 @@
         ${!isNewTab && o.status === 'pending' ? `
         <div class="o-user">تاريخ الاستلام المتوقع: ${esc(o.date)}</div>
         <div class="order-actions">
-          <button class="o-action-btn done" onclick="setOrderStatus('${o.id}', 'done')">تم</button>
           <button class="o-action-btn pending" onclick="togglePendingDate('${o.id}')">تغيير المعاد</button>
           <button class="o-action-btn cancel" onclick="cancelOrder('${o.id}')">إلغاء</button>
         </div>
@@ -1106,29 +1455,13 @@
   }
   window.renderOrders = renderOrders;
 
-  // فلترة الطلبات (طلبات / قيد الانتظار / تم)
+  // فلترة الطلبات (طلبات / قيد الانتظار)
   function filterOrders(status, tabEl) {
     currentOrdersFilter = status;
     document.querySelectorAll('#ordersTabs .orders-tab').forEach(t => t.classList.remove('active'));
     tabEl.classList.add('active');
-    const doneDateRow = document.getElementById('doneDateFilterRow');
-    if (doneDateRow) doneDateRow.style.display = (status === 'done') ? 'flex' : 'none';
     renderOrders();
   }
-
-  // فلترة طلبات "تم" حسب تاريخ معين
-  function filterDoneByDate(val) {
-    selectedDoneDate = val || '';
-    renderOrders();
-  }
-  function clearDoneDateFilter() {
-    selectedDoneDate = '';
-    const input = document.getElementById('doneDateInput');
-    if (input) input.value = '';
-    renderOrders();
-  }
-  window.filterDoneByDate = filterDoneByDate;
-  window.clearDoneDateFilter = clearDoneDateFilter;
 
   // فتح اختيار تاريخ الاستلام لطلب معين
   function togglePendingDate(id) {
@@ -1137,35 +1470,193 @@
   }
 
   // عرض تفاصيل الطلب الكاملة (بدون إخفاء أي باسورد)
+  function hideOrderDetailDom() {
+    document.getElementById('orderDetailOverlay').style.display = 'none';
+  }
   function showOrderDetail(id) {
     const o = ordersData.find(x => x.id === id);
     if (!o) return;
     document.getElementById('orderDetailTitleAdmin').textContent = o.game || 'طلب';
     document.getElementById('orderDetailBodyAdmin').textContent = o.fullDetails || 'مفيش تفاصيل إضافية';
     document.getElementById('orderDetailOverlay').style.display = 'flex';
+    adminNavSetOverlay('orderDetail', { id });
   }
   function closeOrderDetail(e) {
     if (e && e.target !== document.getElementById('orderDetailOverlay')) return;
-    document.getElementById('orderDetailOverlay').style.display = 'none';
+    adminNavCloseOverlay('orderDetail', hideOrderDetailDom);
   }
   window.showOrderDetail = showOrderDetail;
   window.closeOrderDetail = closeOrderDetail;
 
+  // ============ نظام العملات (رصيد كل الزباين وإجمالي العملات) ============
+  let usersData = [];
+  window.usersData = usersData;
+
+  function renderCurrencyUsers() {
+    const wrap = document.getElementById('currencyUsersWrap');
+    const emptyMsg = document.getElementById('currencyEmptyMsg');
+    const totalEl = document.getElementById('currencyTotalValue');
+    const statTotalEl = document.getElementById('statTotalCurrency');
+    if (!wrap) return;
+    const total = usersData.reduce((s, u) => s + (u.balance || 0), 0);
+    if (totalEl) totalEl.textContent = total + ' EGP';
+    if (statTotalEl) statTotalEl.textContent = total;
+    if (!usersData.length) {
+      wrap.style.display = 'none';
+      if (emptyMsg) emptyMsg.style.display = 'block';
+      return;
+    }
+    wrap.style.display = 'block';
+    if (emptyMsg) emptyMsg.style.display = 'none';
+    wrap.innerHTML = usersData.map(u => `
+      <div class="order-row" data-uid="${esc(u.uid)}">
+        <div class="o-game">${esc(u.label)}</div>
+        <div class="o-user">الرصيد الحالي: <strong style="color:#6fcf3a;">${u.balance || 0} EGP</strong></div>
+        <div class="order-actions">
+          <input type="number" class="oinput" id="cur-amt-${esc(u.uid)}" placeholder="القيمة" style="flex:1;min-width:70px;">
+          <button class="o-action-btn done" onclick="adjustUserBalance('${esc(u.uid)}', 1)">➕ إضافة</button>
+          <button class="o-action-btn cancel" onclick="adjustUserBalance('${esc(u.uid)}', -1)">➖ خصم</button>
+        </div>
+      </div>
+    `).join('');
+  }
+  window.renderCurrencyUsers = renderCurrencyUsers;
+
+  // ============ فتح/قفل قسم أكواد الاسترداد ============
+  function toggleRedemptionSection() {
+    const el = document.getElementById('redemptionSectionBody').closest('.price-section');
+    const body = document.getElementById('redemptionSectionBody');
+    setSectionOpen(el, body, !el.classList.contains('open'));
+  }
+  window.toggleRedemptionSection = toggleRedemptionSection;
+
+  // ============ عرض كل أكواد الاسترداد (بتيجي لايف من الداتا بيز) ============
+  let redemptionCodesData = [];
+  window.redemptionCodesData = redemptionCodesData;
+
+  function renderRedemptionCodes() {
+    const wrap = document.getElementById('redemptionCodesWrap');
+    const emptyMsg = document.getElementById('redemptionCodesEmptyMsg');
+    const countEl = document.getElementById('count-redemptionCodes');
+    if (!wrap) return;
+    const items = window.redemptionCodesData || [];
+    if (countEl) countEl.textContent = items.length ? `(${items.length})` : '';
+    if (!items.length) {
+      wrap.style.display = 'none';
+      if (emptyMsg) emptyMsg.style.display = 'block';
+      return;
+    }
+    wrap.style.display = 'block';
+    if (emptyMsg) emptyMsg.style.display = 'none';
+    wrap.innerHTML = items.map(c => `
+      <div class="order-row">
+        <div class="o-game">${esc(c.code)}</div>
+        <div class="o-user"><strong style="color:#6fcf3a;">${c.amount || 0} EGP</strong> — متاح للاستخدام</div>
+        <button class="o-trash-btn" onclick="deleteRedemptionCode('${esc(c.code)}')" title="حذف الكود">🗑️</button>
+      </div>
+    `).join('');
+  }
+  window.renderRedemptionCodes = renderRedemptionCodes;
+
   // ============ فتح/قفل مودال إضافة طلب يدوي ============
+  function hideManualOrderDom() {
+    document.getElementById('manualOrderOverlay').style.display = 'none';
+  }
   function openManualOrderModal() {
     document.getElementById('manualOrderText').value = '';
     document.getElementById('manualOrderTargetStatus').value = 'new';
     document.getElementById('manualOrderStatus').textContent = '';
     document.getElementById('manualOrderStatus').className = 'login-status';
     document.getElementById('manualOrderOverlay').style.display = 'flex';
+    adminNavSetOverlay('manualOrder', {});
   }
   function closeManualOrderModal(e) {
     if (e && e.target !== document.getElementById('manualOrderOverlay')) return;
-    document.getElementById('manualOrderOverlay').style.display = 'none';
+    adminNavCloseOverlay('manualOrder', hideManualOrderDom);
   }
   window.openManualOrderModal = openManualOrderModal;
   window.closeManualOrderModal = closeManualOrderModal;
 
+  // ============ تعديل خانات روبوكس (كل خانة بتتفتح في بوب أب لوحدها) ============
+  const robuxValues = { priceThousand: null, bought: null, remaining: null, withdrawnPrice: null };
+  let robuxEditingKey = null;
+
+  // بيحدّث خانة "إجمالي الروب المتبقي" في الرئيسية كل ما الكمية المتبقية تتغير
+  function updateRemainingRobuxStat() {
+    const el = document.getElementById('statRemainingRobux');
+    if (el) el.textContent = (robuxValues.remaining !== null && robuxValues.remaining !== '') ? robuxValues.remaining : '—';
+  }
+
+  function hideRobuxEditDom() {
+    document.getElementById('robuxEditOverlay').style.display = 'none';
+  }
+  function openRobuxEdit(key, label) {
+    robuxEditingKey = key;
+    document.getElementById('robuxEditTitle').textContent = label;
+    document.getElementById('robuxEditInput').value = key === 'remaining' ? '' : (robuxValues[key] ?? '');
+    document.getElementById('robuxEditInput').placeholder = key === 'remaining' ? 'اكتب الكمية' : 'اكتب القيمة';
+
+    // "الكمية المتبقية" بس هي اللي بتتعدل بالزيادة/النقصان (شراء/بيع)، الباقي بيتحط فيه رقم ثابت عادي
+    const isRemaining = key === 'remaining';
+    document.getElementById('robuxNormalButtons').style.display = isRemaining ? 'none' : 'flex';
+    document.getElementById('robuxBuySellButtons').style.display = isRemaining ? 'flex' : 'none';
+
+    document.getElementById('robuxEditOverlay').style.display = 'flex';
+    setTimeout(() => document.getElementById('robuxEditInput').focus(), 50);
+    adminNavSetOverlay('robuxEdit', { key, label });
+  }
+  function closeRobuxEdit(e) {
+    if (e && e.target !== document.getElementById('robuxEditOverlay')) return;
+    adminNavCloseOverlay('robuxEdit', hideRobuxEditDom);
+  }
+  function saveRobuxEdit() {
+    const rawVal = document.getElementById('robuxEditInput').value;
+    robuxValues[robuxEditingKey] = rawVal;
+    const displayEl = document.getElementById('robuxVal-' + robuxEditingKey);
+    if (displayEl) displayEl.textContent = (rawVal !== '' && rawVal !== null) ? rawVal : '—';
+    closeRobuxEdit();
+    recalcRobuxWithdrawn();
+    updateRemainingRobuxStat();
+  }
+
+  // ============ شراء/بيع روب — بيغيّر "الكمية المتبقية" بالزيادة أو النقصان بدل ما يحط رقم ثابت ============
+  function saveRobuxAdjust(mode) {
+    const amt = parseFloat(document.getElementById('robuxEditInput').value);
+    if (!amt || amt <= 0) { alert('اكتب كمية صحيحة أكبر من صفر'); return; }
+    const current = parseFloat(robuxValues.remaining) || 0;
+    const updated = mode === 'buy' ? current + amt : Math.max(0, current - amt);
+    robuxValues.remaining = updated;
+    const displayEl = document.getElementById('robuxVal-remaining');
+    if (displayEl) displayEl.textContent = updated;
+    closeRobuxEdit();
+    recalcRobuxWithdrawn();
+    updateRemainingRobuxStat();
+  }
+
+  // بيحسب سعر الروب المسحوب لوحده كل ما سعر الالف أو الكمية اللي تم شرائها أو المتبقية تتغير
+  // الطريقة: الكمية المسحوبة = الكمية اللي تم شرائها − الكمية المتبقية
+  //          سعر الروب المسحوب = (الكمية المسحوبة ÷ 1000) × سعر الالف
+  function recalcRobuxWithdrawn() {
+    const price = parseFloat(robuxValues.priceThousand) || 0;
+    const bought = parseFloat(robuxValues.bought) || 0;
+    const remaining = parseFloat(robuxValues.remaining) || 0;
+    const withdrawnQty = Math.max(0, bought - remaining);
+    const withdrawnPrice = (withdrawnQty / 1000) * price;
+    robuxValues.withdrawnPrice = withdrawnPrice;
+    const displayEl = document.getElementById('robuxVal-withdrawnPrice');
+    if (displayEl) {
+      // نشيل الأصفار الزيادة بعد الفاصلة (مثلاً 250 مش 250.00) بس نسيب الفاصلة لو القيمة مش عدد صحيح
+      const rounded = Math.round(withdrawnPrice * 100) / 100;
+      displayEl.textContent = rounded + ' ج';
+    }
+  }
+  window.recalcRobuxWithdrawn = recalcRobuxWithdrawn;
+  window.openRobuxEdit = openRobuxEdit;
+  window.closeRobuxEdit = closeRobuxEdit;
+  window.saveRobuxEdit = saveRobuxEdit;
+  window.saveRobuxAdjust = saveRobuxAdjust;
+
+  updateRemainingRobuxStat();
   renderOrders();
 
   // ============ صفوف تعديل أسعار روبلكس ============
@@ -1178,6 +1669,7 @@
         <input type="text" class="oinput amt-input" placeholder="روبكس" value="${item.rob != null ? item.rob : ''}">
         <input type="text" class="oinput label-input" placeholder="الاسم" value="${item.label != null ? item.label : ''}">
         <input type="number" class="oinput price-input" placeholder="السعر" value="${item.price != null ? item.price : ''}">
+        <input type="number" class="oinput egp-input" placeholder="EGP" value="${item.egp != null ? item.egp : ''}">
         <label class="custom-check"><input type="checkbox" ${isCustom ? 'checked' : ''}> نص</label>
         <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
       </div>`;
@@ -1186,6 +1678,7 @@
       return `<div class="price-row" data-section="giftcard">
         <input type="text" class="oinput amt-input" placeholder="USD" value="${item.usd != null ? item.usd : ''}">
         <input type="number" class="oinput price-input" placeholder="السعر" value="${item.price != null ? item.price : ''}">
+        <input type="number" class="oinput egp-input" placeholder="EGP" value="${item.egp != null ? item.egp : ''}">
         <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
       </div>`;
     }
@@ -1193,6 +1686,7 @@
     return `<div class="price-row" data-section="${section}">
       <input type="text" class="oinput amt-input" placeholder="روبكس" value="${item.rob != null ? item.rob : ''}">
       <input type="number" class="oinput price-input" placeholder="السعر" value="${item.price != null ? item.price : ''}">
+      <input type="number" class="oinput egp-input" placeholder="EGP" value="${item.egp != null ? item.egp : ''}">
       <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
     </div>`;
   }
@@ -1220,27 +1714,47 @@
     countEl.textContent = wrap.querySelectorAll('.price-row').length;
   }
 
-  // بيشتغل مع كل زرار حذف صف سعر — بيمسح الصف وبعدين يحدّث عداد القسم لو الصف تابع لقسم روبلكس
+  // بيشتغل مع كل زرار حذف صف سعر — بيمسح الصف وبعدين يحدّث عداد القسم
   function removePriceRow(btn) {
     const row = btn.closest('.price-row');
     if (!row) return;
     const section = row.getAttribute('data-section');
     row.remove();
-    if (section && section !== 'bonus') updatePriceSectionCount(section);
+    if (section) updatePriceSectionCount(section);
   }
   window.removePriceRow = removePriceRow;
 
   // ============ فتح/قفل أقسام أسعار روبلكس (أكورديون — قسم واحد مفتوح في نفس الوقت) ============
+  // من غير أنيميشن خالص — تبديل فوري عشان مفيش لاج
+  function setSectionOpen(el, body, open) {
+    if (open) {
+      el.classList.add('open');
+      body.style.visibility = 'visible';
+      body.style.height = 'auto';
+    } else {
+      el.classList.remove('open');
+      body.style.height = '0px';
+      body.style.visibility = 'hidden';
+    }
+  }
+
   function togglePriceSection(key) {
-    const sections = ['acc', 'comFawri', 'comHagz', 'giftcard'];
+    const sections = ['acc', 'comFawri', 'bonusCodes', 'comHagz', 'giftcard'];
     sections.forEach(s => {
       const el = document.getElementById('rp-sec-' + s);
       if (!el) return;
-      if (s === key) el.classList.toggle('open');
-      else el.classList.remove('open');
+      const body = el.querySelector('.price-section-body');
+      if (!body) return;
+      if (s === key) {
+        setSectionOpen(el, body, !el.classList.contains('open'));
+      } else if (el.classList.contains('open')) {
+        setSectionOpen(el, body, false);
+      }
     });
   }
   window.togglePriceSection = togglePriceSection;
+
+  // كل الأقسام تبدأ مقفولة أول ما الصفحة تفتح
 
   // بيلم كل الصفوف بتاعت قسم معين ويحولها لأراي بيانات جاهزة تتخزن
   function collectPriceRows(section) {
@@ -1250,20 +1764,22 @@
     return rows.map(row => {
       const amtInput   = row.querySelector('.amt-input');
       const priceInput = row.querySelector('.price-input');
+      const egpInput   = row.querySelector('.egp-input');
       const labelInput = row.querySelector('.label-input');
       const checkInput = row.querySelector('.custom-check input');
       const price = parseInt(priceInput.value) || 0;
+      const egp = egpInput ? (parseFloat(egpInput.value) || 0) : 0;
       if (section === 'acc') {
         const rob = parseInt(amtInput.value) || 0;
         const label = (labelInput.value || '').trim() || (rob + ' روب');
-        return { rob, price, label, custom: !!(checkInput && checkInput.checked) };
+        return { rob, price, egp, label, custom: !!(checkInput && checkInput.checked) };
       }
       if (section === 'giftcard') {
         const usd = parseInt(amtInput.value) || 0;
-        return { usd, price };
+        return { usd, price, egp };
       }
       const rob = parseInt(amtInput.value) || 0;
-      return { rob, price };
+      return { rob, price, egp };
     }).filter(item => item.price > 0);
   }
   window.collectPriceRows = collectPriceRows;
@@ -1272,7 +1788,7 @@
   function bonusCodeRowHTML(item) {
     item = item || {};
     const isActive = item.active !== false; // فعّال افتراضيًا
-    return `<div class="price-row" data-section="bonus">
+    return `<div class="price-row" data-section="bonusCodes">
       <input type="text" class="oinput label-input" placeholder="الكود" value="${item.code != null ? item.code : ''}" style="text-transform:uppercase;">
       <input type="number" class="oinput price-input" placeholder="%" value="${item.percent != null ? item.percent : ''}">
       <label class="custom-check"><input type="checkbox" ${isActive ? 'checked' : ''}> فعّال</label>
@@ -1284,6 +1800,7 @@
     const wrap = document.getElementById('rows-bonusCodes');
     if (!wrap) return;
     wrap.insertAdjacentHTML('beforeend', bonusCodeRowHTML({}));
+    updatePriceSectionCount('bonusCodes');
   }
   window.addBonusCodeRow = addBonusCodeRow;
 
@@ -1291,6 +1808,7 @@
     const wrap = document.getElementById('rows-bonusCodes');
     if (!wrap) return;
     wrap.innerHTML = (items || []).map(bonusCodeRowHTML).join('');
+    updatePriceSectionCount('bonusCodes');
   }
   window.renderBonusCodes = renderBonusCodes;
 
@@ -1382,7 +1900,10 @@
 
       // اتأكدنا إنه أدمن فعلاً
       showAdminContent();
+      if (typeof window.initAdminNavHistory === 'function') window.initAdminNavHistory();
       startOrdersListener();
+      startUsersListener();
+      startRedemptionCodesListener();
     } catch (err) {
       console.error("تعذر التحقق من صلاحية الأدمن:", err);
       rejectAndRedirect('حصلت مشكلة أثناء التحقق من صلاحيتك، حاول تاني');
@@ -1438,20 +1959,108 @@
   }
 
   function updateStatCards() {
-    const totalEl = document.getElementById('statTotalOrders');
     const pendingEl = document.getElementById('statPendingOrders');
-    if (totalEl) totalEl.textContent = window.ordersData.length;
-    if (pendingEl) pendingEl.textContent = window.ordersData.filter(o => o.status !== 'done').length;
+    if (pendingEl) pendingEl.textContent = window.ordersData.length;
   }
 
-  // ============ تحديث حالة الطلب (تم / قيد الانتظار) — بيتغير عند الزبون لايف ============
-  window.setOrderStatus = async function (id, status) {
+  // ============ بث حي لكل المستخدمين (كل الزباين ورصيدهم) — نفس الدوك اللي الموقع الأساسي بيقرا منه رصيد كل مستخدم ============
+  function startUsersListener() {
+    const usersRef = collection(db, 'users');
+    onSnapshot(usersRef, (snap) => {
+      window.usersData.length = 0;
+      snap.forEach((docSnap) => {
+        const d = docSnap.data();
+        window.usersData.push({
+          uid: docSnap.id,
+          label: d.displayName || d.email || docSnap.id,
+          balance: typeof d.balance === 'number' ? d.balance : 0
+        });
+      });
+      window.usersData.sort((a, b) => (b.balance || 0) - (a.balance || 0));
+      if (typeof window.renderCurrencyUsers === 'function') window.renderCurrencyUsers();
+    }, (err) => {
+      console.error('تعذر تحميل بيانات المستخدمين:', err);
+    });
+  }
+
+  // ============ بث حي لكل أكواد الاسترداد — نفس الكولكشن اللي الموقع الأساسي هيقرا منها لما الزبون يكتب كود ============
+  function startRedemptionCodesListener() {
+    const codesRef = collection(db, 'redemptionCodes');
+    onSnapshot(codesRef, (snap) => {
+      window.redemptionCodesData.length = 0;
+      snap.forEach((docSnap) => {
+        const d = docSnap.data();
+        window.redemptionCodesData.push({
+          code: docSnap.id,
+          amount: typeof d.amount === 'number' ? d.amount : 0
+        });
+      });
+      window.redemptionCodesData.sort((a, b) => a.code.localeCompare(b.code));
+      if (typeof window.renderRedemptionCodes === 'function') window.renderRedemptionCodes();
+    }, (err) => {
+      console.error('تعذر تحميل أكواد الاسترداد:', err);
+    });
+  }
+  window.startRedemptionCodesListener = startRedemptionCodesListener;
+
+  // ============ إضافة كود استرداد جديد (كود + قيمة بالـ EGP هياخدها اللي هيستخدمه) ============
+  window.addRedemptionCode = async function () {
+    const codeInput = document.getElementById('newRedemptionCode');
+    const amountInput = document.getElementById('newRedemptionAmount');
+    const statusEl = document.getElementById('redemptionCodesStatus');
+    const code = (codeInput.value || '').trim().toUpperCase();
+    const amount = parseFloat(amountInput.value);
+
+    if (!code) { if (statusEl) { statusEl.textContent = 'اكتب الكود الأول'; statusEl.className = 'login-status err'; } return; }
+    if (!amount || amount <= 0) { if (statusEl) { statusEl.textContent = 'اكتب قيمة صحيحة أكبر من صفر'; statusEl.className = 'login-status err'; } return; }
+
     try {
-      await updateDoc(doc(db, 'orders', id), { status });
-      window.expandedDateIds.delete(id);
+      const codeRef = doc(db, 'redemptionCodes', code);
+      const existing = await getDoc(codeRef);
+      if (existing.exists()) {
+        if (statusEl) { statusEl.textContent = 'الكود ده موجود بالفعل، اكتب كود تاني'; statusEl.className = 'login-status err'; }
+        return;
+      }
+      await setDoc(codeRef, {
+        amount,
+        createdAt: serverTimestamp()
+      });
+      codeInput.value = '';
+      amountInput.value = '';
+      if (statusEl) { statusEl.textContent = 'اتضاف الكود بنجاح ✅'; statusEl.className = 'login-status ok'; }
     } catch (err) {
-      console.error('تعذر تحديث حالة الطلب:', err);
-      alert('حصلت مشكلة أثناء تحديث الطلب، حاول تاني');
+      console.error('تعذر إضافة كود الاسترداد:', err);
+      if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء إضافة الكود، حاول تاني'; statusEl.className = 'login-status err'; }
+    }
+  };
+
+  // ============ حذف كود استرداد ============
+  window.deleteRedemptionCode = async function (code) {
+    if (!confirm('متأكد إنك عايز تحذف الكود ده؟')) return;
+    try {
+      await deleteDoc(doc(db, 'redemptionCodes', code));
+    } catch (err) {
+      console.error('تعذر حذف كود الاسترداد:', err);
+      alert('حصلت مشكلة أثناء حذف الكود، حاول تاني');
+    }
+  };
+
+  // ============ تعديل رصيد مستخدم معين (إضافة أو خصم) — بيتحدث لايف عند الزبون في الموقع الأساسي على طول ============
+  window.adjustUserBalance = async function (uid, sign) {
+    const input = document.getElementById('cur-amt-' + uid);
+    if (!input) return;
+    const amt = parseInt(input.value);
+    if (!amt || amt <= 0) { alert('اكتب قيمة صحيحة أكبر من صفر'); return; }
+    try {
+      const userRef = doc(db, 'users', uid);
+      const snap = await getDoc(userRef);
+      const current = snap.exists() && typeof snap.data().balance === 'number' ? snap.data().balance : 0;
+      const newBalance = Math.max(0, current + sign * amt);
+      await updateDoc(userRef, { balance: newBalance });
+      input.value = '';
+    } catch (err) {
+      console.error('تعذر تعديل رصيد المستخدم:', err);
+      alert('حصلت مشكلة أثناء تعديل الرصيد، حاول تاني');
     }
   };
 
@@ -1480,18 +2089,6 @@
     }
   };
 
-  // ============ حذف طلب خلاص من خانة "تم" (زرار علبة الزبالة) ============
-  window.deleteOrderPermanently = async function (id) {
-    if (!confirm('متأكد إنك عايز تحذف الطلب ده؟ هيتمسح خالص من القايمة.')) return;
-    try {
-      await deleteDoc(doc(db, 'orders', id));
-      window.expandedDateIds.delete(id);
-    } catch (err) {
-      console.error('تعذر حذف الطلب:', err);
-      alert('حصلت مشكلة أثناء حذف الطلب، حاول تاني');
-    }
-  };
-
   // ============ إضافة طلب يدوي لعميل مش مسجل — بيتسجل باسم "Guest" وبياناته الحقيقية بتفضل عند الأدمن بس ============
   window.submitManualOrder = async function () {
     const textInput = document.getElementById('manualOrderText');
@@ -1499,7 +2096,7 @@
     const statusEl = document.getElementById('manualOrderStatus');
 
     const fullText = textInput.value.trim();
-    const targetStatus = targetStatusInput.value; // new / pending / done
+    const targetStatus = targetStatusInput.value; // new / pending
 
     if (!fullText) {
       statusEl.textContent = 'لازم تكتب حاجة الأول';
@@ -1520,7 +2117,8 @@
       }
 
       await addDoc(collection(db, 'orders'), orderData);
-      document.getElementById('manualOrderOverlay').style.display = 'none';
+      if (typeof window.closeManualOrderModal === 'function') window.closeManualOrderModal();
+      else document.getElementById('manualOrderOverlay').style.display = 'none';
     } catch (err) {
       console.error('تعذر إضافة الطلب اليدوي:', err);
       statusEl.textContent = 'حصلت مشكلة أثناء إضافة الطلب، حاول تاني';
@@ -1574,54 +2172,42 @@
     }
   };
 
-  // ============ حفظ أسعار روبلكس كلها مرة واحدة في Firestore ============
+  // ============ حفظ أسعار روبلكس وأكواد الزيادة كلهم مرة واحدة في Firestore ============
   window.saveRobloxPricing = async function () {
     const statusEl = document.getElementById('robloxPricingStatus');
+    if (statusEl) { statusEl.textContent = 'بيتم الحفظ...'; statusEl.className = 'login-status'; }
     try {
-      const payload = {
+      const pricingPayload = {
         acc: window.collectPriceRows('acc'),
         comFawri: window.collectPriceRows('comFawri'),
         comHagz: window.collectPriceRows('comHagz'),
         giftcard: window.collectPriceRows('giftcard'),
         updatedAt: serverTimestamp()
       };
-      await setDoc(doc(db, 'pricing', 'roblox'), payload);
+      const bonusPayload = {
+        codes: window.collectBonusCodes(),
+        updatedAt: serverTimestamp()
+      };
+      await Promise.all([
+        setDoc(doc(db, 'pricing', 'roblox'), pricingPayload),
+        setDoc(doc(db, 'pricing', 'bonusCodes'), bonusPayload)
+      ]);
       if (statusEl) { statusEl.textContent = 'تم الحفظ بنجاح ✅ — هيتحدث على الموقع على طول'; statusEl.className = 'login-status ok'; }
     } catch (err) {
-      console.error('تعذر حفظ أسعار روبلكس:', err);
+      console.error('تعذر حفظ أسعار روبلكس أو أكواد الزيادة:', err);
       if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء الحفظ، حاول تاني'; statusEl.className = 'login-status err'; }
     }
   };
 
   // ============ تحميل أكواد الزيادة الحالية في صفحة التعديل ============
   window.loadBonusCodes = async function () {
-    const statusEl = document.getElementById('bonusCodesStatus');
-    if (statusEl) { statusEl.textContent = 'بيتحمل...'; statusEl.className = 'login-status'; }
     try {
       const snap = await getDoc(doc(db, 'pricing', 'bonusCodes'));
       const data = snap.exists() ? snap.data() : { codes: [] };
       window.renderBonusCodes(data.codes || []);
-      if (statusEl) statusEl.textContent = '';
     } catch (err) {
       console.error('تعذر تحميل أكواد الزيادة:', err);
       window.renderBonusCodes([]);
-      if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء تحميل الأكواد المحفوظة'; statusEl.className = 'login-status err'; }
-    }
-  };
-
-  // ============ حفظ أكواد الزيادة كلها مرة واحدة في Firestore — نفس الدوك اللي الموقع الأساسي بيقراه ============
-  window.saveBonusCodes = async function () {
-    const statusEl = document.getElementById('bonusCodesStatus');
-    try {
-      const payload = {
-        codes: window.collectBonusCodes(),
-        updatedAt: serverTimestamp()
-      };
-      await setDoc(doc(db, 'pricing', 'bonusCodes'), payload);
-      if (statusEl) { statusEl.textContent = 'تم الحفظ بنجاح ✅ — الأكواد شغالة في قسم الكوميونتي على طول'; statusEl.className = 'login-status ok'; }
-    } catch (err) {
-      console.error('تعذر حفظ أكواد الزيادة:', err);
-      if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء الحفظ، حاول تاني'; statusEl.className = 'login-status err'; }
     }
   };
 
