@@ -1426,7 +1426,12 @@
   function renderOrders() {
     const wrap = document.getElementById('ordersTableWrap');
     const emptyMsg = document.getElementById('ordersEmptyMsg');
-    let filtered = ordersData.filter(o => o.status === currentOrdersFilter);
+    // تبويب "قيد الانتظار" بيعرض status === 'pending' بالظبط، وتبويب "طلبات" بيعرض أي حاجة تانية —
+    // ده مهم عشان أي طلب بحالة غريبة/غير متوقعة (زي طلبات قديمة من قبل ما نظام الحالات ده يتظبط)
+    // يفضل ظاهر وقابل للإدارة (تم/إلغاء) بدل ما يختفي وهو لسه محسوب في إجمالي الطلبات فوق
+    let filtered = currentOrdersFilter === 'pending'
+      ? ordersData.filter(o => o.status === 'pending')
+      : ordersData.filter(o => o.status !== 'pending');
 
     if (filtered.length === 0) {
       wrap.style.display = 'none';
