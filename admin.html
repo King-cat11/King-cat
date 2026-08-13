@@ -1427,6 +1427,7 @@
         </div>
         ${isNewTab ? `
         <div class="order-actions">
+          <button class="o-action-btn done" onclick="completeOrder('${o.id}')">تم</button>
           <button class="o-action-btn pending" onclick="togglePendingDate('${o.id}')">قيد الانتظار</button>
           <button class="o-action-btn cancel" onclick="cancelOrder('${o.id}')">إلغاء</button>
         </div>
@@ -1440,6 +1441,7 @@
         ${!isNewTab && o.status === 'pending' ? `
         <div class="o-user">تاريخ الاستلام المتوقع: ${esc(o.date)}</div>
         <div class="order-actions">
+          <button class="o-action-btn done" onclick="completeOrder('${o.id}')">تم</button>
           <button class="o-action-btn pending" onclick="togglePendingDate('${o.id}')">تغيير المعاد</button>
           <button class="o-action-btn cancel" onclick="cancelOrder('${o.id}')">إلغاء</button>
         </div>
@@ -1578,8 +1580,44 @@
   window.closeManualOrderModal = closeManualOrderModal;
 
   // ============ تعديل خانات روبوكس (كل خانة بتتفتح في بوب أب لوحدها) ============
+  // القيم دي بتتحفظ في Firestore (مستند واحد ثابت) عشان متتمسحش لما تعمل ريفريش أو تقفل المتصفح
   const robuxValues = { priceThousand: null, bought: null, remaining: null, withdrawnPrice: null };
   let robuxEditingKey = null;
+  const robuxDataRef = doc(db, 'adminData', 'robuxCalc');
+
+  // ============ تحميل بيانات "حساباتي" المحفوظة من السحابة أول ما لوحة الأدمن تفتح ============
+  async function loadRobuxData() {
+    try {
+      const snap = await getDoc(robuxDataRef);
+      if (!snap.exists()) return;
+      const d = snap.data();
+      ['priceThousand', 'bought', 'remaining', 'withdrawnPrice'].forEach((k) => {
+        robuxValues[k] = (d[k] !== undefined) ? d[k] : null;
+        const el = document.getElementById('robuxVal-' + k);
+        if (!el) return;
+        if (robuxValues[k] === null || robuxValues[k] === '') { el.textContent = '—'; return; }
+        if (k === 'withdrawnPrice') {
+          const rounded = Math.round((parseFloat(robuxValues[k]) || 0) * 100) / 100;
+          el.textContent = rounded + ' ج';
+        } else {
+          el.textContent = robuxValues[k];
+        }
+      });
+      updateRemainingRobuxStat();
+    } catch (err) {
+      console.error('تعذر تحميل بيانات حساباتي:', err);
+    }
+  }
+  window.loadRobuxData = loadRobuxData;
+
+  // ============ حفظ بيانات "حساباتي" في السحابة كل ما تتغيّر ============
+  async function saveRobuxDataToCloud() {
+    try {
+      await setDoc(robuxDataRef, { ...robuxValues, updatedAt: serverTimestamp() }, { merge: true });
+    } catch (err) {
+      console.error('تعذر حفظ بيانات حساباتي:', err);
+    }
+  }
 
   // بيحدّث خانة "إجمالي الروب المتبقي" في الرئيسية كل ما الكمية المتبقية تتغير
   function updateRemainingRobuxStat() {
@@ -1617,6 +1655,7 @@
     closeRobuxEdit();
     recalcRobuxWithdrawn();
     updateRemainingRobuxStat();
+    saveRobuxDataToCloud();
   }
 
   // ============ شراء/بيع روب — بيغيّر "الكمية المتبقية" بالزيادة أو النقصان بدل ما يحط رقم ثابت ============
@@ -1631,6 +1670,7 @@
     closeRobuxEdit();
     recalcRobuxWithdrawn();
     updateRemainingRobuxStat();
+    saveRobuxDataToCloud();
   }
 
   // بيحسب سعر الروب المسحوب لوحده كل ما سعر الالف أو الكمية اللي تم شرائها أو المتبقية تتغير
@@ -1849,6 +1889,7 @@
     deleteDoc,
     addDoc,
     setDoc,
+    increment,
     serverTimestamp
   } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
@@ -1904,6 +1945,7 @@
       startOrdersListener();
       startUsersListener();
       startRedemptionCodesListener();
+      loadRobuxData();
     } catch (err) {
       console.error("تعذر التحقق من صلاحية الأدمن:", err);
       rejectAndRedirect('حصلت مشكلة أثناء التحقق من صلاحيتك، حاول تاني');
@@ -1938,11 +1980,13 @@
         const d = docSnap.data();
         window.ordersData.push({
           id: docSnap.id,
+          uid: d.uid || '',
           game: d.title || 'طلب',
           user: d.customerName || 'عميل',
           time: timeAgo(d.createdAt),
           status: d.status || 'new',
           date: d.pendingDate || '',
+          egpUsed: typeof d.egpUsed === 'number' ? d.egpUsed : 0,
           dateStr: (d.createdAt && d.createdAt.toDate) ? d.createdAt.toDate().toISOString().split('T')[0] : '',
           // لو createdAt لسه معلقة (لحظة الإضافة) بنعتبرها دلوقتي عشان تفضل فوق وميبانش إنها اتحذفت
           sortTime: (d.createdAt && d.createdAt.toMillis) ? d.createdAt.toMillis() : Date.now(),
@@ -2012,6 +2056,7 @@
     const amount = parseFloat(amountInput.value);
 
     if (!code) { if (statusEl) { statusEl.textContent = 'اكتب الكود الأول'; statusEl.className = 'login-status err'; } return; }
+    if (/[\/\s]/.test(code)) { if (statusEl) { statusEl.textContent = 'الكود لازم يبقى من حروف وأرقام بس، من غير مسافات أو علامة /'; statusEl.className = 'login-status err'; } return; }
     if (!amount || amount <= 0) { if (statusEl) { statusEl.textContent = 'اكتب قيمة صحيحة أكبر من صفر'; statusEl.className = 'login-status err'; } return; }
 
     try {
@@ -2029,8 +2074,18 @@
       amountInput.value = '';
       if (statusEl) { statusEl.textContent = 'اتضاف الكود بنجاح ✅'; statusEl.className = 'login-status ok'; }
     } catch (err) {
+      // بنطبع كود ورسالة الخطأ الحقيقية من Firebase عشان تبان في الشاشة وتقدر تشخص المشكلة فورًا
       console.error('تعذر إضافة كود الاسترداد:', err);
-      if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء إضافة الكود، حاول تاني'; statusEl.className = 'login-status err'; }
+      const rawCode = err && err.code ? err.code : '';
+      const rawMsg  = err && err.message ? err.message : String(err);
+      let friendly = 'حصلت مشكلة أثناء إضافة الكود، حاول تاني';
+      if (rawCode === 'permission-denied') {
+        friendly = 'مفيش صلاحية كتابة على أكواد الاسترداد — راجع Firestore Rules وتأكد إنها متنشورة (Published) وإن حسابك role=admin';
+      }
+      if (statusEl) {
+        statusEl.textContent = `${friendly} [${rawCode || 'error'}: ${rawMsg}]`;
+        statusEl.className = 'login-status err';
+      }
     }
   };
 
@@ -2077,15 +2132,33 @@
     }
   };
 
-  // ============ إلغاء الطلب: بيتمسح خالص من قاعدة البيانات ============
+  // ============ إلغاء الطلب: بيرجع رصيد EGP المستخدم فيه (لو فيه) للعميل، وبعدين بيتمسح خالص من قاعدة البيانات ============
   window.cancelOrder = async function (id) {
     if (!confirm('متأكد إنك عايز تلغي الطلب ده؟ هيتمسح خالص من القايمة.')) return;
     try {
+      const order = (window.ordersData || []).find(o => o.id === id);
+      const refundAmount = order ? (order.egpUsed || 0) : 0;
+      const refundUid = order ? order.uid : '';
+      if (refundAmount > 0 && refundUid) {
+        await updateDoc(doc(db, 'users', refundUid), { balance: increment(refundAmount) });
+      }
       await deleteDoc(doc(db, 'orders', id));
       window.expandedDateIds.delete(id);
     } catch (err) {
       console.error('تعذر إلغاء الطلب:', err);
       alert('حصلت مشكلة أثناء إلغاء الطلب، حاول تاني');
+    }
+  };
+
+  // ============ تأكيد إتمام الطلب: بيتمسح من القايمة برضو لكن من غير أي استرجاع لرصيد الـ EGP اللي اتخصم ============
+  window.completeOrder = async function (id) {
+    if (!confirm('متأكد إن الطلب ده اتنفذ وخلص؟ هيتمسح من القايمة ومش هيترجع أي رصيد EGP.')) return;
+    try {
+      await deleteDoc(doc(db, 'orders', id));
+      window.expandedDateIds.delete(id);
+    } catch (err) {
+      console.error('تعذر تأكيد إتمام الطلب:', err);
+      alert('حصلت مشكلة أثناء تأكيد الطلب، حاول تاني');
     }
   };
 

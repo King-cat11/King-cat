@@ -3443,7 +3443,7 @@
       // الرسالة الكاملة بالباسورد الحقيقي بتتبعت للأدمن على واتساب بس
       const maskedPass = '•'.repeat(Math.max(pass.length, 6));
       const maskedMsg = `📦 طلب شحن روبلوكس (حساب)\n👤 اليوزرنيم: ${username}\n🔑 الباسورد: ${maskedPass}\n📦 الطلب:\n${items}\n💰 السعر: ${total} جنيه`;
-      window.saveOrder({ title: 'روبلوكس (حساب)', quantity: totalQty, price: total, details: maskedMsg, fullDetails: msg });
+      window.saveOrder({ title: 'روبلوكس (حساب)', quantity: totalQty, price: total, details: maskedMsg, fullDetails: msg, egpUsed: rawTotal - total });
     }
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
@@ -3642,7 +3642,7 @@
     let msg = `${RLM}\u{1F4E6} \u0637\u0644\u0628 \u0634\u062d\u0646 \u0631\u0648\u0628\u0644\u0648\u0643\u0633 (\u0643\u0645\u064a\u0648\u0646\u062a\u064a)\n${RLM}\u{1F464} \u0627\u0644\u0627\u0633\u0645: ${username}\n${RLM}\u{1F3AE} \u0627\u0644\u0637\u0644\u0628: ${type}\n${itemsList}\n${RLM}\u{1F4CA} \u0625\u062c\u0645\u0627\u0644\u064a: ${totalFinalRob}R\n${RLM}\u{1F4B0} \u0627\u0644\u0633\u0639\u0631: ${finalPrice} \u062c\u0646\u064a\u0647\n${RLM}\u0643\u0648\u062f \u0627\u0644\u0632\u064a\u0627\u062f\u0629: ${codeApplied ? code : '\u0645\u0641\u064a\u0634'}\n${RLM}\u0627\u0644\u0627\u0633\u0645: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
       const totalQty = items.reduce((s,i) => s + i.qty, 0);
-      window.saveOrder({ title: 'روبلوكس (كوميونتي)', quantity: totalQty, price: finalPrice, details: msg, fullDetails: msg });
+      window.saveOrder({ title: 'روبلوكس (كوميونتي)', quantity: totalQty, price: finalPrice, details: msg, fullDetails: msg, egpUsed: totalPrice - finalPrice });
     }
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
@@ -3775,7 +3775,7 @@
     let msg = `${RLM}\u{1F381} طلب شحن روبلوكس (جيفت كارد)\n${itemsList}\n${RLM}\u{1F4B0} السعر: ${total} جنيه\n${RLM}الاسم: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
       const totalQty = items.reduce((s,i) => s + i.qty, 0);
-      window.saveOrder({ title: 'روبلوكس (جيفت كارد)', quantity: totalQty, price: total, details: msg, fullDetails: msg });
+      window.saveOrder({ title: 'روبلوكس (جيفت كارد)', quantity: totalQty, price: total, details: msg, fullDetails: msg, egpUsed: totalPrice - total });
     }
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
@@ -3980,7 +3980,7 @@
     const msg = `🎮 طلب شحن ببجي\n🆔 الـ ID: ${idVal}\n📦 الطلب:\n${items}\n💰 السعر: ${total} جنيه\nالاسم: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
       const totalQty = keys.reduce((s,k) => s + pubgCart[k].qty, 0);
-      window.saveOrder({ title: 'ببجي', quantity: totalQty, price: total, details: msg, fullDetails: msg });
+      window.saveOrder({ title: 'ببجي', quantity: totalQty, price: total, details: msg, fullDetails: msg, egpUsed: rawTotal - total });
     }
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
@@ -4239,7 +4239,7 @@
     const msg = `⭐ طلب شحن براول ستارز\n📧 الإيميل: ${email}\n📦 الطلب:\n${items}\n💰 السعر: ${total} جنيه\nالاسم: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
       const totalQty = keys.reduce((s,k) => s + brawlCart[k].qty, 0);
-      window.saveOrder({ title: 'براول ستارز', quantity: totalQty, price: total, details: msg, fullDetails: msg });
+      window.saveOrder({ title: 'براول ستارز', quantity: totalQty, price: total, details: msg, fullDetails: msg, egpUsed: rawTotal - total });
     }
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
@@ -4390,7 +4390,7 @@
     if (typeof window.saveOrder === 'function') {
       const totalQty = keys.reduce((s,k) => s + pesCart[k].qty, 0);
       const maskedMsg = window.maskSecret(msg, pass);
-      window.saveOrder({ title: 'بيس (اندرويد)', quantity: totalQty, price: total, details: maskedMsg, fullDetails: msg });
+      window.saveOrder({ title: 'بيس (اندرويد)', quantity: totalQty, price: total, details: maskedMsg, fullDetails: msg, egpUsed: rawTotal - total });
     }
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
@@ -4589,7 +4589,7 @@
     const msg = `🔥 طلب شحن فري فاير (ID)\n🆔 الـ ID: ${idVal}\n💎 الطلب:\n${items}\n💰 السعر: ${total} جنيه\nالاسم: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
       const totalQty = keys.reduce((s,k) => s + ffIdCart[k].qty, 0);
-      window.saveOrder({ title: 'فري فاير (ID)', quantity: totalQty, price: total, details: msg, fullDetails: msg });
+      window.saveOrder({ title: 'فري فاير (ID)', quantity: totalQty, price: total, details: msg, fullDetails: msg, egpUsed: rawTotal - total });
     }
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
@@ -4725,7 +4725,7 @@
     if (typeof window.saveOrder === 'function') {
       const totalQty = keys.reduce((s,k) => s + ffAccCart[k].qty, 0);
       const maskedMsg = window.maskSecret(msg, pass);
-      window.saveOrder({ title: 'فري فاير (حساب)', quantity: totalQty, price: total, details: maskedMsg, fullDetails: msg });
+      window.saveOrder({ title: 'فري فاير (حساب)', quantity: totalQty, price: total, details: maskedMsg, fullDetails: msg, egpUsed: rawTotal - total });
     }
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
@@ -4931,7 +4931,7 @@
     const msg = `${RLM}⚽ طلب شحن فيفا\n${RLM}📧 الإيميل: ${user}\n${RLM}🪙 الطلب:\n${itemsList}\n${RLM}💰 السعر: ${totalPrice} جنيه\n${RLM}الاسم: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
       const totalQty = items.reduce((s,i) => s + i.qty, 0);
-      window.saveOrder({ title: 'فيفا', quantity: totalQty, price: totalPrice, details: msg, fullDetails: msg });
+      window.saveOrder({ title: 'فيفا', quantity: totalQty, price: totalPrice, details: msg, fullDetails: msg, egpUsed: rawTotal - totalPrice });
     }
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
@@ -5734,10 +5734,16 @@
   // price: السعر الإجمالي، details: نص التفاصيل اللي هيظهر في "طلباتي" فقط —
   // *** لازم يكون أي باسورد/رقم سري جواه متبدل بنجوم قبل ما يتبعت هنا (استخدم maskSecret) ***
   // fullDetails: نفس النص لكن كامل بدون إخفاء — ده اللي هيشوفه الأدمن بس في لوحة التحكم
-  window.saveOrder = async function ({ title, quantity, price, details, fullDetails }) {
+  window.saveOrder = async function ({ title, quantity, price, details, fullDetails, egpUsed }) {
     const user = auth.currentUser;
     if (!user) return; // مفيش تسجيل دخول، مفيش حفظ (مينفعش نعرف الطلب ده بتاع مين)
+    const usedAmount = (typeof egpUsed === 'number' && egpUsed > 0) ? egpUsed : 0;
     try {
+      // لو العميل استخدم رصيد EGP في الطلب ده، بنخصمه من رصيده فورًا وقت إرسال الطلب —
+      // ولو الأدمن لغى الطلب بعد كده، القيمة دي هي اللي هترجعله تاني (شوف cancelOrder في admin.html)
+      if (usedAmount > 0) {
+        await updateDoc(doc(db, 'users', user.uid), { balance: increment(-usedAmount) });
+      }
       await addDoc(collection(db, 'orders'), {
         uid: user.uid,
         customerName: user.displayName || user.email || 'عميل',
@@ -5745,6 +5751,7 @@
         title: title || 'طلب',
         quantity: quantity || 1,
         price: price || null,
+        egpUsed: usedAmount,
         details: details || '',
         fullDetails: fullDetails || details || '',
         pendingDate: null,
@@ -5958,6 +5965,9 @@
     try {
       if (nickChanged) {
         await updateProfile(user, { displayName: newNickname });
+        // بنحدّث نفس اللقب في مستند المستخدم في Firestore كمان، عشان يفضل متزامن مع لوحة الأدمن
+        // ومايحصلش تعارض بين اللي متسجل في Firebase Auth واللي متسجل في قاعدة البيانات
+        await setDoc(doc(db, 'users', user.uid), { displayName: newNickname }, { merge: true });
         eaOriginalNickname = newNickname;
         refreshProfileDisplays(user);
       }
