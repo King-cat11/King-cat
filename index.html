@@ -3437,12 +3437,13 @@
     const rawTotal = keys.reduce((s,k) => s + accCart[k].price * accCart[k].qty, 0);
     const total = (accUseEGP && getUserBalance() > 0) ? accDiscountedTotal(rawTotal) : rawTotal;
     const totalQty = keys.reduce((s,k) => s + accCart[k].qty, 0);
-    const msg = `📦 طلب شحن روبلوكس (حساب)\n👤 اليوزرنيم: ${username}\n🔑 الباسورد: ${pass}\n📦 الطلب:\n${items}\n💰 السعر: ${total} جنيه\nالاسم: ${getCustomerName()}`;
+    const cashbackLine = window.robloxCashbackEgp ? `\n🎁 كاش باك: ${window.robloxCashbackEgp} EGP` : '';
+    const msg = `📦 طلب شحن روبلوكس (حساب)\n👤 اليوزرنيم: ${username}\n🔑 الباسورد: ${pass}\n📦 الطلب:\n${items}\n💰 السعر: ${total} جنيه${cashbackLine}\nالاسم: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
       // بنخزن نسخة "الباسورد فيها نجوم" في قاعدة البيانات، مش الباسورد الحقيقي —
       // الرسالة الكاملة بالباسورد الحقيقي بتتبعت للأدمن على واتساب بس
       const maskedPass = '•'.repeat(Math.max(pass.length, 6));
-      const maskedMsg = `📦 طلب شحن روبلوكس (حساب)\n👤 اليوزرنيم: ${username}\n🔑 الباسورد: ${maskedPass}\n📦 الطلب:\n${items}\n💰 السعر: ${total} جنيه`;
+      const maskedMsg = `📦 طلب شحن روبلوكس (حساب)\n👤 اليوزرنيم: ${username}\n🔑 الباسورد: ${maskedPass}\n📦 الطلب:\n${items}\n💰 السعر: ${total} جنيه${cashbackLine}`;
       window.saveOrder({ title: 'روبلوكس (حساب)', quantity: totalQty, price: total, details: maskedMsg, fullDetails: msg, egpUsed: rawTotal - total, egpEarned: window.robloxCashbackEgp || 0 });
     }
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
@@ -3639,7 +3640,8 @@
       return sum + finalRob * i.qty;
     }, 0);
     const finalPrice = (comUseEGP && getUserBalance() > 0) ? comDiscountedTotal(totalPrice) : totalPrice;
-    let msg = `${RLM}\u{1F4E6} \u0637\u0644\u0628 \u0634\u062d\u0646 \u0631\u0648\u0628\u0644\u0648\u0643\u0633 (\u0643\u0645\u064a\u0648\u0646\u062a\u064a)\n${RLM}\u{1F464} \u0627\u0644\u0627\u0633\u0645: ${username}\n${RLM}\u{1F3AE} \u0627\u0644\u0637\u0644\u0628: ${type}\n${itemsList}\n${RLM}\u{1F4CA} \u0625\u062c\u0645\u0627\u0644\u064a: ${totalFinalRob}R\n${RLM}\u{1F4B0} \u0627\u0644\u0633\u0639\u0631: ${finalPrice} \u062c\u0646\u064a\u0647\n${RLM}\u0643\u0648\u062f \u0627\u0644\u0632\u064a\u0627\u062f\u0629: ${codeApplied ? code : '\u0645\u0641\u064a\u0634'}\n${RLM}\u0627\u0644\u0627\u0633\u0645: ${getCustomerName()}`;
+    const cashbackLine = window.robloxCashbackEgp ? `\n${RLM}\u{1F381} \u0643\u0627\u0634 \u0628\u0627\u0643: ${window.robloxCashbackEgp} EGP` : '';
+    let msg = `${RLM}\u{1F4E6} \u0637\u0644\u0628 \u0634\u062d\u0646 \u0631\u0648\u0628\u0644\u0648\u0643\u0633 (\u0643\u0645\u064a\u0648\u0646\u062a\u064a)\n${RLM}\u{1F464} \u0627\u0644\u0627\u0633\u0645: ${username}\n${RLM}\u{1F3AE} \u0627\u0644\u0637\u0644\u0628: ${type}\n${itemsList}\n${RLM}\u{1F4CA} \u0625\u062c\u0645\u0627\u0644\u064a: ${totalFinalRob}R\n${RLM}\u{1F4B0} \u0627\u0644\u0633\u0639\u0631: ${finalPrice} \u062c\u0646\u064a\u0647${cashbackLine}\n${RLM}\u0643\u0648\u062f \u0627\u0644\u0632\u064a\u0627\u062f\u0629: ${codeApplied ? code : '\u0645\u0641\u064a\u0634'}\n${RLM}\u0627\u0644\u0627\u0633\u0645: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
       const totalQty = items.reduce((s,i) => s + i.qty, 0);
       window.saveOrder({ title: 'روبلوكس (كوميونتي)', quantity: totalQty, price: finalPrice, details: msg, fullDetails: msg, egpUsed: totalPrice - finalPrice, egpEarned: window.robloxCashbackEgp || 0 });
@@ -3772,7 +3774,8 @@
     const total = (giftUseEGP && getUserBalance() > 0) ? giftDiscountedTotal(totalPrice) : totalPrice;
     const RLM = '\u200F';
     const itemsList = items.map(i => `${RLM}\u2022 ${i.usd} USD (${i.qty})`).join('\n');
-    let msg = `${RLM}\u{1F381} طلب شحن روبلوكس (جيفت كارد)\n${itemsList}\n${RLM}\u{1F4B0} السعر: ${total} جنيه\n${RLM}الاسم: ${getCustomerName()}`;
+    const cashbackLine = window.robloxCashbackEgp ? `\n${RLM}🎁 كاش باك: ${window.robloxCashbackEgp} EGP` : '';
+    let msg = `${RLM}\u{1F381} طلب شحن روبلوكس (جيفت كارد)\n${itemsList}\n${RLM}\u{1F4B0} السعر: ${total} جنيه${cashbackLine}\n${RLM}الاسم: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
       const totalQty = items.reduce((s,i) => s + i.qty, 0);
       window.saveOrder({ title: 'روبلوكس (جيفت كارد)', quantity: totalQty, price: total, details: msg, fullDetails: msg, egpUsed: totalPrice - total, egpEarned: window.robloxCashbackEgp || 0 });
@@ -5534,7 +5537,10 @@
     }
   }
   // سطر الكاش باك اللي بيظهر تحت الفاتورة بس (مش هيتبعت في رسالة الواتساب خالص)
-  function cashbackLineHTML() {
+  // ملحوظة: لازم تتعرف على window مباشرة عشان الفنكشن دي متعرفة جوا <script type="module">
+  // والسكريبتات العادية (اللي بتستخدمها في renderAccSummary/renderComSummary/renderGiftSummary)
+  // معندهاش وصول لحاجة متعرفة بـ function عادي جوا موديول.
+  window.cashbackLineHTML = function cashbackLineHTML() {
     if (!window.robloxCashbackEgp) return '';
     return `<div style="font-size:.8rem;color:#6fcf3a;margin-top:6px;">🎁 هتاخد ${window.robloxCashbackEgp} EGP كاش باك لما الطلب يتنفذ</div>`;
   }
