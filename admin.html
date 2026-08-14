@@ -1449,6 +1449,7 @@
           <div onclick="showOrderDetail('${o.id}')" style="cursor:pointer;flex:1;min-width:0;">
             <div class="o-game">${esc(o.game)}</div>
             <div class="o-user">${esc(o.user)} · ${esc(o.time)}${o.price ? ' · ' + esc(o.price) + ' جنيه' : ''}</div>
+            ${o.egpEarned > 0 ? `<div class="o-user" style="color:#6fcf3a;">🎁 كاش باك: ${esc(o.egpEarned)} EGP</div>` : ''}
           </div>
         </div>
         ${isNewTab ? `
@@ -1505,7 +1506,8 @@
     const o = ordersData.find(x => x.id === id);
     if (!o) return;
     document.getElementById('orderDetailTitleAdmin').textContent = o.game || 'طلب';
-    document.getElementById('orderDetailBodyAdmin').textContent = o.fullDetails || 'مفيش تفاصيل إضافية';
+    const cashbackNote = o.egpEarned > 0 ? `\n\n🎁 كاش باك: ${o.egpEarned} EGP (هيتسجل لرصيد العميل لما تدوس "تم")` : '';
+    document.getElementById('orderDetailBodyAdmin').textContent = (o.fullDetails || 'مفيش تفاصيل إضافية') + cashbackNote;
     document.getElementById('orderDetailOverlay').style.display = 'flex';
     adminNavSetOverlay('orderDetail', { id });
   }
@@ -1628,12 +1630,16 @@
   // القيم دي بتتحفظ في Firestore (مستند واحد ثابت) عشان متتمسحش لما تعمل ريفريش أو تقفل المتصفح
   const robuxValues = { priceThousand: null, bought: null, remaining: null, withdrawnPrice: null };
   let robuxEditingKey = null;
-  const robuxDataRef = doc(db, 'adminData', 'robuxCalc');
+  // ملحوظة: ما بنعملش doc(db, ...) هنا فورًا، لأن السطر ده بيتنفذ قبل ما الـ Firebase module
+  // (اللي بيعرّف db/doc) يتحمل خالص. بدل كده بنعمل الـ reference كل ما نحتاجه فعليًا (lazy).
+  function getRobuxDataRef() {
+    return window.fbDoc(window.db, 'adminData', 'robuxCalc');
+  }
 
   // ============ تحميل بيانات "حساباتي" المحفوظة من السحابة أول ما لوحة الأدمن تفتح ============
   async function loadRobuxData() {
     try {
-      const snap = await getDoc(robuxDataRef);
+      const snap = await window.fbGetDoc(getRobuxDataRef());
       if (!snap.exists()) return;
       const d = snap.data();
       ['priceThousand', 'bought', 'remaining', 'withdrawnPrice'].forEach((k) => {
@@ -1665,7 +1671,7 @@
   async function saveRobuxDataToCloud() {
     const statusEl = document.getElementById('robuxDataStatus');
     try {
-      await setDoc(robuxDataRef, { ...robuxValues, updatedAt: serverTimestamp() }, { merge: true });
+      await window.fbSetDoc(getRobuxDataRef(), { ...robuxValues, updatedAt: window.fbServerTimestamp() }, { merge: true });
       if (statusEl) { statusEl.textContent = 'اتحفظ ✅'; statusEl.className = 'login-status ok'; setTimeout(() => { if (statusEl.textContent === 'اتحفظ ✅') statusEl.textContent = ''; }, 2000); }
     } catch (err) {
       console.error('تعذر حفظ بيانات حساباتي:', err);
@@ -1968,6 +1974,24 @@
   const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const db = getFirestore(app);
+
+  // بنحط أدوات Firestore دي على window عشان الكود اللي في السكريبت العادي (اللي فوق ده)
+  // يقدر يستخدمها — لأنه بيتنفذ قبل ما الـ module ده يتحمل، ومكنش شايف db/doc/getDoc أصلاً
+  window.db = db;
+  window.fbDoc = doc;
+  window.fbGetDoc = getDoc;
+  window.fbSetDoc = setDoc;
+  window.fbAddDoc = addDoc;
+  window.fbDeleteDoc = deleteDoc;
+  window.fbUpdateDoc = updateDoc;
+  window.fbIncrement = increment;
+  window.fbServerTimestamp = serverTimestamp;
+  window.fbCollection = collection;
+  window.fbQuery = query;
+  window.fbWhere = where;
+  window.fbOrderBy = orderBy;
+  window.fbGetDocs = getDocs;
+  window.fbOnSnapshot = onSnapshot;
 
   const authGate = document.getElementById('authGate');
   const adminContent = document.getElementById('adminContent');
