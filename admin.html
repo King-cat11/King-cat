@@ -2373,12 +2373,14 @@
     const statusEl = document.getElementById('robloxPricingStatus');
     if (statusEl) { statusEl.textContent = 'بيتم الحفظ...'; statusEl.className = 'login-status'; }
     try {
+      const cbEl = document.getElementById('robloxCashbackInput');
+      const cbRaw = cbEl ? cbEl.value : 'ELEMENT NOT FOUND';
       const pricingPayload = {
         acc: window.collectPriceRows('acc'),
         comFawri: window.collectPriceRows('comFawri'),
         comHagz: window.collectPriceRows('comHagz'),
         giftcard: window.collectPriceRows('giftcard'),
-        cashbackEgp: parseFloat(normalizeDigits(document.getElementById('robloxCashbackInput')?.value)) || 0,
+        cashbackEgp: parseFloat(normalizeDigits(cbRaw)) || 0,
         updatedAt: serverTimestamp()
       };
       const bonusPayload = {
@@ -2389,7 +2391,7 @@
         setDoc(doc(db, 'pricing', 'roblox'), pricingPayload),
         setDoc(doc(db, 'pricing', 'bonusCodes'), bonusPayload)
       ]);
-      if (statusEl) { statusEl.textContent = 'تم الحفظ بنجاح ✅ (القيمة المحفوظة فعلياً: ' + pricingPayload.cashbackEgp + ')'; statusEl.className = 'login-status ok'; }
+      if (statusEl) { statusEl.textContent = 'تم الحفظ ✅ | خانة الإدخال كانت فيها: "' + cbRaw + '" | القيمة المحفوظة: ' + pricingPayload.cashbackEgp; statusEl.className = 'login-status ok'; }
     } catch (err) {
       console.error('تعذر حفظ أسعار روبلكس أو أكواد الزيادة:', err);
       if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء الحفظ، حاول تاني'; statusEl.className = 'login-status err'; }
