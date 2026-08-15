@@ -2389,7 +2389,7 @@
         setDoc(doc(db, 'pricing', 'roblox'), pricingPayload),
         setDoc(doc(db, 'pricing', 'bonusCodes'), bonusPayload)
       ]);
-      if (statusEl) { statusEl.textContent = 'تم الحفظ بنجاح ✅ — هيتحدث على الموقع على طول'; statusEl.className = 'login-status ok'; }
+      if (statusEl) { statusEl.textContent = 'تم الحفظ بنجاح ✅ (القيمة المحفوظة فعلياً: ' + pricingPayload.cashbackEgp + ')'; statusEl.className = 'login-status ok'; }
     } catch (err) {
       console.error('تعذر حفظ أسعار روبلكس أو أكواد الزيادة:', err);
       if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء الحفظ، حاول تاني'; statusEl.className = 'login-status err'; }

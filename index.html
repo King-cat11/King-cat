@@ -5514,12 +5514,18 @@
   // معندهاش وصول لحاجة متعرفة بـ function عادي جوا موديول.
   window.cashbackLineHTML = function cashbackLineHTML() {
     const val = window.robloxCashbackEgp || 0;
-    return `<div style="font-size:.8rem;color:#6fcf3a;margin-top:6px;">🎁 كاش باك: ${val} EGP</div>`;
+    const dbg = window.robloxPricingDebug ? `<div style="font-size:.62rem;color:#e11d48;margin-top:4px;direction:ltr;text-align:center;word-break:break-all;">DEBUG: ${window.robloxPricingDebug}</div>` : '';
+    return `<div style="font-size:.8rem;color:#6fcf3a;margin-top:6px;">🎁 كاش باك: ${val} EGP</div>${dbg}`;
   }
   // بث حي: أي تعديل في الأسعار من لوحة الأدمن بيتطبق هنا على طول من غير ما اليوزر يعمل ريفريش.
   onSnapshot(doc(db, 'pricing', 'roblox'), (snap) => {
+    // ============ سطر تشخيص مؤقت (شيله بعد ما تتحل مشكلة الكاش باك) ============
+    window.robloxPricingDebug = snap.exists() ? ('exists=true cashbackEgp=' + JSON.stringify(snap.data().cashbackEgp) + ' typeof=' + typeof snap.data().cashbackEgp) : 'DOC NOT FOUND';
     if (snap.exists()) applyRobloxPricing(snap.data());
+    else if (typeof renderAccSummary === 'function') { renderAccSummary(); renderComSummary(); renderGiftSummary(); }
   }, (err) => {
+    window.robloxPricingDebug = 'READ ERROR: ' + err.code;
+    if (typeof renderAccSummary === 'function') { renderAccSummary(); renderComSummary(); renderGiftSummary(); }
     console.error('تعذر تحميل أسعار روبلكس:', err);
   });
 
