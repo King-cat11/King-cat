@@ -844,7 +844,6 @@
 </style>
 </head>
 <body>
-<div style="position:fixed;top:0;left:0;right:0;z-index:99999;background:#ff2d78;color:#fff;text-align:center;font-size:.75rem;padding:4px;font-weight:800;">نسخة الملف: v-CASHBACK-DEBUG-3</div>
 <div style="height:24px;"></div>
 <div class="phone-frame">
 
@@ -2394,7 +2393,7 @@
         setDoc(doc(db, 'pricing', 'roblox'), pricingPayload),
         setDoc(doc(db, 'pricing', 'bonusCodes'), bonusPayload)
       ]);
-      if (statusEl) { statusEl.textContent = 'تم الحفظ ✅ | خانة الإدخال كانت فيها: "' + cbRaw + '" | القيمة المحفوظة: ' + pricingPayload.cashbackEgp; statusEl.className = 'login-status ok'; }
+      if (statusEl) { statusEl.textContent = 'تم الحفظ ✅'; statusEl.className = 'login-status ok'; }
     } catch (err) {
       console.error('تعذر حفظ أسعار روبلكس أو أكواد الزيادة:', err);
       if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء الحفظ، حاول تاني'; statusEl.className = 'login-status err'; }
