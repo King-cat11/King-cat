@@ -940,6 +940,14 @@
       <div class="ac-icon">🔫</div>
       <div class="ac-title">ببجي</div>
     </div>
+    <div class="admin-card admin-card-row" onclick="showFFPricing()">
+      <div class="ac-icon">🔥</div>
+      <div class="ac-title">فري فاير</div>
+    </div>
+    <div class="admin-card admin-card-row" onclick="showFifaPricing()">
+      <div class="ac-icon">⚽</div>
+      <div class="ac-title">فيفا</div>
+    </div>
   </div>
 </main>
 
@@ -1085,6 +1093,95 @@
 
   <div id="pubgPricingStatus" class="login-status" style="margin-top:14px;"></div>
   <button class="login-submit-btn" style="margin-top:6px;background:#ff2d78;" onclick="savePubgPricing()">💾 حفظ كل التعديلات</button>
+</main>
+
+<!-- ============ صفحة أسعار فري فاير ============ -->
+<main id="ffPricingPage" style="display:none;">
+  <div class="rp-header-row">
+    <button class="back-btn" onclick="showPricingPage()">→ Back</button>
+    <div class="eyebrow roblox-eyebrow">Free Fire</div>
+  </div>
+
+  <div id="rp-sec-ffId" class="price-section">
+    <div class="price-section-head" onclick="togglePriceSection('ffId')">
+      <div class="price-section-head-title">🆔 فري فاير (ID) <span class="price-section-count" id="count-ffId"></span></div>
+      <span class="price-section-chevron">▾</span>
+    </div>
+    <div class="price-section-body"><div class="price-section-body-inner">
+      <div class="price-rows" id="rows-ffId"></div>
+      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('ffId')">➕ إضافة سعر جديد</button>
+    </div></div>
+  </div>
+
+  <div id="rp-sec-ffAcc" class="price-section">
+    <div class="price-section-head" onclick="togglePriceSection('ffAcc')">
+      <div class="price-section-head-title">👤 فري فاير (حساب) <span class="price-section-count" id="count-ffAcc"></span></div>
+      <span class="price-section-chevron">▾</span>
+    </div>
+    <div class="price-section-body"><div class="price-section-body-inner">
+      <div class="price-rows" id="rows-ffAcc"></div>
+      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('ffAcc')">➕ إضافة سعر جديد</button>
+    </div></div>
+  </div>
+
+  <div id="ffPricingStatus" class="login-status" style="margin-top:14px;"></div>
+  <button class="login-submit-btn" style="margin-top:6px;background:#ff2d78;" onclick="saveFFPricing()">💾 حفظ كل التعديلات</button>
+</main>
+
+<!-- ============ صفحة أسعار فيفا ============ -->
+<main id="fifaPricingPage" style="display:none;">
+  <div class="rp-header-row">
+    <button class="back-btn" onclick="showPricingPage()">→ Back</button>
+    <div class="eyebrow roblox-eyebrow">FIFA</div>
+  </div>
+
+  <div id="rp-sec-fifaFc" class="price-section">
+    <div class="price-section-head" onclick="togglePriceSection('fifaFc')">
+      <div class="price-section-head-title">💰 FC <span class="price-section-count" id="count-fifaFc"></span></div>
+      <span class="price-section-chevron">▾</span>
+    </div>
+    <div class="price-section-body"><div class="price-section-body-inner">
+      <div class="price-cols-head">
+        <span class="amt-col">FC</span>
+        <span class="price-col">السعر</span>
+        <span class="egp-col">EGP</span>
+        <span class="spacer-remove"></span>
+      </div>
+      <div class="price-rows" id="rows-fifaFc"></div>
+      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('fifaFc')">➕ إضافة سعر جديد</button>
+    </div></div>
+  </div>
+
+  <div id="rp-sec-fifaSilver" class="price-section">
+    <div class="price-section-head" onclick="togglePriceSection('fifaSilver')">
+      <div class="price-section-head-title">🥈 Silver <span class="price-section-count" id="count-fifaSilver"></span></div>
+      <span class="price-section-chevron">▾</span>
+    </div>
+    <div class="price-section-body"><div class="price-section-body-inner">
+      <div class="price-cols-head">
+        <span class="amt-col">Silver</span>
+        <span class="price-col">السعر</span>
+        <span class="egp-col">EGP</span>
+        <span class="spacer-remove"></span>
+      </div>
+      <div class="price-rows" id="rows-fifaSilver"></div>
+      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('fifaSilver')">➕ إضافة سعر جديد</button>
+    </div></div>
+  </div>
+
+  <div id="rp-sec-fifaOrod" class="price-section">
+    <div class="price-section-head" onclick="togglePriceSection('fifaOrod')">
+      <div class="price-section-head-title">🎁 عروض <span class="price-section-count" id="count-fifaOrod"></span></div>
+      <span class="price-section-chevron">▾</span>
+    </div>
+    <div class="price-section-body"><div class="price-section-body-inner">
+      <div class="price-rows" id="rows-fifaOrod"></div>
+      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('fifaOrod')">➕ إضافة عرض جديد</button>
+    </div></div>
+  </div>
+
+  <div id="fifaPricingStatus" class="login-status" style="margin-top:14px;"></div>
+  <button class="login-submit-btn" style="margin-top:6px;background:#ff2d78;" onclick="saveFifaPricing()">💾 حفظ كل التعديلات</button>
 </main>
 
 <!-- ============ صفحة حسبة الروبوكس (أدمن بس) ============ -->
@@ -1330,6 +1427,8 @@
     pricing: () => showPricingPage(),
     robloxPricing: () => { showPricingPage(); showRobloxPricing(); },
     pubgPricing: () => { showPricingPage(); showPubgPricing(); },
+    ffPricing: () => { showPricingPage(); showFFPricing(); },
+    fifaPricing: () => { showPricingPage(); showFifaPricing(); },
     robuxCalc: () => showRobuxCalcPage()
   };
 
@@ -1374,6 +1473,8 @@
     document.getElementById('pricingPage').style.display = 'none';
     document.getElementById('robloxPricingPage').style.display = 'none';
     document.getElementById('pubgPricingPage').style.display = 'none';
+    document.getElementById('ffPricingPage').style.display = 'none';
+    document.getElementById('fifaPricingPage').style.display = 'none';
     document.getElementById('currencyPage').style.display = 'none';
     document.getElementById('robuxCalcPage').style.display = 'none';
     document.getElementById('dashboard').style.display = 'block';
@@ -1391,6 +1492,8 @@
     document.getElementById('pricingPage').style.display = 'none';
     document.getElementById('robloxPricingPage').style.display = 'none';
     document.getElementById('pubgPricingPage').style.display = 'none';
+    document.getElementById('ffPricingPage').style.display = 'none';
+    document.getElementById('fifaPricingPage').style.display = 'none';
     document.getElementById('currencyPage').style.display = 'block';
     document.getElementById('navHome').classList.remove('active');
     document.body.classList.add('no-header');
@@ -1407,6 +1510,8 @@
     document.getElementById('ordersPage').style.display = 'none';
     document.getElementById('robloxPricingPage').style.display = 'none';
     document.getElementById('pubgPricingPage').style.display = 'none';
+    document.getElementById('ffPricingPage').style.display = 'none';
+    document.getElementById('fifaPricingPage').style.display = 'none';
     document.getElementById('currencyPage').style.display = 'none';
     document.getElementById('pricingPage').style.display = 'block';
     document.getElementById('navHome').classList.remove('active');
@@ -1418,6 +1523,9 @@
 
   function showRobloxPricing() {
     document.getElementById('pricingPage').style.display = 'none';
+    document.getElementById('pubgPricingPage').style.display = 'none';
+    document.getElementById('ffPricingPage').style.display = 'none';
+    document.getElementById('fifaPricingPage').style.display = 'none';
     document.getElementById('robloxPricingPage').style.display = 'block';
     window.scrollTo(0, 0);
     if (typeof window.loadRobloxPricing === 'function') window.loadRobloxPricing();
@@ -1429,12 +1537,37 @@
 
   function showPubgPricing() {
     document.getElementById('pricingPage').style.display = 'none';
+    document.getElementById('ffPricingPage').style.display = 'none';
+    document.getElementById('fifaPricingPage').style.display = 'none';
     document.getElementById('pubgPricingPage').style.display = 'block';
     window.scrollTo(0, 0);
     if (typeof window.loadPubgPricing === 'function') window.loadPubgPricing();
     adminNavGoToPage('pubgPricing');
   }
   window.showPubgPricing = showPubgPricing;
+
+  function showFFPricing() {
+    document.getElementById('pricingPage').style.display = 'none';
+    document.getElementById('robloxPricingPage').style.display = 'none';
+    document.getElementById('pubgPricingPage').style.display = 'none';
+    document.getElementById('ffPricingPage').style.display = 'block';
+    window.scrollTo(0, 0);
+    if (typeof window.loadFFPricing === 'function') window.loadFFPricing();
+    adminNavGoToPage('ffPricing');
+  }
+  window.showFFPricing = showFFPricing;
+
+  function showFifaPricing() {
+    document.getElementById('pricingPage').style.display = 'none';
+    document.getElementById('robloxPricingPage').style.display = 'none';
+    document.getElementById('pubgPricingPage').style.display = 'none';
+    document.getElementById('ffPricingPage').style.display = 'none';
+    document.getElementById('fifaPricingPage').style.display = 'block';
+    window.scrollTo(0, 0);
+    if (typeof window.loadFifaPricing === 'function') window.loadFifaPricing();
+    adminNavGoToPage('fifaPricing');
+  }
+  window.showFifaPricing = showFifaPricing;
 
   // ============ التنقل لصفحة حسبة الروبوكس (أدمن بس) ============
   function showRobuxCalcPage() {
@@ -1443,6 +1576,8 @@
     document.getElementById('pricingPage').style.display = 'none';
     document.getElementById('robloxPricingPage').style.display = 'none';
     document.getElementById('pubgPricingPage').style.display = 'none';
+    document.getElementById('ffPricingPage').style.display = 'none';
+    document.getElementById('fifaPricingPage').style.display = 'none';
     document.getElementById('currencyPage').style.display = 'none';
     document.getElementById('robuxCalcPage').style.display = 'block';
     document.getElementById('navHome').classList.remove('active');
@@ -1509,6 +1644,7 @@
             <div class="o-game">${esc(o.game)}</div>
             <div class="o-user">${esc(o.user)} · ${esc(o.time)}${o.price ? ' · ' + esc(o.price) + ' جنيه' : ''}</div>
             ${o.egpEarned > 0 ? `<div class="o-user" style="color:#6fcf3a;">🎁 كاش باك: ${esc(o.egpEarned)} EGP</div>` : ''}
+            <div class="o-user" style="color:${o.egpUsed > 0 ? '#60a5fa' : 'var(--muted)'};">💳 استخدم رصيد خصم: ${o.egpUsed > 0 ? 'نعم (' + esc(o.egpUsed) + ' EGP)' : 'لا'}</div>
           </div>
         </div>
         ${isNewTab ? `
@@ -1566,7 +1702,8 @@
     if (!o) return;
     document.getElementById('orderDetailTitleAdmin').textContent = o.game || 'طلب';
     const cashbackNote = o.egpEarned > 0 ? `\n\n🎁 كاش باك: ${o.egpEarned} EGP (هيتسجل لرصيد العميل لما تدوس "تم")` : '';
-    document.getElementById('orderDetailBodyAdmin').textContent = (o.fullDetails || 'مفيش تفاصيل إضافية') + cashbackNote;
+    const discountNote = `\n\n💳 استخدم رصيد خصم: ${o.egpUsed > 0 ? 'نعم (' + o.egpUsed + ' EGP)' : 'لا'}`;
+    document.getElementById('orderDetailBodyAdmin').textContent = (o.fullDetails || 'مفيش تفاصيل إضافية') + cashbackNote + discountNote;
     document.getElementById('orderDetailOverlay').style.display = 'flex';
     adminNavSetOverlay('orderDetail', { id });
   }
@@ -1865,6 +2002,34 @@
         <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
       </div>`;
     }
+    if (section === 'ffId' || section === 'ffAcc') {
+      const isCustom = !!item.custom;
+      return `<div class="price-row" data-section="${section}">
+        <input type="text" class="oinput amt-input" placeholder="دايموند" value="${item.diamond != null ? item.diamond : ''}">
+        <input type="text" class="oinput label-input" placeholder="الاسم (مثلاً 100 Diamond)" value="${item.label != null ? item.label : ''}">
+        <input type="number" class="oinput price-input" placeholder="السعر" value="${item.price != null ? item.price : ''}">
+        <input type="number" class="oinput egp-input" placeholder="EGP" value="${item.egp != null ? item.egp : ''}">
+        <label class="custom-check"><input type="checkbox" ${isCustom ? 'checked' : ''}> اشتراك</label>
+        <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
+      </div>`;
+    }
+    if (section === 'fifaFc' || section === 'fifaSilver') {
+      return `<div class="price-row" data-section="${section}">
+        <input type="text" class="oinput amt-input" placeholder="${section === 'fifaFc' ? 'FC' : 'Silver'}" value="${item.amt != null ? item.amt : ''}">
+        <input type="number" class="oinput price-input" placeholder="السعر" value="${item.price != null ? item.price : ''}">
+        <input type="number" class="oinput egp-input" placeholder="EGP" value="${item.egp != null ? item.egp : ''}">
+        <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
+      </div>`;
+    }
+    if (section === 'fifaOrod') {
+      return `<div class="price-row" data-section="fifaOrod" style="flex-wrap:wrap;">
+        <input type="text" class="oinput label-input" placeholder="اسم العرض (مثلاً ⭐ تصريح النجم)" value="${item.label != null ? item.label : ''}" style="flex:1 1 100%;">
+        <input type="number" class="oinput price-input" placeholder="السعر" value="${item.price != null ? item.price : ''}">
+        <input type="number" class="oinput orig-price-input" placeholder="السعر قبل الخصم (اختياري)" value="${item.origPrice != null ? item.origPrice : ''}">
+        <input type="number" class="oinput egp-input" placeholder="EGP" value="${item.egp != null ? item.egp : ''}">
+        <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
+      </div>`;
+    }
     // comFawri / comHagz
     return `<div class="price-row" data-section="${section}">
       <input type="text" class="oinput amt-input" placeholder="روبكس" value="${item.rob != null ? item.rob : ''}">
@@ -1922,7 +2087,7 @@
   }
 
   function togglePriceSection(key) {
-    const sections = ['acc', 'comFawri', 'bonusCodes', 'comHagz', 'giftcard', 'cashback', 'pubgUc', 'pubgOrod'];
+    const sections = ['acc', 'comFawri', 'bonusCodes', 'comHagz', 'giftcard', 'cashback', 'pubgUc', 'pubgOrod', 'ffId', 'ffAcc', 'fifaFc', 'fifaSilver', 'fifaOrod'];
     sections.forEach(s => {
       const el = document.getElementById('rp-sec-' + s);
       if (!el) return;
@@ -1970,6 +2135,23 @@
         const label = (labelInput.value || '').trim();
         const desc = (descInput ? descInput.value : '').trim();
         return { label, desc, price, egp };
+      }
+      if (section === 'ffId' || section === 'ffAcc') {
+        const isCustom = !!(checkInput && checkInput.checked);
+        const diamondRaw = (amtInput.value || '').trim();
+        const diamond = isCustom ? diamondRaw : (parseInt(diamondRaw) || 0);
+        const label = (labelInput.value || '').trim() || (diamond + ' Diamond');
+        return { diamond, price, egp, label, custom: isCustom };
+      }
+      if (section === 'fifaFc' || section === 'fifaSilver') {
+        const amt = parseInt(amtInput.value) || 0;
+        return { amt, price, egp };
+      }
+      if (section === 'fifaOrod') {
+        const origInput = row.querySelector('.orig-price-input');
+        const label = (labelInput.value || '').trim();
+        const origPrice = origInput ? (parseInt(origInput.value) || 0) : 0;
+        return { label, price, origPrice, egp };
       }
       const rob = parseInt(amtInput.value) || 0;
       return { rob, price, egp };
@@ -2533,6 +2715,121 @@
       if (statusEl) { statusEl.textContent = 'تم الحفظ ✅'; statusEl.className = 'login-status ok'; }
     } catch (err) {
       console.error('تعذر حفظ أسعار ببجي:', err);
+      if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء الحفظ، حاول تاني'; statusEl.className = 'login-status err'; }
+    }
+  };
+
+  // ============ الأسعار الافتراضية لفري فاير (لو مفيش حاجة متحفظة لسه) ============
+  const DEFAULT_FF_PRICING = {
+    id: [
+      { diamond: 100, price: 60, label: '100 Diamond' },
+      { diamond: 210, price: 120, label: '210 Diamond' },
+      { diamond: 310, price: 170, label: '310 Diamond' },
+      { diamond: 530, price: 270, label: '530 Diamond' },
+      { diamond: 1080, price: 550, label: '1080 Diamond' },
+      { diamond: 2200, price: 1100, label: '2200 Diamond' },
+      { diamond: 'أسبوعي', price: 150, label: 'اشتراك أسبوعي', custom: true },
+      { diamond: 'شهري', price: 610, label: 'اشتراك شهري', custom: true }
+    ],
+    acc: [
+      { diamond: 100, price: 60, label: '100 Diamond' },
+      { diamond: 200, price: 120, label: '200 Diamond' },
+      { diamond: 310, price: 160, label: '310 Diamond' },
+      { diamond: 520, price: 250, label: '520 Diamond' },
+      { diamond: 1060, price: 500, label: '1060 Diamond' },
+      { diamond: 2180, price: 950, label: '2180 Diamond' },
+      { diamond: 5600, price: 2400, label: '5600 Diamond' },
+      { diamond: 'أسبوعي', price: 120, label: 'اشتراك أسبوعي', custom: true },
+      { diamond: 'شهري', price: 430, label: 'اشتراك شهري', custom: true }
+    ]
+  };
+
+  // ============ تحميل أسعار فري فاير الحالية في صفحة التعديل ============
+  window.loadFFPricing = async function () {
+    const statusEl = document.getElementById('ffPricingStatus');
+    if (statusEl) { statusEl.textContent = 'بيتحمل...'; statusEl.className = 'login-status'; }
+    try {
+      const snap = await getDoc(doc(db, 'pricing', 'freefire'));
+      const data = snap.exists() ? snap.data() : DEFAULT_FF_PRICING;
+      window.renderPriceRows('ffId', data.id && data.id.length ? data.id : DEFAULT_FF_PRICING.id);
+      window.renderPriceRows('ffAcc', data.acc && data.acc.length ? data.acc : DEFAULT_FF_PRICING.acc);
+      if (statusEl) statusEl.textContent = '';
+    } catch (err) {
+      console.error('تعذر تحميل أسعار فري فاير:', err);
+      window.renderPriceRows('ffId', DEFAULT_FF_PRICING.id);
+      window.renderPriceRows('ffAcc', DEFAULT_FF_PRICING.acc);
+      if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء تحميل الأسعار المحفوظة، ده عرض افتراضي بس'; statusEl.className = 'login-status err'; }
+    }
+  };
+
+  // ============ حفظ أسعار فري فاير في Firestore ============
+  window.saveFFPricing = async function () {
+    const statusEl = document.getElementById('ffPricingStatus');
+    if (statusEl) { statusEl.textContent = 'بيتم الحفظ...'; statusEl.className = 'login-status'; }
+    try {
+      const pricingPayload = {
+        id: window.collectPriceRows('ffId'),
+        acc: window.collectPriceRows('ffAcc'),
+        updatedAt: serverTimestamp()
+      };
+      await setDoc(doc(db, 'pricing', 'freefire'), pricingPayload);
+      if (statusEl) { statusEl.textContent = 'تم الحفظ ✅'; statusEl.className = 'login-status ok'; }
+    } catch (err) {
+      console.error('تعذر حفظ أسعار فري فاير:', err);
+      if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء الحفظ، حاول تاني'; statusEl.className = 'login-status err'; }
+    }
+  };
+
+  // ============ الأسعار الافتراضية لفيفا (لو مفيش حاجة متحفظة لسه) ============
+  const DEFAULT_FIFA_PRICING = {
+    fc: [
+      { amt: 40, price: 35 }, { amt: 100, price: 70 }, { amt: 500, price: 290 },
+      { amt: 1000, price: 550 }, { amt: 2000, price: 1050 }
+    ],
+    silver: [
+      { amt: 39, price: 35 }, { amt: 99, price: 70 }, { amt: 499, price: 290 },
+      { amt: 999, price: 550 }, { amt: 1999, price: 1050 }
+    ],
+    orod: [
+      { label: '⭐ تصريح النجم', price: 260, origPrice: 280 }
+    ]
+  };
+
+  // ============ تحميل أسعار فيفا الحالية في صفحة التعديل ============
+  window.loadFifaPricing = async function () {
+    const statusEl = document.getElementById('fifaPricingStatus');
+    if (statusEl) { statusEl.textContent = 'بيتحمل...'; statusEl.className = 'login-status'; }
+    try {
+      const snap = await getDoc(doc(db, 'pricing', 'fifa'));
+      const data = snap.exists() ? snap.data() : DEFAULT_FIFA_PRICING;
+      window.renderPriceRows('fifaFc', data.fc && data.fc.length ? data.fc : DEFAULT_FIFA_PRICING.fc);
+      window.renderPriceRows('fifaSilver', data.silver && data.silver.length ? data.silver : DEFAULT_FIFA_PRICING.silver);
+      window.renderPriceRows('fifaOrod', data.orod && data.orod.length ? data.orod : DEFAULT_FIFA_PRICING.orod);
+      if (statusEl) statusEl.textContent = '';
+    } catch (err) {
+      console.error('تعذر تحميل أسعار فيفا:', err);
+      window.renderPriceRows('fifaFc', DEFAULT_FIFA_PRICING.fc);
+      window.renderPriceRows('fifaSilver', DEFAULT_FIFA_PRICING.silver);
+      window.renderPriceRows('fifaOrod', DEFAULT_FIFA_PRICING.orod);
+      if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء تحميل الأسعار المحفوظة، ده عرض افتراضي بس'; statusEl.className = 'login-status err'; }
+    }
+  };
+
+  // ============ حفظ أسعار فيفا في Firestore ============
+  window.saveFifaPricing = async function () {
+    const statusEl = document.getElementById('fifaPricingStatus');
+    if (statusEl) { statusEl.textContent = 'بيتم الحفظ...'; statusEl.className = 'login-status'; }
+    try {
+      const pricingPayload = {
+        fc: window.collectPriceRows('fifaFc'),
+        silver: window.collectPriceRows('fifaSilver'),
+        orod: window.collectPriceRows('fifaOrod'),
+        updatedAt: serverTimestamp()
+      };
+      await setDoc(doc(db, 'pricing', 'fifa'), pricingPayload);
+      if (statusEl) { statusEl.textContent = 'تم الحفظ ✅'; statusEl.className = 'login-status ok'; }
+    } catch (err) {
+      console.error('تعذر حفظ أسعار فيفا:', err);
       if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء الحفظ، حاول تاني'; statusEl.className = 'login-status err'; }
     }
   };
