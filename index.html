@@ -5541,8 +5541,8 @@
   // والسكريبتات العادية (اللي بتستخدمها في renderAccSummary/renderComSummary/renderGiftSummary)
   // معندهاش وصول لحاجة متعرفة بـ function عادي جوا موديول.
   window.cashbackLineHTML = function cashbackLineHTML() {
-    if (!window.robloxCashbackEgp) return '';
-    return `<div style="font-size:.8rem;color:#6fcf3a;margin-top:6px;">🎁 هتاخد ${window.robloxCashbackEgp} EGP كاش باك لما الطلب يتنفذ</div>`;
+    const val = window.robloxCashbackEgp || 0;
+    return `<div style="font-size:.8rem;color:#6fcf3a;margin-top:6px;">🎁 كاش باك: ${val} EGP</div>`;
   }
   // بث حي: أي تعديل في الأسعار من لوحة الأدمن بيتطبق هنا على طول من غير ما اليوزر يعمل ريفريش.
   // لو مفيش بيانات محفوظة لسه في Firestore، الأسعار الثابتة المكتوبة في الصفحة بتفضل زي ما هي.
