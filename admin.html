@@ -1023,7 +1023,8 @@
     </div>
     <div class="price-section-body"><div class="price-section-body-inner">
       <p style="color:var(--muted);font-size:.8rem;margin:0 0 10px;">كام EGP يتسجل لرصيد العميل لما طلب روبلوكس (حساب / كوميونتي / جيفت كارد) يتأكد إنه اتنفذ. بيظهر للعميل تحت الفاتورة بس، ومش بيتبعت في رسالة الواتساب. لو الطلب اتلغى، مفيش حاجة بتتسجل.</p>
-      <input type="number" class="oinput" id="robloxCashbackInput" placeholder="مثلاً 5" style="width:100%;">
+      <input type="text" inputmode="decimal" class="oinput" id="robloxCashbackInput" placeholder="مثلاً 5" style="width:100%;">
+      <p style="color:var(--muted);font-size:.72rem;margin:4px 0 0;">اكتب الرقم بالإنجليزي (5) لو ظهرلك الرقم بالعربي (٥) من الكيبورد، امسحه واكتبه تاني</p>
     </div></div>
   </div>
 
@@ -2362,6 +2363,12 @@
   };
 
   // ============ حفظ أسعار روبلكس وأكواد الزيادة كلهم مرة واحدة في Firestore ============
+  // بيحول أي أرقام عربية (٠١٢٣٤٥٦٧٨٩) مكتوبة من كيبورد الموبايل لأرقام إنجليزية عادية قبل ما نحولها لرقم
+  function normalizeDigits(str) {
+    if (!str) return str;
+    const arabic = '٠١٢٣٤٥٦٧٨٩';
+    return String(str).replace(/[٠-٩]/g, d => arabic.indexOf(d));
+  }
   window.saveRobloxPricing = async function () {
     const statusEl = document.getElementById('robloxPricingStatus');
     if (statusEl) { statusEl.textContent = 'بيتم الحفظ...'; statusEl.className = 'login-status'; }
@@ -2371,7 +2378,7 @@
         comFawri: window.collectPriceRows('comFawri'),
         comHagz: window.collectPriceRows('comHagz'),
         giftcard: window.collectPriceRows('giftcard'),
-        cashbackEgp: parseFloat(document.getElementById('robloxCashbackInput')?.value) || 0,
+        cashbackEgp: parseFloat(normalizeDigits(document.getElementById('robloxCashbackInput')?.value)) || 0,
         updatedAt: serverTimestamp()
       };
       const bonusPayload = {
