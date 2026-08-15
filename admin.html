@@ -844,6 +844,8 @@
 </style>
 </head>
 <body>
+<div style="position:fixed;top:0;left:0;right:0;z-index:99999;background:#ff2d78;color:#fff;text-align:center;font-size:.75rem;padding:4px;font-weight:800;">نسخة الملف: v-CASHBACK-DEBUG-3</div>
+<div style="height:24px;"></div>
 <div class="phone-frame">
 
 <!-- ============ شاشة التحقق من صلاحية الأدمن (تظهر لحد ما يتأكد الكود إنه أدمن فعلاً) ============ -->
@@ -1023,7 +1025,8 @@
     </div>
     <div class="price-section-body"><div class="price-section-body-inner">
       <p style="color:var(--muted);font-size:.8rem;margin:0 0 10px;">كام EGP يتسجل لرصيد العميل لما طلب روبلوكس (حساب / كوميونتي / جيفت كارد) يتأكد إنه اتنفذ. بيظهر للعميل تحت الفاتورة بس، ومش بيتبعت في رسالة الواتساب. لو الطلب اتلغى، مفيش حاجة بتتسجل.</p>
-      <input type="text" inputmode="decimal" class="oinput" id="robloxCashbackInput" placeholder="مثلاً 5" style="width:100%;">
+      <input type="text" inputmode="decimal" class="oinput" id="robloxCashbackInput" placeholder="مثلاً 5" style="width:100%;" oninput="window.__cashbackDraft = this.value; document.getElementById('cashbackLiveEcho').textContent = 'هيتسجل: ' + (parseFloat(String(this.value).replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))) || 0);">
+      <div id="cashbackLiveEcho" style="color:#6fcf3a;font-size:.75rem;margin-top:6px;">هيتسجل: 0</div>
       <p style="color:var(--muted);font-size:.72rem;margin:4px 0 0;">اكتب الرقم بالإنجليزي (5) لو ظهرلك الرقم بالعربي (٥) من الكيبورد، امسحه واكتبه تاني</p>
     </div></div>
   </div>
@@ -2374,7 +2377,7 @@
     if (statusEl) { statusEl.textContent = 'بيتم الحفظ...'; statusEl.className = 'login-status'; }
     try {
       const cbEl = document.getElementById('robloxCashbackInput');
-      const cbRaw = cbEl ? cbEl.value : 'ELEMENT NOT FOUND';
+      const cbRaw = (window.__cashbackDraft !== undefined && window.__cashbackDraft !== '') ? window.__cashbackDraft : (cbEl ? cbEl.value : '');
       const pricingPayload = {
         acc: window.collectPriceRows('acc'),
         comFawri: window.collectPriceRows('comFawri'),
