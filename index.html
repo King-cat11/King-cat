@@ -2782,66 +2782,13 @@
     <!-- PANEL 1: UC -->
     <div id="pubg-panel-uc" class="rpanel active">
 
-      <div class="price-grid">
-        <div class="pcard pubg-pcard" style="border-color:rgba(0,180,216,.2); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-uc="60" data-price="60" onclick="togglePubgAmt(this,'uc')"><span class="rob">UC </span><span class="rob-val">60</span><span class="egp">EGP 60</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,-1)">−</button><span class="qty-num" style="color:var(--gold);">0</span><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,1)">+</button></div></div>
-        <div class="pcard pubg-pcard" style="border-color:rgba(0,180,216,.2); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-uc="120" data-price="120" onclick="togglePubgAmt(this,'uc')"><span class="rob">UC </span><span class="rob-val">120</span><span class="egp">EGP 120</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,-1)">−</button><span class="qty-num" style="color:var(--gold);">0</span><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,1)">+</button></div></div>
-        <div class="pcard pubg-pcard" style="border-color:rgba(0,180,216,.2); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-uc="325" data-price="270" onclick="togglePubgAmt(this,'uc')"><span class="rob">UC </span><span class="rob-val">325</span><span class="egp">EGP 270</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,-1)">−</button><span class="qty-num" style="color:var(--gold);">0</span><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,1)">+</button></div></div>
-        <div class="pcard pubg-pcard" style="border-color:rgba(0,180,216,.2); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-uc="660" data-price="510" onclick="togglePubgAmt(this,'uc')"><span class="rob">UC </span><span class="rob-val">660</span><span class="egp">EGP 510</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,-1)">−</button><span class="qty-num" style="color:var(--gold);">0</span><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,1)">+</button></div></div>
-        <div class="pcard pubg-pcard" style="border-color:rgba(0,180,216,.2); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-uc="1800" data-price="1260" onclick="togglePubgAmt(this,'uc')"><span class="rob">UC </span><span class="rob-val">1800</span><span class="egp">EGP 1260</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,-1)">−</button><span class="qty-num" style="color:var(--gold);">0</span><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,1)">+</button></div></div>
-        <div class="pcard pubg-pcard" style="border-color:rgba(0,180,216,.2); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-uc="3850" data-price="2500" onclick="togglePubgAmt(this,'uc')"><span class="rob">UC </span><span class="rob-val">3850</span><span class="egp">EGP 2500</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,-1)">−</button><span class="qty-num" style="color:var(--gold);">0</span><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,1)">+</button></div></div>
-      </div>
+      <div class="price-grid" id="pubg-prices-uc"></div>
     </div>
 
     <!-- PANEL 2: Offers -->
     <div id="pubg-panel-orod" class="rpanel">
 
-      <div class="price-grid" style="grid-template-columns:repeat(2,1fr);gap:10px;">
-        <div class="pcard pubg-pcard" style="border-color:rgba(0,180,216,.2); padding: 12px 10px; flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px;" data-uc="حزمة الشراء الأول (170UC + 900G)" data-price="70" onclick="togglePubgAmt(this,'orod')">
-          <span class="rob-val" style="font-size:.78rem;line-height:1.3;">حزمة الشراء الأول</span>
-          <span class="rob" style="font-size:.68rem;color:#aaa;">170UC + 900G</span>
-          <span class="egp">EGP 70</span>
-        <div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,-1)">−</button><span class="qty-num" style="color:var(--gold);">0</span><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,1)">+</button></div></div>
-        <div class="pcard pubg-pcard" style="border-color:rgba(0,180,216,.2); padding: 12px 10px; flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px;" data-uc="موارد ترقية الأسلحة (180UC + 9 ماتريال صغيره)" data-price="165" onclick="togglePubgAmt(this,'orod')">
-          <span class="rob-val" style="font-size:.72rem;line-height:1.3;">موارد ترقية الأسلحة</span>
-          <span class="rob" style="font-size:.68rem;">180UC</span>
-          <span class="rob" style="font-size:.65rem;color:#aaa;">9ماتريال صغيره</span>
-          <span class="egp">EGP 165</span>
-        <div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,-1)">−</button><span class="qty-num" style="color:var(--gold);">0</span><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,1)">+</button></div></div>
-        <div class="pcard pubg-pcard" style="border-color:rgba(0,180,216,.2); padding: 12px 10px; flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px;" data-uc="حزمة الشعار الخرافي (300UC + 79جوهرة صغيره)" data-price="255" onclick="togglePubgAmt(this,'orod')">
-          <span class="rob-val" style="font-size:.72rem;line-height:1.3;">حزمة الشعار الخرافي</span>
-          <span class="rob" style="font-size:.68rem;">300UC</span>
-          <span class="rob" style="font-size:.65rem;color:#aaa;">79جوهرة صغيره</span>
-          <span class="egp">EGP 255</span>
-        <div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,-1)">−</button><span class="qty-num" style="color:var(--gold);">0</span><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,1)">+</button></div></div>
-        <div class="pcard pubg-pcard" style="border-color:rgba(0,180,216,.2); padding: 12px 10px; flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px;" data-uc="البرايم الصغير (+60UC)" data-price="75" onclick="togglePubgAmt(this,'orod')">
-          <span class="rob-val" style="font-size:.78rem;line-height:1.3;">البرايم الصغير</span>
-          <span class="rob" style="font-size:.68rem;color:#aaa;">+60UC</span>
-          <span class="egp">EGP 75</span>
-        <div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,-1)">−</button><span class="qty-num" style="color:var(--gold);">0</span><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,1)">+</button></div></div>
-        <div class="pcard pubg-pcard" style="border-color:rgba(0,180,216,.2); padding: 12px 10px; grid-column: span 2; flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px;" data-uc="البرايم الكبير (+660UC)" data-price="520" onclick="togglePubgAmt(this,'orod')">
-          <span class="rob-val" style="font-size:.78rem;line-height:1.3;">البرايم الكبير</span>
-          <span class="rob" style="font-size:.68rem;color:#aaa;">+660UC</span>
-          <span class="egp">EGP 520</span>
-        <div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,-1)">−</button><span class="qty-num" style="color:var(--gold);">0</span><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,1)">+</button></div></div>
-        <div class="pcard pubg-pcard" style="border-color:rgba(0,180,216,.2); padding: 12px 10px; flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px;" data-uc="الرويال باس 1~50 (حزمة شحن نص الرويال باس)" data-price="300" onclick="togglePubgAmt(this,'orod')">
-          <span class="rob-val" style="font-size:.72rem;line-height:1.3;">رويال باس 1~50</span>
-          <span class="rob" style="font-size:.65rem;color:#aaa;">نص الرويال باس</span>
-          <span class="rob" style="font-size:.65rem;color:#aaa;">50 UC</span>
-          <span class="egp">EGP 300</span>
-        <div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,-1)">−</button><span class="qty-num" style="color:var(--gold);">0</span><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,1)">+</button></div></div>
-        <div class="pcard pubg-pcard" style="border-color:rgba(0,180,216,.2); padding: 12px 10px; flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px;" data-uc="الرويال باس 1~100 (حزمة شحن الرويال باس كامل)" data-price="580" onclick="togglePubgAmt(this,'orod')">
-          <span class="rob-val" style="font-size:.72rem;line-height:1.3;">رويال باس 1~100</span>
-          <span class="rob" style="font-size:.65rem;color:#aaa;">الرويال باس كامل</span>
-          <span class="rob" style="font-size:.65rem;color:#aaa;">100 UC</span>
-          <span class="egp">EGP 580</span>
-        <div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,-1)">−</button><span class="qty-num" style="color:var(--gold);">0</span><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,1)">+</button></div></div>
-        <div class="pcard pubg-pcard" style="border-color:rgba(0,180,216,.2); padding: 12px 10px; grid-column: span 2; flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px;" data-uc="الرويال باس بلس (حزمة شحن الرويال باس بلس)" data-price="1410" onclick="togglePubgAmt(this,'orod')">
-          <span class="rob-val" style="font-size:.78rem;line-height:1.3;">رويال باس بلس</span>
-          <span class="rob" style="font-size:.65rem;color:#aaa;">240 UC • إطار صورة RP</span>
-          <span class="rob" style="font-size:.65rem;color:#aaa;">24 لفل RP • رقصة النصر • تمثال</span>
-          <span class="egp">EGP 1410</span>
-        <div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,-1)">−</button><span class="qty-num" style="color:var(--gold);">0</span><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,1)">+</button></div></div>
-      </div>
+      <div class="price-grid" id="pubg-prices-orod" style="grid-template-columns:repeat(2,1fr);gap:10px;"></div>
     </div>
 
     <!-- SHARED SUMMARY (UC + Offers together) -->
@@ -3831,6 +3778,7 @@
   function togglePubgAmt(card, type) {
     const uc    = card.dataset.uc;
     const price = parseInt(card.dataset.price);
+    const egp   = parseFloat(card.dataset.egp) || 0;
     const key   = pubgKey(card, type);
     const qtyCtrl = card.querySelector('.qty-ctrl');
     const qtyNum  = card.querySelector('.qty-num');
@@ -3840,7 +3788,7 @@
       card.style.background = '#1a1a1a';
       if (qtyCtrl) { qtyCtrl.style.display = 'none'; if (qtyNum) qtyNum.textContent = '0'; }
     } else {
-      pubgCart[key] = { type, uc, price, qty: 1 };
+      pubgCart[key] = { type, uc, price, egp, qty: 1 };
       card.style.borderColor = 'var(--gold)';
       card.style.background = 'rgba(0,180,216,.15)';
       if (qtyCtrl) { qtyCtrl.style.display = 'flex'; if (qtyNum) qtyNum.textContent = '1'; }
@@ -3937,11 +3885,12 @@
       </div>`;
     }).join('');
     const total = keys.reduce((s,k) => s + pubgCart[k].price * pubgCart[k].qty, 0);
+    const totalEgp = keys.reduce((s,k) => s + (pubgCart[k].egp || 0) * pubgCart[k].qty, 0);
     if (pubgUseEGP && getUserBalance() > 0) {
       const discounted = pubgDiscountedTotal(total);
-      totDiv.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">💰 ${total} جنيه</div><div>💰 السعر: ${discounted} جنيه</div>`;
+      totDiv.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">💰 ${total} جنيه</div><div>💰 السعر: ${discounted} جنيه</div>${cashbackLineHTML(totalEgp)}`;
     } else {
-      totDiv.innerHTML = `💰 السعر: ${total} جنيه`;
+      totDiv.innerHTML = `💰 السعر: ${total} جنيه${cashbackLineHTML(totalEgp)}`;
     }
   }
 
@@ -3956,10 +3905,11 @@
     const items = keys.map(k => `• ${pubgLabel(pubgCart[k])} (${pubgCart[k].qty})`).join('\n');
     const rawTotal = keys.reduce((s,k) => s + pubgCart[k].price * pubgCart[k].qty, 0);
     const total = (pubgUseEGP && getUserBalance() > 0) ? pubgDiscountedTotal(rawTotal) : rawTotal;
+    const totalEgp = keys.reduce((s,k) => s + (pubgCart[k].egp || 0) * pubgCart[k].qty, 0);
     const msg = `🎮 طلب شحن ببجي\n🆔 الـ ID: ${idVal}\n📦 الطلب:\n${items}\n💰 السعر: ${total} جنيه\nالاسم: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
       const totalQty = keys.reduce((s,k) => s + pubgCart[k].qty, 0);
-      window.saveOrder({ title: 'ببجي', quantity: totalQty, price: total, details: msg, fullDetails: msg, egpUsed: rawTotal - total });
+      window.saveOrder({ title: 'ببجي', quantity: totalQty, price: total, details: msg, fullDetails: msg, egpUsed: rawTotal - total, egpEarned: totalEgp });
     }
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
@@ -5475,6 +5425,38 @@
   const auth = getAuth(app);
   const db = getFirestore(app);
   const googleProvider = new GoogleAuthProvider();
+
+  // ============ أسعار ببجي الديناميكية — بتتغير من لوحة الأدمن وتتحدث هنا لايف من غير ريفريش ============
+  function buildPubgUcCardHTML(item) {
+    const cb = item.egp || 0;
+    return `<div class="pcard pubg-pcard" style="border-color:rgba(0,180,216,.2); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-uc="${item.uc}" data-price="${item.price}" data-egp="${cb}" onclick="togglePubgAmt(this,'uc')"><span class="rob">UC </span><span class="rob-val">${item.uc}</span><span class="egp">EGP ${item.price}</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,-1)">−</button><span class="qty-num" style="color:var(--gold);">0</span><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,1)">+</button></div></div>`;
+  }
+  function buildPubgOrodCardHTML(item) {
+    const cb = item.egp || 0;
+    const key = (item.label || '') + (item.desc ? ' (' + item.desc + ')' : '');
+    return `<div class="pcard pubg-pcard" style="border-color:rgba(0,180,216,.2); padding: 12px 10px; flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px;" data-uc="${key}" data-price="${item.price}" data-egp="${cb}" onclick="togglePubgAmt(this,'orod')">
+          <span class="rob-val" style="font-size:.75rem;line-height:1.3;">${item.label || ''}</span>
+          <span class="rob" style="font-size:.68rem;color:#aaa;">${item.desc || ''}</span>
+          <span class="egp">EGP ${item.price}</span>
+        <div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,-1)">−</button><span class="qty-num" style="color:var(--gold);">0</span><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,1)">+</button></div></div>`;
+  }
+  function applyPubgPricing(data) {
+    if (!data) return;
+    try {
+      const ucEl   = document.getElementById('pubg-prices-uc');
+      const orodEl = document.getElementById('pubg-prices-orod');
+      if (ucEl && Array.isArray(data.uc) && data.uc.length) ucEl.innerHTML = data.uc.map(buildPubgUcCardHTML).join('');
+      if (orodEl && Array.isArray(data.orod) && data.orod.length) orodEl.innerHTML = data.orod.map(buildPubgOrodCardHTML).join('');
+      if (typeof renderPubgSummary === 'function') renderPubgSummary();
+    } catch (err) {
+      console.error('تعذر تطبيق أسعار ببجي:', err);
+    }
+  }
+  onSnapshot(doc(db, 'pricing', 'pubg'), (snap) => {
+    if (snap.exists()) applyPubgPricing(snap.data());
+  }, (err) => {
+    console.error('تعذر تحميل أسعار ببجي:', err);
+  });
 
   // ============ أسعار روبلكس الديناميكية — بتتغير من لوحة الأدمن وتتحدث هنا لايف من غير ريفريش ============
   function buildAccCardHTML(item) {

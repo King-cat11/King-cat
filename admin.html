@@ -844,7 +844,6 @@
 </style>
 </head>
 <body>
-<div style="height:24px;"></div>
 <div class="phone-frame">
 
 <!-- ============ شاشة التحقق من صلاحية الأدمن (تظهر لحد ما يتأكد الكود إنه أدمن فعلاً) ============ -->
@@ -936,6 +935,10 @@
     <div class="admin-card admin-card-row" onclick="showRobloxPricing()">
       <div class="ac-icon">🎮</div>
       <div class="ac-title">روبلكس</div>
+    </div>
+    <div class="admin-card admin-card-row" onclick="showPubgPricing()">
+      <div class="ac-icon">🔫</div>
+      <div class="ac-title">ببجي</div>
     </div>
   </div>
 </main>
@@ -1043,6 +1046,45 @@
 
   <div id="robloxPricingStatus" class="login-status" style="margin-top:14px;"></div>
   <button class="login-submit-btn" style="margin-top:6px;background:#ff2d78;" onclick="saveRobloxPricing()">💾 حفظ كل التعديلات</button>
+</main>
+
+<!-- ============ صفحة أسعار ببجي ============ -->
+<main id="pubgPricingPage" style="display:none;">
+  <div class="rp-header-row">
+    <button class="back-btn" onclick="showPricingPage()">→ Back</button>
+    <div class="eyebrow roblox-eyebrow">PUBG</div>
+  </div>
+
+  <div id="rp-sec-pubgUc" class="price-section">
+    <div class="price-section-head" onclick="togglePriceSection('pubgUc')">
+      <div class="price-section-head-title">💎 UC <span class="price-section-count" id="count-pubgUc"></span></div>
+      <span class="price-section-chevron">▾</span>
+    </div>
+    <div class="price-section-body"><div class="price-section-body-inner">
+      <div class="price-cols-head">
+        <span class="amt-col">UC</span>
+        <span class="price-col">السعر</span>
+        <span class="egp-col">EGP</span>
+        <span class="spacer-remove"></span>
+      </div>
+      <div class="price-rows" id="rows-pubgUc"></div>
+      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('pubgUc')">➕ إضافة سعر جديد</button>
+    </div></div>
+  </div>
+
+  <div id="rp-sec-pubgOrod" class="price-section">
+    <div class="price-section-head" onclick="togglePriceSection('pubgOrod')">
+      <div class="price-section-head-title">🎁 عروض <span class="price-section-count" id="count-pubgOrod"></span></div>
+      <span class="price-section-chevron">▾</span>
+    </div>
+    <div class="price-section-body"><div class="price-section-body-inner">
+      <div class="price-rows" id="rows-pubgOrod"></div>
+      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('pubgOrod')">➕ إضافة عرض جديد</button>
+    </div></div>
+  </div>
+
+  <div id="pubgPricingStatus" class="login-status" style="margin-top:14px;"></div>
+  <button class="login-submit-btn" style="margin-top:6px;background:#ff2d78;" onclick="savePubgPricing()">💾 حفظ كل التعديلات</button>
 </main>
 
 <!-- ============ صفحة حسبة الروبوكس (أدمن بس) ============ -->
@@ -1287,6 +1329,7 @@
     currency: () => showCurrencyPage(),
     pricing: () => showPricingPage(),
     robloxPricing: () => { showPricingPage(); showRobloxPricing(); },
+    pubgPricing: () => { showPricingPage(); showPubgPricing(); },
     robuxCalc: () => showRobuxCalcPage()
   };
 
@@ -1330,6 +1373,7 @@
     document.getElementById('ordersPage').style.display = 'none';
     document.getElementById('pricingPage').style.display = 'none';
     document.getElementById('robloxPricingPage').style.display = 'none';
+    document.getElementById('pubgPricingPage').style.display = 'none';
     document.getElementById('currencyPage').style.display = 'none';
     document.getElementById('robuxCalcPage').style.display = 'none';
     document.getElementById('dashboard').style.display = 'block';
@@ -1346,6 +1390,7 @@
     document.getElementById('ordersPage').style.display = 'none';
     document.getElementById('pricingPage').style.display = 'none';
     document.getElementById('robloxPricingPage').style.display = 'none';
+    document.getElementById('pubgPricingPage').style.display = 'none';
     document.getElementById('currencyPage').style.display = 'block';
     document.getElementById('navHome').classList.remove('active');
     document.body.classList.add('no-header');
@@ -1361,6 +1406,7 @@
     document.getElementById('dashboard').style.display = 'none';
     document.getElementById('ordersPage').style.display = 'none';
     document.getElementById('robloxPricingPage').style.display = 'none';
+    document.getElementById('pubgPricingPage').style.display = 'none';
     document.getElementById('currencyPage').style.display = 'none';
     document.getElementById('pricingPage').style.display = 'block';
     document.getElementById('navHome').classList.remove('active');
@@ -1381,12 +1427,22 @@
   window.showPricingPage = showPricingPage;
   window.showRobloxPricing = showRobloxPricing;
 
+  function showPubgPricing() {
+    document.getElementById('pricingPage').style.display = 'none';
+    document.getElementById('pubgPricingPage').style.display = 'block';
+    window.scrollTo(0, 0);
+    if (typeof window.loadPubgPricing === 'function') window.loadPubgPricing();
+    adminNavGoToPage('pubgPricing');
+  }
+  window.showPubgPricing = showPubgPricing;
+
   // ============ التنقل لصفحة حسبة الروبوكس (أدمن بس) ============
   function showRobuxCalcPage() {
     document.getElementById('dashboard').style.display = 'none';
     document.getElementById('ordersPage').style.display = 'none';
     document.getElementById('pricingPage').style.display = 'none';
     document.getElementById('robloxPricingPage').style.display = 'none';
+    document.getElementById('pubgPricingPage').style.display = 'none';
     document.getElementById('currencyPage').style.display = 'none';
     document.getElementById('robuxCalcPage').style.display = 'block';
     document.getElementById('navHome').classList.remove('active');
@@ -1792,6 +1848,23 @@
         <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
       </div>`;
     }
+    if (section === 'pubgUc') {
+      return `<div class="price-row" data-section="pubgUc">
+        <input type="text" class="oinput amt-input" placeholder="UC" value="${item.uc != null ? item.uc : ''}">
+        <input type="number" class="oinput price-input" placeholder="السعر" value="${item.price != null ? item.price : ''}">
+        <input type="number" class="oinput egp-input" placeholder="EGP" value="${item.egp != null ? item.egp : ''}">
+        <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
+      </div>`;
+    }
+    if (section === 'pubgOrod') {
+      return `<div class="price-row" data-section="pubgOrod" style="flex-wrap:wrap;">
+        <input type="text" class="oinput label-input" placeholder="اسم العرض" value="${item.label != null ? item.label : ''}" style="flex:1 1 100%;">
+        <input type="text" class="oinput desc-input" placeholder="الوصف (مثلاً 170UC + 900G)" value="${item.desc != null ? item.desc : ''}" style="flex:1 1 100%;">
+        <input type="number" class="oinput price-input" placeholder="السعر" value="${item.price != null ? item.price : ''}">
+        <input type="number" class="oinput egp-input" placeholder="EGP" value="${item.egp != null ? item.egp : ''}">
+        <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
+      </div>`;
+    }
     // comFawri / comHagz
     return `<div class="price-row" data-section="${section}">
       <input type="text" class="oinput amt-input" placeholder="روبكس" value="${item.rob != null ? item.rob : ''}">
@@ -1849,7 +1922,7 @@
   }
 
   function togglePriceSection(key) {
-    const sections = ['acc', 'comFawri', 'bonusCodes', 'comHagz', 'giftcard', 'cashback'];
+    const sections = ['acc', 'comFawri', 'bonusCodes', 'comHagz', 'giftcard', 'cashback', 'pubgUc', 'pubgOrod'];
     sections.forEach(s => {
       const el = document.getElementById('rp-sec-' + s);
       if (!el) return;
@@ -1887,6 +1960,16 @@
       if (section === 'giftcard') {
         const usd = parseInt(amtInput.value) || 0;
         return { usd, price, egp };
+      }
+      if (section === 'pubgUc') {
+        const uc = parseInt(amtInput.value) || 0;
+        return { uc, price, egp };
+      }
+      if (section === 'pubgOrod') {
+        const descInput = row.querySelector('.desc-input');
+        const label = (labelInput.value || '').trim();
+        const desc = (descInput ? descInput.value : '').trim();
+        return { label, desc, price, egp };
       }
       const rob = parseInt(amtInput.value) || 0;
       return { rob, price, egp };
@@ -2396,6 +2479,60 @@
       if (statusEl) { statusEl.textContent = 'تم الحفظ ✅'; statusEl.className = 'login-status ok'; }
     } catch (err) {
       console.error('تعذر حفظ أسعار روبلكس أو أكواد الزيادة:', err);
+      if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء الحفظ، حاول تاني'; statusEl.className = 'login-status err'; }
+    }
+  };
+
+  // ============ الأسعار الافتراضية لببجي (لو مفيش حاجة متحفظة لسه) ============
+  const DEFAULT_PUBG_PRICING = {
+    uc: [
+      { uc: 60, price: 60 }, { uc: 120, price: 120 }, { uc: 325, price: 270 },
+      { uc: 660, price: 510 }, { uc: 1800, price: 1260 }, { uc: 3850, price: 2500 }
+    ],
+    orod: [
+      { label: 'حزمة الشراء الأول', desc: '170UC + 900G', price: 70 },
+      { label: 'موارد ترقية الأسلحة', desc: '180UC + 9 ماتريال صغيره', price: 165 },
+      { label: 'حزمة الشعار الخرافي', desc: '300UC + 79جوهرة صغيره', price: 255 },
+      { label: 'البرايم الصغير', desc: '+60UC', price: 75 },
+      { label: 'البرايم الكبير', desc: '+660UC', price: 520 },
+      { label: 'الرويال باس 1~50', desc: 'نص الرويال باس • 50 UC', price: 300 },
+      { label: 'الرويال باس 1~100', desc: 'الرويال باس كامل • 100 UC', price: 580 },
+      { label: 'الرويال باس بلس', desc: '240 UC • إطار صورة RP • 24 لفل RP • رقصة النصر • تمثال', price: 1410 }
+    ]
+  };
+
+  // ============ تحميل أسعار ببجي الحالية في صفحة التعديل ============
+  window.loadPubgPricing = async function () {
+    const statusEl = document.getElementById('pubgPricingStatus');
+    if (statusEl) { statusEl.textContent = 'بيتحمل...'; statusEl.className = 'login-status'; }
+    try {
+      const snap = await getDoc(doc(db, 'pricing', 'pubg'));
+      const data = snap.exists() ? snap.data() : DEFAULT_PUBG_PRICING;
+      window.renderPriceRows('pubgUc', data.uc && data.uc.length ? data.uc : DEFAULT_PUBG_PRICING.uc);
+      window.renderPriceRows('pubgOrod', data.orod && data.orod.length ? data.orod : DEFAULT_PUBG_PRICING.orod);
+      if (statusEl) statusEl.textContent = '';
+    } catch (err) {
+      console.error('تعذر تحميل أسعار ببجي:', err);
+      window.renderPriceRows('pubgUc', DEFAULT_PUBG_PRICING.uc);
+      window.renderPriceRows('pubgOrod', DEFAULT_PUBG_PRICING.orod);
+      if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء تحميل الأسعار المحفوظة، ده عرض افتراضي بس'; statusEl.className = 'login-status err'; }
+    }
+  };
+
+  // ============ حفظ أسعار ببجي في Firestore ============
+  window.savePubgPricing = async function () {
+    const statusEl = document.getElementById('pubgPricingStatus');
+    if (statusEl) { statusEl.textContent = 'بيتم الحفظ...'; statusEl.className = 'login-status'; }
+    try {
+      const pricingPayload = {
+        uc: window.collectPriceRows('pubgUc'),
+        orod: window.collectPriceRows('pubgOrod'),
+        updatedAt: serverTimestamp()
+      };
+      await setDoc(doc(db, 'pricing', 'pubg'), pricingPayload);
+      if (statusEl) { statusEl.textContent = 'تم الحفظ ✅'; statusEl.className = 'login-status ok'; }
+    } catch (err) {
+      console.error('تعذر حفظ أسعار ببجي:', err);
       if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء الحفظ، حاول تاني'; statusEl.className = 'login-status err'; }
     }
   };
