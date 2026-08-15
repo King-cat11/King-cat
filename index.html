@@ -2973,15 +2973,8 @@
         </div>
       </div>
 
-      <!-- الأسعار -->
-      <div class="price-grid acc-grid" id="acc-prices">
-        <div class="pcard" data-rob="80" data-price="75" style="flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px;"  data-label="80 روب"   onclick="toggleAccAmt(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">80</span></span><span class="egp">EGP 75</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" data-rob="160"  data-price="150" data-label="160 روب"  onclick="toggleAccAmt(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">160</span></span><span class="egp">EGP 150</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" data-rob="400"  data-price="300" data-label="400 روب"  onclick="toggleAccAmt(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">400</span></span><span class="egp">EGP 300</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" data-rob="800"  data-price="600" data-label="800 روب"  onclick="toggleAccAmt(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">800</span></span><span class="egp">EGP 600</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" data-rob="1700" data-price="1200" data-label="1700 روب" onclick="toggleAccAmt(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">1700</span></span><span class="egp">EGP 1200</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" data-rob="0"    data-price="350" data-label="Plus"    onclick="toggleAccAmt(this)"><span class="rob" style="font-size:.9rem;">Plus</span><span class="egp">EGP 350</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeAccQtyCard(this,1)">+</button></div></div>
-      </div>
+      <!-- الأسعار: بتتحمل تلقائي من لوحة الأدمن (pricing/roblox) -->
+      <div class="price-grid acc-grid" id="acc-prices"></div>
 
       <!-- ملخص الطلب -->
       <div id="acc-summary" style="display:block; margin-top:14px; background:#0f1f3a; border:1px solid rgba(37,99,235,.35); border-radius:12px; padding:14px;">
@@ -3000,12 +2993,7 @@
     </div>
 
     <div class="rpanel" id="rp-giftcard">
-      <div class="price-grid" id="giftcard-prices">
-        <div class="pcard" data-usd="5"  data-price="360"  onclick="addGiftItem(this)"><span class="rob-qty"><span class="rob-val">5</span><span class="rob" style="font-size:.72rem;margin-inline-start:3px;">USD</span></span><span class="egp">EGP 360</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeGiftQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeGiftQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" data-usd="10" data-price="620"  onclick="addGiftItem(this)"><span class="rob-qty"><span class="rob-val">10</span><span class="rob" style="font-size:.72rem;margin-inline-start:3px;">USD</span></span><span class="egp">EGP 620</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeGiftQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeGiftQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" data-usd="25" data-price="1420" onclick="addGiftItem(this)"><span class="rob-qty"><span class="rob-val">25</span><span class="rob" style="font-size:.72rem;margin-inline-start:3px;">USD</span></span><span class="egp">EGP 1420</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeGiftQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeGiftQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" data-usd="50" data-price="2950" onclick="addGiftItem(this)"><span class="rob-qty"><span class="rob-val">50</span><span class="rob" style="font-size:.72rem;margin-inline-start:3px;">USD</span></span><span class="egp">EGP 2950</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeGiftQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeGiftQtyCard(this,1)">+</button></div></div>
-      </div>
+      <div class="price-grid" id="giftcard-prices"></div>
 
       <div id="giftcard-summary" style="display:block; margin-top:14px; background:#0f1f3a; border:1px solid rgba(37,99,235,.35); border-radius:12px; padding:14px;">
         <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">🛒 طلبك:</div>
@@ -3029,25 +3017,9 @@
         <button class="ptoggle" id="com-btn-hagz" onclick="switchPriceCom('hagz')">📅 حجز</button>
       </div>
 
-      <div class="price-grid" id="com-prices-fawri">
-        <div class="pcard" data-rob="50"   data-price="35"  onclick="addComItem(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">50</span></span><span class="egp">EGP 35</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" data-rob="100"  data-price="70"  onclick="addComItem(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">100</span></span><span class="egp">EGP 70</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" data-rob="200"  data-price="120" onclick="addComItem(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">200</span></span><span class="egp">EGP 120</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" data-rob="300"  data-price="170" onclick="addComItem(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">300</span></span><span class="egp">EGP 170</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" data-rob="400"  data-price="220" onclick="addComItem(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">400</span></span><span class="egp">EGP 220</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" data-rob="500"  data-price="270" onclick="addComItem(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">500</span></span><span class="egp">EGP 270</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" data-rob="1000" data-price="520" onclick="addComItem(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">1000</span></span><span class="egp">EGP 520</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
-      </div>
+      <div class="price-grid" id="com-prices-fawri"></div>
 
-      <div class="price-grid" id="com-prices-hagz" style="display:none;">
-        <div class="pcard hagz" data-rob="53"   data-price="35"  onclick="addComItem(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">53</span></span><span class="egp">EGP 35</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
-        <div class="pcard hagz" data-rob="105"  data-price="70"  onclick="addComItem(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">105</span></span><span class="egp">EGP 70</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
-        <div class="pcard hagz" data-rob="210"  data-price="120" onclick="addComItem(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">210</span></span><span class="egp">EGP 120</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
-        <div class="pcard hagz" data-rob="315"  data-price="170" onclick="addComItem(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">315</span></span><span class="egp">EGP 170</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
-        <div class="pcard hagz" data-rob="420"  data-price="220" onclick="addComItem(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">420</span></span><span class="egp">EGP 220</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
-        <div class="pcard hagz" data-rob="525"  data-price="270" onclick="addComItem(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">525</span></span><span class="egp">EGP 270</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
-        <div class="pcard hagz" data-rob="1050" data-price="520" onclick="addComItem(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">1050</span></span><span class="egp">EGP 520</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>
-      </div>
+      <div class="price-grid" id="com-prices-hagz" style="display:none;"></div>
 
       <!-- فورم الطلب -->
       <div class="order-form">
@@ -5542,13 +5514,19 @@
   // معندهاش وصول لحاجة متعرفة بـ function عادي جوا موديول.
   window.cashbackLineHTML = function cashbackLineHTML() {
     const val = window.robloxCashbackEgp || 0;
-    return `<div style="font-size:.8rem;color:#6fcf3a;margin-top:6px;">🎁 كاش باك: ${val} EGP</div>`;
+    const dbg = window.robloxPricingDebug ? `<div style="font-size:.62rem;color:#e11d48;margin-top:4px;direction:ltr;text-align:center;word-break:break-all;">DEBUG: ${window.robloxPricingDebug}</div>` : '';
+    return `<div style="font-size:.8rem;color:#6fcf3a;margin-top:6px;">🎁 كاش باك: ${val} EGP</div>${dbg}`;
   }
   // بث حي: أي تعديل في الأسعار من لوحة الأدمن بيتطبق هنا على طول من غير ما اليوزر يعمل ريفريش.
   // لو مفيش بيانات محفوظة لسه في Firestore، الأسعار الثابتة المكتوبة في الصفحة بتفضل زي ما هي.
   onSnapshot(doc(db, 'pricing', 'roblox'), (snap) => {
+    // ============ سطر تشخيص مؤقت (شيله بعد ما تتحل مشكلة الكاش باك) ============
+    window.robloxPricingDebug = snap.exists() ? ('exists=true cashbackEgp=' + JSON.stringify(snap.data().cashbackEgp) + ' typeof=' + typeof snap.data().cashbackEgp) : 'DOC NOT FOUND (exists=false)';
     if (snap.exists()) applyRobloxPricing(snap.data());
+    else if (typeof renderAccSummary === 'function') { renderAccSummary(); renderComSummary(); renderGiftSummary(); }
   }, (err) => {
+    window.robloxPricingDebug = 'READ ERROR: ' + err.code + ' - ' + err.message;
+    if (typeof renderAccSummary === 'function') { renderAccSummary(); renderComSummary(); renderGiftSummary(); }
     console.error('تعذر تحميل أسعار روبلكس:', err);
   });
 
