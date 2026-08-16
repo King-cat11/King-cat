@@ -948,6 +948,14 @@
       <div class="ac-icon">⚽</div>
       <div class="ac-title">فيفا</div>
     </div>
+    <div class="admin-card admin-card-row" onclick="showPesPricing()">
+      <div class="ac-icon">🥅</div>
+      <div class="ac-title">بيس</div>
+    </div>
+    <div class="admin-card admin-card-row" onclick="showBrawlPricing()">
+      <div class="ac-icon">⭐</div>
+      <div class="ac-title">براول ستارز</div>
+    </div>
   </div>
 </main>
 
@@ -1182,6 +1190,56 @@
 
   <div id="fifaPricingStatus" class="login-status" style="margin-top:14px;"></div>
   <button class="login-submit-btn" style="margin-top:6px;background:#ff2d78;" onclick="saveFifaPricing()">💾 حفظ كل التعديلات</button>
+</main>
+
+<!-- ============ صفحة أسعار بيس ============ -->
+<main id="pesPricingPage" style="display:none;">
+  <div class="rp-header-row">
+    <button class="back-btn" onclick="showPricingPage()">→ Back</button>
+    <div class="eyebrow roblox-eyebrow">eFootball</div>
+  </div>
+
+  <div id="rp-sec-pes" class="price-section">
+    <div class="price-section-head" onclick="togglePriceSection('pes')">
+      <div class="price-section-head-title">🪙 Coins <span class="price-section-count" id="count-pes"></span></div>
+      <span class="price-section-chevron">▾</span>
+    </div>
+    <div class="price-section-body"><div class="price-section-body-inner">
+      <div class="price-cols-head">
+        <span class="amt-col">Coins</span>
+        <span class="price-col">السعر</span>
+        <span class="egp-col">EGP</span>
+        <span class="spacer-remove"></span>
+      </div>
+      <div class="price-rows" id="rows-pes"></div>
+      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('pes')">➕ إضافة سعر جديد</button>
+    </div></div>
+  </div>
+
+  <div id="pesPricingStatus" class="login-status" style="margin-top:14px;"></div>
+  <button class="login-submit-btn" style="margin-top:6px;background:#ff2d78;" onclick="savePesPricing()">💾 حفظ كل التعديلات</button>
+</main>
+
+<!-- ============ صفحة أسعار براول ستارز ============ -->
+<main id="brawlPricingPage" style="display:none;">
+  <div class="rp-header-row">
+    <button class="back-btn" onclick="showPricingPage()">→ Back</button>
+    <div class="eyebrow roblox-eyebrow">Brawl Stars</div>
+  </div>
+
+  <div id="rp-sec-brawl" class="price-section">
+    <div class="price-section-head" onclick="togglePriceSection('brawl')">
+      <div class="price-section-head-title">⭐ باقات <span class="price-section-count" id="count-brawl"></span></div>
+      <span class="price-section-chevron">▾</span>
+    </div>
+    <div class="price-section-body"><div class="price-section-body-inner">
+      <div class="price-rows" id="rows-brawl"></div>
+      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('brawl')">➕ إضافة باقة جديدة</button>
+    </div></div>
+  </div>
+
+  <div id="brawlPricingStatus" class="login-status" style="margin-top:14px;"></div>
+  <button class="login-submit-btn" style="margin-top:6px;background:#ff2d78;" onclick="saveBrawlPricing()">💾 حفظ كل التعديلات</button>
 </main>
 
 <!-- ============ صفحة حسبة الروبوكس (أدمن بس) ============ -->
@@ -1429,6 +1487,8 @@
     pubgPricing: () => { showPricingPage(); showPubgPricing(); },
     ffPricing: () => { showPricingPage(); showFFPricing(); },
     fifaPricing: () => { showPricingPage(); showFifaPricing(); },
+    pesPricing: () => { showPricingPage(); showPesPricing(); },
+    brawlPricing: () => { showPricingPage(); showBrawlPricing(); },
     robuxCalc: () => showRobuxCalcPage()
   };
 
@@ -1475,6 +1535,8 @@
     document.getElementById('pubgPricingPage').style.display = 'none';
     document.getElementById('ffPricingPage').style.display = 'none';
     document.getElementById('fifaPricingPage').style.display = 'none';
+    document.getElementById('pesPricingPage').style.display = 'none';
+    document.getElementById('brawlPricingPage').style.display = 'none';
     document.getElementById('currencyPage').style.display = 'none';
     document.getElementById('robuxCalcPage').style.display = 'none';
     document.getElementById('dashboard').style.display = 'block';
@@ -1494,6 +1556,8 @@
     document.getElementById('pubgPricingPage').style.display = 'none';
     document.getElementById('ffPricingPage').style.display = 'none';
     document.getElementById('fifaPricingPage').style.display = 'none';
+    document.getElementById('pesPricingPage').style.display = 'none';
+    document.getElementById('brawlPricingPage').style.display = 'none';
     document.getElementById('currencyPage').style.display = 'block';
     document.getElementById('navHome').classList.remove('active');
     document.body.classList.add('no-header');
@@ -1512,6 +1576,8 @@
     document.getElementById('pubgPricingPage').style.display = 'none';
     document.getElementById('ffPricingPage').style.display = 'none';
     document.getElementById('fifaPricingPage').style.display = 'none';
+    document.getElementById('pesPricingPage').style.display = 'none';
+    document.getElementById('brawlPricingPage').style.display = 'none';
     document.getElementById('currencyPage').style.display = 'none';
     document.getElementById('pricingPage').style.display = 'block';
     document.getElementById('navHome').classList.remove('active');
@@ -1526,6 +1592,8 @@
     document.getElementById('pubgPricingPage').style.display = 'none';
     document.getElementById('ffPricingPage').style.display = 'none';
     document.getElementById('fifaPricingPage').style.display = 'none';
+    document.getElementById('pesPricingPage').style.display = 'none';
+    document.getElementById('brawlPricingPage').style.display = 'none';
     document.getElementById('robloxPricingPage').style.display = 'block';
     window.scrollTo(0, 0);
     if (typeof window.loadRobloxPricing === 'function') window.loadRobloxPricing();
@@ -1539,6 +1607,8 @@
     document.getElementById('pricingPage').style.display = 'none';
     document.getElementById('ffPricingPage').style.display = 'none';
     document.getElementById('fifaPricingPage').style.display = 'none';
+    document.getElementById('pesPricingPage').style.display = 'none';
+    document.getElementById('brawlPricingPage').style.display = 'none';
     document.getElementById('pubgPricingPage').style.display = 'block';
     window.scrollTo(0, 0);
     if (typeof window.loadPubgPricing === 'function') window.loadPubgPricing();
@@ -1569,6 +1639,33 @@
   }
   window.showFifaPricing = showFifaPricing;
 
+  function showPesPricing() {
+    document.getElementById('pricingPage').style.display = 'none';
+    document.getElementById('robloxPricingPage').style.display = 'none';
+    document.getElementById('pubgPricingPage').style.display = 'none';
+    document.getElementById('ffPricingPage').style.display = 'none';
+    document.getElementById('fifaPricingPage').style.display = 'none';
+    document.getElementById('pesPricingPage').style.display = 'block';
+    window.scrollTo(0, 0);
+    if (typeof window.loadPesPricing === 'function') window.loadPesPricing();
+    adminNavGoToPage('pesPricing');
+  }
+  window.showPesPricing = showPesPricing;
+
+  function showBrawlPricing() {
+    document.getElementById('pricingPage').style.display = 'none';
+    document.getElementById('robloxPricingPage').style.display = 'none';
+    document.getElementById('pubgPricingPage').style.display = 'none';
+    document.getElementById('ffPricingPage').style.display = 'none';
+    document.getElementById('fifaPricingPage').style.display = 'none';
+    document.getElementById('pesPricingPage').style.display = 'none';
+    document.getElementById('brawlPricingPage').style.display = 'block';
+    window.scrollTo(0, 0);
+    if (typeof window.loadBrawlPricing === 'function') window.loadBrawlPricing();
+    adminNavGoToPage('brawlPricing');
+  }
+  window.showBrawlPricing = showBrawlPricing;
+
   // ============ التنقل لصفحة حسبة الروبوكس (أدمن بس) ============
   function showRobuxCalcPage() {
     document.getElementById('dashboard').style.display = 'none';
@@ -1578,6 +1675,8 @@
     document.getElementById('pubgPricingPage').style.display = 'none';
     document.getElementById('ffPricingPage').style.display = 'none';
     document.getElementById('fifaPricingPage').style.display = 'none';
+    document.getElementById('pesPricingPage').style.display = 'none';
+    document.getElementById('brawlPricingPage').style.display = 'none';
     document.getElementById('currencyPage').style.display = 'none';
     document.getElementById('robuxCalcPage').style.display = 'block';
     document.getElementById('navHome').classList.remove('active');
@@ -2030,6 +2129,22 @@
         <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
       </div>`;
     }
+    if (section === 'pes') {
+      return `<div class="price-row" data-section="pes">
+        <input type="text" class="oinput amt-input" placeholder="Coins" value="${item.coin != null ? item.coin : ''}">
+        <input type="number" class="oinput price-input" placeholder="السعر" value="${item.price != null ? item.price : ''}">
+        <input type="number" class="oinput egp-input" placeholder="EGP" value="${item.egp != null ? item.egp : ''}">
+        <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
+      </div>`;
+    }
+    if (section === 'brawl') {
+      return `<div class="price-row" data-section="brawl">
+        <input type="text" class="oinput label-input" placeholder="اسم الباقة (مثلاً BRAWL PASS)" value="${item.label != null ? item.label : ''}">
+        <input type="number" class="oinput price-input" placeholder="السعر" value="${item.price != null ? item.price : ''}">
+        <input type="number" class="oinput egp-input" placeholder="EGP" value="${item.egp != null ? item.egp : ''}">
+        <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
+      </div>`;
+    }
     // comFawri / comHagz
     return `<div class="price-row" data-section="${section}">
       <input type="text" class="oinput amt-input" placeholder="روبكس" value="${item.rob != null ? item.rob : ''}">
@@ -2087,7 +2202,7 @@
   }
 
   function togglePriceSection(key) {
-    const sections = ['acc', 'comFawri', 'bonusCodes', 'comHagz', 'giftcard', 'cashback', 'pubgUc', 'pubgOrod', 'ffId', 'ffAcc', 'fifaFc', 'fifaSilver', 'fifaOrod'];
+    const sections = ['acc', 'comFawri', 'bonusCodes', 'comHagz', 'giftcard', 'cashback', 'pubgUc', 'pubgOrod', 'ffId', 'ffAcc', 'fifaFc', 'fifaSilver', 'fifaOrod', 'pes', 'brawl'];
     sections.forEach(s => {
       const el = document.getElementById('rp-sec-' + s);
       if (!el) return;
@@ -2152,6 +2267,14 @@
         const label = (labelInput.value || '').trim();
         const origPrice = origInput ? (parseInt(origInput.value) || 0) : 0;
         return { label, price, origPrice, egp };
+      }
+      if (section === 'pes') {
+        const coin = parseInt(amtInput.value) || 0;
+        return { coin, price, egp };
+      }
+      if (section === 'brawl') {
+        const label = (labelInput.value || '').trim();
+        return { label, price, egp };
       }
       const rob = parseInt(amtInput.value) || 0;
       return { rob, price, egp };
@@ -2830,6 +2953,85 @@
       if (statusEl) { statusEl.textContent = 'تم الحفظ ✅'; statusEl.className = 'login-status ok'; }
     } catch (err) {
       console.error('تعذر حفظ أسعار فيفا:', err);
+      if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء الحفظ، حاول تاني'; statusEl.className = 'login-status err'; }
+    }
+  };
+
+  // ============ الأسعار الافتراضية لبيس (لو مفيش حاجة متحفظة لسه) ============
+  const DEFAULT_PES_PRICING = [
+    { coin: 130, price: 90 }, { coin: 300, price: 175 }, { coin: 550, price: 280 },
+    { coin: 750, price: 385 }, { coin: 1040, price: 500 }, { coin: 2130, price: 950 },
+    { coin: 3250, price: 1460 }, { coin: 5700, price: 2420 }, { coin: 12800, price: 4850 }
+  ];
+
+  // ============ تحميل أسعار بيس الحالية في صفحة التعديل ============
+  window.loadPesPricing = async function () {
+    const statusEl = document.getElementById('pesPricingStatus');
+    if (statusEl) { statusEl.textContent = 'بيتحمل...'; statusEl.className = 'login-status'; }
+    try {
+      const snap = await getDoc(doc(db, 'pricing', 'pes'));
+      const data = snap.exists() ? snap.data() : { coins: DEFAULT_PES_PRICING };
+      window.renderPriceRows('pes', data.coins && data.coins.length ? data.coins : DEFAULT_PES_PRICING);
+      if (statusEl) statusEl.textContent = '';
+    } catch (err) {
+      console.error('تعذر تحميل أسعار بيس:', err);
+      window.renderPriceRows('pes', DEFAULT_PES_PRICING);
+      if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء تحميل الأسعار المحفوظة، ده عرض افتراضي بس'; statusEl.className = 'login-status err'; }
+    }
+  };
+
+  // ============ حفظ أسعار بيس في Firestore ============
+  window.savePesPricing = async function () {
+    const statusEl = document.getElementById('pesPricingStatus');
+    if (statusEl) { statusEl.textContent = 'بيتم الحفظ...'; statusEl.className = 'login-status'; }
+    try {
+      const pricingPayload = {
+        coins: window.collectPriceRows('pes'),
+        updatedAt: serverTimestamp()
+      };
+      await setDoc(doc(db, 'pricing', 'pes'), pricingPayload);
+      if (statusEl) { statusEl.textContent = 'تم الحفظ ✅'; statusEl.className = 'login-status ok'; }
+    } catch (err) {
+      console.error('تعذر حفظ أسعار بيس:', err);
+      if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء الحفظ، حاول تاني'; statusEl.className = 'login-status err'; }
+    }
+  };
+
+  // ============ الأسعار الافتراضية لبراول ستارز (لو مفيش حاجة متحفظة لسه) ============
+  const DEFAULT_BRAWL_PRICING = [
+    { label: 'BRAWL PASS', price: 310 },
+    { label: 'BRAWL PASS PLUS', price: 410 }
+  ];
+
+  // ============ تحميل أسعار براول ستارز الحالية في صفحة التعديل ============
+  window.loadBrawlPricing = async function () {
+    const statusEl = document.getElementById('brawlPricingStatus');
+    if (statusEl) { statusEl.textContent = 'بيتحمل...'; statusEl.className = 'login-status'; }
+    try {
+      const snap = await getDoc(doc(db, 'pricing', 'brawlstars'));
+      const data = snap.exists() ? snap.data() : { items: DEFAULT_BRAWL_PRICING };
+      window.renderPriceRows('brawl', data.items && data.items.length ? data.items : DEFAULT_BRAWL_PRICING);
+      if (statusEl) statusEl.textContent = '';
+    } catch (err) {
+      console.error('تعذر تحميل أسعار براول ستارز:', err);
+      window.renderPriceRows('brawl', DEFAULT_BRAWL_PRICING);
+      if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء تحميل الأسعار المحفوظة، ده عرض افتراضي بس'; statusEl.className = 'login-status err'; }
+    }
+  };
+
+  // ============ حفظ أسعار براول ستارز في Firestore ============
+  window.saveBrawlPricing = async function () {
+    const statusEl = document.getElementById('brawlPricingStatus');
+    if (statusEl) { statusEl.textContent = 'بيتم الحفظ...'; statusEl.className = 'login-status'; }
+    try {
+      const pricingPayload = {
+        items: window.collectPriceRows('brawl'),
+        updatedAt: serverTimestamp()
+      };
+      await setDoc(doc(db, 'pricing', 'brawlstars'), pricingPayload);
+      if (statusEl) { statusEl.textContent = 'تم الحفظ ✅'; statusEl.className = 'login-status ok'; }
+    } catch (err) {
+      console.error('تعذر حفظ أسعار براول ستارز:', err);
       if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء الحفظ، حاول تاني'; statusEl.className = 'login-status err'; }
     }
   };

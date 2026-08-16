@@ -2410,18 +2410,7 @@
 
   <div class="rpage-panels" style="margin-top:16px;">
 
-    <div class="price-grid" id="brawl-prices" style="grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px;">
-      <div class="pcard brawl-pcard" style="border-color:rgba(244,161,0,.25); padding: 12px 10px; flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px;" data-pass="BRAWL PASS" data-price="310" onclick="toggleBrawlAmt(this)">
-        <span class="rob" style="font-size:.85rem;line-height:1.4;font-weight:900;">BRAWL PASS</span>
-        <span class="egp">EGP 310</span>
-        <div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(244,161,0,.5);color:#f4a100;background:rgba(244,161,0,.1);" onclick="event.stopPropagation();changeBrawlQtyCard(this,-1)">−</button><span class="qty-num" style="color:#f4a100;">0</span><button class="qty-btn" style="border-color:rgba(244,161,0,.5);color:#f4a100;background:rgba(244,161,0,.1);" onclick="event.stopPropagation();changeBrawlQtyCard(this,1)">+</button></div>
-      </div>
-      <div class="pcard brawl-pcard" style="border-color:rgba(244,161,0,.25); padding: 12px 10px; flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px;" data-pass="BRAWL PASS PLUS" data-price="410" onclick="toggleBrawlAmt(this)">
-        <span class="rob" style="font-size:.85rem;line-height:1.4;font-weight:900;">BRAWL PASS PLUS</span>
-        <span class="egp">EGP 410</span>
-        <div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(244,161,0,.5);color:#f4a100;background:rgba(244,161,0,.1);" onclick="event.stopPropagation();changeBrawlQtyCard(this,-1)">−</button><span class="qty-num" style="color:#f4a100;">0</span><button class="qty-btn" style="border-color:rgba(244,161,0,.5);color:#f4a100;background:rgba(244,161,0,.1);" onclick="event.stopPropagation();changeBrawlQtyCard(this,1)">+</button></div>
-      </div>
-    </div>
+    <div class="price-grid" id="brawl-prices" style="grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px;">    </div>
 
     <!-- SUMMARY (فاتورة الطلب) -->
     <div id="brawl-summary" style="display:block; margin-top:14px; background:#241a05; border:1px solid rgba(244,161,0,.3); border-radius:12px; padding:14px;">
@@ -2497,17 +2486,7 @@
         <input class="oinput" id="pes-pass" type="password" placeholder="" style="border-color:rgba(111,207,58,.4);" />
       </div>
 
-      <div class="price-grid" id="pes-prices">
-        <div class="pcard" style="border-color:rgba(111,207,58,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-coin="130"  data-price="90"   onclick="togglePesAmt(this)"><span class="rob">Coins </span><span class="rob-val">130</span><span class="egp">EGP 90</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#6fcf3a;">0</span><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" style="border-color:rgba(111,207,58,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-coin="300"  data-price="175"  onclick="togglePesAmt(this)"><span class="rob">Coins </span><span class="rob-val">300</span><span class="egp">EGP 175</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#6fcf3a;">0</span><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" style="border-color:rgba(111,207,58,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-coin="550"  data-price="280"  onclick="togglePesAmt(this)"><span class="rob">Coins </span><span class="rob-val">550</span><span class="egp">EGP 280</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#6fcf3a;">0</span><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" style="border-color:rgba(111,207,58,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-coin="750"  data-price="385"  onclick="togglePesAmt(this)"><span class="rob">Coins </span><span class="rob-val">750</span><span class="egp">EGP 385</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#6fcf3a;">0</span><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" style="border-color:rgba(111,207,58,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-coin="1040" data-price="500"  onclick="togglePesAmt(this)"><span class="rob">Coins </span><span class="rob-val">1040</span><span class="egp">EGP 500</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#6fcf3a;">0</span><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" style="border-color:rgba(111,207,58,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-coin="2130" data-price="950"  onclick="togglePesAmt(this)"><span class="rob">Coins </span><span class="rob-val">2130</span><span class="egp">EGP 950</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#6fcf3a;">0</span><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" style="border-color:rgba(111,207,58,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-coin="3250" data-price="1460" onclick="togglePesAmt(this)"><span class="rob">Coins </span><span class="rob-val">3250</span><span class="egp">EGP 1460</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#6fcf3a;">0</span><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" style="border-color:rgba(111,207,58,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-coin="5700" data-price="2420" onclick="togglePesAmt(this)"><span class="rob">Coins </span><span class="rob-val">5700</span><span class="egp">EGP 2420</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#6fcf3a;">0</span><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
-        <div class="pcard" style="border-color:rgba(111,207,58,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-coin="12800" data-price="4850" onclick="togglePesAmt(this)"><span class="rob">Coins </span><span class="rob-val">12800</span><span class="egp">EGP 4850</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#6fcf3a;">0</span><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>
-      </div>
+      <div class="price-grid" id="pes-prices">      </div>
 
       <!-- ملخص الطلب -->
       <div id="pes-summary" style="display:block; margin-top:16px; background:#0f1f14; border:1px solid rgba(111,207,58,.35); border-radius:12px; padding:14px;">
@@ -4014,6 +3993,7 @@
   function toggleBrawlAmt(card) {
     const pass  = card.dataset.pass;
     const price = parseInt(card.dataset.price);
+    const egp   = parseFloat(card.dataset.egp) || 0;
     const key   = brawlKey(card);
     const qtyCtrl = card.querySelector('.qty-ctrl');
     const qtyNum  = card.querySelector('.qty-num');
@@ -4023,7 +4003,7 @@
       card.style.background = '';
       if (qtyCtrl) { qtyCtrl.style.display = 'none'; if (qtyNum) qtyNum.textContent = '0'; }
     } else {
-      brawlCart[key] = { pass, price, qty: 1 };
+      brawlCart[key] = { pass, price, egp, qty: 1 };
       card.style.borderColor = '#f4a100';
       card.style.background = 'rgba(244,161,0,.15)';
       if (qtyCtrl) { qtyCtrl.style.display = 'flex'; if (qtyNum) qtyNum.textContent = '1'; }
@@ -4108,11 +4088,12 @@
       </div>`;
     }).join('');
     const total = keys.reduce((s,k) => s + brawlCart[k].price * brawlCart[k].qty, 0);
+    const totalEgp = keys.reduce((s,k) => s + (brawlCart[k].egp || 0) * brawlCart[k].qty, 0);
     if (brawlUseEGP && getUserBalance() > 0) {
       const discounted = brawlDiscountedTotal(total);
-      totDiv.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">💰 ${total} جنيه</div><div>💰 السعر: ${discounted} جنيه</div>`;
+      totDiv.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">💰 ${total} جنيه</div><div>💰 السعر: ${discounted} جنيه</div>${cashbackLineHTML(totalEgp)}`;
     } else {
-      totDiv.innerHTML = `💰 السعر: ${total} جنيه`;
+      totDiv.innerHTML = `💰 السعر: ${total} جنيه${cashbackLineHTML(totalEgp)}`;
     }
   }
 
@@ -4127,10 +4108,11 @@
     const items = keys.map(k => `• ${brawlCart[k].pass} (${brawlCart[k].qty})`).join('\n');
     const rawTotal = keys.reduce((s,k) => s + brawlCart[k].price * brawlCart[k].qty, 0);
     const total = (brawlUseEGP && getUserBalance() > 0) ? brawlDiscountedTotal(rawTotal) : rawTotal;
+    const totalEgp = keys.reduce((s,k) => s + (brawlCart[k].egp || 0) * brawlCart[k].qty, 0);
     const msg = `⭐ طلب شحن براول ستارز\n📧 الإيميل: ${email}\n📦 الطلب:\n${items}\n💰 السعر: ${total} جنيه\nالاسم: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
       const totalQty = keys.reduce((s,k) => s + brawlCart[k].qty, 0);
-      window.saveOrder({ title: 'براول ستارز', quantity: totalQty, price: total, details: msg, fullDetails: msg, egpUsed: rawTotal - total });
+      window.saveOrder({ title: 'براول ستارز', quantity: totalQty, price: total, details: msg, fullDetails: msg, egpUsed: rawTotal - total, egpEarned: totalEgp });
     }
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
@@ -4184,6 +4166,7 @@
   function togglePesAmt(card) {
     const coin  = card.dataset.coin;
     const price = parseInt(card.dataset.price);
+    const egp   = parseFloat(card.dataset.egp) || 0;
     const key   = coin + '_' + price;
     const qtyCtrl = card.querySelector('.qty-ctrl');
     const qtyNum  = card.querySelector('.qty-num');
@@ -4193,7 +4176,7 @@
       card.style.background = '';
       if (qtyCtrl) { qtyCtrl.style.display = 'none'; if (qtyNum) qtyNum.textContent = '0'; }
     } else {
-      pesCart[key] = { coin, price, qty: 1 };
+      pesCart[key] = { coin, price, egp, qty: 1 };
       card.style.borderColor = '#6fcf3a';
       card.style.background = 'rgba(111,207,58,.2)';
       if (qtyCtrl) { qtyCtrl.style.display = 'flex'; if (qtyNum) qtyNum.textContent = '1'; }
@@ -4257,11 +4240,12 @@
       </div>`;
     }).join('');
     const total = keys.reduce((s,k) => s + pesCart[k].price * pesCart[k].qty, 0);
+    const totalEgp = keys.reduce((s,k) => s + (pesCart[k].egp || 0) * pesCart[k].qty, 0);
     if (pesUseEGP && getUserBalance() > 0) {
       const discounted = Math.max(total - getUserBalance(), 0);
-      totDiv.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">💰 ${total} جنيه</div><div>💰 السعر: ${discounted} جنيه</div>`;
+      totDiv.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">💰 ${total} جنيه</div><div>💰 السعر: ${discounted} جنيه</div>${cashbackLineHTML(totalEgp)}`;
     } else {
-      totDiv.innerHTML = `💰 السعر: ${total} جنيه`;
+      totDiv.innerHTML = `💰 السعر: ${total} جنيه${cashbackLineHTML(totalEgp)}`;
     }
   }
 
@@ -4277,11 +4261,12 @@
     const items = keys.map(k => `• ${pesCart[k].coin} Coins (${pesCart[k].qty})`).join('\n');
     const rawTotal = keys.reduce((s,k) => s + pesCart[k].price * pesCart[k].qty, 0);
     const total = (pesUseEGP && getUserBalance() > 0) ? Math.max(rawTotal - getUserBalance(), 0) : rawTotal;
+    const totalEgp = keys.reduce((s,k) => s + (pesCart[k].egp || 0) * pesCart[k].qty, 0);
     const msg = `⚽ طلب شحن بيس (اندرويد)\n📧 الإيميل: ${email}\n🔑 الباسورد: ${pass}\n🪙 الطلب:\n${items}\n💰 السعر: ${total} جنيه\nالاسم: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
       const totalQty = keys.reduce((s,k) => s + pesCart[k].qty, 0);
       const maskedMsg = window.maskSecret(msg, pass);
-      window.saveOrder({ title: 'بيس (اندرويد)', quantity: totalQty, price: total, details: maskedMsg, fullDetails: msg, egpUsed: rawTotal - total });
+      window.saveOrder({ title: 'بيس (اندرويد)', quantity: totalQty, price: total, details: maskedMsg, fullDetails: msg, egpUsed: rawTotal - total, egpEarned: totalEgp });
     }
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
@@ -5394,6 +5379,52 @@
   const auth = getAuth(app);
   const db = getFirestore(app);
   const googleProvider = new GoogleAuthProvider();
+
+  // ============ أسعار براول ستارز الديناميكية — بتتغير من لوحة الأدمن وتتحدث هنا لايف من غير ريفريش ============
+  function buildBrawlCardHTML(item) {
+    const cb = item.egp || 0;
+    return `<div class="pcard brawl-pcard" style="border-color:rgba(244,161,0,.25); padding: 12px 10px; flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px;" data-pass="${item.label}" data-price="${item.price}" data-egp="${cb}" onclick="toggleBrawlAmt(this)">
+        <span class="rob" style="font-size:.85rem;line-height:1.4;font-weight:900;">${item.label}</span>
+        <span class="egp">EGP ${item.price}</span>
+        <div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(244,161,0,.5);color:#f4a100;background:rgba(244,161,0,.1);" onclick="event.stopPropagation();changeBrawlQtyCard(this,-1)">−</button><span class="qty-num" style="color:#f4a100;">0</span><button class="qty-btn" style="border-color:rgba(244,161,0,.5);color:#f4a100;background:rgba(244,161,0,.1);" onclick="event.stopPropagation();changeBrawlQtyCard(this,1)">+</button></div>
+      </div>`;
+  }
+  function applyBrawlPricing(data) {
+    if (!data) return;
+    try {
+      const brawlEl = document.getElementById('brawl-prices');
+      if (brawlEl && Array.isArray(data.items) && data.items.length) brawlEl.innerHTML = data.items.map(buildBrawlCardHTML).join('');
+      if (typeof renderBrawlSummary === 'function') renderBrawlSummary();
+    } catch (err) {
+      console.error('تعذر تطبيق أسعار براول ستارز:', err);
+    }
+  }
+  onSnapshot(doc(db, 'pricing', 'brawlstars'), (snap) => {
+    if (snap.exists()) applyBrawlPricing(snap.data());
+  }, (err) => {
+    console.error('تعذر تحميل أسعار براول ستارز:', err);
+  });
+
+  // ============ أسعار بيس الديناميكية — بتتغير من لوحة الأدمن وتتحدث هنا لايف من غير ريفريش ============
+  function buildPesCardHTML(item) {
+    const cb = item.egp || 0;
+    return `<div class="pcard" style="border-color:rgba(111,207,58,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-coin="${item.coin}" data-price="${item.price}" data-egp="${cb}" onclick="togglePesAmt(this)"><span class="rob">Coins </span><span class="rob-val">${item.coin}</span><span class="egp">EGP ${item.price}</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#6fcf3a;">0</span><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>`;
+  }
+  function applyPesPricing(data) {
+    if (!data) return;
+    try {
+      const pesEl = document.getElementById('pes-prices');
+      if (pesEl && Array.isArray(data.coins) && data.coins.length) pesEl.innerHTML = data.coins.map(buildPesCardHTML).join('');
+      if (typeof renderPesSummary === 'function') renderPesSummary();
+    } catch (err) {
+      console.error('تعذر تطبيق أسعار بيس:', err);
+    }
+  }
+  onSnapshot(doc(db, 'pricing', 'pes'), (snap) => {
+    if (snap.exists()) applyPesPricing(snap.data());
+  }, (err) => {
+    console.error('تعذر تحميل أسعار بيس:', err);
+  });
 
   // ============ أسعار فيفا الديناميكية — بتتغير من لوحة الأدمن وتتحدث هنا لايف من غير ريفريش ============
   function buildFifaCoinCardHTML(item, type) {
