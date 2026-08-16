@@ -1036,19 +1036,6 @@
     </div></div>
   </div>
 
-  <div id="rp-sec-cashback" class="price-section">
-    <div class="price-section-head" onclick="togglePriceSection('cashback')">
-      <div class="price-section-head-title">💰 كاش باك EGP</div>
-      <span class="price-section-chevron">▾</span>
-    </div>
-    <div class="price-section-body"><div class="price-section-body-inner">
-      <p style="color:var(--muted);font-size:.8rem;margin:0 0 10px;">كام EGP يتسجل لرصيد العميل لما طلب روبلوكس (حساب / كوميونتي / جيفت كارد) يتأكد إنه اتنفذ. بيظهر للعميل تحت الفاتورة بس، ومش بيتبعت في رسالة الواتساب. لو الطلب اتلغى، مفيش حاجة بتتسجل.</p>
-      <input type="text" inputmode="decimal" class="oinput" id="robloxCashbackInput" placeholder="مثلاً 5" style="width:100%;" oninput="window.__cashbackDraft = this.value; document.getElementById('cashbackLiveEcho').textContent = 'هيتسجل: ' + (parseFloat(String(this.value).replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))) || 0);">
-      <div id="cashbackLiveEcho" style="color:#6fcf3a;font-size:.75rem;margin-top:6px;">هيتسجل: 0</div>
-      <p style="color:var(--muted);font-size:.72rem;margin:4px 0 0;">اكتب الرقم بالإنجليزي (5) لو ظهرلك الرقم بالعربي (٥) من الكيبورد، امسحه واكتبه تاني</p>
-    </div></div>
-  </div>
-
   <div id="rp-sec-bonusCodes" class="price-section">
     <div class="price-section-head" onclick="togglePriceSection('bonusCodes')">
       <div class="price-section-head-title">🏷️ أكواد الزيادة <span class="price-section-count" id="count-bonusCodes"></span></div>
@@ -2202,7 +2189,7 @@
   }
 
   function togglePriceSection(key) {
-    const sections = ['acc', 'comFawri', 'bonusCodes', 'comHagz', 'giftcard', 'cashback', 'pubgUc', 'pubgOrod', 'ffId', 'ffAcc', 'fifaFc', 'fifaSilver', 'fifaOrod', 'pes', 'brawl'];
+    const sections = ['acc', 'comFawri', 'bonusCodes', 'comHagz', 'giftcard', 'pubgUc', 'pubgOrod', 'ffId', 'ffAcc', 'fifaFc', 'fifaSilver', 'fifaOrod', 'pes', 'brawl'];
     sections.forEach(s => {
       const el = document.getElementById('rp-sec-' + s);
       if (!el) return;
@@ -2738,8 +2725,6 @@
       window.renderPriceRows('comFawri', data.comFawri && data.comFawri.length ? data.comFawri : DEFAULT_ROBLOX_PRICING.comFawri);
       window.renderPriceRows('comHagz', data.comHagz && data.comHagz.length ? data.comHagz : DEFAULT_ROBLOX_PRICING.comHagz);
       window.renderPriceRows('giftcard', data.giftcard && data.giftcard.length ? data.giftcard : DEFAULT_ROBLOX_PRICING.giftcard);
-      const cashbackInput = document.getElementById('robloxCashbackInput');
-      if (cashbackInput) cashbackInput.value = (typeof data.cashbackEgp === 'number' && data.cashbackEgp > 0) ? data.cashbackEgp : '';
       if (statusEl) statusEl.textContent = '';
     } catch (err) {
       console.error('تعذر تحميل أسعار روبلكس:', err);
@@ -2763,14 +2748,11 @@
     const statusEl = document.getElementById('robloxPricingStatus');
     if (statusEl) { statusEl.textContent = 'بيتم الحفظ...'; statusEl.className = 'login-status'; }
     try {
-      const cbEl = document.getElementById('robloxCashbackInput');
-      const cbRaw = (window.__cashbackDraft !== undefined && window.__cashbackDraft !== '') ? window.__cashbackDraft : (cbEl ? cbEl.value : '');
       const pricingPayload = {
         acc: window.collectPriceRows('acc'),
         comFawri: window.collectPriceRows('comFawri'),
         comHagz: window.collectPriceRows('comHagz'),
         giftcard: window.collectPriceRows('giftcard'),
-        cashbackEgp: parseFloat(normalizeDigits(cbRaw)) || 0,
         updatedAt: serverTimestamp()
       };
       const bonusPayload = {
