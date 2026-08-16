@@ -3483,13 +3483,6 @@
     err.textContent = '';
     const type     = document.getElementById('com-btn-hagz').classList.contains('active') ? '\u062d\u062c\u0632' : '\u0641\u0648\u0631\u064a';
 
-    // طلبات "حجز" بتاخد وقت، فلازم تسجيل دخول عشان العميل يقدر يستعلم عن طلبه ويعرف امتى هيستلمه
-    if (type === '\u062d\u062c\u0632' && !window.isLoggedIn) {
-      err.textContent = '⚠️ طلبات الحجز بتاخد وقت — سجل دخولك الأول عشان تقدر تستعلم عن طلبك وتعرف امتى هتستلمه';
-      if (typeof handleProfileClick === 'function') handleProfileClick();
-      return;
-    }
-
     const code     = document.getElementById('com-code').value.trim();
     const RLM      = '\u200F';
     const itemsList = items.map(i => {
@@ -5570,6 +5563,12 @@
   window.cashbackLineHTML = function cashbackLineHTML(val) {
     val = val || 0;
     if (val <= 0) return '';
+    if (!window.isLoggedIn) {
+      return `<div style="display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:5px 12px;border-radius:20px;background:linear-gradient(135deg,rgba(255,45,120,.18),rgba(255,45,120,.08));border:1px solid rgba(255,45,120,.4);">
+        <span style="font-size:.9rem;">🎁</span>
+        <span style="font-family:'Cairo',sans-serif;font-weight:800;font-size:.78rem;letter-spacing:.3px;color:#ff2d78;">سجل دخول عشان تاخد كاش باك على شحنتك</span>
+      </div>`;
+    }
     return `<div style="display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:5px 12px;border-radius:20px;background:linear-gradient(135deg,rgba(111,207,58,.18),rgba(111,207,58,.08));border:1px solid rgba(111,207,58,.4);">
       <span style="font-size:.9rem;">🎁</span>
       <span style="font-family:'Cairo',sans-serif;font-weight:800;font-size:.78rem;letter-spacing:.3px;color:#6fcf3a;">CASHBACK</span>
@@ -5789,18 +5788,17 @@
   // ما بيتحسبش للعميل غير وقت التأكيد، ومش بيتبعت في رسالة الواتساب خالص، بيتسجل في الفاتورة/قاعدة البيانات بس
   window.saveOrder = async function ({ title, quantity, price, details, fullDetails, egpUsed, egpEarned }) {
     const user = auth.currentUser;
-    if (!user) return; // مفيش تسجيل دخول، مفيش حفظ (مينفعش نعرف الطلب ده بتاع مين)
-    const usedAmount = (typeof egpUsed === 'number' && egpUsed > 0) ? egpUsed : 0;
-    const earnedAmount = (typeof egpEarned === 'number' && egpEarned > 0) ? egpEarned : 0;
+    const usedAmount = (user && typeof egpUsed === 'number' && egpUsed > 0) ? egpUsed : 0;
+    const earnedAmount = (user && typeof egpEarned === 'number' && egpEarned > 0) ? egpEarned : 0;
     try {
       // لو العميل استخدم رصيد EGP في الطلب ده، بنخصمه من رصيده فورًا وقت إرسال الطلب —
       // ولو الأدمن لغى الطلب بعد كده، القيمة دي هي اللي هترجعله تاني (شوف cancelOrder في admin.html)
-      if (usedAmount > 0) {
+      if (user && usedAmount > 0) {
         await updateDoc(doc(db, 'users', user.uid), { balance: increment(-usedAmount) });
       }
       await addDoc(collection(db, 'orders'), {
-        uid: user.uid,
-        customerName: user.displayName || user.email || 'عميل',
+        uid: user ? user.uid : '',
+        customerName: user ? (user.displayName || user.email || 'عميل') : 'Guest',
         status: 'new',
         title: title || 'طلب',
         quantity: quantity || 1,
