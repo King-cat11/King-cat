@@ -4709,7 +4709,7 @@
     const type  = card.dataset.type;
     const label = card.dataset.label || (amt + ' ' + type);
     const egp   = parseFloat(card.dataset.egp) || 0;
-    const key   = amt + '_' + type;
+    const key   = type === 'عرض' ? ('offer_' + label) : (amt + '_' + type);
     const qtyCtrl = card.querySelector('.qty-ctrl');
     const qtyNum  = card.querySelector('.qty-num');
     if (fifaCart[key]) {
@@ -4726,7 +4726,7 @@
   }
   function changeFifaQtyCard(btn, delta) {
     const card = btn.closest('.pcard');
-    const key  = card.dataset.amt + '_' + card.dataset.type;
+    const key  = card.dataset.type === 'عرض' ? ('offer_' + card.dataset.label) : (card.dataset.amt + '_' + card.dataset.type);
     if (!fifaCart[key]) return;
     fifaCart[key].qty = Math.max(1, fifaCart[key].qty + delta);
     card.querySelector('.qty-num').textContent = fifaCart[key].qty;
@@ -4738,7 +4738,7 @@
     if (fifaCart[key].qty <= 0) {
       delete fifaCart[key];
       document.querySelectorAll('#fifa-prices-fc .pcard, #fifa-prices-fadha .pcard, #fifa-prices-offers .pcard').forEach(c => {
-        const k = c.dataset.amt + '_' + c.dataset.type;
+        const k = c.dataset.type === 'عرض' ? ('offer_' + c.dataset.label) : (c.dataset.amt + '_' + c.dataset.type);
         if (k === key) {
           c.classList.remove('has-qty');
           const qc = c.querySelector('.qty-ctrl');
@@ -4747,7 +4747,7 @@
       });
     } else {
       document.querySelectorAll('#fifa-prices-fc .pcard, #fifa-prices-fadha .pcard, #fifa-prices-offers .pcard').forEach(c => {
-        const k = c.dataset.amt + '_' + c.dataset.type;
+        const k = c.dataset.type === 'عرض' ? ('offer_' + c.dataset.label) : (c.dataset.amt + '_' + c.dataset.type);
         if (k === key) {
           const qn = c.querySelector('.qty-num');
           if (qn) qn.textContent = fifaCart[key].qty;
@@ -4774,7 +4774,7 @@
       return;
     }
     rowsDiv.innerHTML = items.map(item => {
-      const key = item.amt + '_' + item.type;
+      const key = item.type === 'عرض' ? ('offer_' + item.label) : (item.amt + '_' + item.type);
       return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(111,207,58,.12);gap:8px;">
         <span style="flex:1;">🪙 ${item.label} (${item.qty})</span>
         <div style="display:flex;align-items:center;gap:6px;">
@@ -6154,6 +6154,15 @@
     // نظهر زرار الدخول بس بعد ما نتأكد من الحالة الحقيقية (مسجل ولا لأ)
     // عشان منورّيش "مش مسجل" للحظة قبل ما يترجع "مسجل" — بيمنع الفلاش
     if (document.getElementById('headerLoginBtn')) document.getElementById('headerLoginBtn').classList.add('auth-ready');
+
+    // بعد ما نعرف حالة تسجيل الدخول الحقيقية، نعيد رسم كل الفواتير المفتوحة —
+    // عشان سطر الكاش باك يتحدث فورًا ومايفضلش يقول "سجل دخول" غلط للمسجلين
+    // (كان بيحصل لو الفاتورة اتعرضت قبل ما فايربيز يتأكد من حالة الدخول)
+    ['renderAccSummary','renderComSummary','renderGiftSummary','renderPubgSummary',
+     'renderBrawlSummary','renderPesSummary','renderFFIdSummary','renderFFAccSummary',
+     'renderFifaSummary'].forEach(fn => {
+      if (typeof window[fn] === 'function') window[fn]();
+    });
   });
 </script>
 
