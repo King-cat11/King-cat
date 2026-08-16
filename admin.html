@@ -2470,7 +2470,7 @@
 
   function updateStatCards() {
     const pendingEl = document.getElementById('statPendingOrders');
-    if (pendingEl) pendingEl.textContent = window.ordersData.length;
+    if (pendingEl) pendingEl.textContent = window.ordersData.filter(o => o.status !== 'pending').length;
   }
 
   // ============ بث حي لكل المستخدمين (كل الزباين ورصيدهم) — نفس الدوك اللي الموقع الأساسي بيقرا منه رصيد كل مستخدم ============
