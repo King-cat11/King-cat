@@ -2015,11 +2015,34 @@
       </div>
     </div>
 
+    <div class="game-card" data-slot="3" style="cursor:pointer;">
+      <div class="bg"><img class="visa-card-img" alt="" loading="lazy"></div>
+      <div class="overlay"></div>
+      <div class="info">
+        <div class="name-en"></div>
+      </div>
+    </div>
+
+    <div class="game-card" data-slot="4" style="cursor:pointer;">
+      <div class="bg"><img class="visa-card-img" alt="" loading="lazy"></div>
+      <div class="overlay"></div>
+      <div class="info">
+        <div class="name-en"></div>
+      </div>
+    </div>
+
+    <div class="game-card" data-slot="5" style="cursor:pointer;">
+      <div class="bg"><img class="visa-card-img" alt="" loading="lazy"></div>
+      <div class="overlay"></div>
+      <div class="info">
+        <div class="name-en"></div>
+      </div>
+    </div>
+
   </div>
 
   <div class="games-dots" id="mobileGamesDots">
     <span class="games-dot active"></span>
-    <span class="games-dot"></span>
     <span class="games-dot"></span>
   </div>
 
@@ -2036,7 +2059,9 @@
       { img: "https://raw.githubusercontent.com/King-cat11/King-cat/main/sm.svg", alt: "Visa", name: "Visa", open: function(){ openVisa(); } }
     ];
 
-    var groups = [ [0,1,2], [3,4,5], [6,7,0] ];
+    // كل مجموعة بتعرض 6 كروت — المجموعة التانية فيها بس كرتين حقيقيين (روبلوكس استوديو + فيزا)
+    // والباقي أماكن فاضية (null) عشان الكروت متتكررش، وبتفضل بنفس المقاس من غير ما تتمدد
+    var groups = [ [0,1,2,3,4,5], [6,7,null,null,null,null] ];
     var groupIndex = 0;
     var grid = document.getElementById('mobileGamesGrid');
     var slots = grid ? Array.prototype.slice.call(grid.querySelectorAll('.game-card')) : [];
@@ -2049,31 +2074,40 @@
       dots.forEach(function(d, i){ d.classList.toggle('active', i === idx); });
     }
 
+    function fillSlot(slot, g){
+      var img = slot.querySelector('.visa-card-img');
+      var nameEl = slot.querySelector('.name-en');
+      slot.classList.toggle('rs-card', !!g && g.name === 'Roblox Studio');
+      if (!g) {
+        slot.onclick = null;
+        slot.style.visibility = 'hidden';
+        slot.style.pointerEvents = 'none';
+        if (img) { img.removeAttribute('src'); img.alt = ''; }
+        if (nameEl) nameEl.textContent = '';
+        return;
+      }
+      slot.style.visibility = '';
+      slot.style.pointerEvents = '';
+      slot.onclick = g.open;
+      if (img) { img.src = g.img; img.alt = g.alt; }
+      if (nameEl) nameEl.textContent = g.name;
+    }
+
     function renderGroup(idx, animate){
       updateDots(idx);
       var group = groups[idx];
       slots.forEach(function(slot, i){
-        var g = games[group[i]];
-        if(!g) return;
-        var img = slot.querySelector('.visa-card-img');
-        var nameEl = slot.querySelector('.name-en');
-        slot.classList.toggle('rs-card', g.name === 'Roblox Studio');
+        var g = games[group[i]] || null;
         if(animate){
           slot.classList.add('card-hide');
           setTimeout(function(){
-            slot.onclick = g.open;
-            img.src = g.img;
-            img.alt = g.alt;
-            nameEl.textContent = g.name;
+            fillSlot(slot, g);
             slot.classList.remove('card-hide');
             slot.classList.add('card-show');
             setTimeout(function(){ slot.classList.remove('card-show'); }, 320);
           }, 300);
         } else {
-          slot.onclick = g.open;
-          img.src = g.img;
-          img.alt = g.alt;
-          nameEl.textContent = g.name;
+          fillSlot(slot, g);
         }
       });
     }
