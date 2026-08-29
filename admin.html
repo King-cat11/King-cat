@@ -1458,7 +1458,7 @@
       <button type="button" onclick="openCashInvoicesPage()" title="كل الفواتير المسجلة" aria-label="كل الفواتير المسجلة" style="width:36px;height:36px;flex-shrink:0;border-radius:50%;border:none;background:radial-gradient(circle at 35% 28%, #ff5b96, #ff2d78 65%, #c21f5c);box-shadow:0 3px 10px rgba(255,45,120,.4), inset 0 1px 0 rgba(255,255,255,.25);font-size:1rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;">🧾</button>
     </div>
     <div style="border-bottom:2px solid #ff2d78;margin-bottom:12px;"></div>
-    <div style="color:var(--muted);font-size:.85rem;margin-bottom:16px;">إجمالي الكاش: <span id="cashOverlayTotal" style="color:var(--white);font-weight:800;">—</span> EGP</div>
+    <div style="color:var(--muted);font-size:.85rem;margin-bottom:16px;"><span id="cashOverlayTotal" style="color:var(--white);font-weight:800;">—</span> EGP</div>
 
     <input type="number" class="oinput" id="cashReqAmount" placeholder="المبلغ" style="width:100%;margin-bottom:10px;">
     <input type="text" class="oinput" id="cashReqReason" placeholder="السبب" style="width:100%;margin-bottom:10px;">
@@ -1468,26 +1468,24 @@
     </div>
     <div id="cashReqStatus" class="login-status" style="margin-bottom:8px;"></div>
     <button class="login-submit-btn" style="background:#ff2d78;" onclick="submitCashRequest()">➕ إضافة</button>
-
-    <div class="table-wrap" id="cashRequestsWrap" style="margin-top:16px;"></div>
-    <p id="cashRequestsEmptyMsg" style="display:none;text-align:center;color:var(--muted);font-size:.85rem;padding:20px;">مفيش طلبات سحب أو إيداع لسه</p>
   </div>
 </div>
 
 <!-- ============ بوب أب الدائن والمدين (إضافة حساب مباشرة + ايموجي فاتورة يوديك لصفحة ليا/عليا) ============ -->
 <div id="debtsOverlay" onclick="closeDebtsOverlay(event)" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:4000;align-items:center;justify-content:center;padding:20px;">
   <div onclick="event.stopPropagation()" style="width:100%;max-width:380px;max-height:88vh;overflow-y:auto;background:#141414;border:1.5px solid rgba(255,45,120,.4);border-radius:16px;padding:22px;">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
       <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#ff2d78;letter-spacing:.03em;">دائن ومدين</div>
-      <span onclick="openDebtsInvoicePage()" title="فاتورة" style="cursor:pointer;font-size:1.5rem;line-height:1;">📋</span>
+      <button type="button" onclick="openDebtsInvoicePage()" title="فاتورة" aria-label="فاتورة" style="width:36px;height:36px;flex-shrink:0;border-radius:50%;border:none;background:radial-gradient(circle at 35% 28%, #ff5b96, #ff2d78 65%, #c21f5c);box-shadow:0 3px 10px rgba(255,45,120,.4), inset 0 1px 0 rgba(255,255,255,.25);font-size:1rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;">📋</button>
     </div>
+    <div style="border-bottom:2px solid #ff2d78;margin-bottom:12px;"></div>
 
     <input type="text" class="oinput" id="debtPersonName" placeholder="اسم الشخص" style="width:100%;margin-bottom:10px;">
     <input type="tel" class="oinput" id="debtPersonPhone" placeholder="رقم الفون" style="width:100%;margin-bottom:10px;">
     <input type="number" class="oinput" id="debtAmount" placeholder="المبلغ" style="width:100%;margin-bottom:10px;">
     <div style="display:flex;gap:8px;margin-bottom:10px;">
-      <button type="button" class="o-action-btn done active" id="debtTypeLahBtn" style="flex:1;" onclick="setDebtType('lah')">سحب (عليا)</button>
-      <button type="button" class="o-action-btn pending" id="debtTypeAlaihBtn" style="flex:1;" onclick="setDebtType('alaih')">إضافة (ليا)</button>
+      <button type="button" class="o-action-btn done active" id="debtTypeLahBtn" style="flex:1;" onclick="setDebtType('lah')">عليا</button>
+      <button type="button" class="o-action-btn pending" id="debtTypeAlaihBtn" style="flex:1;" onclick="setDebtType('alaih')">ليا</button>
     </div>
     <div id="debtStatus" class="login-status" style="margin-bottom:8px;"></div>
     <button class="login-submit-btn" style="background:#ff2d78;" onclick="submitDebtEntry()">➕ حفظ</button>
@@ -2360,9 +2358,14 @@
 
     if (statusEl) { statusEl.textContent = 'بيتم الإضافة...'; statusEl.className = 'login-status'; }
     try {
-      await window.fbAddDoc(window.fbCollection(window.db, 'cashRequests'), {
-        amount, reason, type: cashReqType, status: 'pending', createdAt: window.fbServerTimestamp()
+      // بيتحدث إجمالي الكاش فورًا من غير أي خطوة موافقة تانية (زيادة لو إيداع، نقصان لو سحب)
+      const delta = cashReqType === 'withdraw' ? -Math.abs(amount) : Math.abs(amount);
+      const cashAccountRef = window.fbDoc(window.db, 'adminData', 'cashAccount');
+      await window.fbSetDoc(cashAccountRef, { total: window.fbIncrement(delta), updatedAt: window.fbServerTimestamp() }, { merge: true });
+      await window.fbAddDoc(window.fbCollection(window.db, 'cashInvoices'), {
+        amount, reason, type: cashReqType, createdAt: window.fbServerTimestamp()
       });
+      if (typeof window.loadCashTotal === 'function') window.loadCashTotal();
       amountInput.value = '';
       reasonInput.value = '';
       if (statusEl) { statusEl.textContent = 'اتضاف ✅'; statusEl.className = 'login-status ok'; setTimeout(() => { if (statusEl.textContent === 'اتضاف ✅') statusEl.textContent = ''; }, 2000); }
