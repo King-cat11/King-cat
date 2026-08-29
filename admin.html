@@ -423,6 +423,35 @@
   .orders-tab:hover:not(.active) { color: #ccc; }
   .add-order-tab:hover { background: rgba(255,45,120,.28); color: var(--pink-lt); }
 
+  /* ── CASH INVOICES DAY TABS ── */
+  .day-tabs {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    background: #141414;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: var(--radius);
+    padding: 5px;
+    margin-bottom: 16px;
+    scrollbar-width: none;
+  }
+  .day-tabs::-webkit-scrollbar { display: none; }
+  .day-tab {
+    flex: 0 0 auto;
+    text-align: center;
+    padding: 10px 14px;
+    border-radius: 9px;
+    font-size: .82rem;
+    font-weight: 800;
+    color: var(--muted);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background .2s, color .2s;
+    user-select: none;
+  }
+  .day-tab.active { background: rgba(255,45,120,.16); color: var(--pink-lt); }
+  .day-tab:hover:not(.active) { color: #ccc; }
+
   /* recent orders placeholder table */
   .table-wrap {
     background: #141414;
@@ -1255,10 +1284,60 @@
     <div class="stat-card" id="robuxCard-withdrawnPrice">
       <div class="stat-icon">📤</div>
       <div class="stat-value" id="robuxVal-withdrawnPrice">—</div>
-      <div class="stat-label">سعر السحب</div>
+      <div class="stat-label">سعر المسحوب</div>
+    </div>
+  </div>
+
+  <!-- ============ فراغ + خط وردي واضح بيفصل بين كروت الروبكس اللي فوق وكارت إجمالي الكاش تحت (قسم مختلف) ============ -->
+  <div style="border-top:3px solid #ff2d78;margin:22px 0;"></div>
+
+  <div class="stats-grid robux-stats-grid">
+    <div class="stat-card" onclick="openCashOverlay()">
+      <div class="stat-icon">💵</div>
+      <div class="stat-value" id="cashTotalValue">—</div>
+      <div class="stat-label">إجمالي الكاش</div>
+    </div>
+    <div class="stat-card" onclick="openDebtsOverlay()">
+      <div class="stat-icon">🤝</div>
+      <div class="stat-label" style="font-weight:800;color:var(--white);font-size:.72rem;">دائن ومدين</div>
+      <div style="display:flex;justify-content:space-between;font-size:.78rem;">
+        <span style="color:#6fcf3a;font-weight:800;">ليا</span>
+        <span id="debtsTotalLia" style="color:#6fcf3a;font-weight:800;">—</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:.78rem;">
+        <span style="color:#e05555;font-weight:800;">عليا</span>
+        <span id="debtsTotalAlaya" style="color:#e05555;font-weight:800;">—</span>
+      </div>
     </div>
   </div>
   <div id="robuxDataStatus" class="login-status" style="margin-top:10px;"></div>
+</main>
+
+<!-- ============ صفحة كل الفواتير المسجلة — بتتصفّح باليوم (الأحد للسبت)، وأي فاتورة قدايم من أسبوع بتتمسح تلقائي ============ -->
+<main id="cashInvoicesPage" style="display:none;">
+  <div class="rp-header-row">
+    <button class="back-btn" style="background:rgba(255,45,120,.12);border-color:rgba(255,45,120,.35);color:#ff2d78;" onclick="showRobuxCalcPage()">→ Back</button>
+    <div class="eyebrow roblox-eyebrow">Invoices</div>
+  </div>
+
+  <!-- ============ إجمالي السحب والإيداع لآخر أسبوع (كل الفواتير المحفوظة حاليًا، مش مقسّمة على اليوم المختار) ============ -->
+  <div class="stats-grid" style="grid-template-columns:1fr 1fr;margin-bottom:18px;">
+    <div class="stat-card">
+      <div class="stat-icon">📤</div>
+      <div class="stat-value" id="cashInvoicesTotalWithdraw">—</div>
+      <div class="stat-label">إجمالي السحب (الأسبوع)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">📥</div>
+      <div class="stat-value" id="cashInvoicesTotalDeposit">—</div>
+      <div class="stat-label">إجمالي الإيداع (الأسبوع)</div>
+    </div>
+  </div>
+
+  <div class="day-tabs" id="cashInvoicesDayTabs"></div>
+
+  <div class="table-wrap" id="cashInvoicesWrap"></div>
+  <p id="cashInvoicesEmptyMsg" style="display:none;text-align:center;color:var(--muted);font-size:.85rem;padding:40px 20px;">مفيش فواتير مسجلة في اليوم ده</p>
 </main>
 
 <!-- ============ صفحة العملات (رصيد كل الزباين وإجمالي العملات) ============ -->
@@ -1370,6 +1449,101 @@
   </div>
 </div>
 
+<!-- ============ بوب أب الكاش (إجمالي الكاش + طلبات سحب/إيداع) ============ -->
+<div id="cashOverlay" onclick="closeCashOverlay(event)" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:4000;align-items:center;justify-content:center;padding:20px;">
+  <div onclick="event.stopPropagation()" style="width:100%;max-width:380px;max-height:88vh;overflow-y:auto;background:#141414;border:1.5px solid rgba(255,45,120,.4);border-radius:16px;padding:22px;">
+    <!-- ============ صف العنوان + زرار الفواتير على نفس الخط، وتحته خط وردي واضح بيفصل عن إجمالي الكاش وباقي القسم ============ -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#ff2d78;letter-spacing:.03em;">الكاش</div>
+      <button type="button" onclick="openCashInvoicesPage()" title="كل الفواتير المسجلة" aria-label="كل الفواتير المسجلة" style="width:36px;height:36px;flex-shrink:0;border-radius:50%;border:none;background:radial-gradient(circle at 35% 28%, #ff5b96, #ff2d78 65%, #c21f5c);box-shadow:0 3px 10px rgba(255,45,120,.4), inset 0 1px 0 rgba(255,255,255,.25);font-size:1rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;">🧾</button>
+    </div>
+    <div style="border-bottom:2px solid #ff2d78;margin-bottom:12px;"></div>
+    <div style="color:var(--muted);font-size:.85rem;margin-bottom:16px;">إجمالي الكاش: <span id="cashOverlayTotal" style="color:var(--white);font-weight:800;">—</span> EGP</div>
+
+    <input type="number" class="oinput" id="cashReqAmount" placeholder="المبلغ" style="width:100%;margin-bottom:10px;">
+    <input type="text" class="oinput" id="cashReqReason" placeholder="السبب" style="width:100%;margin-bottom:10px;">
+    <div style="display:flex;gap:8px;margin-bottom:10px;">
+      <button type="button" class="o-action-btn done active" id="cashReqTypeWithdrawBtn" style="flex:1;" onclick="setCashReqType('withdraw')">📤 سحب</button>
+      <button type="button" class="o-action-btn pending" id="cashReqTypeDepositBtn" style="flex:1;" onclick="setCashReqType('deposit')">📥 إيداع</button>
+    </div>
+    <div id="cashReqStatus" class="login-status" style="margin-bottom:8px;"></div>
+    <button class="login-submit-btn" style="background:#ff2d78;" onclick="submitCashRequest()">➕ إضافة</button>
+
+    <div class="table-wrap" id="cashRequestsWrap" style="margin-top:16px;"></div>
+    <p id="cashRequestsEmptyMsg" style="display:none;text-align:center;color:var(--muted);font-size:.85rem;padding:20px;">مفيش طلبات سحب أو إيداع لسه</p>
+  </div>
+</div>
+
+<!-- ============ بوب أب الدائن والمدين (إضافة حساب مباشرة + ايموجي فاتورة يوديك لصفحة ليا/عليا) ============ -->
+<div id="debtsOverlay" onclick="closeDebtsOverlay(event)" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:4000;align-items:center;justify-content:center;padding:20px;">
+  <div onclick="event.stopPropagation()" style="width:100%;max-width:380px;max-height:88vh;overflow-y:auto;background:#141414;border:1.5px solid rgba(255,45,120,.4);border-radius:16px;padding:22px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#ff2d78;letter-spacing:.03em;">دائن ومدين</div>
+      <span onclick="openDebtsInvoicePage()" title="فاتورة" style="cursor:pointer;font-size:1.5rem;line-height:1;">📋</span>
+    </div>
+
+    <input type="text" class="oinput" id="debtPersonName" placeholder="اسم الشخص" style="width:100%;margin-bottom:10px;">
+    <input type="tel" class="oinput" id="debtPersonPhone" placeholder="رقم الفون" style="width:100%;margin-bottom:10px;">
+    <input type="number" class="oinput" id="debtAmount" placeholder="المبلغ" style="width:100%;margin-bottom:10px;">
+    <div style="display:flex;gap:8px;margin-bottom:10px;">
+      <button type="button" class="o-action-btn done active" id="debtTypeLahBtn" style="flex:1;" onclick="setDebtType('lah')">سحب (عليا)</button>
+      <button type="button" class="o-action-btn pending" id="debtTypeAlaihBtn" style="flex:1;" onclick="setDebtType('alaih')">إضافة (ليا)</button>
+    </div>
+    <div id="debtStatus" class="login-status" style="margin-bottom:8px;"></div>
+    <button class="login-submit-btn" style="background:#ff2d78;" onclick="submitDebtEntry()">➕ حفظ</button>
+  </div>
+</div>
+
+<!-- ============ صفحة فاتورة الدائن والمدين — إجمالي وقايمة الحسابات مقسّمة (ليا / عليا) ============ -->
+<main id="debtsInvoicePage" style="display:none;">
+  <div class="rp-header-row">
+    <button class="back-btn" style="background:rgba(255,45,120,.12);border-color:rgba(255,45,120,.35);color:#ff2d78;" onclick="showRobuxCalcPage()">→ Back</button>
+    <div class="eyebrow roblox-eyebrow">Invoice</div>
+  </div>
+
+  <div class="stats-grid" style="grid-template-columns:1fr 1fr;margin-bottom:18px;">
+    <div class="stat-card">
+      <div class="stat-icon">🤝</div>
+      <div class="stat-value" id="debtsInvoiceTotalLia" style="color:#6fcf3a;">—</div>
+      <div class="stat-label">ليا</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">🤝</div>
+      <div class="stat-value" id="debtsInvoiceTotalAlaya" style="color:#e05555;">—</div>
+      <div class="stat-label">عليا</div>
+    </div>
+  </div>
+
+  <div class="orders-tabs" id="debtsPersonsTabs">
+    <div class="orders-tab active" data-filter="lia" onclick="filterDebtsPersons('lia', this)">ليا</div>
+    <div class="orders-tab" data-filter="alaya" onclick="filterDebtsPersons('alaya', this)">عليا</div>
+  </div>
+
+  <div class="table-wrap" id="debtsPersonsWrap" style="margin-top:12px;"></div>
+  <p id="debtsPersonsEmptyMsg" style="display:none;text-align:center;color:var(--muted);font-size:.85rem;padding:20px;">مفيش حسابات مسجلة في القسم ده</p>
+</main>
+
+<!-- ============ بوب أب فاتورة شخص واحد — كل الحركات (إضافة/سحب) وإمكانية حذف الحساب كله ============ -->
+<div id="personDebtOverlay" onclick="closePersonDebtOverlay(event)" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:4000;align-items:center;justify-content:center;padding:20px;">
+  <div onclick="event.stopPropagation()" style="width:100%;max-width:380px;max-height:88vh;overflow-y:auto;background:#141414;border:1.5px solid rgba(255,45,120,.4);border-radius:16px;padding:22px;">
+    <div id="personDebtName" style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#ff2d78;letter-spacing:.03em;margin-bottom:6px;"></div>
+    <div id="personDebtPhone" style="color:var(--muted);font-size:.8rem;margin-bottom:10px;"></div>
+    <div id="personDebtBalance" style="font-weight:800;margin-bottom:16px;font-size:.95rem;"></div>
+
+    <input type="number" class="oinput" id="personDebtAmount" placeholder="المبلغ" style="width:100%;margin-bottom:10px;">
+    <div style="display:flex;gap:8px;margin-bottom:10px;">
+      <button type="button" class="o-action-btn pending" style="flex:1;" onclick="addPersonDebtEntry('alaih')">➕ إضافة</button>
+      <button type="button" class="o-action-btn done" style="flex:1;" onclick="addPersonDebtEntry('lah')">➖ سحب</button>
+    </div>
+    <div id="personDebtStatus" class="login-status" style="margin-bottom:8px;"></div>
+
+    <div class="table-wrap" id="personDebtWrap" style="margin-top:10px;"></div>
+    <p id="personDebtEmptyMsg" style="display:none;text-align:center;color:var(--muted);font-size:.85rem;padding:20px;">مفيش حركات مسجلة لسه</p>
+
+    <button class="back-btn" style="width:100%;justify-content:center;margin-top:18px;background:rgba(224,85,85,.12);border-color:rgba(224,85,85,.4);color:#e05555;" onclick="deletePersonDebtAccount()">🗑️ حذف الحساب كله</button>
+  </div>
+</div>
+
 </div>
 <!-- ============ نهاية محتوى لوحة التحكم ============ -->
 
@@ -1419,6 +1593,9 @@
     hideOrderDetailDom();
     hideManualOrderDom();
     hideRobuxEditDom();
+    hideCashOverlayDom();
+    hideDebtsOverlayDom();
+    hidePersonDebtOverlayDom();
   }
 
   // ============ نظام تنقل موحّد بزرار رجوع الفون (History API) ============
@@ -1476,14 +1653,19 @@
     fifaPricing: () => { showPricingPage(); showFifaPricing(); },
     pesPricing: () => { showPricingPage(); showPesPricing(); },
     brawlPricing: () => { showPricingPage(); showBrawlPricing(); },
-    robuxCalc: () => showRobuxCalcPage()
+    robuxCalc: () => showRobuxCalcPage(),
+    cashInvoices: () => showCashInvoicesPage(),
+    debtsInvoice: () => showDebtsInvoicePage()
   };
 
   const adminOverlayRenderers = {
     menu: () => openMenu(),
     orderDetail: (data) => showOrderDetail(data && data.id),
     manualOrder: () => openManualOrderModal(),
-    robuxEdit: (data) => openRobuxEdit(data && data.key, data && data.label)
+    robuxEdit: (data) => openRobuxEdit(data && data.key, data && data.label),
+    cash: () => openCashOverlay(),
+    debts: () => openDebtsOverlay(),
+    personDebt: (data) => openPersonDebtOverlay(data && data.name)
   };
 
   window.addEventListener('popstate', (e) => {
@@ -1507,6 +1689,9 @@
   function showOrdersPage() {
     document.getElementById('dashboard').style.display = 'none';
     document.getElementById('currencyPage').style.display = 'none';
+    document.getElementById('robuxCalcPage').style.display = 'none';
+    document.getElementById('cashInvoicesPage').style.display = 'none';
+    document.getElementById('debtsInvoicePage').style.display = 'none';
     document.getElementById('ordersPage').style.display = 'block';
     document.getElementById('navHome').classList.remove('active');
     document.body.classList.add('no-header');
@@ -1526,6 +1711,8 @@
     document.getElementById('brawlPricingPage').style.display = 'none';
     document.getElementById('currencyPage').style.display = 'none';
     document.getElementById('robuxCalcPage').style.display = 'none';
+    document.getElementById('cashInvoicesPage').style.display = 'none';
+    document.getElementById('debtsInvoicePage').style.display = 'none';
     document.getElementById('dashboard').style.display = 'block';
     document.getElementById('navHome').classList.add('active');
     document.body.classList.remove('no-header');
@@ -1545,6 +1732,9 @@
     document.getElementById('fifaPricingPage').style.display = 'none';
     document.getElementById('pesPricingPage').style.display = 'none';
     document.getElementById('brawlPricingPage').style.display = 'none';
+    document.getElementById('robuxCalcPage').style.display = 'none';
+    document.getElementById('cashInvoicesPage').style.display = 'none';
+    document.getElementById('debtsInvoicePage').style.display = 'none';
     document.getElementById('currencyPage').style.display = 'block';
     document.getElementById('navHome').classList.remove('active');
     document.body.classList.add('no-header');
@@ -1566,6 +1756,9 @@
     document.getElementById('pesPricingPage').style.display = 'none';
     document.getElementById('brawlPricingPage').style.display = 'none';
     document.getElementById('currencyPage').style.display = 'none';
+    document.getElementById('robuxCalcPage').style.display = 'none';
+    document.getElementById('cashInvoicesPage').style.display = 'none';
+    document.getElementById('debtsInvoicePage').style.display = 'none';
     document.getElementById('pricingPage').style.display = 'block';
     document.getElementById('navHome').classList.remove('active');
     document.body.classList.add('no-header');
@@ -1665,6 +1858,8 @@
     document.getElementById('pesPricingPage').style.display = 'none';
     document.getElementById('brawlPricingPage').style.display = 'none';
     document.getElementById('currencyPage').style.display = 'none';
+    document.getElementById('cashInvoicesPage').style.display = 'none';
+    document.getElementById('debtsInvoicePage').style.display = 'none';
     document.getElementById('robuxCalcPage').style.display = 'block';
     document.getElementById('navHome').classList.remove('active');
     document.body.classList.add('no-header');
@@ -1674,6 +1869,101 @@
     adminNavGoToPage('robuxCalc');
   }
   window.showRobuxCalcPage = showRobuxCalcPage;
+
+  // ============ صفحة كل الفواتير المسجلة (فاضية دلوقتي) ============
+  function showCashInvoicesPage() {
+    document.getElementById('robuxCalcPage').style.display = 'none';
+    document.getElementById('debtsInvoicePage').style.display = 'none';
+    document.getElementById('cashInvoicesPage').style.display = 'block';
+    document.body.classList.add('no-header');
+    adminNavCloseAllOverlaysDom();
+    window.scrollTo(0, 0);
+    adminNavGoToPage('cashInvoices');
+  }
+  window.showCashInvoicesPage = showCashInvoicesPage;
+
+  // بيتنادى من كارت "كل الفواتير المسجلة" جوه بوب أب الكاش — بيقفل البوب أب (DOM بس) وينتقل للصفحة
+  function openCashInvoicesPage() {
+    hideCashOverlayDom();
+    showCashInvoicesPage();
+  }
+  window.openCashInvoicesPage = openCashInvoicesPage;
+
+  // ============ صفحة فاتورة الدائن والمدين (إضافة حساب + قايمة الأشخاص) ============
+  function showDebtsInvoicePage() {
+    document.getElementById('robuxCalcPage').style.display = 'none';
+    document.getElementById('cashInvoicesPage').style.display = 'none';
+    document.getElementById('debtsInvoicePage').style.display = 'block';
+    document.body.classList.add('no-header');
+    adminNavCloseAllOverlaysDom();
+    window.scrollTo(0, 0);
+    if (typeof window.renderDebtsTotals === 'function') window.renderDebtsTotals();
+    if (typeof window.renderDebtsPersons === 'function') window.renderDebtsPersons();
+    adminNavGoToPage('debtsInvoice');
+  }
+  window.showDebtsInvoicePage = showDebtsInvoicePage;
+
+  // بيتنادى من ايموجي "📋" جوه بوب أب الدائن والمدين — بيقفل البوب أب (DOM بس) وينتقل للصفحة
+  function openDebtsInvoicePage() {
+    hideDebtsOverlayDom();
+    showDebtsInvoicePage();
+  }
+  window.openDebtsInvoicePage = openDebtsInvoicePage;
+
+  // ============ فتح/قفل بوب أب الكاش ============
+  function hideCashOverlayDom() {
+    const el = document.getElementById('cashOverlay');
+    if (el) el.style.display = 'none';
+  }
+  function openCashOverlay() {
+    document.getElementById('cashOverlay').style.display = 'flex';
+    if (typeof window.loadCashTotal === 'function') window.loadCashTotal();
+    if (typeof window.renderCashRequests === 'function') window.renderCashRequests();
+    adminNavSetOverlay('cash', {});
+  }
+  window.openCashOverlay = openCashOverlay;
+  function closeCashOverlay(e) {
+    if (e && e.target !== document.getElementById('cashOverlay')) return;
+    adminNavCloseOverlay('cash', hideCashOverlayDom);
+  }
+  window.closeCashOverlay = closeCashOverlay;
+
+  // ============ فتح/قفل بوب أب الدائن والمدين ============
+  function hideDebtsOverlayDom() {
+    const el = document.getElementById('debtsOverlay');
+    if (el) el.style.display = 'none';
+  }
+  function openDebtsOverlay() {
+    document.getElementById('debtsOverlay').style.display = 'flex';
+    if (typeof window.renderDebtsTotals === 'function') window.renderDebtsTotals();
+    adminNavSetOverlay('debts', {});
+  }
+  window.openDebtsOverlay = openDebtsOverlay;
+  function closeDebtsOverlay(e) {
+    if (e && e.target !== document.getElementById('debtsOverlay')) return;
+    adminNavCloseOverlay('debts', hideDebtsOverlayDom);
+  }
+  window.closeDebtsOverlay = closeDebtsOverlay;
+
+  // ============ فتح/قفل بوب أب فاتورة شخص واحد ============
+  function hidePersonDebtOverlayDom() {
+    const el = document.getElementById('personDebtOverlay');
+    if (el) el.style.display = 'none';
+  }
+  window.hidePersonDebtOverlayDom = hidePersonDebtOverlayDom;
+  function openPersonDebtOverlay(name) {
+    if (!name) return;
+    window.currentDebtPersonName = name;
+    document.getElementById('personDebtOverlay').style.display = 'flex';
+    if (typeof window.renderPersonDebtInvoice === 'function') window.renderPersonDebtInvoice();
+    adminNavSetOverlay('personDebt', { name });
+  }
+  window.openPersonDebtOverlay = openPersonDebtOverlay;
+  function closePersonDebtOverlay(e) {
+    if (e && e.target !== document.getElementById('personDebtOverlay')) return;
+    adminNavCloseOverlay('personDebt', hidePersonDebtOverlayDom);
+  }
+  window.closePersonDebtOverlay = closePersonDebtOverlay;
 
   // ============ نظام إدارة الطلبات ============
   // كل طلب بياخد id (Firestore doc id — نص مش رقم), بيانات اللعبة, حالته (new/pending),
@@ -2045,6 +2335,76 @@
   window.saveRobuxEdit = saveRobuxEdit;
   window.saveRobuxAdjust = saveRobuxAdjust;
 
+  // ============ قسم الكاش: طلبات سحب/إيداع بموافقة أو إلغاء ============
+  window.cashRequestsData = [];
+  let cashReqType = 'withdraw';
+
+  function setCashReqType(type) {
+    cashReqType = type;
+    const wBtn = document.getElementById('cashReqTypeWithdrawBtn');
+    const dBtn = document.getElementById('cashReqTypeDepositBtn');
+    if (wBtn) wBtn.classList.toggle('active', type === 'withdraw');
+    if (dBtn) dBtn.classList.toggle('active', type === 'deposit');
+  }
+  window.setCashReqType = setCashReqType;
+
+  async function submitCashRequest() {
+    const statusEl = document.getElementById('cashReqStatus');
+    const amountInput = document.getElementById('cashReqAmount');
+    const reasonInput = document.getElementById('cashReqReason');
+    const amount = parseFloat(amountInput.value);
+    const reason = reasonInput.value.trim();
+
+    if (!amount || amount <= 0) { if (statusEl) { statusEl.textContent = 'اكتب مبلغ صحيح أكبر من صفر'; statusEl.className = 'login-status err'; } return; }
+    if (!reason) { if (statusEl) { statusEl.textContent = 'اكتب السبب'; statusEl.className = 'login-status err'; } return; }
+
+    if (statusEl) { statusEl.textContent = 'بيتم الإضافة...'; statusEl.className = 'login-status'; }
+    try {
+      await window.fbAddDoc(window.fbCollection(window.db, 'cashRequests'), {
+        amount, reason, type: cashReqType, status: 'pending', createdAt: window.fbServerTimestamp()
+      });
+      amountInput.value = '';
+      reasonInput.value = '';
+      if (statusEl) { statusEl.textContent = 'اتضاف ✅'; statusEl.className = 'login-status ok'; setTimeout(() => { if (statusEl.textContent === 'اتضاف ✅') statusEl.textContent = ''; }, 2000); }
+    } catch (err) {
+      console.error('تعذر إضافة طلب الكاش:', err);
+      const rawCode = err && err.code ? err.code : '';
+      if (statusEl) { statusEl.textContent = `حصلت مشكلة أثناء الإضافة، حاول تاني [${rawCode || 'error'}]`; statusEl.className = 'login-status err'; }
+    }
+  }
+  window.submitCashRequest = submitCashRequest;
+
+  function renderCashRequests() {
+    const wrap = document.getElementById('cashRequestsWrap');
+    const emptyMsg = document.getElementById('cashRequestsEmptyMsg');
+    if (!wrap) return;
+    const list = window.cashRequestsData || [];
+    if (list.length === 0) {
+      wrap.style.display = 'none';
+      if (emptyMsg) emptyMsg.style.display = 'block';
+      return;
+    }
+    wrap.style.display = 'block';
+    if (emptyMsg) emptyMsg.style.display = 'none';
+
+    wrap.innerHTML = list.map(r => `
+      <div class="order-row" data-id="${esc(r.id)}">
+        <div class="order-top-row">
+          <div style="flex:1;min-width:0;">
+            <div class="o-game">${r.type === 'withdraw' ? '📤 سحب' : '📥 إيداع'} — ${esc(String(r.amount))} EGP</div>
+            <div class="o-user">${esc(r.reason)}</div>
+          </div>
+        </div>
+        <div class="order-actions">
+          <button class="o-action-btn done" onclick="approveCashRequest('${r.id}')">موافقة</button>
+          <button class="o-action-btn cancel" onclick="cancelCashRequest('${r.id}')">إلغاء</button>
+        </div>
+      </div>
+    `).join('');
+  }
+  window.renderCashRequests = renderCashRequests;
+
+
   updateRemainingRobuxStat();
   renderOrders();
 
@@ -2410,6 +2770,9 @@
       startOrdersListener();
       startUsersListener();
       startRedemptionCodesListener();
+      startCashRequestsListener();
+      startCashInvoicesListener();
+      startDebtsListener();
       loadRobuxData();
     } catch (err) {
       console.error("تعذر التحقق من صلاحية الأدمن:", err);
@@ -2512,6 +2875,430 @@
     });
   }
   window.startRedemptionCodesListener = startRedemptionCodesListener;
+
+  // ============ بث حي لطلبات الكاش (سحب/إيداع) + إجمالي الكاش ============
+  function getCashAccountRef() {
+    return doc(db, 'adminData', 'cashAccount');
+  }
+
+  async function loadCashTotal() {
+    try {
+      const snap = await getDoc(getCashAccountRef());
+      const total = (snap.exists() && typeof snap.data().total === 'number') ? snap.data().total : 0;
+      const cardEl = document.getElementById('cashTotalValue');
+      if (cardEl) cardEl.textContent = total + ' EGP';
+      const overlayEl = document.getElementById('cashOverlayTotal');
+      if (overlayEl) overlayEl.textContent = total;
+    } catch (err) {
+      console.error('تعذر تحميل إجمالي الكاش:', err);
+    }
+  }
+  window.loadCashTotal = loadCashTotal;
+
+  function startCashRequestsListener() {
+    const reqRef = collection(db, 'cashRequests');
+    onSnapshot(reqRef, (snap) => {
+      window.cashRequestsData.length = 0;
+      snap.forEach((docSnap) => {
+        const d = docSnap.data();
+        if (d.status !== 'pending') return;
+        window.cashRequestsData.push({
+          id: docSnap.id,
+          amount: typeof d.amount === 'number' ? d.amount : 0,
+          reason: d.reason || '',
+          type: d.type === 'deposit' ? 'deposit' : 'withdraw',
+          sortTime: (d.createdAt && d.createdAt.toMillis) ? d.createdAt.toMillis() : Date.now()
+        });
+      });
+      window.cashRequestsData.sort((a, b) => b.sortTime - a.sortTime);
+      if (typeof window.renderCashRequests === 'function') window.renderCashRequests();
+    }, (err) => {
+      console.error('تعذر تحميل طلبات الكاش:', err);
+    });
+    loadCashTotal();
+  }
+  window.startCashRequestsListener = startCashRequestsListener;
+
+  // ============ قسم فواتير الكاش المسجلة (بعد الموافقة) — عرض باليوم من الأحد للسبت + حذف تلقائي بعد أسبوع + حذف يدوي ============
+  const CASH_INVOICE_DAY_NAMES = ['الأحد', 'الاتنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+  const CASH_INVOICE_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000; // أسبوع
+  window.cashInvoicesData = [];
+  let selectedInvoiceDay = new Date().getDay(); // 0 = الأحد ... 6 = السبت — افتراضيًا يوم النهاردة
+
+  function renderCashInvoicesDayTabs() {
+    const wrap = document.getElementById('cashInvoicesDayTabs');
+    if (!wrap) return;
+    wrap.innerHTML = CASH_INVOICE_DAY_NAMES.map((name, i) => `
+      <div class="day-tab${i === selectedInvoiceDay ? ' active' : ''}" onclick="selectCashInvoiceDay(${i})">${name}</div>
+    `).join('');
+  }
+
+  window.selectCashInvoiceDay = function (dayIndex) {
+    selectedInvoiceDay = dayIndex;
+    renderCashInvoicesDayTabs();
+    renderCashInvoicesList();
+  };
+
+  function renderCashInvoicesList() {
+    const wrap = document.getElementById('cashInvoicesWrap');
+    const emptyMsg = document.getElementById('cashInvoicesEmptyMsg');
+    if (!wrap) return;
+    const list = (window.cashInvoicesData || []).filter(inv => inv.day === selectedInvoiceDay);
+    if (list.length === 0) {
+      wrap.style.display = 'none';
+      if (emptyMsg) emptyMsg.style.display = 'block';
+      return;
+    }
+    wrap.style.display = 'block';
+    if (emptyMsg) emptyMsg.style.display = 'none';
+
+    wrap.innerHTML = list.map(inv => `
+      <div class="order-row" data-id="${esc(inv.id)}">
+        <div class="order-top-row">
+          <div style="flex:1;min-width:0;">
+            <div class="o-game">${inv.type === 'withdraw' ? '📤 سحب' : '📥 إيداع'} — ${esc(String(inv.amount))} EGP</div>
+            <div class="o-user">${esc(inv.reason)}</div>
+          </div>
+        </div>
+        <div class="order-actions">
+          <button class="o-action-btn cancel" onclick="deleteCashInvoice('${inv.id}')">🗑️ حذف</button>
+        </div>
+      </div>
+    `).join('');
+  }
+  window.renderCashInvoicesList = renderCashInvoicesList;
+
+  // بيحسب إجمالي كل السحب وكل الإيداع لآخر أسبوع (كل الفواتير المحفوظة حاليًا مش مقسّمة على اليوم المختار)
+  function renderCashInvoicesTotals() {
+    const withdrawEl = document.getElementById('cashInvoicesTotalWithdraw');
+    const depositEl = document.getElementById('cashInvoicesTotalDeposit');
+    if (!withdrawEl || !depositEl) return;
+    const list = window.cashInvoicesData || [];
+    let totalWithdraw = 0, totalDeposit = 0;
+    list.forEach(inv => {
+      if (inv.type === 'withdraw') totalWithdraw += inv.amount;
+      else totalDeposit += inv.amount;
+    });
+    withdrawEl.textContent = totalWithdraw + ' EGP';
+    depositEl.textContent = totalDeposit + ' EGP';
+  }
+  window.renderCashInvoicesTotals = renderCashInvoicesTotals;
+
+  window.deleteCashInvoice = async function (id) {
+    if (!confirm('متأكد إنك عايز تحذف الفاتورة دي؟')) return;
+    try {
+      await deleteDoc(doc(db, 'cashInvoices', id));
+    } catch (err) {
+      console.error('تعذر حذف الفاتورة:', err);
+      const rawCode = err && err.code ? err.code : '';
+      alert(`حصلت مشكلة أثناء الحذف، حاول تاني [${rawCode || 'error'}]`);
+    }
+  };
+
+  function startCashInvoicesListener() {
+    const invRef = collection(db, 'cashInvoices');
+    onSnapshot(invRef, (snap) => {
+      const now = Date.now();
+      window.cashInvoicesData.length = 0;
+      snap.forEach((docSnap) => {
+        const d = docSnap.data();
+        const createdMs = (d.createdAt && d.createdAt.toMillis) ? d.createdAt.toMillis() : now;
+        // أي فاتورة عدى عليها أسبوع بتتمسح تلقائي من السحابة
+        if (now - createdMs > CASH_INVOICE_MAX_AGE_MS) {
+          deleteDoc(doc(db, 'cashInvoices', docSnap.id)).catch(err => console.error('تعذر حذف فاتورة قديمة:', err));
+          return;
+        }
+        window.cashInvoicesData.push({
+          id: docSnap.id,
+          amount: typeof d.amount === 'number' ? d.amount : 0,
+          reason: d.reason || '',
+          type: d.type === 'deposit' ? 'deposit' : 'withdraw',
+          sortTime: createdMs,
+          day: new Date(createdMs).getDay()
+        });
+      });
+      window.cashInvoicesData.sort((a, b) => b.sortTime - a.sortTime);
+      renderCashInvoicesDayTabs();
+      renderCashInvoicesList();
+      renderCashInvoicesTotals();
+    }, (err) => {
+      console.error('تعذر تحميل فواتير الكاش:', err);
+    });
+  }
+  window.startCashInvoicesListener = startCashInvoicesListener;
+
+  // ============ قسم الدائن والمدين — تسجيل مبالغ "ليا" (عليه) و"عليا" (له) لكل شخص ============
+  // "له" يعني الفلوس دي مستحقة للشخص ده (أنا مديون)، فبتضاف لـ "عليا"
+  // "عليه" يعني الشخص ده مديون بيها (مستحقة ليا)، فبتضاف لـ "ليا"
+  window.debtsData = [];
+  let debtType = 'lah';
+
+  function setDebtType(type) {
+    debtType = type;
+    const lahBtn = document.getElementById('debtTypeLahBtn');
+    const alaihBtn = document.getElementById('debtTypeAlaihBtn');
+    if (lahBtn) lahBtn.classList.toggle('active', type === 'lah');
+    if (alaihBtn) alaihBtn.classList.toggle('active', type === 'alaih');
+  }
+  window.setDebtType = setDebtType;
+
+  async function submitDebtEntry() {
+    const statusEl = document.getElementById('debtStatus');
+    const nameInput = document.getElementById('debtPersonName');
+    const phoneInput = document.getElementById('debtPersonPhone');
+    const amountInput = document.getElementById('debtAmount');
+    const name = nameInput.value.trim();
+    const phone = phoneInput ? phoneInput.value.trim() : '';
+    const amount = parseFloat(amountInput.value);
+
+    if (!name) { if (statusEl) { statusEl.textContent = 'اكتب اسم الشخص'; statusEl.className = 'login-status err'; } return; }
+    if (!amount || amount <= 0) { if (statusEl) { statusEl.textContent = 'اكتب مبلغ صحيح أكبر من صفر'; statusEl.className = 'login-status err'; } return; }
+
+    if (statusEl) { statusEl.textContent = 'بيتم الإضافة...'; statusEl.className = 'login-status'; }
+    try {
+      await addDoc(collection(db, 'debts'), {
+        name, phone, amount, type: debtType, createdAt: serverTimestamp()
+      });
+      nameInput.value = '';
+      if (phoneInput) phoneInput.value = '';
+      amountInput.value = '';
+      if (statusEl) { statusEl.textContent = 'اتضاف ✅'; statusEl.className = 'login-status ok'; setTimeout(() => { if (statusEl.textContent === 'اتضاف ✅') statusEl.textContent = ''; }, 2000); }
+    } catch (err) {
+      console.error('تعذر إضافة الحسبة:', err);
+      const rawCode = err && err.code ? err.code : '';
+      if (statusEl) { statusEl.textContent = `حصلت مشكلة أثناء الإضافة، حاول تاني [${rawCode || 'error'}]`; statusEl.className = 'login-status err'; }
+    }
+  }
+  window.submitDebtEntry = submitDebtEntry;
+
+  // بيجمع كل الحركات حسب اسم الشخص، وبيحسب صافي كل واحد
+  // صافي موجب = عليه فلوس ليا (تحت تبويب "ليا") / صافي سالب = ليه فلوس عندي (تحت تبويب "عليا")
+  function getDebtsPersonsSummary() {
+    const list = window.debtsData || [];
+    const map = new Map();
+    list.forEach(dItem => {
+      const key = dItem.name;
+      if (!map.has(key)) map.set(key, { name: dItem.name, phone: '', net: 0, lastTime: 0 });
+      const entry = map.get(key);
+      entry.net += dItem.type === 'alaih' ? dItem.amount : -dItem.amount;
+      if (dItem.phone) entry.phone = dItem.phone;
+      if (dItem.sortTime > entry.lastTime) entry.lastTime = dItem.sortTime;
+    });
+    return Array.from(map.values()).sort((a, b) => b.lastTime - a.lastTime);
+  }
+  window.getDebtsPersonsSummary = getDebtsPersonsSummary;
+
+  let currentDebtsFilter = 'lia';
+  function filterDebtsPersons(type, el) {
+    currentDebtsFilter = type;
+    document.querySelectorAll('#debtsPersonsTabs .orders-tab').forEach(t => t.classList.remove('active'));
+    if (el) el.classList.add('active');
+    renderDebtsPersons();
+  }
+  window.filterDebtsPersons = filterDebtsPersons;
+
+  function renderDebtsPersons() {
+    const wrap = document.getElementById('debtsPersonsWrap');
+    const emptyMsg = document.getElementById('debtsPersonsEmptyMsg');
+    if (!wrap) return;
+    const persons = getDebtsPersonsSummary().filter(p => currentDebtsFilter === 'lia' ? p.net > 0 : p.net < 0);
+    if (persons.length === 0) {
+      wrap.style.display = 'none';
+      if (emptyMsg) emptyMsg.style.display = 'block';
+      return;
+    }
+    wrap.style.display = 'block';
+    if (emptyMsg) emptyMsg.style.display = 'none';
+
+    wrap.innerHTML = persons.map(p => `
+      <div class="order-row" onclick="openPersonDebtOverlay('${esc(p.name).replace(/'/g, "\\'")}')" style="cursor:pointer;">
+        <div class="order-top-row">
+          <div style="flex:1;min-width:0;">
+            <div class="o-game">${esc(p.name)}</div>
+            ${p.phone ? `<div class="o-user">📞 ${esc(p.phone)}</div>` : ''}
+            <div class="o-user" style="color:${p.net > 0 ? '#6fcf3a' : '#e05555'};">${Math.abs(p.net)} EGP</div>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+  window.renderDebtsPersons = renderDebtsPersons;
+
+  function renderPersonDebtInvoice() {
+    const name = window.currentDebtPersonName;
+    if (!name) return;
+    const wrap = document.getElementById('personDebtWrap');
+    const emptyMsg = document.getElementById('personDebtEmptyMsg');
+    const nameEl = document.getElementById('personDebtName');
+    const phoneEl = document.getElementById('personDebtPhone');
+    const balanceEl = document.getElementById('personDebtBalance');
+    if (nameEl) nameEl.textContent = name;
+
+    const entries = (window.debtsData || []).filter(d => d.name === name).sort((a, b) => b.sortTime - a.sortTime);
+    const phone = (entries.find(d => d.phone) || {}).phone || '';
+    if (phoneEl) phoneEl.textContent = phone ? `📞 ${phone}` : '';
+    const net = entries.reduce((s, d) => s + (d.type === 'alaih' ? d.amount : -d.amount), 0);
+    if (balanceEl) {
+      balanceEl.style.color = net > 0 ? '#6fcf3a' : (net < 0 ? '#e05555' : 'var(--muted)');
+      balanceEl.textContent = net > 0 ? `ليا: ${net} EGP` : (net < 0 ? `عليا: ${Math.abs(net)} EGP` : 'متزامن: 0 EGP');
+    }
+
+    if (!wrap) return;
+    if (entries.length === 0) {
+      wrap.style.display = 'none';
+      if (emptyMsg) emptyMsg.style.display = 'block';
+      return;
+    }
+    wrap.style.display = 'block';
+    if (emptyMsg) emptyMsg.style.display = 'none';
+
+    wrap.innerHTML = entries.map(dItem => `
+      <div class="order-row" data-id="${esc(dItem.id)}">
+        <div class="order-top-row">
+          <div style="flex:1;min-width:0;">
+            <div class="o-game" style="color:${dItem.type === 'alaih' ? '#6fcf3a' : '#e05555'};">${dItem.type === 'alaih' ? '➕ إضافة' : '➖ سحب'} — ${esc(String(dItem.amount))} EGP</div>
+          </div>
+        </div>
+        <div class="order-actions">
+          <button class="o-action-btn cancel" onclick="deleteDebtEntry('${dItem.id}')">🗑️ حذف</button>
+        </div>
+      </div>
+    `).join('');
+  }
+  window.renderPersonDebtInvoice = renderPersonDebtInvoice;
+
+  async function addPersonDebtEntry(type) {
+    const name = window.currentDebtPersonName;
+    const statusEl = document.getElementById('personDebtStatus');
+    const amountInput = document.getElementById('personDebtAmount');
+    const amount = parseFloat(amountInput.value);
+    if (!name) return;
+    if (!amount || amount <= 0) { if (statusEl) { statusEl.textContent = 'اكتب مبلغ صحيح أكبر من صفر'; statusEl.className = 'login-status err'; } return; }
+
+    if (statusEl) { statusEl.textContent = 'بيتم الحفظ...'; statusEl.className = 'login-status'; }
+    try {
+      await addDoc(collection(db, 'debts'), {
+        name, amount, type, createdAt: serverTimestamp()
+      });
+      amountInput.value = '';
+      if (statusEl) { statusEl.textContent = 'اتحفظ ✅'; statusEl.className = 'login-status ok'; setTimeout(() => { if (statusEl.textContent === 'اتحفظ ✅') statusEl.textContent = ''; }, 2000); }
+    } catch (err) {
+      console.error('تعذر إضافة الحركة:', err);
+      const rawCode = err && err.code ? err.code : '';
+      if (statusEl) { statusEl.textContent = `حصلت مشكلة أثناء الحفظ، حاول تاني [${rawCode || 'error'}]`; statusEl.className = 'login-status err'; }
+    }
+  }
+  window.addPersonDebtEntry = addPersonDebtEntry;
+
+  async function deletePersonDebtAccount() {
+    const name = window.currentDebtPersonName;
+    if (!name) return;
+    if (!confirm(`متأكد إنك عايز تحذف حساب "${name}" كله؟ الحركات كلها هتتمسح.`)) return;
+    const ids = (window.debtsData || []).filter(d => d.name === name).map(d => d.id);
+    try {
+      await Promise.all(ids.map(id => deleteDoc(doc(db, 'debts', id))));
+      closePersonDebtOverlay();
+    } catch (err) {
+      console.error('تعذر حذف الحساب:', err);
+      const rawCode = err && err.code ? err.code : '';
+      alert(`حصلت مشكلة أثناء الحذف، حاول تاني [${rawCode || 'error'}]`);
+    }
+  }
+  window.deletePersonDebtAccount = deletePersonDebtAccount;
+
+  window.deleteDebtEntry = async function (id) {
+    if (!confirm('متأكد إنك عايز تحذف الحركة دي؟')) return;
+    try {
+      await deleteDoc(doc(db, 'debts', id));
+    } catch (err) {
+      console.error('تعذر حذف الحركة:', err);
+      const rawCode = err && err.code ? err.code : '';
+      alert(`حصلت مشكلة أثناء الحذف، حاول تاني [${rawCode || 'error'}]`);
+    }
+  };
+
+  function renderDebtsTotals() {
+    const list = window.debtsData || [];
+    let totalLia = 0, totalAlaya = 0;
+    list.forEach(dItem => {
+      if (dItem.type === 'alaih') totalLia += dItem.amount; // عليه → مستحق ليا
+      else totalAlaya += dItem.amount; // له → مستحق عليا
+    });
+    const cardLia = document.getElementById('debtsTotalLia');
+    const cardAlaya = document.getElementById('debtsTotalAlaya');
+    if (cardLia) cardLia.textContent = totalLia + ' EGP';
+    if (cardAlaya) cardAlaya.textContent = totalAlaya + ' EGP';
+    const overlayLia = document.getElementById('debtsOverlayLia');
+    const overlayAlaya = document.getElementById('debtsOverlayAlaya');
+    if (overlayLia) overlayLia.textContent = totalLia;
+    if (overlayAlaya) overlayAlaya.textContent = totalAlaya;
+    const invLia = document.getElementById('debtsInvoiceTotalLia');
+    const invAlaya = document.getElementById('debtsInvoiceTotalAlaya');
+    if (invLia) invLia.textContent = totalLia + ' EGP';
+    if (invAlaya) invAlaya.textContent = totalAlaya + ' EGP';
+  }
+  window.renderDebtsTotals = renderDebtsTotals;
+
+  function startDebtsListener() {
+    const debtsRef = collection(db, 'debts');
+    onSnapshot(debtsRef, (snap) => {
+      window.debtsData.length = 0;
+      snap.forEach((docSnap) => {
+        const d = docSnap.data();
+        window.debtsData.push({
+          id: docSnap.id,
+          name: d.name || '',
+          phone: d.phone || '',
+          amount: typeof d.amount === 'number' ? d.amount : 0,
+          type: d.type === 'alaih' ? 'alaih' : 'lah',
+          sortTime: (d.createdAt && d.createdAt.toMillis) ? d.createdAt.toMillis() : Date.now()
+        });
+      });
+      window.debtsData.sort((a, b) => b.sortTime - a.sortTime);
+      renderDebtsTotals();
+      if (typeof renderDebtsPersons === 'function') renderDebtsPersons();
+      if (window.currentDebtPersonName && document.getElementById('personDebtOverlay').style.display === 'flex') {
+        renderPersonDebtInvoice();
+      }
+    }, (err) => {
+      console.error('تعذر تحميل الدائن والمدين:', err);
+    });
+  }
+  window.startDebtsListener = startDebtsListener;
+
+  // ============ موافقة على طلب كاش: بيتحدث إجمالي الكاش (زيادة لو إيداع، نقصان لو سحب) وبيتمسح الطلب من القايمة ============
+  window.approveCashRequest = async function (id) {
+    const req = (window.cashRequestsData || []).find(r => r.id === id);
+    if (!req) return;
+    if (!confirm(`متأكد إنك موافق على ${req.type === 'withdraw' ? 'سحب' : 'إيداع'} ${req.amount} EGP (${req.reason})؟`)) return;
+
+    const delta = req.type === 'withdraw' ? -Math.abs(req.amount) : Math.abs(req.amount);
+    try {
+      await setDoc(getCashAccountRef(), { total: increment(delta), updatedAt: serverTimestamp() }, { merge: true });
+      await addDoc(collection(db, 'cashInvoices'), {
+        amount: req.amount, reason: req.reason, type: req.type, createdAt: serverTimestamp()
+      });
+      await deleteDoc(doc(db, 'cashRequests', id));
+      loadCashTotal();
+    } catch (err) {
+      console.error('تعذر تنفيذ طلب الكاش:', err);
+      const rawCode = err && err.code ? err.code : '';
+      alert(`حصلت مشكلة أثناء الموافقة على الطلب، حاول تاني [${rawCode || 'error'}]`);
+    }
+  };
+
+  // ============ إلغاء طلب كاش: بيتمسح من القايمة من غير ما يأثر على إجمالي الكاش ============
+  window.cancelCashRequest = async function (id) {
+    if (!confirm('متأكد إنك عايز تلغي الطلب ده؟')) return;
+    try {
+      await deleteDoc(doc(db, 'cashRequests', id));
+    } catch (err) {
+      console.error('تعذر إلغاء طلب الكاش:', err);
+      const rawCode = err && err.code ? err.code : '';
+      alert(`حصلت مشكلة أثناء الإلغاء، حاول تاني [${rawCode || 'error'}]`);
+    }
+  };
+
 
   // ============ إضافة كود استرداد جديد (كود + قيمة بالـ EGP هياخدها اللي هيستخدمه) ============
   window.addRedemptionCode = async function () {
