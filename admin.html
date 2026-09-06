@@ -492,6 +492,7 @@
   .o-action-btn.pending.active { background: rgba(244,161,0,.25); }
   .o-action-btn.cancel  { color: var(--pink); border: 1px solid rgba(255,45,120,.35); background: rgba(255,45,120,.06); }
   .o-action-btn.cancel:hover  { background: rgba(255,45,120,.2); }
+  .o-action-btn.cancel.active { background: rgba(255,45,120,.25); }
 
   .order-date-row {
     display: flex;
@@ -1263,6 +1264,7 @@
   <div class="rp-header-row">
     <button class="back-btn" style="background:rgba(255,45,120,.12);border-color:rgba(255,45,120,.35);color:#ff2d78;" onclick="showDashboard()">→ Back</button>
     <div class="eyebrow roblox-eyebrow">Accounts</div>
+    <button type="button" onclick="openRobuxNetCalcOverlay()" title="حاسبة صافي / غير صافي" aria-label="حاسبة صافي / غير صافي" style="width:36px;height:36px;flex-shrink:0;border-radius:50%;border:none;background:radial-gradient(circle at 35% 28%, #ff5b96, #ff2d78 65%, #c21f5c);box-shadow:0 3px 10px rgba(255,45,120,.4), inset 0 1px 0 rgba(255,255,255,.25);font-size:1rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;">🧮</button>
   </div>
 
   <div class="stats-grid robux-stats-grid">
@@ -1312,6 +1314,21 @@
   </div>
   <div id="robuxDataStatus" class="login-status" style="margin-top:10px;"></div>
 </main>
+
+<!-- ============ بوب أب حاسبة الروبوكس (صافي / غير صافي) — بتحسب الرقم التاني تلقائي ============ -->
+<div id="robuxNetCalcOverlay" onclick="closeRobuxNetCalcOverlay(event)" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:4000;align-items:center;justify-content:center;padding:20px;">
+  <div onclick="event.stopPropagation()" style="width:100%;max-width:380px;max-height:88vh;overflow-y:auto;background:#141414;border:1.5px solid rgba(255,45,120,.4);border-radius:16px;padding:22px;">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#ff2d78;letter-spacing:.03em;margin-bottom:16px;">🧮 حاسبة صافي / غير صافي</div>
+
+    <input type="number" class="oinput" id="robuxNetCalcAmount" placeholder="اكتب الرقم" style="width:100%;margin-bottom:10px;">
+    <div style="display:flex;gap:8px;margin-bottom:10px;">
+      <button type="button" class="o-action-btn done active" id="robuxNetCalcTypeNetBtn" style="flex:1;" onclick="setRobuxNetCalcType('net')">صافي</button>
+      <button type="button" class="o-action-btn pending" id="robuxNetCalcTypeGrossBtn" style="flex:1;" onclick="setRobuxNetCalcType('gross')">غير صافي</button>
+    </div>
+    <button class="login-submit-btn" style="background:#ff2d78;" onclick="calcRobuxNet()">🧮 احسب</button>
+    <div id="robuxNetCalcResult" style="margin-top:14px;font-weight:800;font-size:1rem;text-align:center;"></div>
+  </div>
+</div>
 
 <!-- ============ صفحة كل الفواتير المسجلة — بتتصفّح باليوم (الأحد للسبت)، وأي فاتورة قدايم من أسبوع بتتمسح تلقائي ============ -->
 <main id="cashInvoicesPage" style="display:none;">
@@ -1521,7 +1538,7 @@
   <p id="debtsPersonsEmptyMsg" style="display:none;text-align:center;color:var(--muted);font-size:.85rem;padding:20px;">مفيش حسابات مسجلة في القسم ده</p>
 </main>
 
-<!-- ============ بوب أب فاتورة شخص واحد — كل الحركات (إضافة/سحب) وإمكانية حذف الحساب كله ============ -->
+<!-- ============ بوب أب فاتورة شخص واحد — كل الحركات (إضافة/خصم) وإمكانية حذف الحساب كله ============ -->
 <div id="personDebtOverlay" onclick="closePersonDebtOverlay(event)" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:4000;align-items:center;justify-content:center;padding:20px;">
   <div onclick="event.stopPropagation()" style="width:100%;max-width:380px;max-height:88vh;overflow-y:auto;background:#141414;border:1.5px solid rgba(255,45,120,.4);border-radius:16px;padding:22px;">
     <div id="personDebtName" style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#ff2d78;letter-spacing:.03em;margin-bottom:6px;"></div>
@@ -1529,10 +1546,17 @@
     <div id="personDebtBalance" style="font-weight:800;margin-bottom:16px;font-size:.95rem;"></div>
 
     <input type="number" class="oinput" id="personDebtAmount" placeholder="المبلغ" style="width:100%;margin-bottom:10px;">
-    <div style="display:flex;gap:8px;margin-bottom:10px;">
-      <button type="button" class="o-action-btn pending" style="flex:1;" onclick="addPersonDebtEntry('alaih')">➕ إضافة</button>
-      <button type="button" class="o-action-btn done" style="flex:1;" onclick="addPersonDebtEntry('lah')">➖ سحب</button>
+    <!-- ============ اختيار الحساب: ليا (مستقل) أو عليا (مستقل) — كل واحد بإجماليه لوحده ============ -->
+    <div style="display:flex;gap:8px;margin-bottom:8px;">
+      <button type="button" class="o-action-btn pending active" id="personDebtAccountLiaBtn" style="flex:1;" onclick="setPersonDebtAccount('alaih')">ليا</button>
+      <button type="button" class="o-action-btn done" id="personDebtAccountAlaihBtn" style="flex:1;" onclick="setPersonDebtAccount('lah')">عليا</button>
     </div>
+    <!-- ============ اختيار الحركة: إضافة بتزود في رقم الحساب المختار، خصم بيقلل منه بس، من غير ما يأثر على الحساب التاني ============ -->
+    <div style="display:flex;gap:8px;margin-bottom:10px;">
+      <button type="button" class="o-action-btn done active" id="personDebtDirAddBtn" style="flex:1;" onclick="setPersonDebtDirection('add')">➕ إضافة</button>
+      <button type="button" class="o-action-btn cancel" id="personDebtDirSubBtn" style="flex:1;" onclick="setPersonDebtDirection('sub')">➖ خصم</button>
+    </div>
+    <button class="login-submit-btn" style="background:#ff2d78;margin-bottom:8px;" onclick="addPersonDebtEntry()">💾 حفظ</button>
     <div id="personDebtStatus" class="login-status" style="margin-bottom:8px;"></div>
 
     <div class="table-wrap" id="personDebtWrap" style="margin-top:10px;"></div>
@@ -1868,6 +1892,54 @@
   }
   window.showRobuxCalcPage = showRobuxCalcPage;
 
+  // ============ حاسبة صافي / غير صافي — بتحول الرقم للتاني (نسبة قطع الروبلوكس 30%، يعني الصافي = الغير صافي × 0.7) ============
+  let robuxNetCalcType = 'net';
+  function setRobuxNetCalcType(type) {
+    robuxNetCalcType = type;
+    const netBtn = document.getElementById('robuxNetCalcTypeNetBtn');
+    const grossBtn = document.getElementById('robuxNetCalcTypeGrossBtn');
+    if (netBtn) netBtn.classList.toggle('active', type === 'net');
+    if (grossBtn) grossBtn.classList.toggle('active', type === 'gross');
+  }
+  window.setRobuxNetCalcType = setRobuxNetCalcType;
+
+  function calcRobuxNet() {
+    const input = document.getElementById('robuxNetCalcAmount');
+    const resultEl = document.getElementById('robuxNetCalcResult');
+    const val = parseFloat(input.value);
+    if (!resultEl) return;
+    if (!val || val <= 0) { resultEl.style.color = '#e05555'; resultEl.textContent = 'اكتب رقم صحيح أكبر من صفر'; return; }
+    if (robuxNetCalcType === 'net') {
+      const gross = Math.round(val * 0.7);
+      resultEl.style.color = 'var(--white)';
+      resultEl.innerHTML = `صافي: <span style="color:#6fcf3a;">${val}</span> ⇦ غير صافي: <span style="color:#e05555;">${gross}</span>`;
+    } else {
+      const net = Math.round(val / 0.7);
+      resultEl.style.color = 'var(--white)';
+      resultEl.innerHTML = `غير صافي: <span style="color:#e05555;">${val}</span> ⇨ صافي: <span style="color:#6fcf3a;">${net}</span>`;
+    }
+  }
+  window.calcRobuxNet = calcRobuxNet;
+
+  function openRobuxNetCalcOverlay() {
+    const overlay = document.getElementById('robuxNetCalcOverlay');
+    if (!overlay) return;
+    const input = document.getElementById('robuxNetCalcAmount');
+    const resultEl = document.getElementById('robuxNetCalcResult');
+    if (input) input.value = '';
+    if (resultEl) resultEl.textContent = '';
+    setRobuxNetCalcType('net');
+    overlay.style.display = 'flex';
+  }
+  window.openRobuxNetCalcOverlay = openRobuxNetCalcOverlay;
+
+  function closeRobuxNetCalcOverlay(e) {
+    const overlay = document.getElementById('robuxNetCalcOverlay');
+    if (e && overlay && e.target !== overlay) return;
+    if (overlay) overlay.style.display = 'none';
+  }
+  window.closeRobuxNetCalcOverlay = closeRobuxNetCalcOverlay;
+
   // ============ صفحة كل الفواتير المسجلة (فاضية دلوقتي) ============
   function showCashInvoicesPage() {
     document.getElementById('robuxCalcPage').style.display = 'none';
@@ -1953,6 +2025,8 @@
     if (!name) return;
     window.currentDebtPersonName = name;
     document.getElementById('personDebtOverlay').style.display = 'flex';
+    if (typeof window.setPersonDebtAccount === 'function') window.setPersonDebtAccount('alaih');
+    if (typeof window.setPersonDebtDirection === 'function') window.setPersonDebtDirection('add');
     if (typeof window.renderPersonDebtInvoice === 'function') window.renderPersonDebtInvoice();
     adminNavSetOverlay('personDebt', { name });
   }
@@ -3060,7 +3134,7 @@
     if (statusEl) { statusEl.textContent = 'بيتم الإضافة...'; statusEl.className = 'login-status'; }
     try {
       await addDoc(collection(db, 'debts'), {
-        name, phone, amount, type: debtType, createdAt: serverTimestamp()
+        name, phone, amount, type: debtType, direction: 'add', createdAt: serverTimestamp()
       });
       nameInput.value = '';
       if (phoneInput) phoneInput.value = '';
@@ -3074,16 +3148,17 @@
   }
   window.submitDebtEntry = submitDebtEntry;
 
-  // بيجمع كل الحركات حسب اسم الشخص، وبيحسب صافي كل واحد
-  // صافي موجب = عليه فلوس ليا (تحت تبويب "ليا") / صافي سالب = ليه فلوس عندي (تحت تبويب "عليا")
+  // بيجمع كل الحركات حسب اسم الشخص، وبيحسب إجمالي "ليا" وإجمالي "عليا" لكل واحد كل واحد لوحده
+  // (إضافة بتزود، خصم بيقلل — وكل حساب مستقل تمامًا عن التاني)
   function getDebtsPersonsSummary() {
     const list = window.debtsData || [];
     const map = new Map();
     list.forEach(dItem => {
       const key = dItem.name;
-      if (!map.has(key)) map.set(key, { name: dItem.name, phone: '', net: 0, lastTime: 0 });
+      if (!map.has(key)) map.set(key, { name: dItem.name, phone: '', lia: 0, alaih: 0, lastTime: 0 });
       const entry = map.get(key);
-      entry.net += dItem.type === 'alaih' ? dItem.amount : -dItem.amount;
+      const signed = dItem.direction === 'sub' ? -dItem.amount : dItem.amount;
+      if (dItem.type === 'alaih') entry.lia += signed; else entry.alaih += signed;
       if (dItem.phone) entry.phone = dItem.phone;
       if (dItem.sortTime > entry.lastTime) entry.lastTime = dItem.sortTime;
     });
@@ -3104,7 +3179,10 @@
     const wrap = document.getElementById('debtsPersonsWrap');
     const emptyMsg = document.getElementById('debtsPersonsEmptyMsg');
     if (!wrap) return;
-    const persons = getDebtsPersonsSummary().filter(p => currentDebtsFilter === 'lia' ? p.net > 0 : p.net < 0);
+    // تبويب "ليا" بيعرض إجمالي حساب ليا لكل شخص، وتبويب "عليا" بيعرض إجمالي حساب عليا — كل واحد مستقل
+    const persons = getDebtsPersonsSummary()
+      .map(p => ({ ...p, value: currentDebtsFilter === 'lia' ? p.lia : p.alaih }))
+      .filter(p => p.value !== 0);
     if (persons.length === 0) {
       wrap.style.display = 'none';
       if (emptyMsg) emptyMsg.style.display = 'block';
@@ -3119,7 +3197,7 @@
           <div style="flex:1;min-width:0;">
             <div class="o-game">${esc(p.name)}</div>
             ${p.phone ? `<div class="o-user">📞 ${esc(p.phone)}</div>` : ''}
-            <div class="o-user" style="color:${p.net > 0 ? '#6fcf3a' : '#e05555'};">${Math.abs(p.net)} EGP</div>
+            <div class="o-user" style="color:${currentDebtsFilter === 'lia' ? '#6fcf3a' : '#e05555'};">${Math.abs(p.value)} EGP</div>
           </div>
         </div>
       </div>
@@ -3140,10 +3218,14 @@
     const entries = (window.debtsData || []).filter(d => d.name === name).sort((a, b) => b.sortTime - a.sortTime);
     const phone = (entries.find(d => d.phone) || {}).phone || '';
     if (phoneEl) phoneEl.textContent = phone ? `📞 ${phone}` : '';
-    const net = entries.reduce((s, d) => s + (d.type === 'alaih' ? d.amount : -d.amount), 0);
+    // ليا وعليا بيتحسبوا كل واحد لوحده تمامًا — إضافة/خصم في حساب مش بيأثر على الحساب التاني
+    let liaTotal = 0, alaihTotal = 0;
+    entries.forEach(d => {
+      const signed = d.direction === 'sub' ? -d.amount : d.amount;
+      if (d.type === 'alaih') liaTotal += signed; else alaihTotal += signed;
+    });
     if (balanceEl) {
-      balanceEl.style.color = net > 0 ? '#6fcf3a' : (net < 0 ? '#e05555' : 'var(--muted)');
-      balanceEl.textContent = net > 0 ? `ليا: ${net} EGP` : (net < 0 ? `عليا: ${Math.abs(net)} EGP` : 'متزامن: 0 EGP');
+      balanceEl.innerHTML = `<span style="color:#6fcf3a;">ليا: ${liaTotal} EGP</span> &nbsp;|&nbsp; <span style="color:#e05555;">عليا: ${alaihTotal} EGP</span>`;
     }
 
     if (!wrap) return;
@@ -3155,22 +3237,50 @@
     wrap.style.display = 'block';
     if (emptyMsg) emptyMsg.style.display = 'none';
 
-    wrap.innerHTML = entries.map(dItem => `
+    wrap.innerHTML = entries.map(dItem => {
+      const isSub = dItem.direction === 'sub';
+      const accountLabel = dItem.type === 'alaih' ? 'ليا' : 'عليا';
+      const color = dItem.type === 'alaih' ? '#6fcf3a' : '#e05555';
+      const actionLabel = isSub ? '➖ خصم' : '➕ إضافة';
+      return `
       <div class="order-row" data-id="${esc(dItem.id)}">
         <div class="order-top-row">
           <div style="flex:1;min-width:0;">
-            <div class="o-game" style="color:${dItem.type === 'alaih' ? '#6fcf3a' : '#e05555'};">${dItem.type === 'alaih' ? '➕ إضافة' : '➖ سحب'} — ${esc(String(dItem.amount))} EGP</div>
+            <div class="o-game" style="color:${color};">${actionLabel} ${accountLabel} — ${esc(String(dItem.amount))} EGP</div>
           </div>
         </div>
         <div class="order-actions">
           <button class="o-action-btn cancel" onclick="deleteDebtEntry('${dItem.id}')">🗑️ حذف</button>
         </div>
       </div>
-    `).join('');
+    `;
+    }).join('');
   }
   window.renderPersonDebtInvoice = renderPersonDebtInvoice;
 
-  async function addPersonDebtEntry(type) {
+  // ============ اختيار الحساب (ليا/عليا) والحركة (إضافة/خصم) لشاشة الشخص — كل حساب مستقل عن التاني ============
+  let personDebtAccount = 'alaih'; // 'alaih' = ليا، 'lah' = عليا
+  let personDebtDirection = 'add'; // 'add' = زود الرقم، 'sub' = قلل الرقم
+
+  function setPersonDebtAccount(type) {
+    personDebtAccount = type;
+    const liaBtn = document.getElementById('personDebtAccountLiaBtn');
+    const alaihBtn = document.getElementById('personDebtAccountAlaihBtn');
+    if (liaBtn) liaBtn.classList.toggle('active', type === 'alaih');
+    if (alaihBtn) alaihBtn.classList.toggle('active', type === 'lah');
+  }
+  window.setPersonDebtAccount = setPersonDebtAccount;
+
+  function setPersonDebtDirection(dir) {
+    personDebtDirection = dir;
+    const addBtn = document.getElementById('personDebtDirAddBtn');
+    const subBtn = document.getElementById('personDebtDirSubBtn');
+    if (addBtn) addBtn.classList.toggle('active', dir === 'add');
+    if (subBtn) subBtn.classList.toggle('active', dir === 'sub');
+  }
+  window.setPersonDebtDirection = setPersonDebtDirection;
+
+  async function addPersonDebtEntry() {
     const name = window.currentDebtPersonName;
     const statusEl = document.getElementById('personDebtStatus');
     const amountInput = document.getElementById('personDebtAmount');
@@ -3181,7 +3291,7 @@
     if (statusEl) { statusEl.textContent = 'بيتم الحفظ...'; statusEl.className = 'login-status'; }
     try {
       await addDoc(collection(db, 'debts'), {
-        name, amount, type, createdAt: serverTimestamp()
+        name, amount, type: personDebtAccount, direction: personDebtDirection, createdAt: serverTimestamp()
       });
       amountInput.value = '';
       if (statusEl) { statusEl.textContent = 'اتحفظ ✅'; statusEl.className = 'login-status ok'; setTimeout(() => { if (statusEl.textContent === 'اتحفظ ✅') statusEl.textContent = ''; }, 2000); }
@@ -3224,8 +3334,9 @@
     const list = window.debtsData || [];
     let totalLia = 0, totalAlaya = 0;
     list.forEach(dItem => {
-      if (dItem.type === 'alaih') totalLia += dItem.amount; // عليه → مستحق ليا
-      else totalAlaya += dItem.amount; // له → مستحق عليا
+      const signed = dItem.direction === 'sub' ? -dItem.amount : dItem.amount;
+      if (dItem.type === 'alaih') totalLia += signed; // ليا: حساب مستقل، إضافة بتزود وخصم بيقلل
+      else totalAlaya += signed; // عليا: حساب مستقل، إضافة بتزود وخصم بيقلل
     });
     const cardLia = document.getElementById('debtsTotalLia');
     const cardAlaya = document.getElementById('debtsTotalAlaya');
@@ -3254,6 +3365,7 @@
           phone: d.phone || '',
           amount: typeof d.amount === 'number' ? d.amount : 0,
           type: d.type === 'alaih' ? 'alaih' : 'lah',
+          direction: d.direction === 'sub' ? 'sub' : 'add',
           sortTime: (d.createdAt && d.createdAt.toMillis) ? d.createdAt.toMillis() : Date.now()
         });
       });
