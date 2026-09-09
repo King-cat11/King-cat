@@ -2993,9 +2993,17 @@
 
   // ============ قسم فواتير الكاش المسجلة (بعد الموافقة) — عرض باليوم من الأحد للسبت + حذف تلقائي بعد أسبوع + حذف يدوي ============
   const CASH_INVOICE_DAY_NAMES = ['الأحد', 'الاتنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
-  const CASH_INVOICE_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000; // أسبوع
   window.cashInvoicesData = [];
   let selectedInvoiceDay = new Date().getDay(); // 0 = الأحد ... 6 = السبت — افتراضيًا يوم النهاردة
+
+  // بيحسب بداية الأسبوع الحالي (نص الليل بتاع أقرب يوم سبت فات أو النهاردة لو هو نفسه السبت)
+  function getCurrentCashWeekStartMs() {
+    const now = new Date();
+    const day = now.getDay(); // 0=الأحد ... 6=السبت
+    const daysSinceSaturday = (day - 6 + 7) % 7;
+    const start = new Date(now.getFullYear(), now.getMonth(), now.getDate() - daysSinceSaturday, 0, 0, 0, 0);
+    return start.getTime();
+  }
 
   function renderCashInvoicesDayTabs() {
     const wrap = document.getElementById('cashInvoicesDayTabs');
@@ -3070,14 +3078,14 @@
   function startCashInvoicesListener() {
     const invRef = collection(db, 'cashInvoices');
     onSnapshot(invRef, (snap) => {
-      const now = Date.now();
+      const weekStartMs = getCurrentCashWeekStartMs();
       window.cashInvoicesData.length = 0;
       snap.forEach((docSnap) => {
         const d = docSnap.data();
-        const createdMs = (d.createdAt && d.createdAt.toMillis) ? d.createdAt.toMillis() : now;
-        // أي فاتورة عدى عليها أسبوع بتتمسح تلقائي من السحابة
-        if (now - createdMs > CASH_INVOICE_MAX_AGE_MS) {
-          deleteDoc(doc(db, 'cashInvoices', docSnap.id)).catch(err => console.error('تعذر حذف فاتورة قديمة:', err));
+        const createdMs = (d.createdAt && d.createdAt.toMillis) ? d.createdAt.toMillis() : Date.now();
+        // أي فاتورة من قبل بداية الأسبوع الحالي (قبل السبت ده) بتتمسح تلقائي ونهائي من الداتا بيز — كل سبت بداية جديدة من الصفر
+        if (createdMs < weekStartMs) {
+          deleteDoc(doc(db, 'cashInvoices', docSnap.id)).catch(err => console.error('تعذر حذف فاتورة الأسبوع اللي فات:', err));
           return;
         }
         window.cashInvoicesData.push({
