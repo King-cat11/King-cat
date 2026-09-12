@@ -292,6 +292,16 @@
     }
     #settingsPage .rpage-panels { padding-top: 78px !important; }
 
+    /* ── قنواتنا — زي باقي صفحات الموقع البسيطة: من غير هيدر أسود ولا عنوان، بس زرار Back وردي عائم ── */
+    #channelsPage .rpage-header {
+      background: transparent;
+      border-bottom: none;
+      position: fixed;
+      top: 0; right: 0; left: 0;
+      padding: 18px 5%;
+    }
+    #channelsPage .rpage-panels { padding-top: 78px !important; }
+
     /* ── EDIT PROFILE PAGE — soft background system, no black header bar ── */
     #editAccountPage {
       background:
@@ -1810,6 +1820,29 @@
 
     #loginModal .login-account-box .login-avatar-wrap { margin-bottom: 18px; }
   </style><body>
+<!-- SUPPLIER ANNOUNCEMENT BAR -->
+<a id="supplierAnnounceBar" href="https://wa.me/201069478690?text=%D8%B9%D8%A7%D9%8A%D8%B2%20%D8%A3%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D9%85%D8%B9%D8%A7%D9%83%D9%85%20%D8%A8%D8%AE%D8%B5%D9%88%D8%B5%20%D8%AA%D9%88%D8%B1%D9%8A%D8%AF%20%D8%B1%D9%88%D8%A8%D9%83%D8%B3%20%2F%20%D8%AC%D9%8A%D9%85%20%D8%A8%D8%A7%D8%B3" target="_blank" rel="noopener noreferrer" style="position:fixed;left:0;right:0;z-index:998;background:linear-gradient(90deg, rgba(255,45,120,.2), rgba(255,45,120,.1));border-bottom:1px solid rgba(255,45,120,.35);backdrop-filter:blur(8px);padding:12px 5%;display:flex;align-items:center;justify-content:center;gap:10px;text-align:center;text-decoration:none;cursor:pointer;">
+  <span style="font-size:.95rem;color:var(--white);font-weight:700;line-height:1.4;">عايزين موردين روبكس جيم باس بسعر كويس، لو انت مورد أو تعرف حد تواصل معنا</span>
+  <span style="flex-shrink:0;width:22px;height:22px;border-radius:50%;border:2px solid #ff2d78;color:#ff2d78;font-size:.85rem;font-weight:800;display:flex;align-items:center;justify-content:center;font-style:italic;font-family:Georgia,'Times New Roman',serif;">i</span>
+</a>
+<script>
+  // ============ بيحط شريط "عايزين موردين" تحت الهيدر مباشرة، وبيزود مسافة الـ hero عشان محدش يتغطى ============
+  (function () {
+    function adjustForSupplierBar() {
+      var bar = document.getElementById('supplierAnnounceBar');
+      var header = document.querySelector('header');
+      var hero = document.querySelector('.hero');
+      if (!bar || !header) return;
+      var headerHeight = header.offsetHeight;
+      bar.style.top = headerHeight + 'px';
+      var barHeight = bar.offsetHeight;
+      if (hero) hero.style.paddingTop = (100 + barHeight) + 'px';
+    }
+    window.addEventListener('load', adjustForSupplierBar);
+    window.addEventListener('resize', adjustForSupplierBar);
+    document.addEventListener('DOMContentLoaded', adjustForSupplierBar);
+  })();
+</script>
 <!-- CAT TOAST NOTIFICATION -->
 <div class="site-toast" id="siteToast"></div>
 
@@ -2211,16 +2244,12 @@
 
 <!-- CHANNELS PAGE -->
 <div id="channelsPage" class="rpage">
-  <div class="rpage-header" style="border-bottom-color:rgba(37,99,235,.3);">
-    <button class="rpage-back" style="border-color:rgba(37,99,235,.5);color:#2563eb;" onclick="closeChannels()">&#8594; Back</button>
-    <div class="rpage-title">
-      <span class="rpage-logo" style="color:#2563eb;">قنواتنا</span>
-      <span class="rpage-sub">King & Cat – Channels</span>
-    </div>
+  <div class="rpage-header">
+    <button class="rpage-back" style="border-color:rgba(255,45,120,.5);color:#ff2d78;" onclick="closeChannels()">&#8594; Back</button>
   </div>
 
-  <div class="rpage-panels" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:70vh;gap:16px;padding:24px;">
-    <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--white);letter-spacing:.04em;margin-bottom:20px;text-align:center;">تابعنا على منصاتنا</div>
+  <div class="rpage-panels" style="display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:16px;padding:24px;">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--white);letter-spacing:.04em;margin-bottom:20px;text-align:center;">تابعنا عشان تشوف كل جديد</div>
 
     <!-- واتساب -->
     <a href="https://whatsapp.com/channel/0029VbBUU8zHAdNMukCnc80h" target="_blank" rel="noopener noreferrer" style="width:100%;max-width:420px;text-decoration:none;">
