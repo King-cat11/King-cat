@@ -1905,14 +1905,15 @@
     if (input.value.trim() === '') { resultEl.textContent = ''; return; }
     const val = parseFloat(input.value);
     if (!val || val <= 0) { resultEl.style.color = '#e05555'; resultEl.textContent = 'اكتب رقم صحيح أكبر من صفر'; return; }
+    // بتكتب نوع الرقم اللي كتبته، وهو بيقولك بس قيمة النوع التاني (من غير ما يعيد اللي انت كاتبه)
     if (robuxNetCalcType === 'net') {
       const gross = Math.round(val * 0.7);
-      resultEl.style.color = 'var(--white)';
-      resultEl.innerHTML = `صافي: <span style="color:#6fcf3a;">${val}</span> ⇦ غير صافي: <span style="color:#e05555;">${gross}</span>`;
+      resultEl.style.color = '#e05555';
+      resultEl.textContent = `غير صافي: ${gross}`;
     } else {
       const net = Math.round(val / 0.7);
-      resultEl.style.color = 'var(--white)';
-      resultEl.innerHTML = `غير صافي: <span style="color:#e05555;">${val}</span> ⇨ صافي: <span style="color:#6fcf3a;">${net}</span>`;
+      resultEl.style.color = '#6fcf3a';
+      resultEl.textContent = `صافي: ${net}`;
     }
   }
   window.calcRobuxNet = calcRobuxNet;
