@@ -1468,6 +1468,17 @@
       margin-bottom: 16px;
       transition: background .2s;
     }
+    .com-link-wrap { display: flex; align-items: stretch; gap: 8px; direction: rtl; }
+    .com-link-blue, .com-copy-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg,#3b82f6,#60a5fa); color: #fff; border: none;
+      font-family: 'Cairo', sans-serif; font-size: .9rem; font-weight: 800; letter-spacing: .01em;
+      padding: 11px 18px; border-radius: 12px; cursor: pointer; white-space: nowrap; text-decoration: none;
+      box-shadow: 0 4px 14px rgba(59,130,246,.38);
+      transition: transform .15s, box-shadow .2s, filter .2s;
+    }
+    .com-link.com-link-blue:hover, .com-copy-btn:hover { background: linear-gradient(135deg,#3b82f6,#60a5fa); filter: brightness(1.08); box-shadow: 0 6px 18px rgba(59,130,246,.5); }
+    .com-link-blue:active, .com-copy-btn:active { transform: scale(.96); }
     .acc-notice {
       background: rgba(255,45,120,.08);
       border: 1px solid rgba(255,45,120,.3);
@@ -1481,6 +1492,15 @@
     .com-link:hover { background: rgba(0,180,216,.2); }
 
     /* ── ROBLOX: Dark Blue Theme ── */
+    @keyframes robloxHelpPulse {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(3px); }
+    }
+    /* روبلوكس: تصغير بسيط للهيدر عشان المحفظة تاخد مساحتها (تكفي 999) من غير ضغط زيادة */
+    #robloxPage .rpage-header { padding-left: 4%; padding-right: 4%; gap: 8px !important; }
+    #robloxPage .rpage-header .rpage-back { padding: 7px 12px; }
+    #robloxPage .rpage-header .rtab-select-btn { width: 134px; padding: 12px 12px; }
+    #robloxPage #robloxWalletChip { padding: 0 9px; min-width: 72px; }
     #robloxPage .rpage-back { border-color: rgba(37,99,235,.45); color: #2563eb; }
     #robloxPage .rpage-back:hover { background: rgba(37,99,235,.12); }
     #robloxPage .rpage-logo { color: #60a5fa; }
@@ -1499,6 +1519,12 @@
     #robloxPage .apply-btn:hover { background: rgba(37,99,235,.28); }
     #robloxPage .com-link { background: rgba(96,165,250,.1); border-color: rgba(37,99,235,.45); color: #2563eb; }
     #robloxPage .com-link:hover { background: rgba(37,99,235,.25); }
+    /* رابط الكميونتي بنفس لون زرار نسخ بالظبط (بيغلب القاعدة العامة بتاعة #robloxPage .com-link) */
+    #robloxPage .com-link.com-link-blue,
+    #robloxPage .com-link.com-link-blue:hover {
+      background: linear-gradient(135deg,#3b82f6,#60a5fa);
+      color: #fff; border: none;
+    }
 
     /* Roblox price colors */
     #robloxPage .pcard .egp { color: #60a5fa !important; }
@@ -2851,7 +2877,7 @@
   <div class="rpage-header" style="gap:10px;">
     <button class="rpage-back" style="height:46px; box-sizing:border-box; display:flex; align-items:center; justify-content:center;" onclick="closeRoblox()">&#8594; Back</button>
     <div class="rtab-select-wrap" id="rtabSelectWrap">
-      <button class="rtab-select-btn" style="background:rgba(37,99,235,.08); border-color:rgba(37,99,235,.4); color:#2563eb; height:46px; box-sizing:border-box;" onclick="toggleRTabMenu()">
+      <button class="rtab-select-btn" style="background:rgba(37,99,235,.08); border-color:rgba(37,99,235,.4); color:#2563eb; height:46px; box-sizing:border-box;" id="robloxMethodBtn" onclick="hideRobloxBubble('method'); toggleRTabMenu()">
         <span id="rtabSelectedLabel">كميونتي</span>
         <span class="rtab-select-arrow">▾</span>
       </button>
@@ -2862,7 +2888,28 @@
         <button class="rtab-menu-item" id="rtab-item-design" onclick="selectRobloxDesignTab(this,'design','طلب تصميم')" style="display:none;">طلب تصميم</button>
       </div>
     </div>
-    <div class="rtab-select-label" style="background:rgba(37,99,235,.08); border-color:rgba(37,99,235,.4); color:#2563eb; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="openActiveExplainModal()">📖</div>
+    <div class="rtab-select-label" id="robloxWalletChip" title="رصيدك" style="background:rgba(37,99,235,.08); border-color:rgba(37,99,235,.4); color:#60a5fa; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:0 10px; flex:0 0 auto; direction:ltr;">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="flex:0 0 auto;">
+        <path d="M5 7.5 L16.2 3.6 a1.6 1.6 0 0 1 2.1 1.5 V7.5" stroke="#60a5fa" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="2.5" y="7.5" width="19" height="13" rx="3.2" fill="rgba(96,165,250,.16)" stroke="#60a5fa" stroke-width="1.6"/>
+        <rect x="13.6" y="11.6" width="8.9" height="5.2" rx="2.6" fill="rgba(37,99,235,.35)" stroke="#60a5fa" stroke-width="1.6"/>
+        <circle cx="17.1" cy="14.2" r="1" fill="#e0f2fe"/>
+      </svg>
+      <span id="robloxWalletAmount" style="font-weight:800;font-size:.9rem;line-height:1;">0</span>
+    </div>
+    <div style="position:relative;display:inline-flex;">
+      <div class="rtab-select-label" id="robloxBookBtn" style="background:rgba(37,99,235,.08); border-color:rgba(37,99,235,.4); color:#2563eb; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hideRobloxBubble('book'); openActiveExplainModal()">📖</div>
+    </div>
+    <div id="robloxBubbleRow" style="position:absolute;top:100%;left:4%;right:4%;margin-top:-4px;display:flex;gap:8px;direction:ltr;z-index:5;pointer-events:none;">
+      <div id="robloxHelpBubble" onclick="hideRobloxBubble('book'); openActiveExplainModal()" style="pointer-events:auto;position:relative;flex:0 0 120px;min-width:0;direction:rtl;text-align:center;background:#2563eb;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(37,99,235,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+        اضغط هنا لرؤية شرح الطريقة
+        <span id="robloxHelpArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#2563eb;transform:rotate(45deg);"></span>
+      </div>
+      <div id="robloxMethodBubble" onclick="hideRobloxBubble('method'); toggleRTabMenu()" style="pointer-events:auto;position:relative;flex:0 0 auto;white-space:nowrap;direction:rtl;text-align:center;background:#2563eb;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(37,99,235,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+        اضغط هنا لتغيير طريقة الشحن
+        <span id="robloxMethodArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#2563eb;transform:rotate(45deg);"></span>
+      </div>
+    </div>
   </div>
 
   <!-- Kept in the DOM (hidden) so openRoblox()/openRobloxDesign() can still swap the title text; the header no longer shows it visually, matching the rest of the site -->
@@ -2870,13 +2917,14 @@
   <span id="robloxPageSub" style="display:none;"></span>
 
   <!-- ROBLOX CARD — shared image, swapped by JS between Roblox / Roblox Studio -->
-  <div style="padding: 90px 5% 0; direction:ltr; display:flex; align-items:flex-start; justify-content:space-between; gap:12px;">
+  <div style="padding: 150px 5% 0; direction:ltr; display:flex; align-items:flex-start; justify-content:space-between; gap:12px;">
     <div style="width:30%; max-width:115px; aspect-ratio:3/4; border:1.5px solid rgba(37,99,235,.4); border-radius:16px; overflow:hidden; box-shadow:0 0 10px rgba(37,99,235,.25); flex:0 0 auto;">
       <img id="robloxPageThumb" src="https://raw.githubusercontent.com/King-cat11/King-cat/main/b6153b0e699d5b0018791b75a51075921330fa25.png" alt="Roblox" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
     </div>
-    <a href="https://www.roblox.com/share/g/35176043" target="_blank" id="communityLinkTop" class="com-link" rel="noopener noreferrer" style="margin:0; flex:0 0 auto;">
-      🔗 رابط الكميونتي
-    </a>
+    <div id="communityLinkTop" class="com-link-wrap">
+      <a href="https://www.roblox.com/share/g/35176043" target="_blank" class="com-link com-link-blue" rel="noopener noreferrer" style="margin:0;">رابط الكميونتي</a>
+      <button type="button" class="com-copy-btn" id="communityCopyBtn" onclick="copyCommunityLink()">📋 نسخ</button>
+    </div>
     <a href="https://www.roblox.com/promocodes" target="_blank" id="giftcardLinkTop" class="com-link" rel="noopener noreferrer" style="margin:0; flex:0 0 auto; display:none;">
       🔗 رابط الاسترداد
     </a>
@@ -3167,6 +3215,24 @@
   menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNavMenu));
 
   // roblox page
+
+  // ============ فقاعتا التوجيه في روبلوكس: جنب بعض، وسهم كل واحدة يتمركز تحت عنصرها ============
+  function hideRobloxBubble(which) {
+    const b = document.getElementById(which === 'book' ? 'robloxHelpBubble' : 'robloxMethodBubble');
+    if (b) b.style.display = 'none';
+  }
+  function positionRobloxBubbles() {
+    [['robloxHelpBubble','robloxHelpArrow','robloxBookBtn'], ['robloxMethodBubble','robloxMethodArrow','robloxMethodBtn']].forEach(function (ids) {
+      const bubble = document.getElementById(ids[0]), arrow = document.getElementById(ids[1]), target = document.getElementById(ids[2]);
+      if (!bubble || !arrow || !target || bubble.style.display === 'none') return;
+      const bR = bubble.getBoundingClientRect(), tR = target.getBoundingClientRect();
+      if (!bR.width || !tR.width) return;
+      let x = tR.left + tR.width / 2 - bR.left - 6;
+      x = Math.max(10, Math.min(bR.width - 22, x));
+      arrow.style.left = x + 'px';
+    });
+  }
+  window.addEventListener('resize', positionRobloxBubbles);
   function openRoblox() {
     document.getElementById('robloxPage').classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -3179,6 +3245,7 @@
     document.getElementById('robloxPageThumb').src = 'https://raw.githubusercontent.com/King-cat11/King-cat/main/images.jpeg';
     document.getElementById('robloxPageThumb').alt = 'Roblox';
     selectRTab(document.getElementById('rtab-item-community'), 'community', 'كميونتي');
+    setTimeout(positionRobloxBubbles, 80); setTimeout(positionRobloxBubbles, 450);
   }
   function openRobloxDesign() {
     document.getElementById('robloxPage').classList.add('open');
@@ -4947,6 +5014,24 @@
     document.getElementById('giftcardExplainModal').classList.remove('open');
   }
 
+
+  function copyCommunityLink() {
+    const url = 'https://www.roblox.com/share/g/35176043';
+    const done = function () {
+      const b = document.getElementById('communityCopyBtn');
+      if (b) { const t = b.textContent; b.textContent = '✅ تم النسخ'; setTimeout(function () { b.textContent = t; }, 1800); }
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(done).catch(function () { fallbackCopy(url); done(); });
+    } else { fallbackCopy(url); done(); }
+  }
+  function fallbackCopy(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+  }
   function selectRTab(el, id, label) {
     document.querySelectorAll('.rtab-menu-item').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.rpanel').forEach(p => p.classList.remove('active'));
@@ -4955,7 +5040,7 @@
     document.getElementById('rtabSelectedLabel').textContent = label;
     document.getElementById('rtabSelectWrap').classList.remove('open');
     const linkTop = document.getElementById('communityLinkTop');
-    if (linkTop) linkTop.style.display = (id === 'community') ? '' : 'none';
+    if (linkTop) linkTop.style.display = (id === 'community') ? 'flex' : 'none';
     const giftLinkTop = document.getElementById('giftcardLinkTop');
     if (giftLinkTop) giftLinkTop.style.display = (id === 'giftcard') ? '' : 'none';
   }
@@ -5708,6 +5793,19 @@
   }
 
   // ============ رصيد EGP الحقيقي للمستخدم — بيتحدث لايف من غير ريفريش لو الأدمن عدّل الرصيد من لوحة التحكم ============
+
+  // ============ رصيد المحفظة بصيغة مختصرة: 999 يفضل 999، و1000 تبقى 1K، و1500 تبقى 1.5K، والمليون 1M ============
+  function formatWalletAmount(n) {
+    n = Number(n) || 0;
+    const trim = function (v) { return (Math.floor(v * 10) / 10).toString().replace(/\.0$/, ''); };
+    if (n >= 1000000) return trim(n / 1000000) + 'M';
+    if (n >= 1000) return trim(n / 1000) + 'K';
+    return (Math.round(n * 10) / 10).toString();
+  }
+  function updateWalletChips(balance) {
+    const el = document.getElementById('robloxWalletAmount');
+    if (el) el.textContent = formatWalletAmount(balance);
+  }
   let userBalanceUnsub = null;
   function listenUserBalance(uid) {
     if (userBalanceUnsub) { userBalanceUnsub(); userBalanceUnsub = null; }
@@ -5717,6 +5815,7 @@
       const balancePageValue = document.getElementById('balancePageValue');
       if (settingsBalance) settingsBalance.textContent = balance + ' EGP';
       if (balancePageValue) balancePageValue.textContent = balance;
+      updateWalletChips(balance);
     }, (err) => {
       console.error('تعذر تحميل رصيد المستخدم:', err);
     });
@@ -5727,6 +5826,7 @@
     const balancePageValue = document.getElementById('balancePageValue');
     if (settingsBalance) settingsBalance.textContent = '0 EGP';
     if (balancePageValue) balancePageValue.textContent = '0';
+    updateWalletChips(0);
   }
 
   // ============ تطبيق كود استرداد رصيد EGP — الكود بييجي من لوحة الأدمن (مجموعة redemptionCodes) ============
