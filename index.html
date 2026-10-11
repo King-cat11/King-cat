@@ -1046,6 +1046,8 @@
         radial-gradient(circle at 50% 50%, rgba(255,45,120,.07) 0%, transparent 70%),
         #12182a;
     }
+    #balancePage { z-index: 2100; }
+    #loginModal.rpage { z-index: 2100; }
     #balancePage .orders-top-row {
       display: flex;
       align-items: center;
@@ -1534,6 +1536,62 @@
     #robloxPage .qty-num { color: #60a5fa !important; }
     #robloxPage .pcard.hagz .qty-num { color: #93c5fd !important; }
 
+    /* ببجي: نفس تصغير هيدر روبلوكس عشان المحفظة تاخد مساحتها */
+    #pubgPage .rpage-header { padding-left: 4%; padding-right: 4%; gap: 8px !important; }
+    #pubgPage .rpage-header .rpage-back { padding: 7px 12px; }
+    #pubgPage .rpage-header .rtab-select-btn { width: 134px; padding: 12px 12px; }
+    #pubgPage #pubgWalletChip { padding: 0 9px; min-width: 72px; }
+    /* فري فاير: نفس تصغير هيدر روبلوكس عشان المحفظة تاخد مساحتها */
+    #ffPage .rpage-header { padding-left: 4%; padding-right: 4%; gap: 8px !important; }
+    #ffPage .rpage-header .rpage-back { padding: 7px 12px; }
+    #ffPage .rpage-header .rtab-select-btn { width: 134px; padding: 12px 10px; font-size: .8rem; }
+    #ffPage #ffWalletChip { padding: 0 9px; min-width: 72px; }
+    /* بيس: نفس تصغير هيدر روبلوكس عشان المحفظة تاخد مساحتها */
+    #pesPage .rpage-header { padding-left: 4%; padding-right: 4%; gap: 8px !important; }
+    #pesPage .rpage-header .rpage-back { padding: 7px 12px; }
+    #pesPage .rpage-header .rtab-select-btn { width: 134px; padding: 12px 12px; }
+    #pesPage #pesWalletChip { padding: 0 9px; min-width: 72px; }
+    /* فيفا: نفس تصغير هيدر روبلوكس عشان المحفظة تاخد مساحتها */
+    #fifaPage .rpage-header { padding-left: 4%; padding-right: 4%; gap: 8px !important; }
+    #fifaPage .rpage-header .rpage-back { padding: 7px 12px; }
+    #fifaPage .rpage-header .rtab-select-btn { width: 134px; padding: 12px 12px; }
+    #fifaPage #fifaWalletChip { padding: 0 9px; min-width: 72px; }
+    /* براول ستارز: نفس تصغير هيدر روبلوكس عشان المحفظة تاخد مساحتها */
+    #brawlPage .rpage-header { padding-left: 4%; padding-right: 4%; gap: 8px !important; }
+    #brawlPage .rpage-header .rpage-back { padding: 7px 12px; }
+    #brawlPage .rpage-header .rtab-select-btn { width: 134px; padding: 12px 12px; }
+    #brawlPage #brawlWalletChip { padding: 0 9px; min-width: 72px; }
+    /* فيزا: نفس تصغير هيدر روبلوكس عشان المحفظة تاخد مساحتها */
+    #visaPage .rpage-header { padding-left: 4%; padding-right: 4%; gap: 8px !important; }
+    #visaPage .rpage-header .rpage-back { padding: 7px 12px; }
+    #visaPage .rpage-header .rtab-select-btn { width: 134px; padding: 12px 8px; font-size: .72rem; }
+    #visaPage #visaWalletChip { padding: 0 9px; min-width: 72px; }
+    .header-wallet-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      height: 34px;
+      padding: 0 9px;
+      margin-inline: 8px;
+      border-radius: 10px;
+      background: rgba(255,45,120,.1);
+      border: 1.5px solid rgba(255,45,120,.4);
+      color: #ff6aa5;
+      font-family: 'Cairo', sans-serif;
+      font-weight: 800;
+      font-size: .85rem;
+      line-height: 1;
+      direction: ltr;
+      cursor: pointer;
+      flex-shrink: 0;
+      opacity: 0;
+      transition: background .2s, opacity .25s ease;
+    }
+    .header-wallet-chip.auth-ready { opacity: 1; }
+    .header-wallet-chip:hover { background: rgba(255,45,120,.2); }
+    @media (max-width: 420px) {
+      #headerLogoText { transform: translateX(10px) scale(.82) !important; }
+    }
     /* ── LOGIN (Firebase Auth) ── */
     .header-login-btn {
       display: flex;
@@ -1872,17 +1930,36 @@
 <!-- CAT TOAST NOTIFICATION -->
 <div class="site-toast" id="siteToast"></div>
 
+<!-- WALLET LOGIN POPUP -->
+<div id="walletLoginModal" class="ce-modal-overlay" onclick="closeWalletLoginModal()">
+  <div class="ce-modal-box" onclick="event.stopPropagation()" style="text-align:center;border-color:rgba(255,45,120,.4);">
+    <p class="explain-intro" style="margin-bottom:16px;font-size:1rem;"><strong>سجل دخول لمعرفة رصيدك</strong></p>
+    <button type="button" onclick="goToLoginFromWallet()" style="width:100%;background:linear-gradient(90deg,#ff2d78,#ff6aa5);color:#fff;border:none;border-radius:20px;padding:11px;font-family:'Cairo',sans-serif;font-weight:900;font-size:.95rem;cursor:pointer;box-shadow:0 6px 14px rgba(255,45,120,.3);">تسجيل دخول</button>
+    <p style="text-align:center;color:var(--muted);font-size:.78rem;margin-top:14px;">اضغط في أي مكان عشان تقفل</p>
+  </div>
+</div>
+
 <!-- NAV -->
 <header>
   <button class="hamburger" id="menuBtn" aria-label="القائمة">
     <span></span><span></span><span></span>
   </button>
   <div id="headerLogoBox" style="flex:1;height:64px;margin-inline-start:14px;display:flex;align-items:center;justify-content:center;overflow:visible;">
-    <span style="letter-spacing:.04em; display:inline-flex; align-items:center; direction:ltr; transform:translateX(10px);">
+    <span id="headerLogoText" style="letter-spacing:.04em; display:inline-flex; align-items:center; direction:ltr; transform:translateX(10px);">
       <span style="font-family:'Cinzel', serif; font-weight:700; font-size:1.55rem; background:linear-gradient(180deg,#fff8ec 0%,#e8cfa0 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; filter:drop-shadow(0 2px 5px rgba(0,0,0,.4));">King</span>
       <span style="font-family:'Playfair Display', serif; font-style:italic; font-weight:700; font-size:1.94rem; color:#ff2d78; text-shadow:0 0 10px rgba(255,45,120,.75),0 0 20px rgba(255,45,120,.35); display:inline-block; margin:0 3px;">&amp;</span>
       <span style="font-family:'Cinzel', serif; font-weight:700; font-size:1.55rem; background:linear-gradient(180deg,#fff8ec 0%,#e8cfa0 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; filter:drop-shadow(0 2px 5px rgba(0,0,0,.4));">Cat</span>
     </span>
+  </div>
+
+  <div class="header-wallet-chip" id="headerWalletChip" title="رصيدك" onclick="walletChipClick()">
+    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="flex:0 0 auto;">
+      <path d="M5 7.5 L16.2 3.6 a1.6 1.6 0 0 1 2.1 1.5 V7.5" stroke="#ff6aa5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="2.5" y="7.5" width="19" height="13" rx="3.2" fill="rgba(255,45,120,.16)" stroke="#ff6aa5" stroke-width="1.6"/>
+      <rect x="13.6" y="11.6" width="8.9" height="5.2" rx="2.6" fill="rgba(255,45,120,.35)" stroke="#ff6aa5" stroke-width="1.6"/>
+      <circle cx="17.1" cy="14.2" r="1" fill="#ffe3ee"/>
+    </svg>
+    <span id="headerWalletAmount">0</span>
   </div>
 
   <a href="javascript:void(0)" class="header-login-btn" id="headerLoginBtn" onclick="handleProfileClick()">
@@ -1927,7 +2004,6 @@
     <div class="login-top-bar">
       <button class="rpage-back" style="border-color:rgba(255,45,120,.5);color:#ff2d78;" onclick="closeLoginModal()">&#8594; Back</button>
       <div class="login-top-right">
-        <div class="rtab-select-label" onclick="openLoginExplainModal()" style="cursor:pointer;">📖</div>
         <div class="auth-en-badge" id="authFormTitleEn" onclick="switchAuthTab('register')" title="إنشاء حساب">SIGN UP</div>
       </div>
     </div>
@@ -1949,21 +2025,14 @@
             <span class="login-title" style="margin-bottom:0;" id="authFormTitle">LOGIN</span>
           </div>
 
-          <div id="loginExplainModal" class="ce-modal-overlay" onclick="closeLoginExplainModal()">
-            <div class="ce-modal-box" onclick="event.stopPropagation()">
-              <p class="explain-intro" style="margin-bottom:0;" id="loginExplainText">سجل بحسابك عشان تتابع كل طلباتك اللي طلبتها، ولو مش معاك حساب اعمل إنشاء حساب أو سجل بجوجل.</p>
-              <p style="text-align:center;color:var(--muted);font-size:.78rem;margin-top:16px;">اضغط في أي مكان عشان تقفل</p>
-            </div>
-          </div>
-
           <div class="order-form" style="margin-top:0;">
             <div class="ofield" id="authNicknameField" style="display:none;">
               <label class="olabel">لقبك</label>
               <input class="oinput" id="authNicknameInput" type="text" placeholder="اكتب لقبك" autocomplete="nickname" />
             </div>
             <div class="ofield">
-              <label class="olabel">البريد الإلكتروني</label>
-              <input class="oinput" id="authEmailInput" type="email" placeholder="example@email.com" autocomplete="email" />
+              <label class="olabel" id="authIdentLabel">اسم المستخدم</label>
+              <input class="oinput" id="authEmailInput" type="text" placeholder="" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" dir="ltr" style="text-align:right;" />
             </div>
             <div class="ofield">
               <label class="olabel">كلمة المرور</label>
@@ -2479,23 +2548,43 @@
   <div class="rpage-header" style="gap:10px;">
     <button class="rpage-back" style="border-color:rgba(244,161,0,.5);color:#f4a100; height:46px; box-sizing:border-box; display:flex; align-items:center; justify-content:center;" onclick="closeBrawl()">&#8594; Back</button>
     <div class="rtab-select-wrap" id="brawltabSelectWrap">
-      <button class="rtab-select-btn" style="background:rgba(244,161,0,.08); border-color:rgba(244,161,0,.4); color:#f4a100; height:46px; box-sizing:border-box;" onclick="toggleBrawlTabMenu()">
-        <span id="brawltabSelectedLabel">💎 باس</span>
+      <button class="rtab-select-btn" id="brawlMethodBtn" style="background:rgba(244,161,0,.08); border-color:rgba(244,161,0,.4); color:#f4a100; height:46px; box-sizing:border-box;" onclick="hideBrawlBubble('method'); toggleBrawlTabMenu()">
+        <span id="brawltabSelectedLabel">باس</span>
         <span class="rtab-select-arrow">▾</span>
       </button>
       <div class="rtab-menu" id="brawltabMenu">
-        <button class="rtab-menu-item active" id="brawltab-item-pass" onclick="selectBrawlTab(this,'pass','💎 باس')">💎 باس</button>
+        <button class="rtab-menu-item active" id="brawltab-item-pass" onclick="selectBrawlTab(this,'pass','باس')">باس</button>
+        <button class="rtab-menu-item" id="brawltab-item-gems" onclick="selectBrawlTab(this,'gems','جواهر')">جواهر</button>
       </div>
     </div>
-    <div class="rtab-select-label" style="background:rgba(244,161,0,.08); border-color:rgba(244,161,0,.4); color:#f4a100; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="openBrawlExplainModal()">📖</div>
+    <div class="rtab-select-label" id="brawlWalletChip" title="رصيدك" onclick="walletChipClick()" style="cursor:pointer; background:rgba(244,161,0,.08); border-color:rgba(244,161,0,.4); color:#f4a100; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:0 10px; flex:0 0 auto; direction:ltr;">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="flex:0 0 auto;">
+        <path d="M5 7.5 L16.2 3.6 a1.6 1.6 0 0 1 2.1 1.5 V7.5" stroke="#f4a100" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="2.5" y="7.5" width="19" height="13" rx="3.2" fill="rgba(244,161,0,.16)" stroke="#f4a100" stroke-width="1.6"/>
+        <rect x="13.6" y="11.6" width="8.9" height="5.2" rx="2.6" fill="rgba(184,120,0,.35)" stroke="#f4a100" stroke-width="1.6"/>
+        <circle cx="17.1" cy="14.2" r="1" fill="#fff3d6"/>
+      </svg>
+      <span id="brawlWalletAmount" style="font-weight:800;font-size:.9rem;line-height:1;">0</span>
+    </div>
+    <div class="rtab-select-label" id="brawlBookBtn" style="background:rgba(244,161,0,.08); border-color:rgba(244,161,0,.4); color:#f4a100; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hideBrawlBubble('book'); openBrawlExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
+    <div id="brawlBubbleRow" style="position:absolute;top:100%;left:4%;right:4%;margin-top:-4px;display:flex;gap:8px;direction:ltr;z-index:5;pointer-events:none;">
+      <div id="brawlHelpBubble" onclick="hideBrawlBubble('book'); openBrawlExplainModal()" style="pointer-events:auto;position:relative;flex:0 0 120px;min-width:0;direction:rtl;text-align:center;background:#f4a100;color:#0d0d0d;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(244,161,0,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+        اضغط هنا لرؤية شرح الطريقة
+        <span id="brawlHelpArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#f4a100;transform:rotate(45deg);"></span>
+      </div>
+      <div id="brawlMethodBubble" onclick="hideBrawlBubble('method'); toggleBrawlTabMenu()" style="pointer-events:auto;position:relative;flex:0 0 auto;white-space:nowrap;direction:rtl;text-align:center;background:#f4a100;color:#0d0d0d;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(244,161,0,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+        اضغط هنا لتغيير طريقة الشحن
+        <span id="brawlMethodArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#f4a100;transform:rotate(45deg);"></span>
+      </div>
+    </div>
   </div>
 
   <!-- BRAWL CARD + EMAIL FIELD — card on the left, email field fills the space next to it -->
-  <div style="display:flex; align-items:flex-start; gap:14px; padding: 90px 5% 0; direction:ltr;">
-    <div style="width:30%; max-width:115px; aspect-ratio:3/4; border:1.5px solid rgba(244,161,0,.4); border-radius:16px; overflow:hidden; box-shadow:0 0 10px rgba(244,161,0,.25); flex:0 0 auto;">
+  <div style="display:flex; align-items:flex-start; gap:14px; padding: 150px 5% 0; direction:ltr;">
+    <div id="brawlCardImg" style="width:30%; max-width:115px; aspect-ratio:3/4; border:1.5px solid rgba(244,161,0,.4); border-radius:16px; overflow:hidden; box-shadow:0 0 10px rgba(244,161,0,.25); flex:0 0 auto;">
       <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/images%20(10).jpeg" alt="Brawl Stars" style="width:100%;height:100%;object-fit:cover;display:block;">
     </div>
-    <div class="ofield" style="flex:1; min-width:0; direction:rtl; margin:0;">
+    <div class="ofield" id="brawlEmailField" style="flex:1; min-width:0; direction:rtl; margin:0;">
       <label class="olabel" style="font-size:.95rem;color:#f4a100;">الإيميل <span class="req">*</span></label>
       <input class="oinput" id="brawl-email" type="email" placeholder="اكتب الإيميل هنا" style="border-color:rgba(244,161,0,.35);text-align:center;font-size:1.05rem;width:100%;" />
     </div>
@@ -2512,13 +2601,18 @@
 
   <div class="rpage-panels" style="margin-top:16px;">
 
+    <div id="brawl-soon" style="display:none;text-align:center;padding:50px 20px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--white);letter-spacing:.04em;margin-bottom:12px;">قريباً</div>
+      <div style="color:var(--muted);font-size:.95rem;">شحن الجواهر هيكون متاح قريباً</div>
+    </div>
+
     <div class="price-grid" id="brawl-prices" style="grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px;">    </div>
 
     <!-- SUMMARY (فاتورة الطلب) -->
     <div id="brawl-summary" style="display:block; margin-top:14px; background:#241a05; border:1px solid rgba(244,161,0,.3); border-radius:12px; padding:14px;">
-      <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">🛒 طلبك:</div>
+      <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">طلبك:</div>
       <div id="brawl-sum-rows"><div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div></div>
-      <div id="brawl-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(244,161,0,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#f4a100;text-align:center;letter-spacing:.04em;">💰 السعر: 0 جنيه</div>
+      <div id="brawl-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(244,161,0,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#f4a100;text-align:center;letter-spacing:.04em;">السعر: 0 جنيه</div>
 
       <div id="brawl-egp-status" style="margin-top:6px;font-size:.8rem;text-align:center;"></div>
 
@@ -2526,7 +2620,7 @@
       <div style="display:flex;gap:10px;margin-top:14px;">
         <button id="brawl-use-egp-btn" onclick="toggleBrawlUseEGP()" style="flex:1;width:auto;background:rgba(244,161,0,.12);border:1.5px solid #f4a100;color:#f4a100;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
         <button class="com-wa-btn" onclick="sendBrawlOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#b87800,#f4a100);color:#0d0d0d;border:none;font-size:.85rem;padding:12px 6px;">
-          💬 شحن
+          شحن
         </button>
       </div>
     </div>
@@ -2539,16 +2633,35 @@
   <div class="rpage-header" style="gap:10px;">
     <button class="rpage-back" style="border-color:rgba(111,207,58,.5);color:#6fcf3a; height:46px; box-sizing:border-box; display:flex; align-items:center; justify-content:center;" onclick="closePes()">&#8594; Back</button>
     <div class="rtab-select-wrap" id="pestabSelectWrap">
-      <button class="rtab-select-btn" style="background:rgba(111,207,58,.08); border-color:rgba(111,207,58,.4); color:#6fcf3a; height:46px; box-sizing:border-box;" onclick="togglePesTabMenu()">
-        <span id="pestabSelectedLabel">🤖 اندرويد</span>
+      <button class="rtab-select-btn" id="pesMethodBtn" style="background:rgba(111,207,58,.08); border-color:rgba(111,207,58,.4); color:#6fcf3a; height:46px; box-sizing:border-box;" onclick="hidePesBubble('method'); togglePesTabMenu()">
+        <span id="pestabSelectedLabel">اندرويد</span>
         <span class="rtab-select-arrow">▾</span>
       </button>
       <div class="rtab-menu" id="pestabMenu">
-        <button class="rtab-menu-item active" id="pestab-item-android" onclick="selectPesTab(this,'android','🤖 اندرويد')">🤖 اندرويد</button>
-        <button class="rtab-menu-item" id="pestab-item-iphone" onclick="selectPesTab(this,'iphone','🍎 ايفون')">🍎 ايفون</button>
+        <button class="rtab-menu-item active" id="pestab-item-android" onclick="selectPesTab(this,'android','اندرويد')">اندرويد</button>
+        <button class="rtab-menu-item" id="pestab-item-iphone" onclick="selectPesTab(this,'iphone','ايفون')">ايفون</button>
       </div>
     </div>
-    <div class="rtab-select-label" style="background:rgba(111,207,58,.08); border-color:rgba(111,207,58,.4); color:#6fcf3a; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="openPesActiveExplainModal()">📖</div>
+    <div class="rtab-select-label" id="pesWalletChip" title="رصيدك" onclick="walletChipClick()" style="cursor:pointer; background:rgba(111,207,58,.08); border-color:rgba(111,207,58,.4); color:#6fcf3a; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:0 10px; flex:0 0 auto; direction:ltr;">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="flex:0 0 auto;">
+        <path d="M5 7.5 L16.2 3.6 a1.6 1.6 0 0 1 2.1 1.5 V7.5" stroke="#6fcf3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="2.5" y="7.5" width="19" height="13" rx="3.2" fill="rgba(111,207,58,.16)" stroke="#6fcf3a" stroke-width="1.6"/>
+        <rect x="13.6" y="11.6" width="8.9" height="5.2" rx="2.6" fill="rgba(74,158,31,.35)" stroke="#6fcf3a" stroke-width="1.6"/>
+        <circle cx="17.1" cy="14.2" r="1" fill="#eaffd9"/>
+      </svg>
+      <span id="pesWalletAmount" style="font-weight:800;font-size:.9rem;line-height:1;">0</span>
+    </div>
+    <div class="rtab-select-label" id="pesBookBtn" style="background:rgba(111,207,58,.08); border-color:rgba(111,207,58,.4); color:#6fcf3a; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hidePesBubble('book'); openPesActiveExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
+    <div id="pesBubbleRow" style="position:absolute;top:100%;left:4%;right:4%;margin-top:-4px;display:flex;gap:8px;direction:ltr;z-index:5;pointer-events:none;">
+      <div id="pesHelpBubble" onclick="hidePesBubble('book'); openPesActiveExplainModal()" style="pointer-events:auto;position:relative;flex:0 0 120px;min-width:0;direction:rtl;text-align:center;background:#6fcf3a;color:#0d0d0d;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(111,207,58,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+        اضغط هنا لرؤية شرح الطريقة
+        <span id="pesHelpArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#6fcf3a;transform:rotate(45deg);"></span>
+      </div>
+      <div id="pesMethodBubble" onclick="hidePesBubble('method'); togglePesTabMenu()" style="pointer-events:auto;position:relative;flex:0 0 auto;white-space:nowrap;direction:rtl;text-align:center;background:#6fcf3a;color:#0d0d0d;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(111,207,58,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+        اضغط هنا لتغيير طريقة الشحن
+        <span id="pesMethodArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#6fcf3a;transform:rotate(45deg);"></span>
+      </div>
+    </div>
   </div>
   <div id="pesAndroidExplainModal" class="ce-modal-overlay" onclick="closePesAndroidExplainModal()">
     <div class="ce-modal-box" onclick="event.stopPropagation()">
@@ -2573,7 +2686,7 @@
     <div id="pes-panel-android" class="rpanel active">
 
       <!-- PES CARD + EMAIL FIELD — card on the left, email field fills the space next to it -->
-      <div style="display:flex; align-items:flex-start; gap:14px; padding: 54px 0 16px; direction:ltr;">
+      <div style="display:flex; align-items:flex-start; gap:14px; padding: 114px 0 16px; direction:ltr;">
         <div style="width:30%; max-width:115px; aspect-ratio:3/4; border:1.5px solid rgba(111,207,58,.4); border-radius:16px; overflow:hidden; box-shadow:0 0 10px rgba(111,207,58,.25); flex:0 0 auto;">
           <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/images%20(8).jpeg" alt="eFootball" style="width:100%;height:100%;object-fit:cover;display:block;">
         </div>
@@ -2592,9 +2705,9 @@
 
       <!-- ملخص الطلب -->
       <div id="pes-summary" style="display:block; margin-top:16px; background:#0f1f14; border:1px solid rgba(111,207,58,.35); border-radius:12px; padding:14px;">
-        <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">🛒 طلبك:</div>
+        <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">طلبك:</div>
         <div id="pes-sum-rows"><div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div></div>
-        <div id="pes-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(111,207,58,.25);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#6fcf3a;text-align:center;letter-spacing:.04em;">💰 السعر: 0 جنيه</div>
+        <div id="pes-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(111,207,58,.25);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#6fcf3a;text-align:center;letter-spacing:.04em;">السعر: 0 جنيه</div>
 
         <div id="pes-egp-status" style="margin-top:6px;font-size:.8rem;text-align:center;"></div>
 
@@ -2602,7 +2715,7 @@
         <div style="display:flex;gap:10px;margin-top:14px;">
           <button id="pes-use-egp-btn" onclick="togglePesUseEGP()" style="flex:1;width:auto;background:rgba(111,207,58,.12);border:1.5px solid #6fcf3a;color:#6fcf3a;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
           <button class="com-wa-btn" onclick="sendPesOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#1e7e34,#6fcf3a);color:#0d0d0d;border:none;font-size:.85rem;padding:12px 6px;">
-            💬 شحن
+            شحن
           </button>
         </div>
       </div>
@@ -2611,7 +2724,6 @@
     <!-- TAB 2: ايفون -->
     <div id="pes-panel-iphone" class="rpanel">
       <div style="text-align:center;padding:60px 20px;">
-        <div style="font-size:3.5rem;margin-bottom:20px;">🍎</div>
         <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--white);letter-spacing:.04em;margin-bottom:12px;">قريباً</div>
         <div style="color:var(--muted);font-size:.95rem;">شحن ايفون هيكون متاح قريباً</div>
       </div>
@@ -2626,14 +2738,29 @@
     <button class="rpage-back" style="border-color:rgba(96,165,250,.5);color:#60a5fa; height:46px; box-sizing:border-box; display:flex; align-items:center; justify-content:center;" onclick="closeVisa()">&#8594; Back</button>
     <div class="rtab-select-wrap" id="visatabSelectWrap">
       <button class="rtab-select-btn" style="background:rgba(96,165,250,.08); border-color:rgba(96,165,250,.4); color:#60a5fa; height:46px; box-sizing:border-box;" onclick="toggleVisaTabMenu()">
-        <span id="visatabSelectedLabel">💳 Visa Recharge</span>
+        <span id="visatabSelectedLabel">Visa Recharge</span>
         <span class="rtab-select-arrow">▾</span>
       </button>
       <div class="rtab-menu" id="visatabMenu">
-        <button class="rtab-menu-item active" id="visatab-item-visa" onclick="selectVisaTab(this,'visa','💳 Visa Recharge')">💳 Visa Recharge</button>
+        <button class="rtab-menu-item active" id="visatab-item-visa" onclick="selectVisaTab(this,'visa','Visa Recharge')">Visa Recharge</button>
       </div>
     </div>
-    <div class="rtab-select-label" style="background:rgba(96,165,250,.08); border-color:rgba(96,165,250,.4); color:#60a5fa; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="openVisaExplainModal()">📖</div>
+    <div class="rtab-select-label" id="visaWalletChip" title="رصيدك" onclick="walletChipClick()" style="cursor:pointer; background:rgba(96,165,250,.08); border-color:rgba(96,165,250,.4); color:#60a5fa; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:0 10px; flex:0 0 auto; direction:ltr;">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="flex:0 0 auto;">
+        <path d="M5 7.5 L16.2 3.6 a1.6 1.6 0 0 1 2.1 1.5 V7.5" stroke="#60a5fa" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="2.5" y="7.5" width="19" height="13" rx="3.2" fill="rgba(96,165,250,.16)" stroke="#60a5fa" stroke-width="1.6"/>
+        <rect x="13.6" y="11.6" width="8.9" height="5.2" rx="2.6" fill="rgba(37,99,235,.35)" stroke="#60a5fa" stroke-width="1.6"/>
+        <circle cx="17.1" cy="14.2" r="1" fill="#e0f2fe"/>
+      </svg>
+      <span id="visaWalletAmount" style="font-weight:800;font-size:.9rem;line-height:1;">0</span>
+    </div>
+    <div class="rtab-select-label" id="visaBookBtn" style="background:rgba(96,165,250,.08); border-color:rgba(96,165,250,.4); color:#60a5fa; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hideVisaBubble(); openVisaExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
+    <div id="visaBubbleRow" style="position:absolute;top:100%;left:4%;right:4%;margin-top:-4px;display:flex;gap:8px;direction:ltr;z-index:5;pointer-events:none;">
+      <div id="visaHelpBubble" onclick="hideVisaBubble(); openVisaExplainModal()" style="pointer-events:auto;position:relative;flex:0 0 120px;min-width:0;direction:rtl;text-align:center;background:#2563eb;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(37,99,235,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+        اضغط هنا لرؤية شرح الطريقة
+        <span id="visaHelpArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#2563eb;transform:rotate(45deg);"></span>
+      </div>
+    </div>
   </div>
   <div id="visaExplainModal" class="ce-modal-overlay" onclick="closeVisaExplainModal()">
     <div class="ce-modal-box" onclick="event.stopPropagation()">
@@ -2647,7 +2774,7 @@
   <div class="rpage-panels">
 
     <!-- VISA CARD + REQUEST FIELD — card on the left, request field fills the space next to it -->
-    <div style="display:flex; align-items:flex-start; gap:14px; padding: 54px 0 24px; direction:ltr;">
+    <div style="display:flex; align-items:flex-start; gap:14px; padding: 114px 0 24px; direction:ltr;">
       <div style="width:30%; max-width:115px; aspect-ratio:3/4; border:1.5px solid rgba(96,165,250,.4); border-radius:16px; overflow:hidden; box-shadow:0 0 10px rgba(96,165,250,.25); background:#0d1626; flex:0 0 auto;">
         <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/sm.svg" alt="Visa" style="width:100%;height:100%;object-fit:cover;display:block;">
       </div>
@@ -2661,7 +2788,7 @@
 
     <div class="oerror" id="visa-error" style="margin-bottom:10px;"></div>
     <button class="com-wa-btn" onclick="sendVisaOrder()" style="background:linear-gradient(135deg,#2563eb,#60a5fa);color:#0d0d0d;border:none;">
-      💬 شحن
+      شحن
     </button>
 
   </div>
@@ -2672,16 +2799,35 @@
   <div class="rpage-header" style="gap:10px;">
     <button class="rpage-back" style="border-color:rgba(0,180,216,.5);color:#00b4d8; height:46px; box-sizing:border-box; display:flex; align-items:center; justify-content:center;" onclick="closeFreefire()">&#8594; Back</button>
     <div class="rtab-select-wrap" id="fftabSelectWrap">
-      <button class="rtab-select-btn" style="background:rgba(0,180,216,.08); border-color:rgba(0,180,216,.4); color:#00b4d8; height:46px; box-sizing:border-box;" onclick="toggleFFTabMenu()">
-        <span id="fftabSelectedLabel">🆔 شحن بالـ ID</span>
+      <button class="rtab-select-btn" id="ffMethodBtn" style="background:rgba(0,180,216,.08); border-color:rgba(0,180,216,.4); color:#00b4d8; height:46px; box-sizing:border-box;" onclick="hideFFBubble('method'); toggleFFTabMenu()">
+        <span id="fftabSelectedLabel">شحن بالـ ID</span>
         <span class="rtab-select-arrow">▾</span>
       </button>
       <div class="rtab-menu" id="fftabMenu">
-        <button class="rtab-menu-item active" id="fftab-item-id" onclick="selectFFTab(this,'id','🆔 شحن بالـ ID')">🆔 شحن بالـ ID</button>
-        <button class="rtab-menu-item" id="fftab-item-acc" onclick="selectFFTab(this,'acc','🔑 داخل الحساب')">🔑 داخل الحساب</button>
+        <button class="rtab-menu-item active" id="fftab-item-id" onclick="selectFFTab(this,'id','شحن بالـ ID')">شحن بالـ ID</button>
+        <button class="rtab-menu-item" id="fftab-item-acc" onclick="selectFFTab(this,'acc','داخل الحساب')">داخل الحساب</button>
       </div>
     </div>
-    <div class="rtab-select-label" style="background:rgba(0,180,216,.08); border-color:rgba(0,180,216,.4); color:#00b4d8; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="openFFActiveExplainModal()">📖</div>
+    <div class="rtab-select-label" id="ffWalletChip" title="رصيدك" onclick="walletChipClick()" style="cursor:pointer; background:rgba(0,180,216,.08); border-color:rgba(0,180,216,.4); color:#48cae4; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:0 10px; flex:0 0 auto; direction:ltr;">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="flex:0 0 auto;">
+        <path d="M5 7.5 L16.2 3.6 a1.6 1.6 0 0 1 2.1 1.5 V7.5" stroke="#48cae4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="2.5" y="7.5" width="19" height="13" rx="3.2" fill="rgba(72,202,228,.16)" stroke="#48cae4" stroke-width="1.6"/>
+        <rect x="13.6" y="11.6" width="8.9" height="5.2" rx="2.6" fill="rgba(0,180,216,.35)" stroke="#48cae4" stroke-width="1.6"/>
+        <circle cx="17.1" cy="14.2" r="1" fill="#e0f7fb"/>
+      </svg>
+      <span id="ffWalletAmount" style="font-weight:800;font-size:.9rem;line-height:1;">0</span>
+    </div>
+    <div class="rtab-select-label" id="ffBookBtn" style="background:rgba(0,180,216,.08); border-color:rgba(0,180,216,.4); color:#00b4d8; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hideFFBubble('book'); openFFActiveExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
+    <div id="ffBubbleRow" style="position:absolute;top:100%;left:4%;right:4%;margin-top:-4px;display:flex;gap:8px;direction:ltr;z-index:5;pointer-events:none;">
+      <div id="ffHelpBubble" onclick="hideFFBubble('book'); openFFActiveExplainModal()" style="pointer-events:auto;position:relative;flex:0 0 120px;min-width:0;direction:rtl;text-align:center;background:#00b4d8;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(0,180,216,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+        اضغط هنا لرؤية شرح الطريقة
+        <span id="ffHelpArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#00b4d8;transform:rotate(45deg);"></span>
+      </div>
+      <div id="ffMethodBubble" onclick="hideFFBubble('method'); toggleFFTabMenu()" style="pointer-events:auto;position:relative;flex:0 0 auto;white-space:nowrap;direction:rtl;text-align:center;background:#00b4d8;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(0,180,216,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+        اضغط هنا لتغيير طريقة الشحن
+        <span id="ffMethodArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#00b4d8;transform:rotate(45deg);"></span>
+      </div>
+    </div>
   </div>
 
   <div id="ffAccountExplainModal" class="ce-modal-overlay" onclick="closeFFAccountExplainModal()">
@@ -2709,7 +2855,7 @@
     <div id="ff-panel-id" class="rpanel active">
 
       <!-- FF CARD + ID FIELD — card on the left, ID field fills the space next to it -->
-      <div style="display:flex; align-items:flex-start; gap:14px; padding: 54px 0 20px; direction:ltr;">
+      <div style="display:flex; align-items:flex-start; gap:14px; padding: 114px 0 20px; direction:ltr;">
         <div style="width:30%; max-width:115px; aspect-ratio:3/4; border:1.5px solid rgba(0,180,216,.4); border-radius:16px; overflow:hidden; box-shadow:0 0 10px rgba(0,180,216,.25); flex:0 0 auto;">
           <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/images%20(1).jpeg" alt="Free Fire" style="width:100%;height:100%;object-fit:cover;display:block;">
         </div>
@@ -2726,9 +2872,9 @@
 
       <!-- ملخص فري فاير ID -->
       <div id="ff-id-summary" style="display:block; margin-top:14px; background:#081a1f; border:1px solid rgba(0,180,216,.3); border-radius:12px; padding:14px;">
-        <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">🛒 طلبك:</div>
+        <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">طلبك:</div>
         <div id="ff-id-sum-rows"><div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div></div>
-        <div id="ff-id-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(0,180,216,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#6bd4ff;text-align:center;letter-spacing:.04em;">💰 السعر: 0 جنيه</div>
+        <div id="ff-id-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(0,180,216,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#6bd4ff;text-align:center;letter-spacing:.04em;">السعر: 0 جنيه</div>
 
         <div id="ff-id-egp-status" style="margin-top:6px;font-size:.8rem;text-align:center;"></div>
 
@@ -2736,7 +2882,7 @@
         <div style="display:flex;gap:10px;margin-top:14px;">
           <button id="ff-id-use-egp-btn" onclick="toggleFFIdUseEGP()" style="flex:1;width:auto;background:rgba(0,180,216,.12);border:1.5px solid #00b4d8;color:#6bd4ff;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
           <button class="com-wa-btn" onclick="sendFFIdOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#00b4d8,#6bd4ff);color:#fff;border:none;font-size:.85rem;padding:12px 6px;">
-            💬 شحن
+            شحن
           </button>
         </div>
       </div>
@@ -2746,7 +2892,7 @@
     <div id="ff-panel-acc" class="rpanel">
 
       <!-- FF CARD + EMAIL FIELD — card on the left, email field fills the space next to it -->
-      <div style="display:flex; align-items:flex-start; gap:14px; padding: 54px 0 14px; direction:ltr;">
+      <div style="display:flex; align-items:flex-start; gap:14px; padding: 114px 0 14px; direction:ltr;">
         <div style="width:30%; max-width:115px; aspect-ratio:3/4; border:1.5px solid rgba(0,180,216,.4); border-radius:16px; overflow:hidden; box-shadow:0 0 10px rgba(0,180,216,.25); flex:0 0 auto;">
           <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/images%20(1).jpeg" alt="Free Fire" style="width:100%;height:100%;object-fit:cover;display:block;">
         </div>
@@ -2770,9 +2916,9 @@
 
       <!-- ملخص فري فاير حساب -->
       <div id="ff-acc-summary" style="display:block; margin-top:14px; background:#081a1f; border:1px solid rgba(0,180,216,.3); border-radius:12px; padding:14px;">
-        <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">🛒 طلبك:</div>
+        <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">طلبك:</div>
         <div id="ff-acc-sum-rows"><div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div></div>
-        <div id="ff-acc-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(0,180,216,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#6bd4ff;text-align:center;letter-spacing:.04em;">💰 السعر: 0 جنيه</div>
+        <div id="ff-acc-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(0,180,216,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#6bd4ff;text-align:center;letter-spacing:.04em;">السعر: 0 جنيه</div>
 
         <div id="ff-acc-egp-status" style="margin-top:6px;font-size:.8rem;text-align:center;"></div>
 
@@ -2780,7 +2926,7 @@
         <div style="display:flex;gap:10px;margin-top:14px;">
           <button id="ff-acc-use-egp-btn" onclick="toggleFFAccUseEGP()" style="flex:1;width:auto;background:rgba(0,180,216,.12);border:1.5px solid #00b4d8;color:#6bd4ff;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
           <button class="com-wa-btn" onclick="sendFFAccOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#00b4d8,#6bd4ff);color:#fff;border:none;font-size:.85rem;padding:12px 6px;">
-            💬 شحن
+            شحن
           </button>
         </div>
       </div>
@@ -2794,20 +2940,39 @@
   <div class="rpage-header" style="gap:10px;">
     <button class="rpage-back" style="border-color:rgba(0,180,216,.5);color:var(--gold); height:46px; box-sizing:border-box; display:flex; align-items:center; justify-content:center;" onclick="closePubg()">&#8594; Back</button>
     <div class="rtab-select-wrap" id="pubgtabSelectWrap">
-      <button class="rtab-select-btn" style="background:rgba(0,180,216,.08); border-color:rgba(0,180,216,.4); color:var(--gold); height:46px; box-sizing:border-box;" onclick="togglePubgTabMenu()">
-        <span id="pubgtabSelectedLabel">💎 UC</span>
+      <button class="rtab-select-btn" id="pubgMethodBtn" style="background:rgba(0,180,216,.08); border-color:rgba(0,180,216,.4); color:var(--gold); height:46px; box-sizing:border-box;" onclick="hidePubgBubble('method'); togglePubgTabMenu()">
+        <span id="pubgtabSelectedLabel">UC</span>
         <span class="rtab-select-arrow">▾</span>
       </button>
       <div class="rtab-menu" id="pubgtabMenu">
-        <button class="rtab-menu-item active" id="pubgtab-item-uc" onclick="selectPubgTab(this,'uc','💎 UC')">💎 UC</button>
-        <button class="rtab-menu-item" id="pubgtab-item-orod" onclick="selectPubgTab(this,'orod','🎁 عروض')">🎁 عروض</button>
+        <button class="rtab-menu-item active" id="pubgtab-item-uc" onclick="selectPubgTab(this,'uc','UC')">UC</button>
+        <button class="rtab-menu-item" id="pubgtab-item-orod" onclick="selectPubgTab(this,'orod','عروض')">عروض</button>
       </div>
     </div>
-    <div class="rtab-select-label" style="background:rgba(0,180,216,.08); border-color:rgba(0,180,216,.4); color:var(--gold); cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="openPubgActiveExplainModal()">📖</div>
+    <div class="rtab-select-label" id="pubgWalletChip" title="رصيدك" onclick="walletChipClick()" style="cursor:pointer; background:rgba(0,180,216,.08); border-color:rgba(0,180,216,.4); color:#48cae4; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:0 10px; flex:0 0 auto; direction:ltr;">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="flex:0 0 auto;">
+        <path d="M5 7.5 L16.2 3.6 a1.6 1.6 0 0 1 2.1 1.5 V7.5" stroke="#48cae4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="2.5" y="7.5" width="19" height="13" rx="3.2" fill="rgba(72,202,228,.16)" stroke="#48cae4" stroke-width="1.6"/>
+        <rect x="13.6" y="11.6" width="8.9" height="5.2" rx="2.6" fill="rgba(0,180,216,.35)" stroke="#48cae4" stroke-width="1.6"/>
+        <circle cx="17.1" cy="14.2" r="1" fill="#e0f7fb"/>
+      </svg>
+      <span id="pubgWalletAmount" style="font-weight:800;font-size:.9rem;line-height:1;">0</span>
+    </div>
+    <div class="rtab-select-label" id="pubgBookBtn" style="background:rgba(0,180,216,.08); border-color:rgba(0,180,216,.4); color:var(--gold); cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hidePubgBubble('book'); openPubgActiveExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
+    <div id="pubgBubbleRow" style="position:absolute;top:100%;left:4%;right:4%;margin-top:-4px;display:flex;gap:8px;direction:ltr;z-index:5;pointer-events:none;">
+      <div id="pubgHelpBubble" onclick="hidePubgBubble('book'); openPubgActiveExplainModal()" style="pointer-events:auto;position:relative;flex:0 0 120px;min-width:0;direction:rtl;text-align:center;background:#00b4d8;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(0,180,216,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+        اضغط هنا لرؤية شرح الطريقة
+        <span id="pubgHelpArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#00b4d8;transform:rotate(45deg);"></span>
+      </div>
+      <div id="pubgMethodBubble" onclick="hidePubgBubble('method'); togglePubgTabMenu()" style="pointer-events:auto;position:relative;flex:0 0 auto;white-space:nowrap;direction:rtl;text-align:center;background:#00b4d8;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(0,180,216,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+        اضغط هنا لتغيير طريقة الشحن
+        <span id="pubgMethodArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#00b4d8;transform:rotate(45deg);"></span>
+      </div>
+    </div>
   </div>
 
   <!-- PUBG CARD + ID FIELD — card on the left, ID field fills the space next to it -->
-  <div style="display:flex; align-items:flex-start; gap:14px; padding: 90px 5% 0; direction:ltr;">
+  <div style="display:flex; align-items:flex-start; gap:14px; padding: 150px 5% 0; direction:ltr;">
     <div style="width:30%; max-width:115px; aspect-ratio:3/4; border:1.5px solid rgba(0,180,216,.4); border-radius:16px; overflow:hidden; box-shadow:0 0 10px rgba(0,180,216,.25); flex:0 0 auto;">
       <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/PlayerUnknown's_Battlegrounds_Mobile.webp" alt="PUBG" style="width:100%;height:100%;object-fit:cover;display:block;">
     </div>
@@ -2855,9 +3020,9 @@
 
     <!-- SHARED SUMMARY (UC + Offers together) -->
     <div id="pubg-summary" style="display:block; margin-top:14px; background:#0a1f24; border:1px solid rgba(0,180,216,.3); border-radius:12px; padding:14px;">
-      <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">🛒 طلبك:</div>
+      <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">طلبك:</div>
       <div id="pubg-sum-rows"><div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div></div>
-      <div id="pubg-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(0,180,216,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--gold);text-align:center;letter-spacing:.04em;">💰 السعر: 0 جنيه</div>
+      <div id="pubg-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(0,180,216,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--gold);text-align:center;letter-spacing:.04em;">السعر: 0 جنيه</div>
 
       <div id="pubg-egp-status" style="margin-top:6px;font-size:.8rem;text-align:center;"></div>
 
@@ -2865,7 +3030,7 @@
       <div style="display:flex;gap:10px;margin-top:14px;">
         <button id="pubg-use-egp-btn" onclick="togglePubgUseEGP()" style="flex:1;width:auto;background:rgba(0,180,216,.12);border:1.5px solid #00b4d8;color:#00b4d8;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
         <button class="com-wa-btn" onclick="sendPubgOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#0088a8,#00b4d8);color:#0d0d0d;font-size:.85rem;padding:12px 6px;">
-          💬 شحن
+          شحن
         </button>
       </div>
     </div>
@@ -2888,7 +3053,7 @@
         <button class="rtab-menu-item" id="rtab-item-design" onclick="selectRobloxDesignTab(this,'design','طلب تصميم')" style="display:none;">طلب تصميم</button>
       </div>
     </div>
-    <div class="rtab-select-label" id="robloxWalletChip" title="رصيدك" style="background:rgba(37,99,235,.08); border-color:rgba(37,99,235,.4); color:#60a5fa; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:0 10px; flex:0 0 auto; direction:ltr;">
+    <div class="rtab-select-label" id="robloxWalletChip" title="رصيدك" onclick="walletChipClick()" style="cursor:pointer; background:rgba(37,99,235,.08); border-color:rgba(37,99,235,.4); color:#60a5fa; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:0 10px; flex:0 0 auto; direction:ltr;">
       <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="flex:0 0 auto;">
         <path d="M5 7.5 L16.2 3.6 a1.6 1.6 0 0 1 2.1 1.5 V7.5" stroke="#60a5fa" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
         <rect x="2.5" y="7.5" width="19" height="13" rx="3.2" fill="rgba(96,165,250,.16)" stroke="#60a5fa" stroke-width="1.6"/>
@@ -2898,7 +3063,7 @@
       <span id="robloxWalletAmount" style="font-weight:800;font-size:.9rem;line-height:1;">0</span>
     </div>
     <div style="position:relative;display:inline-flex;">
-      <div class="rtab-select-label" id="robloxBookBtn" style="background:rgba(37,99,235,.08); border-color:rgba(37,99,235,.4); color:#2563eb; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hideRobloxBubble('book'); openActiveExplainModal()">📖</div>
+      <div class="rtab-select-label" id="robloxBookBtn" style="background:rgba(37,99,235,.08); border-color:rgba(37,99,235,.4); color:#2563eb; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hideRobloxBubble('book'); openActiveExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
     </div>
     <div id="robloxBubbleRow" style="position:absolute;top:100%;left:4%;right:4%;margin-top:-4px;display:flex;gap:8px;direction:ltr;z-index:5;pointer-events:none;">
       <div id="robloxHelpBubble" onclick="hideRobloxBubble('book'); openActiveExplainModal()" style="pointer-events:auto;position:relative;flex:0 0 120px;min-width:0;direction:rtl;text-align:center;background:#2563eb;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(37,99,235,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
@@ -2923,10 +3088,10 @@
     </div>
     <div id="communityLinkTop" class="com-link-wrap">
       <a href="https://www.roblox.com/share/g/35176043" target="_blank" class="com-link com-link-blue" rel="noopener noreferrer" style="margin:0;">رابط الكميونتي</a>
-      <button type="button" class="com-copy-btn" id="communityCopyBtn" onclick="copyCommunityLink()">📋 نسخ</button>
+      <button type="button" class="com-copy-btn" id="communityCopyBtn" onclick="copyCommunityLink()">نسخ</button>
     </div>
     <a href="https://www.roblox.com/promocodes" target="_blank" id="giftcardLinkTop" class="com-link" rel="noopener noreferrer" style="margin:0; flex:0 0 auto; display:none;">
-      🔗 رابط الاسترداد
+      رابط الاسترداد
     </a>
   </div>
 
@@ -3009,16 +3174,16 @@
 
       <!-- ملخص الطلب -->
       <div id="acc-summary" style="display:block; margin-top:14px; background:#0f1f3a; border:1px solid rgba(37,99,235,.35); border-radius:12px; padding:14px;">
-        <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">🛒 طلبك:</div>
+        <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">طلبك:</div>
         <div id="acc-sum-rows"><div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div></div>
-        <div id="acc-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(37,99,235,.25);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#2563eb;text-align:center;letter-spacing:.04em;">💰 السعر: 0 جنيه</div>
+        <div id="acc-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(37,99,235,.25);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#2563eb;text-align:center;letter-spacing:.04em;">السعر: 0 جنيه</div>
 
         <div id="acc-egp-status" style="margin-top:6px;font-size:.8rem;text-align:center;"></div>
 
         <div class="oerror" id="acc-error" style="margin-top:10px;"></div>
         <div style="display:flex;gap:10px;margin-top:14px;">
           <button id="acc-use-egp-btn" onclick="toggleAccUseEGP()" style="flex:1;width:auto;background:rgba(37,99,235,.12);border:1.5px solid #2563eb;color:#60a5fa;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
-          <button class="com-wa-btn" onclick="sendAccOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff;font-size:.85rem;padding:12px 6px;">💬 شحن</button>
+          <button class="com-wa-btn" onclick="sendAccOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff;font-size:.85rem;padding:12px 6px;">شحن</button>
         </div>
       </div>
     </div>
@@ -3027,16 +3192,16 @@
       <div class="price-grid" id="giftcard-prices"></div>
 
       <div id="giftcard-summary" style="display:block; margin-top:14px; background:#0f1f3a; border:1px solid rgba(37,99,235,.35); border-radius:12px; padding:14px;">
-        <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">🛒 طلبك:</div>
+        <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">طلبك:</div>
         <div id="giftcard-sum-rows"><div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div></div>
-        <div id="giftcard-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(37,99,235,.25);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#2563eb;text-align:center;letter-spacing:.04em;">💰 السعر: 0 جنيه</div>
+        <div id="giftcard-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(37,99,235,.25);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#2563eb;text-align:center;letter-spacing:.04em;">السعر: 0 جنيه</div>
 
         <div id="gift-egp-status" style="margin-top:6px;font-size:.8rem;text-align:center;"></div>
 
         <div class="oerror" id="giftcard-error" style="margin-top:10px;"></div>
         <div style="display:flex;gap:10px;margin-top:14px;">
           <button id="gift-use-egp-btn" onclick="toggleGiftUseEGP()" style="flex:1;width:auto;background:rgba(37,99,235,.12);border:1.5px solid #2563eb;color:#60a5fa;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
-          <button class="com-wa-btn" onclick="sendGiftOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff;font-size:.85rem;padding:12px 6px;">💬 شحن</button>
+          <button class="com-wa-btn" onclick="sendGiftOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff;font-size:.85rem;padding:12px 6px;">شحن</button>
         </div>
       </div>
     </div>
@@ -3044,8 +3209,8 @@
     <div class="rpanel active" id="rp-community">
       <!-- فوري / حجز -->
       <div class="price-toggle" style="margin-top:8px;">
-        <button class="ptoggle active" id="com-btn-fawri" onclick="switchPriceCom('fawri')">⚡ فوري</button>
-        <button class="ptoggle" id="com-btn-hagz" onclick="switchPriceCom('hagz')">📅 حجز</button>
+        <button class="ptoggle active" id="com-btn-fawri" onclick="switchPriceCom('fawri')">فوري</button>
+        <button class="ptoggle" id="com-btn-hagz" onclick="switchPriceCom('hagz')">حجز</button>
       </div>
 
       <div class="price-grid" id="com-prices-fawri"></div>
@@ -3070,9 +3235,9 @@
 
       <!-- منيو الملخص -->
       <div id="com-summary" style="display:block; margin-top:14px; background:#0f1f3a; border:1px solid rgba(37,99,235,.3); border-radius:12px; padding:14px;">
-        <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">🛒 طلبك:</div>
+        <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">طلبك:</div>
         <div id="com-sum-rows"><div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div></div>
-        <div id="com-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(37,99,235,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#2563eb;text-align:center;letter-spacing:.04em;">💰 السعر: 0 جنيه</div>
+        <div id="com-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(37,99,235,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#2563eb;text-align:center;letter-spacing:.04em;">السعر: 0 جنيه</div>
 
         <div id="com-egp-status" style="margin-top:6px;font-size:.8rem;text-align:center;"></div>
 
@@ -3080,7 +3245,7 @@
         <div style="display:flex;gap:10px;margin-top:14px;">
           <button id="com-use-egp-btn" onclick="toggleComUseEGP()" style="flex:1;width:auto;background:rgba(37,99,235,.12);border:1.5px solid #2563eb;color:#60a5fa;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
           <button class="com-wa-btn" id="com-wa-btn" onclick="sendComOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff;font-size:.85rem;padding:12px 6px;">
-            💬 شحن
+            شحن
           </button>
         </div>
       </div>
@@ -3090,15 +3255,15 @@
       <!-- الخانات -->
       <div class="order-form" style="margin-top:0;">
         <div class="ofield">
-          <label class="olabel">👕 نوع التصميم <span class="req">*</span></label>
+          <label class="olabel">نوع التصميم <span class="req">*</span></label>
           <input class="oinput" id="design-type" type="text" placeholder="مثال: بنطال / تيشرت / وجه / شعر" />
         </div>
         <div class="ofield">
-          <label class="olabel">📝 وصف التصميم <span class="req">*</span></label>
+          <label class="olabel">وصف التصميم <span class="req">*</span></label>
           <input class="oinput" id="design-desc" type="text" placeholder="اكتب عايزه يكون شكله ازاي بالظبط" />
         </div>
         <div class="oerror" id="design-error"></div>
-        <button class="com-wa-btn" onclick="sendDesignOrder()" style="background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff;">💬 تواصل مع المصمم</button>
+        <button class="com-wa-btn" onclick="sendDesignOrder()" style="background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff;">تواصل مع المصمم</button>
       </div>
     </div>
 
@@ -3110,25 +3275,44 @@
   <div class="rpage-header" style="gap:10px;">
     <button class="rpage-back" style="border-color:rgba(111,207,58,.5);color:#6fcf3a; height:46px; box-sizing:border-box; display:flex; align-items:center; justify-content:center;" onclick="closeFifa()">&#8594; Back</button>
     <div class="rtab-select-wrap" id="fifatabSelectWrap">
-      <button class="rtab-select-btn" style="background:rgba(111,207,58,.08); border-color:rgba(111,207,58,.4); color:#6fcf3a; height:46px; box-sizing:border-box;" onclick="toggleFifaTabMenu()">
-        <span id="fifatabSelectedLabel">💰 FC/Silver</span>
+      <button class="rtab-select-btn" id="fifaMethodBtn" style="background:rgba(111,207,58,.08); border-color:rgba(111,207,58,.4); color:#6fcf3a; height:46px; box-sizing:border-box;" onclick="hideFifaBubble('method'); toggleFifaTabMenu()">
+        <span id="fifatabSelectedLabel">FC/Silver</span>
         <span class="rtab-select-arrow">▾</span>
       </button>
       <div class="rtab-menu" id="fifatabMenu">
-        <button class="rtab-menu-item active" id="fifatab-item-coins" onclick="selectFifaTab(this,'coins','💰 FC/Silver')">💰 FC/Silver</button>
-        <button class="rtab-menu-item" id="fifatab-item-offers" onclick="selectFifaTab(this,'offers','🎁 عروض')">🎁 عروض</button>
+        <button class="rtab-menu-item active" id="fifatab-item-coins" onclick="selectFifaTab(this,'coins','FC/Silver')">FC/Silver</button>
+        <button class="rtab-menu-item" id="fifatab-item-offers" onclick="selectFifaTab(this,'offers','عروض')">عروض</button>
       </div>
     </div>
-    <div class="rtab-select-label" style="background:rgba(111,207,58,.08); border-color:rgba(111,207,58,.4); color:#6fcf3a; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="openFifaActiveExplainModal()">📖</div>
+    <div class="rtab-select-label" id="fifaWalletChip" title="رصيدك" onclick="walletChipClick()" style="cursor:pointer; background:rgba(111,207,58,.08); border-color:rgba(111,207,58,.4); color:#6fcf3a; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:0 10px; flex:0 0 auto; direction:ltr;">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="flex:0 0 auto;">
+        <path d="M5 7.5 L16.2 3.6 a1.6 1.6 0 0 1 2.1 1.5 V7.5" stroke="#6fcf3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="2.5" y="7.5" width="19" height="13" rx="3.2" fill="rgba(111,207,58,.16)" stroke="#6fcf3a" stroke-width="1.6"/>
+        <rect x="13.6" y="11.6" width="8.9" height="5.2" rx="2.6" fill="rgba(74,158,31,.35)" stroke="#6fcf3a" stroke-width="1.6"/>
+        <circle cx="17.1" cy="14.2" r="1" fill="#eaffd9"/>
+      </svg>
+      <span id="fifaWalletAmount" style="font-weight:800;font-size:.9rem;line-height:1;">0</span>
+    </div>
+    <div class="rtab-select-label" id="fifaBookBtn" style="background:rgba(111,207,58,.08); border-color:rgba(111,207,58,.4); color:#6fcf3a; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hideFifaBubble('book'); openFifaActiveExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
+    <div id="fifaBubbleRow" style="position:absolute;top:100%;left:4%;right:4%;margin-top:-4px;display:flex;gap:8px;direction:ltr;z-index:5;pointer-events:none;">
+      <div id="fifaHelpBubble" onclick="hideFifaBubble('book'); openFifaActiveExplainModal()" style="pointer-events:auto;position:relative;flex:0 0 120px;min-width:0;direction:rtl;text-align:center;background:#6fcf3a;color:#0d0d0d;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(111,207,58,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+        اضغط هنا لرؤية شرح الطريقة
+        <span id="fifaHelpArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#6fcf3a;transform:rotate(45deg);"></span>
+      </div>
+      <div id="fifaMethodBubble" onclick="hideFifaBubble('method'); toggleFifaTabMenu()" style="pointer-events:auto;position:relative;flex:0 0 auto;white-space:nowrap;direction:rtl;text-align:center;background:#6fcf3a;color:#0d0d0d;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(111,207,58,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+        اضغط هنا لتغيير طريقة الشحن
+        <span id="fifaMethodArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#6fcf3a;transform:rotate(45deg);"></span>
+      </div>
+    </div>
   </div>
 
   <!-- FIFA CARD + EMAIL FIELD — card on the left, email field fills the space next to it; shared across both tabs -->
-  <div style="display:flex; align-items:flex-start; gap:14px; padding: 90px 5% 0; direction:ltr;">
+  <div style="display:flex; align-items:flex-start; gap:14px; padding: 150px 5% 0; direction:ltr;">
     <div style="width:30%; max-width:115px; aspect-ratio:3/4; border:1.5px solid rgba(111,207,58,.4); border-radius:16px; overflow:hidden; box-shadow:0 0 10px rgba(111,207,58,.25); flex:0 0 auto;">
       <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/images%20(7).jpeg" alt="FIFA" style="width:100%;height:100%;object-fit:cover;display:block;">
     </div>
     <div class="ofield" style="flex:1; min-width:0; direction:rtl; margin:0;">
-      <label class="olabel" style="font-size:.95rem;color:#6fcf3a;">📧 الإيميل <span class="req">*</span></label>
+      <label class="olabel" style="font-size:.95rem;color:#6fcf3a;">الإيميل <span class="req">*</span></label>
       <input class="oinput" id="fifa-user" type="text" placeholder="" style="border-color:rgba(111,207,58,.35);width:100%;" />
     </div>
   </div>
@@ -3174,16 +3358,16 @@
   </div>
 
   <div id="fifa-summary" style="display:block; margin-top:14px; background:#0d1a08; border:1px solid rgba(111,207,58,.3); border-radius:12px; padding:14px;">
-    <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">🛒 طلبك:</div>
+    <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">طلبك:</div>
     <div id="fifa-sum-rows"><div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div></div>
-    <div id="fifa-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(111,207,58,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#6fcf3a;text-align:center;letter-spacing:.04em;">💰 السعر: 0 جنيه</div>
+    <div id="fifa-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(111,207,58,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#6fcf3a;text-align:center;letter-spacing:.04em;">السعر: 0 جنيه</div>
 
     <div id="fifa-egp-status" style="margin-top:6px;font-size:.8rem;text-align:center;"></div>
 
     <div style="display:flex;gap:10px;margin-top:14px;">
       <button id="fifa-use-egp-btn" onclick="toggleFifaUseEGP()" style="flex:1;width:auto;background:rgba(111,207,58,.12);border:1.5px solid #6fcf3a;color:#6fcf3a;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
       <button class="com-wa-btn" onclick="sendFifaCoinsOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#1e7e34,#6fcf3a);color:#0d0d0d;border:none;font-size:.85rem;padding:12px 6px;">
-        💬 شحن
+        شحن
       </button>
     </div>
   </div>
@@ -3219,12 +3403,13 @@
   // ============ فقاعتا التوجيه في روبلوكس: جنب بعض، وسهم كل واحدة يتمركز تحت عنصرها ============
   function hideRobloxBubble(which) {
     const b = document.getElementById(which === 'book' ? 'robloxHelpBubble' : 'robloxMethodBubble');
-    if (b) b.style.display = 'none';
+    // visibility بدل display عشان مكان الفقاعة التانية ميتغيرش لما واحدة تختفي
+    if (b) { b.style.visibility = 'hidden'; b.style.pointerEvents = 'none'; }
   }
   function positionRobloxBubbles() {
     [['robloxHelpBubble','robloxHelpArrow','robloxBookBtn'], ['robloxMethodBubble','robloxMethodArrow','robloxMethodBtn']].forEach(function (ids) {
       const bubble = document.getElementById(ids[0]), arrow = document.getElementById(ids[1]), target = document.getElementById(ids[2]);
-      if (!bubble || !arrow || !target || bubble.style.display === 'none') return;
+      if (!bubble || !arrow || !target) return;
       const bR = bubble.getBoundingClientRect(), tR = target.getBoundingClientRect();
       if (!bR.width || !tR.width) return;
       let x = tR.left + tR.width / 2 - bR.left - 6;
@@ -3233,6 +3418,106 @@
     });
   }
   window.addEventListener('resize', positionRobloxBubbles);
+  // ============ فقاعتا التوجيه في ببجي (نفس روبلوكس) ============
+  function hidePubgBubble(which) {
+    const b = document.getElementById(which === 'book' ? 'pubgHelpBubble' : 'pubgMethodBubble');
+    if (b) { b.style.visibility = 'hidden'; b.style.pointerEvents = 'none'; }
+  }
+  function positionPubgBubbles() {
+    [['pubgHelpBubble','pubgHelpArrow','pubgBookBtn'], ['pubgMethodBubble','pubgMethodArrow','pubgMethodBtn']].forEach(function (ids) {
+      const bubble = document.getElementById(ids[0]), arrow = document.getElementById(ids[1]), target = document.getElementById(ids[2]);
+      if (!bubble || !arrow || !target) return;
+      const bR = bubble.getBoundingClientRect(), tR = target.getBoundingClientRect();
+      if (!bR.width || !tR.width) return;
+      let x = tR.left + tR.width / 2 - bR.left - 6;
+      x = Math.max(10, Math.min(bR.width - 22, x));
+      arrow.style.left = x + 'px';
+    });
+  }
+  window.addEventListener('resize', positionPubgBubbles);
+  // ============ فقاعتا التوجيه في فري فاير ============
+  function hideFFBubble(which) {
+    const b = document.getElementById(which === 'book' ? 'ffHelpBubble' : 'ffMethodBubble');
+    if (b) { b.style.visibility = 'hidden'; b.style.pointerEvents = 'none'; }
+  }
+  function positionFFBubbles() {
+    [['ffHelpBubble','ffHelpArrow','ffBookBtn'], ['ffMethodBubble','ffMethodArrow','ffMethodBtn']].forEach(function (ids) {
+      const bubble = document.getElementById(ids[0]), arrow = document.getElementById(ids[1]), target = document.getElementById(ids[2]);
+      if (!bubble || !arrow || !target) return;
+      const bR = bubble.getBoundingClientRect(), tR = target.getBoundingClientRect();
+      if (!bR.width || !tR.width) return;
+      let x = tR.left + tR.width / 2 - bR.left - 6;
+      x = Math.max(10, Math.min(bR.width - 22, x));
+      arrow.style.left = x + 'px';
+    });
+  }
+  window.addEventListener('resize', positionFFBubbles);
+  // ============ فقاعتا التوجيه في بيس ============
+  function hidePesBubble(which) {
+    const b = document.getElementById(which === 'book' ? 'pesHelpBubble' : 'pesMethodBubble');
+    if (b) { b.style.visibility = 'hidden'; b.style.pointerEvents = 'none'; }
+  }
+  function positionPesBubbles() {
+    [['pesHelpBubble','pesHelpArrow','pesBookBtn'], ['pesMethodBubble','pesMethodArrow','pesMethodBtn']].forEach(function (ids) {
+      const bubble = document.getElementById(ids[0]), arrow = document.getElementById(ids[1]), target = document.getElementById(ids[2]);
+      if (!bubble || !arrow || !target) return;
+      const bR = bubble.getBoundingClientRect(), tR = target.getBoundingClientRect();
+      if (!bR.width || !tR.width) return;
+      let x = tR.left + tR.width / 2 - bR.left - 6;
+      x = Math.max(10, Math.min(bR.width - 22, x));
+      arrow.style.left = x + 'px';
+    });
+  }
+  window.addEventListener('resize', positionPesBubbles);
+  // ============ فقاعتا التوجيه في فيفا ============
+  function hideFifaBubble(which) {
+    const b = document.getElementById(which === 'book' ? 'fifaHelpBubble' : 'fifaMethodBubble');
+    if (b) { b.style.visibility = 'hidden'; b.style.pointerEvents = 'none'; }
+  }
+  function positionFifaBubbles() {
+    [['fifaHelpBubble','fifaHelpArrow','fifaBookBtn'], ['fifaMethodBubble','fifaMethodArrow','fifaMethodBtn']].forEach(function (ids) {
+      const bubble = document.getElementById(ids[0]), arrow = document.getElementById(ids[1]), target = document.getElementById(ids[2]);
+      if (!bubble || !arrow || !target) return;
+      const bR = bubble.getBoundingClientRect(), tR = target.getBoundingClientRect();
+      if (!bR.width || !tR.width) return;
+      let x = tR.left + tR.width / 2 - bR.left - 6;
+      x = Math.max(10, Math.min(bR.width - 22, x));
+      arrow.style.left = x + 'px';
+    });
+  }
+  window.addEventListener('resize', positionFifaBubbles);
+  // ============ فقاعتا التوجيه في براول ستارز ============
+  function hideBrawlBubble(which) {
+    const b = document.getElementById(which === 'book' ? 'brawlHelpBubble' : 'brawlMethodBubble');
+    if (b) { b.style.visibility = 'hidden'; b.style.pointerEvents = 'none'; }
+  }
+  function positionBrawlBubbles() {
+    [['brawlHelpBubble','brawlHelpArrow','brawlBookBtn'], ['brawlMethodBubble','brawlMethodArrow','brawlMethodBtn']].forEach(function (ids) {
+      const bubble = document.getElementById(ids[0]), arrow = document.getElementById(ids[1]), target = document.getElementById(ids[2]);
+      if (!bubble || !arrow || !target) return;
+      const bR = bubble.getBoundingClientRect(), tR = target.getBoundingClientRect();
+      if (!bR.width || !tR.width) return;
+      let x = tR.left + tR.width / 2 - bR.left - 6;
+      x = Math.max(10, Math.min(bR.width - 22, x));
+      arrow.style.left = x + 'px';
+    });
+  }
+  window.addEventListener('resize', positionBrawlBubbles);
+  // ============ فقاعة التوجيه في فيزا (طريقة واحدة بس فمفيش فقاعة تغيير الطريقة) ============
+  function hideVisaBubble() {
+    const b = document.getElementById('visaHelpBubble');
+    if (b) { b.style.visibility = 'hidden'; b.style.pointerEvents = 'none'; }
+  }
+  function positionVisaBubbles() {
+    const bubble = document.getElementById('visaHelpBubble'), arrow = document.getElementById('visaHelpArrow'), target = document.getElementById('visaBookBtn');
+    if (!bubble || !arrow || !target) return;
+    const bR = bubble.getBoundingClientRect(), tR = target.getBoundingClientRect();
+    if (!bR.width || !tR.width) return;
+    let x = tR.left + tR.width / 2 - bR.left - 6;
+    x = Math.max(10, Math.min(bR.width - 22, x));
+    arrow.style.left = x + 'px';
+  }
+  window.addEventListener('resize', positionVisaBubbles);
   function openRoblox() {
     document.getElementById('robloxPage').classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -3244,6 +3529,8 @@
     document.getElementById('robloxPageSub').textContent = '';
     document.getElementById('robloxPageThumb').src = 'https://raw.githubusercontent.com/King-cat11/King-cat/main/images.jpeg';
     document.getElementById('robloxPageThumb').alt = 'Roblox';
+    // رجوع فقاعة "تغيير طريقة الشحن" (بتتخفي في روبلوكس استوديو لأن فيه طريقة واحدة بس)
+    const mb = document.getElementById('robloxMethodBubble'); if (mb) mb.style.display = '';
     selectRTab(document.getElementById('rtab-item-community'), 'community', 'كميونتي');
     setTimeout(positionRobloxBubbles, 80); setTimeout(positionRobloxBubbles, 450);
   }
@@ -3258,7 +3545,10 @@
     document.getElementById('robloxPageSub').textContent = '';
     document.getElementById('robloxPageThumb').src = 'https://raw.githubusercontent.com/King-cat11/King-cat/main/b6153b0e699d5b0018791b75a51075921330fa25.png';
     document.getElementById('robloxPageThumb').alt = 'Roblox Studio';
+    // استوديو فيه طريقة واحدة بس (طلب تصميم) فمفيش داعي لفقاعة تغيير طريقة الشحن
+    const mb = document.getElementById('robloxMethodBubble'); if (mb) mb.style.display = 'none';
     selectRobloxDesignTab(document.getElementById('rtab-item-design'), 'design', 'طلب تصميم');
+    setTimeout(positionRobloxBubbles, 80); setTimeout(positionRobloxBubbles, 450);
   }
   function openRobloxCommunity() {
     openRoblox();
@@ -3308,7 +3598,7 @@
     const box = document.getElementById('explainBox');
     const btnText = document.getElementById('explain-btn-text');
     const isOpen = box.classList.toggle('open');
-    btnText.textContent = isOpen ? '✖ إخفاء الشرح' : '📖 شرح شحن الكميونتي';
+    btnText.textContent = isOpen ? 'إخفاء الشرح' : 'شرح شحن الكميونتي';
   }
   // account panel
 
@@ -3386,7 +3676,7 @@
     if (statusDiv) statusDiv.textContent = '';
     if (btn) {
       btn.style.background = accUseEGP ? 'rgba(37,99,235,.35)' : 'rgba(37,99,235,.12)';
-      btn.textContent = accUseEGP ? 'تم التفعيل ✅' : 'استخدام EGP';
+      btn.textContent = accUseEGP ? 'تم التفعيل' : 'استخدام EGP';
     }
     renderAccSummary();
   }
@@ -3399,13 +3689,13 @@
     sumDiv.style.display = 'block';
     if (!keys.length) {
       rowsDiv.innerHTML = '<div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div>';
-      totDiv.innerHTML = '💰 السعر: 0 جنيه';
+      totDiv.innerHTML = 'السعر: 0 جنيه';
       return;
     }
     rowsDiv.innerHTML = keys.map(k => {
       const item = accCart[k];
       return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(37,99,235,.15);gap:8px;">
-        <span style="flex:1;">📦 ${item.label} (${item.qty})</span>
+        <span style="flex:1;">${item.label} (${item.qty})</span>
         <div style="display:flex;align-items:center;gap:6px;">
           <button onclick="changeAccQty('${k}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(37,99,235,.4);background:#1a1a1a;color:#2563eb;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;opacity:.75;">−</button>
           <button onclick="changeAccQty('${k}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(37,99,235,.5);background:#1a1a1a;color:#2563eb;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
@@ -3416,9 +3706,9 @@
     const totalEgp = keys.reduce((s,k) => s + (accCart[k].egp || 0) * accCart[k].qty, 0);
     if (accUseEGP && getUserBalance() > 0) {
       const discounted = accDiscountedTotal(total);
-      totDiv.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">💰 ${total} جنيه</div><div>💰 السعر: ${discounted} جنيه</div>${cashbackLineHTML(totalEgp)}`;
+      totDiv.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">${total} جنيه</div><div>السعر: ${discounted} جنيه</div>${cashbackLineHTML(totalEgp)}`;
     } else {
-      totDiv.innerHTML = `💰 السعر: ${total} جنيه${cashbackLineHTML(totalEgp)}`;
+      totDiv.innerHTML = `السعر: ${total} جنيه${cashbackLineHTML(totalEgp)}`;
     }
   }
 
@@ -3428,9 +3718,9 @@
     const err      = document.getElementById('acc-error');
     const keys     = Object.keys(accCart);
 
-    if (!username)    { err.textContent = '⚠️ اكتب اليوزرنيم'; return; }
-    if (!pass)        { err.textContent = '⚠️ اكتب الباسورد'; return; }
-    if (!keys.length) { err.textContent = '⚠️ اختار الكمية الأول'; return; }
+    if (!username)    { err.textContent = 'اكتب اليوزرنيم'; return; }
+    if (!pass)        { err.textContent = 'اكتب الباسورد'; return; }
+    if (!keys.length) { err.textContent = 'اختار الكمية الأول'; return; }
     err.textContent = '';
 
     const items = keys.map(k => {
@@ -3549,7 +3839,7 @@
     if (statusDiv) statusDiv.textContent = '';
     if (btn) {
       btn.style.background = comUseEGP ? 'rgba(37,99,235,.35)' : 'rgba(37,99,235,.12)';
-      btn.textContent = comUseEGP ? 'تم التفعيل ✅' : 'استخدام EGP';
+      btn.textContent = comUseEGP ? 'تم التفعيل' : 'استخدام EGP';
     }
     renderComSummary();
   }
@@ -3562,7 +3852,7 @@
     sumDiv.style.display = 'block';
     if (items.length === 0) {
       rowsDiv.innerHTML = '<div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div>';
-      grandEl.innerHTML = '💰 السعر: 0 جنيه';
+      grandEl.innerHTML = 'السعر: 0 جنيه';
       return;
     }
     const bonus    = codeApplied ? Math.round(totalRob * appliedBonusPercent / 100) : 0;
@@ -3570,19 +3860,19 @@
     rowsDiv.innerHTML = items.map(item => {
       const key = item.rob + '_' + item.price;
       return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(37,99,235,.15);gap:8px;">
-        <span style="flex:1;">📦 ${item.label} (${item.qty})</span>
+        <span style="flex:1;">${item.label} (${item.qty})</span>
         <div style="display:flex;align-items:center;gap:6px;">
           <button onclick="changeCartQty('${key}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(37,99,235,.4);background:#1a1a1a;color:#2563eb;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;opacity:.75;">−</button>
           <button onclick="changeCartQty('${key}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(37,99,235,.5);background:#1a1a1a;color:#2563eb;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
         </div>
       </div>`;
     }).join('');
-    const bonusLabel = bonus ? ' — شامل ' + bonus + ' R هدية 🎁' : '';
+    const bonusLabel = bonus ? ' — شامل ' + bonus + ' R هدية' : '';
     if (comUseEGP && getUserBalance() > 0) {
       const discounted = comDiscountedTotal(totalPrice);
-      grandEl.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">💰 ${totalPrice} جنيه (${finalRob} روب${bonusLabel})</div><div>💰 السعر: ${discounted} جنيه</div>${cashbackLineHTML(totalEgp)}`;
+      grandEl.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">${totalPrice} جنيه (${finalRob} روب${bonusLabel})</div><div>السعر: ${discounted} جنيه</div>${cashbackLineHTML(totalEgp)}`;
     } else {
-      grandEl.innerHTML = `💰 السعر: ${totalPrice} جنيه (${finalRob} روب${bonusLabel})${cashbackLineHTML(totalEgp)}`;
+      grandEl.innerHTML = `السعر: ${totalPrice} جنيه (${finalRob} روب${bonusLabel})${cashbackLineHTML(totalEgp)}`;
     }
   }
 
@@ -3603,18 +3893,18 @@
   function applyCode() {
     const code   = document.getElementById('com-code').value.trim().toUpperCase();
     const status = document.getElementById('code-status');
-    if (!code) { status.className = 'code-status err'; status.textContent = '\u26a0\ufe0f \u0627\u0643\u062a\u0628 \u0627\u0644\u0643\u0648\u062f \u0627\u0644\u0623\u0648\u0644'; return; }
+    if (!code) { status.className = 'code-status err'; status.textContent = '\u0627\u0643\u062a\u0628 \u0627\u0644\u0643\u0648\u062f \u0627\u0644\u0623\u0648\u0644'; return; }
     const match = window.bonusCodesCache.find(c => c.code === code && c.active !== false);
     if (match) {
       codeApplied = true;
       appliedBonusPercent = match.percent || 0;
       updateCardDisplay();
       status.className = 'code-status ok';
-      status.textContent = `\u2705 \u0627\u0644\u0643\u0648\u062f \u0627\u062a\u0641\u0639\u0644! \u0643\u0644 \u0627\u0644\u0643\u0645\u064a\u0627\u062a \u0627\u062a\u0632\u0627\u062f\u062a ${appliedBonusPercent}% \u0631\u0648\u0628 \u0645\u062c\u0627\u0646\u0627\u064b \u{1F389}`;
+      status.textContent = `\u0627\u0644\u0643\u0648\u062f \u0627\u062a\u0641\u0639\u0644! \u0643\u0644 \u0627\u0644\u0643\u0645\u064a\u0627\u062a \u0627\u062a\u0632\u0627\u062f\u062a ${appliedBonusPercent}% \u0631\u0648\u0628 \u0645\u062c\u0627\u0646\u0627\u064b `;
     } else {
       if (codeApplied) { codeApplied = false; appliedBonusPercent = 0; updateCardDisplay(); }
       status.className = 'code-status err';
-      status.textContent = '\u274c \u0627\u0644\u0643\u0648\u062f \u063a\u0644\u0637\u060c \u062c\u0631\u0628 \u062a\u0627\u0646\u064a';
+      status.textContent = '\u0627\u0644\u0643\u0648\u062f \u063a\u0644\u0637\u060c \u062c\u0631\u0628 \u062a\u0627\u0646\u064a';
     }
   }
 
@@ -3622,9 +3912,9 @@
     const username = document.getElementById('com-username').value.trim();
     const err      = document.getElementById('com-error');
     const { items, totalRob, totalPrice, totalEgp } = getComSelections();
-    if (!username && items.length === 0) { err.textContent = '\u26a0\ufe0f \u0627\u0643\u062a\u0628 \u0627\u0644\u064a\u0648\u0632\u0631\u0646\u064a\u0645 \u0648\u0627\u062e\u062a\u0627\u0631 \u0627\u0644\u0643\u0645\u064a\u0629 \u0627\u0644\u0623\u0648\u0644'; return; }
-    if (!username)      { err.textContent = '\u26a0\ufe0f \u0644\u0627\u0632\u0645 \u062a\u0643\u062a\u0628 \u0627\u0644\u064a\u0648\u0632\u0631\u0646\u064a\u0645'; return; }
-    if (items.length === 0) { err.textContent = '\u26a0\ufe0f \u0644\u0627\u0632\u0645 \u062a\u062e\u062a\u0627\u0631 \u0627\u0644\u0643\u0645\u064a\u0629 \u0627\u0644\u0623\u0648\u0644'; return; }
+    if (!username && items.length === 0) { err.textContent = '\u0627\u0643\u062a\u0628 \u0627\u0644\u064a\u0648\u0632\u0631\u0646\u064a\u0645 \u0648\u0627\u062e\u062a\u0627\u0631 \u0627\u0644\u0643\u0645\u064a\u0629 \u0627\u0644\u0623\u0648\u0644'; return; }
+    if (!username)      { err.textContent = '\u0644\u0627\u0632\u0645 \u062a\u0643\u062a\u0628 \u0627\u0644\u064a\u0648\u0632\u0631\u0646\u064a\u0645'; return; }
+    if (items.length === 0) { err.textContent = '\u0644\u0627\u0632\u0645 \u062a\u062e\u062a\u0627\u0631 \u0627\u0644\u0643\u0645\u064a\u0629 \u0627\u0644\u0623\u0648\u0644'; return; }
     err.textContent = '';
     const type     = document.getElementById('com-btn-hagz').classList.contains('active') ? '\u062d\u062c\u0632' : '\u0641\u0648\u0631\u064a';
 
@@ -3734,7 +4024,7 @@
     if (statusDiv) statusDiv.textContent = '';
     if (btn) {
       btn.style.background = giftUseEGP ? 'rgba(37,99,235,.35)' : 'rgba(37,99,235,.12)';
-      btn.textContent = giftUseEGP ? 'تم التفعيل ✅' : 'استخدام EGP';
+      btn.textContent = giftUseEGP ? 'تم التفعيل' : 'استخدام EGP';
     }
     renderGiftSummary();
   }
@@ -3747,13 +4037,13 @@
     sumDiv.style.display = 'block';
     if (items.length === 0) {
       rowsDiv.innerHTML = '<div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div>';
-      grandEl.innerHTML = '💰 السعر: 0 جنيه';
+      grandEl.innerHTML = 'السعر: 0 جنيه';
       return;
     }
     rowsDiv.innerHTML = items.map(item => {
       const key = item.usd + '_' + item.price;
       return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(37,99,235,.15);gap:8px;">
-        <span style="flex:1;">📦 ${item.label} (${item.qty})</span>
+        <span style="flex:1;">${item.label} (${item.qty})</span>
         <div style="display:flex;align-items:center;gap:6px;">
           <button onclick="changeGiftCartQty('${key}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(37,99,235,.4);background:#1a1a1a;color:#2563eb;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;opacity:.75;">−</button>
           <button onclick="changeGiftCartQty('${key}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(37,99,235,.5);background:#1a1a1a;color:#2563eb;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
@@ -3762,15 +4052,15 @@
     }).join('');
     if (giftUseEGP && getUserBalance() > 0) {
       const discounted = giftDiscountedTotal(totalPrice);
-      grandEl.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">💰 ${totalPrice} جنيه (${totalUsd} USD)</div><div>💰 السعر: ${discounted} جنيه</div>${cashbackLineHTML(totalEgp)}`;
+      grandEl.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">${totalPrice} جنيه (${totalUsd} USD)</div><div>السعر: ${discounted} جنيه</div>${cashbackLineHTML(totalEgp)}`;
     } else {
-      grandEl.innerHTML = `💰 السعر: ${totalPrice} جنيه (${totalUsd} USD)${cashbackLineHTML(totalEgp)}`;
+      grandEl.innerHTML = `السعر: ${totalPrice} جنيه (${totalUsd} USD)${cashbackLineHTML(totalEgp)}`;
     }
   }
   function sendGiftOrder() {
     const err = document.getElementById('giftcard-error');
     const { items, totalUsd, totalPrice, totalEgp } = getGiftSelections();
-    if (items.length === 0) { err.textContent = '⚠️ لازم تختار الكمية الأول'; return; }
+    if (items.length === 0) { err.textContent = 'لازم تختار الكمية الأول'; return; }
     err.textContent = '';
     const total = (giftUseEGP && getUserBalance() > 0) ? giftDiscountedTotal(totalPrice) : totalPrice;
     const RLM = '\u200F';
@@ -3818,7 +4108,8 @@
   function openPubg() {
     document.getElementById('pubgPage').classList.add('open');
     document.body.style.overflow = 'hidden';
-    selectPubgTab(document.getElementById('pubgtab-item-uc'), 'uc', '💎 UC');
+    selectPubgTab(document.getElementById('pubgtab-item-uc'), 'uc', 'UC');
+    setTimeout(positionPubgBubbles, 80); setTimeout(positionPubgBubbles, 450);
   }
   function closePubg() {
     document.getElementById('pubgPage').classList.remove('open');
@@ -3838,7 +4129,7 @@
     });
     pubgCart = {};
     renderPubgSummary();
-    selectPubgTab(document.getElementById('pubgtab-item-uc'), 'uc', '💎 UC');
+    selectPubgTab(document.getElementById('pubgtab-item-uc'), 'uc', 'UC');
   }
 
   // Shared cart between UC and Offers
@@ -3935,7 +4226,7 @@
     if (statusDiv) statusDiv.textContent = '';
     if (btn) {
       btn.style.background = pubgUseEGP ? 'rgba(0,180,216,.35)' : 'rgba(0,180,216,.12)';
-      btn.textContent = pubgUseEGP ? 'تم التفعيل ✅' : 'استخدام EGP';
+      btn.textContent = pubgUseEGP ? 'تم التفعيل' : 'استخدام EGP';
     }
     renderPubgSummary();
   }
@@ -3948,13 +4239,13 @@
     sumDiv.style.display = 'block';
     if (!keys.length) {
       rowsDiv.innerHTML = '<div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div>';
-      totDiv.innerHTML = '💰 السعر: 0 جنيه';
+      totDiv.innerHTML = 'السعر: 0 جنيه';
       return;
     }
     rowsDiv.innerHTML = keys.map(k => {
       const item = pubgCart[k];
       return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(0,180,216,.12);gap:8px;">
-        <span style="flex:1;">🪙 ${pubgLabel(item)} (${item.qty})</span>
+        <span style="flex:1;">${pubgLabel(item)} (${item.qty})</span>
         <div style="display:flex;align-items:center;gap:6px;">
           <button onclick="changePubgQty('${k}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:#1a1a1a;color:#48cae4;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">−</button>
           <button onclick="changePubgQty('${k}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(0,180,216,.5);background:#1a1a1a;color:var(--gold);font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
@@ -3965,9 +4256,9 @@
     const totalEgp = keys.reduce((s,k) => s + (pubgCart[k].egp || 0) * pubgCart[k].qty, 0);
     if (pubgUseEGP && getUserBalance() > 0) {
       const discounted = pubgDiscountedTotal(total);
-      totDiv.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">💰 ${total} جنيه</div><div>💰 السعر: ${discounted} جنيه</div>${cashbackLineHTML(totalEgp)}`;
+      totDiv.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">${total} جنيه</div><div>السعر: ${discounted} جنيه</div>${cashbackLineHTML(totalEgp)}`;
     } else {
-      totDiv.innerHTML = `💰 السعر: ${total} جنيه${cashbackLineHTML(totalEgp)}`;
+      totDiv.innerHTML = `السعر: ${total} جنيه${cashbackLineHTML(totalEgp)}`;
     }
   }
 
@@ -3975,9 +4266,9 @@
     const idVal = document.getElementById('pubg-id').value.trim();
     const err   = document.getElementById('pubg-error');
     const keys  = Object.keys(pubgCart);
-    if (!idVal && !keys.length) { err.textContent = '⚠️ اكتب الـ ID واختار الكمية الأول'; return; }
-    if (!idVal)   { err.textContent = '⚠️ لازم تكتب الـ ID عشان نشحن'; document.getElementById('pubg-id').focus(); return; }
-    if (!keys.length) { err.textContent = '⚠️ اختار الكمية الأول'; return; }
+    if (!idVal && !keys.length) { err.textContent = 'اكتب الـ ID واختار الكمية الأول'; return; }
+    if (!idVal)   { err.textContent = 'لازم تكتب الـ ID عشان نشحن'; document.getElementById('pubg-id').focus(); return; }
+    if (!keys.length) { err.textContent = 'اختار الكمية الأول'; return; }
     err.textContent = '';
     const items = keys.map(k => `• ${pubgLabel(pubgCart[k])} (${pubgCart[k].qty})`).join('\n');
     const rawTotal = keys.reduce((s,k) => s + pubgCart[k].price * pubgCart[k].qty, 0);
@@ -4051,6 +4342,20 @@
   }
 
   // ── BALANCE ──
+  function walletChipClick() {
+    if (window.isLoggedIn) {
+      openBalancePage();
+    } else {
+      document.getElementById('walletLoginModal').classList.add('open');
+    }
+  }
+  function closeWalletLoginModal() {
+    document.getElementById('walletLoginModal').classList.remove('open');
+  }
+  function goToLoginFromWallet() {
+    closeWalletLoginModal();
+    openLoginModal();
+  }
   function openBalancePage() {
     document.getElementById('balancePage').classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -4097,6 +4402,8 @@
   function openBrawl() {
     document.getElementById('brawlPage').classList.add('open');
     document.body.style.overflow = 'hidden';
+    selectBrawlTab(document.getElementById('brawltab-item-pass'), 'pass', 'باس');
+    setTimeout(positionBrawlBubbles, 80); setTimeout(positionBrawlBubbles, 450);
   }
   function closeBrawl() {
     document.getElementById('brawlPage').classList.remove('open');
@@ -4199,7 +4506,7 @@
     if (statusDiv) statusDiv.textContent = '';
     if (btn) {
       btn.style.background = brawlUseEGP ? 'rgba(244,161,0,.35)' : 'rgba(244,161,0,.12)';
-      btn.textContent = brawlUseEGP ? 'تم التفعيل ✅' : 'استخدام EGP';
+      btn.textContent = brawlUseEGP ? 'تم التفعيل' : 'استخدام EGP';
     }
     renderBrawlSummary();
   }
@@ -4210,13 +4517,13 @@
     const totDiv  = document.getElementById('brawl-grand-total');
     if (!keys.length) {
       rowsDiv.innerHTML = '<div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div>';
-      totDiv.innerHTML = '💰 السعر: 0 جنيه';
+      totDiv.innerHTML = 'السعر: 0 جنيه';
       return;
     }
     rowsDiv.innerHTML = keys.map(k => {
       const item = brawlCart[k];
       return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(244,161,0,.12);gap:8px;">
-        <span style="flex:1;">⭐ ${item.pass} (${item.qty})</span>
+        <span style="flex:1;">${item.pass} (${item.qty})</span>
         <div style="display:flex;align-items:center;gap:6px;">
           <button onclick="changeBrawlQty('${k}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:#1a1a1a;color:#f4a100;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">−</button>
           <button onclick="changeBrawlQty('${k}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(244,161,0,.5);background:#1a1a1a;color:#f4a100;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
@@ -4227,9 +4534,9 @@
     const totalEgp = keys.reduce((s,k) => s + (brawlCart[k].egp || 0) * brawlCart[k].qty, 0);
     if (brawlUseEGP && getUserBalance() > 0) {
       const discounted = brawlDiscountedTotal(total);
-      totDiv.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">💰 ${total} جنيه</div><div>💰 السعر: ${discounted} جنيه</div>${cashbackLineHTML(totalEgp)}`;
+      totDiv.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">${total} جنيه</div><div>السعر: ${discounted} جنيه</div>${cashbackLineHTML(totalEgp)}`;
     } else {
-      totDiv.innerHTML = `💰 السعر: ${total} جنيه${cashbackLineHTML(totalEgp)}`;
+      totDiv.innerHTML = `السعر: ${total} جنيه${cashbackLineHTML(totalEgp)}`;
     }
   }
 
@@ -4237,9 +4544,9 @@
     const email = document.getElementById('brawl-email').value.trim();
     const err   = document.getElementById('brawl-error');
     const keys  = Object.keys(brawlCart);
-    if (!email && !keys.length) { err.textContent = '⚠️ اكتب الإيميل واختار الباس الأول'; return; }
-    if (!email) { err.textContent = '⚠️ اكتب الإيميل الأول'; document.getElementById('brawl-email').focus(); return; }
-    if (!keys.length) { err.textContent = '⚠️ اختار الباس الأول'; return; }
+    if (!email && !keys.length) { err.textContent = 'اكتب الإيميل واختار الباس الأول'; return; }
+    if (!email) { err.textContent = 'اكتب الإيميل الأول'; document.getElementById('brawl-email').focus(); return; }
+    if (!keys.length) { err.textContent = 'اختار الباس الأول'; return; }
     err.textContent = '';
     const items = keys.map(k => `• ${brawlCart[k].pass} (${brawlCart[k].qty})`).join('\n');
     const rawTotal = keys.reduce((s,k) => s + brawlCart[k].price * brawlCart[k].qty, 0);
@@ -4257,7 +4564,8 @@
   function openPes() {
     document.getElementById('pesPage').classList.add('open');
     document.body.style.overflow = 'hidden';
-    selectPesTab(document.getElementById('pestab-item-android'), 'android', '🤖 اندرويد');
+    selectPesTab(document.getElementById('pestab-item-android'), 'android', 'اندرويد');
+    setTimeout(positionPesBubbles, 80); setTimeout(positionPesBubbles, 450);
   }
   function closePes() {
     document.getElementById('pesPage').classList.remove('open');
@@ -4273,7 +4581,7 @@
       const qc = c.querySelector('.qty-ctrl');
       if (qc) { qc.style.display = 'none'; c.querySelector('.qty-num').textContent = '0'; }
     });
-    selectPesTab(document.getElementById('pestab-item-android'), 'android', '🤖 اندرويد');
+    selectPesTab(document.getElementById('pestab-item-android'), 'android', 'اندرويد');
   }
 
   // ── PES CART (شحن متعدد) ──
@@ -4294,7 +4602,7 @@
     if (statusDiv) statusDiv.textContent = '';
     if (btn) {
       btn.style.background = pesUseEGP ? 'rgba(111,207,58,.35)' : 'rgba(111,207,58,.12)';
-      btn.textContent = pesUseEGP ? 'تم التفعيل ✅' : 'استخدام EGP';
+      btn.textContent = pesUseEGP ? 'تم التفعيل' : 'استخدام EGP';
     }
     renderPesSummary();
   }
@@ -4362,13 +4670,13 @@
     sumDiv.style.display = 'block';
     if (!keys.length) {
       rowsDiv.innerHTML = '<div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div>';
-      totDiv.innerHTML = '💰 السعر: 0 جنيه';
+      totDiv.innerHTML = 'السعر: 0 جنيه';
       return;
     }
     rowsDiv.innerHTML = keys.map(k => {
       const item = pesCart[k];
       return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(111,207,58,.15);gap:8px;">
-        <span style="flex:1;">🪙 ${item.coin} Coins (${item.qty})</span>
+        <span style="flex:1;">${item.coin} Coins (${item.qty})</span>
         <div style="display:flex;align-items:center;gap:6px;">
           <button onclick="changePesQty('${k}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(111,207,58,.4);background:#0f1f14;color:#6fcf3a;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;opacity:.75;">−</button>
           <button onclick="changePesQty('${k}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(111,207,58,.5);background:#0f1f14;color:#6fcf3a;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
@@ -4379,9 +4687,9 @@
     const totalEgp = keys.reduce((s,k) => s + (pesCart[k].egp || 0) * pesCart[k].qty, 0);
     if (pesUseEGP && getUserBalance() > 0) {
       const discounted = Math.max(total - getUserBalance(), 0);
-      totDiv.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">💰 ${total} جنيه</div><div>💰 السعر: ${discounted} جنيه</div>${cashbackLineHTML(totalEgp)}`;
+      totDiv.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">${total} جنيه</div><div>السعر: ${discounted} جنيه</div>${cashbackLineHTML(totalEgp)}`;
     } else {
-      totDiv.innerHTML = `💰 السعر: ${total} جنيه${cashbackLineHTML(totalEgp)}`;
+      totDiv.innerHTML = `السعر: ${total} جنيه${cashbackLineHTML(totalEgp)}`;
     }
   }
 
@@ -4390,9 +4698,9 @@
     const pass  = document.getElementById('pes-pass').value.trim();
     const err   = document.getElementById('pes-error');
     const keys  = Object.keys(pesCart);
-    if (!email) { err.textContent = '⚠️ اكتب الإيميل الأول'; return; }
-    if (!pass)  { err.textContent = '⚠️ اكتب الباسورد الأول'; return; }
-    if (!keys.length) { err.textContent = '⚠️ اختار الكمية الأول'; return; }
+    if (!email) { err.textContent = 'اكتب الإيميل الأول'; return; }
+    if (!pass)  { err.textContent = 'اكتب الباسورد الأول'; return; }
+    if (!keys.length) { err.textContent = 'اختار الكمية الأول'; return; }
     err.textContent = '';
     const items = keys.map(k => `• ${pesCart[k].coin} Coins (${pesCart[k].qty})`).join('\n');
     const rawTotal = keys.reduce((s,k) => s + pesCart[k].price * pesCart[k].qty, 0);
@@ -4411,6 +4719,7 @@
   function openVisa() {
     document.getElementById('visaPage').classList.add('open');
     document.body.style.overflow = 'hidden';
+    setTimeout(positionVisaBubbles, 80); setTimeout(positionVisaBubbles, 450);
   }
   function closeVisa() {
     document.getElementById('visaPage').classList.remove('open');
@@ -4421,7 +4730,7 @@
   function sendVisaOrder() {
     const request = document.getElementById('visa-request').value.trim();
     const err = document.getElementById('visa-error');
-    if (!request) { err.textContent = '⚠️ اكتب الحاجة اللي عايز تشحنها الأول'; return; }
+    if (!request) { err.textContent = 'اكتب الحاجة اللي عايز تشحنها الأول'; return; }
     err.textContent = '';
     const msg = `💳 طلب شحن بالفيزا\n📝 الطلب: ${request}\nالاسم: ${getCustomerName()}`;
     if (typeof window.saveOrder === 'function') {
@@ -4434,7 +4743,8 @@
   function openFreefire() {
     document.getElementById('ffPage').classList.add('open');
     document.body.style.overflow = 'hidden';
-    selectFFTab(document.getElementById('fftab-item-id'), 'id', '🆔 شحن بالـ ID');
+    selectFFTab(document.getElementById('fftab-item-id'), 'id', 'شحن بالـ ID');
+    setTimeout(positionFFBubbles, 80); setTimeout(positionFFBubbles, 450);
   }
   function closeFreefire() {
     document.getElementById('ffPage').classList.remove('open');
@@ -4459,7 +4769,7 @@
     renderFFIdSummary();
     renderFFAccSummary();
     // Reset dropdown to ID tab
-    selectFFTab(document.getElementById('fftab-item-id'), 'id', '🆔 شحن بالـ ID');
+    selectFFTab(document.getElementById('fftab-item-id'), 'id', 'شحن بالـ ID');
   }
 
   function switchFFTab(type) {
@@ -4492,7 +4802,7 @@
     if (statusDiv) statusDiv.textContent = '';
     if (btn) {
       btn.style.background = ffIdUseEGP ? 'rgba(0,180,216,.35)' : 'rgba(0,180,216,.12)';
-      btn.textContent = ffIdUseEGP ? 'تم التفعيل ✅' : 'استخدام EGP';
+      btn.textContent = ffIdUseEGP ? 'تم التفعيل' : 'استخدام EGP';
     }
     renderFFIdSummary();
   }
@@ -4563,13 +4873,13 @@
     sumDiv.style.display = 'block';
     if (!keys.length) {
       rowsDiv.innerHTML = '<div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div>';
-      totDiv.innerHTML = '💰 السعر: 0 جنيه';
+      totDiv.innerHTML = 'السعر: 0 جنيه';
       return;
     }
     rowsDiv.innerHTML = keys.map(k => {
       const item = ffIdCart[k];
       return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(0,180,216,.12);gap:8px;">
-        <span style="flex:1;">💎 ${item.label} (${item.qty})</span>
+        <span style="flex:1;">${item.label} (${item.qty})</span>
         <div style="display:flex;align-items:center;gap:6px;">
           <button onclick="changeFFIdQty('${k}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:#001a26;color:#6bd4ff;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">−</button>
           <button onclick="changeFFIdQty('${k}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(0,180,216,.5);background:#001a26;color:#00b4d8;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
@@ -4580,9 +4890,9 @@
     const totalEgp = keys.reduce((s,k) => s + (ffIdCart[k].egp || 0) * ffIdCart[k].qty, 0);
     if (ffIdUseEGP && getUserBalance() > 0) {
       const discounted = Math.max(total - getUserBalance(), 0);
-      totDiv.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">💰 ${total} جنيه</div><div>💰 السعر: ${discounted} جنيه</div>${cashbackLineHTML(totalEgp)}`;
+      totDiv.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">${total} جنيه</div><div>السعر: ${discounted} جنيه</div>${cashbackLineHTML(totalEgp)}`;
     } else {
-      totDiv.innerHTML = `💰 السعر: ${total} جنيه${cashbackLineHTML(totalEgp)}`;
+      totDiv.innerHTML = `السعر: ${total} جنيه${cashbackLineHTML(totalEgp)}`;
     }
   }
 
@@ -4590,9 +4900,9 @@
     const idVal = document.getElementById('ff-id').value.trim();
     const err   = document.getElementById('ff-id-error');
     const keys  = Object.keys(ffIdCart);
-    if (!idVal && !keys.length) { err.textContent = '⚠️ اكتب الـ ID واختار الكمية الأول'; return; }
-    if (!idVal)   { err.textContent = '⚠️ لازم تكتب الـ ID عشان نشحن'; document.getElementById('ff-id').focus(); return; }
-    if (!keys.length) { err.textContent = '⚠️ اختار الكمية الأول'; return; }
+    if (!idVal && !keys.length) { err.textContent = 'اكتب الـ ID واختار الكمية الأول'; return; }
+    if (!idVal)   { err.textContent = 'لازم تكتب الـ ID عشان نشحن'; document.getElementById('ff-id').focus(); return; }
+    if (!keys.length) { err.textContent = 'اختار الكمية الأول'; return; }
     err.textContent = '';
     const items = keys.map(k => {
       const item = ffIdCart[k];
@@ -4627,7 +4937,7 @@
     if (statusDiv) statusDiv.textContent = '';
     if (btn) {
       btn.style.background = ffAccUseEGP ? 'rgba(0,180,216,.35)' : 'rgba(0,180,216,.12)';
-      btn.textContent = ffAccUseEGP ? 'تم التفعيل ✅' : 'استخدام EGP';
+      btn.textContent = ffAccUseEGP ? 'تم التفعيل' : 'استخدام EGP';
     }
     renderFFAccSummary();
   }
@@ -4698,13 +5008,13 @@
     sumDiv.style.display = 'block';
     if (!keys.length) {
       rowsDiv.innerHTML = '<div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div>';
-      totDiv.innerHTML = '💰 السعر: 0 جنيه';
+      totDiv.innerHTML = 'السعر: 0 جنيه';
       return;
     }
     rowsDiv.innerHTML = keys.map(k => {
       const item = ffAccCart[k];
       return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(0,180,216,.12);gap:8px;">
-        <span style="flex:1;">💎 ${item.label} (${item.qty})</span>
+        <span style="flex:1;">${item.label} (${item.qty})</span>
         <div style="display:flex;align-items:center;gap:6px;">
           <button onclick="changeFFAccQty('${k}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:#001a26;color:#6bd4ff;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">−</button>
           <button onclick="changeFFAccQty('${k}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(0,180,216,.5);background:#001a26;color:#00b4d8;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
@@ -4715,9 +5025,9 @@
     const totalEgp = keys.reduce((s,k) => s + (ffAccCart[k].egp || 0) * ffAccCart[k].qty, 0);
     if (ffAccUseEGP && getUserBalance() > 0) {
       const discounted = Math.max(total - getUserBalance(), 0);
-      totDiv.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">💰 ${total} جنيه</div><div>💰 السعر: ${discounted} جنيه</div>${cashbackLineHTML(totalEgp)}`;
+      totDiv.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">${total} جنيه</div><div>السعر: ${discounted} جنيه</div>${cashbackLineHTML(totalEgp)}`;
     } else {
-      totDiv.innerHTML = `💰 السعر: ${total} جنيه${cashbackLineHTML(totalEgp)}`;
+      totDiv.innerHTML = `السعر: ${total} جنيه${cashbackLineHTML(totalEgp)}`;
     }
   }
 
@@ -4727,10 +5037,10 @@
     const link  = document.getElementById('ff-acc-link').value.trim();
     const err   = document.getElementById('ff-acc-error');
     const keys  = Object.keys(ffAccCart);
-    if (!user)        { err.textContent = '⚠️ اكتب الإيميل'; return; }
-    if (!pass)        { err.textContent = '⚠️ اكتب الباسورد'; return; }
-    if (!link)        { err.textContent = '⚠️ اكتب نوع الربط'; return; }
-    if (!keys.length) { err.textContent = '⚠️ اختار الكمية الأول'; return; }
+    if (!user)        { err.textContent = 'اكتب الإيميل'; return; }
+    if (!pass)        { err.textContent = 'اكتب الباسورد'; return; }
+    if (!link)        { err.textContent = 'اكتب نوع الربط'; return; }
+    if (!keys.length) { err.textContent = 'اختار الكمية الأول'; return; }
     err.textContent = '';
     const items = keys.map(k => {
       const item = ffAccCart[k];
@@ -4757,8 +5067,8 @@
     const desc = document.getElementById('design-desc').value.trim();
     const err  = document.getElementById('design-error');
 
-    if (!type) { err.textContent = '⚠️ اكتب نوع التصميم'; return; }
-    if (!desc) { err.textContent = '⚠️ اكتب وصف التصميم'; return; }
+    if (!type) { err.textContent = 'اكتب نوع التصميم'; return; }
+    if (!desc) { err.textContent = 'اكتب وصف التصميم'; return; }
     err.textContent = '';
 
     const msg = `👕 طلب تصميم ملابس روبلوكس\n🛍️ نوع التصميم: ${type}\n📝 الوصف: ${desc}\nالاسم: ${getCustomerName()}`;
@@ -4768,7 +5078,8 @@
   function openFifa() {
     document.getElementById('fifaPage').classList.add('open');
     document.body.style.overflow = 'hidden';
-    selectFifaTab(document.getElementById('fifatab-item-coins'), 'coins', '💰 FC/Silver');
+    selectFifaTab(document.getElementById('fifatab-item-coins'), 'coins', 'FC/Silver');
+    setTimeout(positionFifaBubbles, 80); setTimeout(positionFifaBubbles, 450);
   }
   function closeFifa() {
     document.getElementById('fifaPage').classList.remove('open');
@@ -4785,7 +5096,7 @@
     });
     renderFifaSummary();
     switchFifaGrid('fc');
-    selectFifaTab(document.getElementById('fifatab-item-coins'), 'coins', '💰 FC/Silver');
+    selectFifaTab(document.getElementById('fifatab-item-coins'), 'coins', 'FC/Silver');
   }
   function switchFifaGrid(type) {
     document.getElementById('fifa-prices-fc').style.display    = type === 'fc'    ? 'grid' : 'none';
@@ -4844,7 +5155,7 @@
     if (statusDiv) statusDiv.textContent = '';
     if (btn) {
       btn.style.background = fifaUseEGP ? 'rgba(111,207,58,.35)' : 'rgba(111,207,58,.12)';
-      btn.textContent = fifaUseEGP ? 'تم التفعيل ✅' : 'استخدام EGP';
+      btn.textContent = fifaUseEGP ? 'تم التفعيل' : 'استخدام EGP';
     }
     renderFifaSummary();
   }
@@ -4915,13 +5226,13 @@
     sumDiv.style.display = 'block';
     if (!items.length) {
       rowsDiv.innerHTML = '<div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div>';
-      totDiv.innerHTML = '💰 السعر: 0 جنيه';
+      totDiv.innerHTML = 'السعر: 0 جنيه';
       return;
     }
     rowsDiv.innerHTML = items.map(item => {
       const key = item.type === 'عرض' ? ('offer_' + item.label) : (item.amt + '_' + item.type);
       return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(111,207,58,.12);gap:8px;">
-        <span style="flex:1;">🪙 ${item.label} (${item.qty})</span>
+        <span style="flex:1;">${item.label} (${item.qty})</span>
         <div style="display:flex;align-items:center;gap:6px;">
           <button onclick="changeFifaCartQty('${key}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(111,207,58,.4);background:#1a1a1a;color:#6fcf3a;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;opacity:.75;">−</button>
           <button onclick="changeFifaCartQty('${key}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(111,207,58,.5);background:#1a1a1a;color:#6fcf3a;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
@@ -4930,9 +5241,9 @@
     }).join('');
     if (fifaUseEGP && getUserBalance() > 0) {
       const discounted = Math.max(totalPrice - getUserBalance(), 0);
-      totDiv.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">💰 ${totalPrice} جنيه</div><div>💰 السعر: ${discounted} جنيه</div>${cashbackLineHTML(totalEgp)}`;
+      totDiv.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">${totalPrice} جنيه</div><div>السعر: ${discounted} جنيه</div>${cashbackLineHTML(totalEgp)}`;
     } else {
-      totDiv.innerHTML = `💰 السعر: ${totalPrice} جنيه${cashbackLineHTML(totalEgp)}`;
+      totDiv.innerHTML = `السعر: ${totalPrice} جنيه${cashbackLineHTML(totalEgp)}`;
     }
   }
   function sendFifaCoinsOrder() {
@@ -4940,8 +5251,8 @@
     const err  = document.getElementById('fifa-coins-error');
     const { items, totalPrice: rawTotal, totalEgp } = getFifaSelections();
 
-    if (!user) { err.textContent = '⚠️ اكتب الإيميل'; return; }
-    if (items.length === 0) { err.textContent = '⚠️ اختار الكمية المطلوبة'; return; }
+    if (!user) { err.textContent = 'اكتب الإيميل'; return; }
+    if (items.length === 0) { err.textContent = 'اختار الكمية المطلوبة'; return; }
     err.textContent = '';
 
     const totalPrice = (fifaUseEGP && getUserBalance() > 0) ? Math.max(rawTotal - getUserBalance(), 0) : rawTotal;
@@ -5019,7 +5330,7 @@
     const url = 'https://www.roblox.com/share/g/35176043';
     const done = function () {
       const b = document.getElementById('communityCopyBtn');
-      if (b) { const t = b.textContent; b.textContent = '✅ تم النسخ'; setTimeout(function () { b.textContent = t; }, 1800); }
+      if (b) { const t = b.textContent; b.textContent = 'تم النسخ'; setTimeout(function () { b.textContent = t; }, 1800); }
     };
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(url).then(done).catch(function () { fallbackCopy(url); done(); });
@@ -5147,6 +5458,12 @@
     document.querySelectorAll('#brawltabMenu .rtab-menu-item').forEach(b => b.classList.remove('active'));
     el.classList.add('active');
     document.getElementById('brawltabSelectWrap').classList.remove('open');
+    const soon = key === 'gems';
+    document.getElementById('brawl-soon').style.display = soon ? 'block' : 'none';
+    document.getElementById('brawl-prices').style.display = soon ? 'none' : '';
+    document.getElementById('brawl-summary').style.display = soon ? 'none' : 'block';
+    document.getElementById('brawlEmailField').style.display = soon ? 'none' : '';
+    document.getElementById('brawlCardImg').style.display = soon ? 'none' : '';
   }
 
   // ── PES DROPDOWN FUNCTIONS ──
@@ -5446,11 +5763,12 @@
       enBadge.setAttribute('onclick', "switchAuthTab('login')");
       enBadge.setAttribute('title', 'تسجيل الدخول');
     }
-    document.getElementById('loginExplainText').textContent = tab === 'login'
-      ? 'سجل بحسابك عشان تتابع كل طلباتك اللي طلبتها، ولو مش معاك حساب اعمل إنشاء حساب أو سجل بجوجل.'
-      : 'لو خايف على الايميل بتاعك تقدر تسجل بحساب وهمي عادي، احنا بناخد بياناتك عشان نعرف نحفظلك طلباتك، فمش مهم يكون حساب حقيقي أو وهمي.';
     const subtitleEl = document.getElementById('authFormSubtitle');
     if (subtitleEl) subtitleEl.textContent = tab === 'login' ? 'لحسابك في King & Cat' : 'إنشاء حساب جديد';
+    const identLabel = document.getElementById('authIdentLabel');
+    const identInput = document.getElementById('authEmailInput');
+    if (identLabel) identLabel.textContent = 'اسم المستخدم';
+    if (identInput) identInput.value = '';
     const googleSection = document.getElementById('loginGoogleSection');
     if (googleSection) googleSection.style.display = tab === 'login' ? 'block' : 'none';
     const statusEl = document.getElementById('loginStatusMsg');
@@ -5624,7 +5942,7 @@
     const toggleFn = kind === 'id' ? 'toggleFFIdAmt' : 'toggleFFAccAmt';
     const label = item.label || (item.diamond + ' Diamond');
     const body = item.custom
-      ? `<span class="rob-val">📅 ${label.replace(/^اشتراك\s*/, '')}</span>`
+      ? `<span class="rob-val">${label.replace(/^اشتراك\s*/, '')}</span>`
       : `<span class="rob-val">${item.diamond}</span><span class="rob">Diamond</span>`;
     return `<div class="pcard" style="border-color:rgba(0,180,216,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-diamond="${item.diamond}" data-price="${item.price}" data-label="${label}" data-egp="${cb}" onclick="${toggleFn}(this)">${body}<span class="egp">EGP ${item.price}</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:#00b4d8;background:rgba(0,180,216,.1);" onclick="event.stopPropagation();${changeFn}(this,-1)">−</button><span class="qty-num" style="color:#00b4d8;">0</span><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:#00b4d8;background:rgba(0,180,216,.1);" onclick="event.stopPropagation();${changeFn}(this,1)">+</button></div></div>`;
   }
@@ -5728,12 +6046,10 @@
     if (val <= 0) return '';
     if (!window.isLoggedIn) {
       return `<div style="display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:5px 12px;border-radius:20px;background:linear-gradient(135deg,rgba(255,45,120,.18),rgba(255,45,120,.08));border:1px solid rgba(255,45,120,.4);">
-        <span style="font-size:.9rem;">🎁</span>
         <span style="font-family:'Cairo',sans-serif;font-weight:800;font-size:.78rem;letter-spacing:.3px;color:#ff2d78;">سجل دخول عشان تاخد كاش باك على شحنتك</span>
       </div>`;
     }
     return `<div style="display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:5px 12px;border-radius:20px;background:linear-gradient(135deg,rgba(111,207,58,.18),rgba(111,207,58,.08));border:1px solid rgba(111,207,58,.4);">
-      <span style="font-size:.9rem;">🎁</span>
       <span style="font-family:'Cairo',sans-serif;font-weight:800;font-size:.78rem;letter-spacing:.3px;color:#6fcf3a;">CASHBACK</span>
       <span style="font-weight:800;font-size:.85rem;color:#8fe864;">${val} EGP</span>
     </div>`;
@@ -5805,6 +6121,20 @@
   function updateWalletChips(balance) {
     const el = document.getElementById('robloxWalletAmount');
     if (el) el.textContent = formatWalletAmount(balance);
+    const el2 = document.getElementById('pubgWalletAmount');
+    if (el2) el2.textContent = formatWalletAmount(balance);
+    const el3 = document.getElementById('ffWalletAmount');
+    if (el3) el3.textContent = formatWalletAmount(balance);
+    const el4 = document.getElementById('pesWalletAmount');
+    if (el4) el4.textContent = formatWalletAmount(balance);
+    const el5 = document.getElementById('fifaWalletAmount');
+    if (el5) el5.textContent = formatWalletAmount(balance);
+    const el6 = document.getElementById('brawlWalletAmount');
+    if (el6) el6.textContent = formatWalletAmount(balance);
+    const el7 = document.getElementById('visaWalletAmount');
+    if (el7) el7.textContent = formatWalletAmount(balance);
+    const el8 = document.getElementById('headerWalletAmount');
+    if (el8) el8.textContent = formatWalletAmount(balance);
   }
   let userBalanceUnsub = null;
   function listenUserBalance(uid) {
@@ -5873,7 +6203,7 @@
       await updateDoc(doc(db, 'users', user.uid), { balance: increment(amount) });
       await deleteDoc(codeRef);
 
-      status.textContent = `تم! اتضاف ${amount} EGP لرصيدك ✅`;
+      status.textContent = `تم! اتضاف ${amount} EGP لرصيدك`;
       status.style.color = '#6fcf3a';
       input.value = '';
     } catch (err) {
@@ -5952,7 +6282,7 @@
   // لو مش مسجل دخول: بيرجع Guest
   function getCustomerName() {
     const user = auth.currentUser;
-    if (user) return user.displayName || user.email || 'Guest';
+    if (user) return user.displayName || shownIdentity(user) || 'Guest';
     return 'Guest';
   }
   window.getCustomerName = getCustomerName;
@@ -5976,7 +6306,7 @@
       }
       await addDoc(collection(db, 'orders'), {
         uid: user ? user.uid : '',
-        customerName: user ? (user.displayName || user.email || 'عميل') : 'Guest',
+        customerName: user ? (user.displayName || shownIdentity(user) || 'عميل') : 'Guest',
         status: 'new',
         title: title || 'طلب',
         quantity: quantity || 1,
@@ -6076,47 +6406,74 @@
     }
   };
 
+  // ============ تسجيل بدون إيميل: اسم المستخدم بيتحول جوه فايربيز لإيميل داخلي وهمي (مش بيتبعتله حاجة ومش بنطلب إيميل من العميل) ============
+  const USERNAME_EMAIL_DOMAIN = 'users.kingcat.app';
+  function usernameToEmail(username) { return username + '@' + USERNAME_EMAIL_DOMAIN; }
+  function isUsernameEmail(email) { return typeof email === 'string' && email.toLowerCase().endsWith('@' + USERNAME_EMAIL_DOMAIN); }
+  function usernameFromEmail(email) { return email.slice(0, email.length - USERNAME_EMAIL_DOMAIN.length - 1); }
+  // اللي بيظهر للعميل بدل الإيميل الوهمي
+  function shownIdentity(user) {
+    if (!user) return '';
+    if (isUsernameEmail(user.email)) return '@' + usernameFromEmail(user.email);
+    return user.email || user.displayName || '';
+  }
+  window.shownIdentity = shownIdentity;
+
   window.submitEmailAuth = async function () {
-    const email = document.getElementById('authEmailInput').value.trim();
+    const identRaw = document.getElementById('authEmailInput').value.trim();
     const password = document.getElementById('authPasswordInput').value;
     const nickname = document.getElementById('authNicknameInput').value.trim();
     const submitBtn = document.getElementById('authSubmitBtn');
 
-    if (!email || !password) {
-      setStatus('من فضلك املأ البريد الإلكتروني وكلمة المرور', 'err');
+    if (!identRaw || !password) {
+      setStatus('من فضلك اكتب اسم المستخدم وكلمة المرور', 'err');
       return;
     }
-    if (currentAuthTab === 'register' && !nickname) {
-      setStatus('من فضلك اكتب لقبك', 'err');
-      return;
-    }
+    const looksLikeEmail = identRaw.includes('@');
+    let loginEmail;
+    let usernameForDoc = null;
+
     if (currentAuthTab === 'register') {
-      const strongEnough = password.length >= 8;
-      if (!strongEnough) {
-        setStatus('كلمة المرور لازم تكون 8 أحرف على الأقل', 'err');
+      if (!nickname) { setStatus('من فضلك اكتب لقبك', 'err'); return; }
+      const username = identRaw.toLowerCase();
+      if (looksLikeEmail || !/^[a-z0-9_]{3,20}$/.test(username)) {
+        setStatus('اسم المستخدم لازم يكون حروف إنجليزي وأرقام و _ بس، من 3 لـ 20 حرف، من غير مسافات أو @', 'err');
         return;
       }
+      if (password.length < 8) { setStatus('كلمة المرور لازم تكون 8 أحرف على الأقل', 'err'); return; }
+      loginEmail = usernameToEmail(username);
+      usernameForDoc = username;
+    } else {
+      // دخول: لو كتب إيميل (حساب قديم) بنستخدمه زي ما هو، غير كده بنحوّل اليوزر للإيميل الداخلي
+      loginEmail = looksLikeEmail ? identRaw : usernameToEmail(identRaw.toLowerCase());
     }
 
     submitBtn.disabled = true;
     setStatus('جاري المعالجة...', '');
     try {
       if (currentAuthTab === 'register') {
-        const cred = await createUserWithEmailAndPassword(auth, email, password);
+        const cred = await createUserWithEmailAndPassword(auth, loginEmail, password);
         await updateProfile(cred.user, { displayName: nickname });
         await cred.user.reload();
         refreshProfileDisplays(auth.currentUser);
         try {
-          await setDoc(doc(db, "users", cred.user.uid), { displayName: nickname }, { merge: true });
+          await setDoc(doc(db, "users", cred.user.uid), { displayName: nickname, username: usernameForDoc }, { merge: true });
         } catch (e) {
           console.error('تعذر حفظ اللقب في قاعدة البيانات:', e);
         }
       } else {
-        await signInWithEmailAndPassword(auth, email, password);
+        await signInWithEmailAndPassword(auth, loginEmail, password);
       }
       closeLoginModal();
     } catch (err) {
-      setStatus(translateAuthError(err), 'err');
+      const code = err && err.code ? err.code : '';
+      if (currentAuthTab === 'register' && code.includes('email-already-in-use')) {
+        setStatus('اسم المستخدم ده مستخدم قبل كده، اختار اسم تاني', 'err');
+      } else if (currentAuthTab === 'login' && (code.includes('user-not-found') || code.includes('invalid-credential') || code.includes('wrong-password') || code.includes('invalid-email'))) {
+        setStatus('اسم المستخدم أو كلمة المرور غلط', 'err');
+      } else {
+        setStatus(translateAuthError(err), 'err');
+      }
     } finally {
       submitBtn.disabled = false;
     }
@@ -6139,7 +6496,7 @@
     const reauthBox = document.getElementById('eaReauthBox');
 
     if (!user) return;
-    if (emailDisplay) emailDisplay.textContent = user.email || 'غير متاح';
+    if (emailDisplay) emailDisplay.textContent = shownIdentity(user) || 'غير متاح';
     if (nicknameInput) nicknameInput.value = user.displayName || '';
     eaOriginalNickname = user.displayName || '';
     if (reauthBox) reauthBox.style.display = 'none';
@@ -6255,7 +6612,7 @@
   // بتحدّث اسم اليوزر في كل الأماكن الظاهر فيها (الهيدر، المنيو الجانبي، صفحة الإعدادات) من غير ما نعيد تحميل الصفحة
   function refreshProfileDisplays(user) {
     if (!user) return;
-    const label = user.displayName || user.email || 'حسابي';
+    const label = user.displayName || shownIdentity(user) || 'حسابي';
     const shortLabel = label.length > 14 ? label.slice(0, 14) + '…' : label;
     const btnText = document.getElementById('headerLoginBtnText');
     const headerIcon = document.getElementById('headerProfileIcon');
@@ -6296,7 +6653,7 @@
     const userIconSvgLarge = '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>';
 
     if (user) {
-      const label = user.displayName || user.email || 'حسابي';
+      const label = user.displayName || shownIdentity(user) || 'حسابي';
       const shortLabel = label.length > 14 ? label.slice(0, 14) + '…' : label;
       window.isLoggedIn = true;
       if (btnText) btnText.style.display = 'none';
@@ -6306,7 +6663,7 @@
       if (navIcon) navIcon.textContent = label.trim().charAt(0).toUpperCase();
       if (formView) formView.style.display = 'none';
       if (accountView) accountView.style.display = 'block';
-      if (emailText) emailText.textContent = user.email || user.displayName || '';
+      if (emailText) emailText.textContent = shownIdentity(user);
       if (settingsIcon) settingsIcon.textContent = label.trim().charAt(0).toUpperCase();
       if (settingsName) settingsName.textContent = label;
 
@@ -6332,6 +6689,7 @@
     // نظهر زرار الدخول بس بعد ما نتأكد من الحالة الحقيقية (مسجل ولا لأ)
     // عشان منورّيش "مش مسجل" للحظة قبل ما يترجع "مسجل" — بيمنع الفلاش
     if (document.getElementById('headerLoginBtn')) document.getElementById('headerLoginBtn').classList.add('auth-ready');
+    if (document.getElementById('headerWalletChip')) document.getElementById('headerWalletChip').classList.add('auth-ready');
 
     // بعد ما نعرف حالة تسجيل الدخول الحقيقية، نعيد رسم كل الفواتير المفتوحة —
     // عشان سطر الكاش باك يتحدث فورًا ومايفضلش يقول "سجل دخول" غلط للمسجلين
@@ -6411,7 +6769,7 @@
 })();
 </script>
 
-<!-- منع اسكرول الصفحة اللي ورا لما تفتح أي مودال "شرح" (📖) — يفضل بس نص الشرح هو اللي ممكن يتاسكرول لو كان طويل -->
+<!-- منع اسكرول الصفحة اللي ورا لما تفتح أي مودال "شرح" () — يفضل بس نص الشرح هو اللي ممكن يتاسكرول لو كان طويل -->
 <script>
 (function(){
   function anyExplainModalOpen() {
