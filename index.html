@@ -62,8 +62,8 @@
       --sky-mid: #03142c;
       --black:   linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 100%);
       --white:   #f5f3ee;
-      --gold:    #ff2d78;
-      --gold-lt: #ff6aa5;
+      --gold:    #dc2626;
+      --gold-lt: #ef4444;
       --gray:    #2a2a2a;
       --muted:   #888;
       --radius:  12px;
@@ -73,11 +73,11 @@
 
     body {
       background:
-        radial-gradient(circle at 85% 15%, rgba(255,45,120,.28) 0%, transparent 62%),
+        radial-gradient(circle at 85% 15%, rgba(220,38,38,.28) 0%, transparent 62%),
         radial-gradient(circle at 90% 85%, rgba(96,165,250,.30) 0%, transparent 60%),
-        radial-gradient(circle at 10% 85%, rgba(255,45,120,.24) 0%, transparent 60%),
+        radial-gradient(circle at 10% 85%, rgba(220,38,38,.24) 0%, transparent 60%),
         radial-gradient(circle at 15% 10%, rgba(96,165,250,.26) 0%, transparent 60%),
-        radial-gradient(circle at 50% 50%, rgba(255,45,120,.12) 0%, transparent 70%),
+        radial-gradient(circle at 50% 50%, rgba(220,38,38,.12) 0%, transparent 70%),
         #0b1220;
       color: var(--white);
       font-family: 'Cairo', sans-serif;
@@ -101,7 +101,7 @@
       height: 70px;
       background: linear-gradient(120deg, rgba(11,18,32,.94) 0%, rgba(30,15,35,.94) 50%, rgba(11,18,32,.94) 100%);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255,45,120,.35);
+      border-bottom: 1px solid rgba(220,38,38,.35);
       /* Perf: keep this fixed, blurred header on its own compositor layer
          so it's cheap during page scroll instead of being redrawn every frame. */
       transform: translateZ(0);
@@ -123,7 +123,7 @@
       display: block;
       width: 26px;
       height: 2px;
-      background: #ff2d78;
+      background: #dc2626;
       border-radius: 2px;
       transition: transform .3s, opacity .3s;
     }
@@ -152,7 +152,7 @@
       height: 100dvh;
       width: 65%;
       background: #0b1220;
-      border-left: 1px solid rgba(255,45,120,.25);
+      border-left: 1px solid rgba(220,38,38,.25);
       box-shadow: -8px 0 32px rgba(0,0,0,.9);
       display: flex;
       flex-direction: column;
@@ -186,10 +186,10 @@
       text-decoration: none;
       font-weight: 600;
       font-size: 1rem;
-      border-bottom: 1px solid rgba(255,45,120,.1);
+      border-bottom: 1px solid rgba(220,38,38,.1);
       transition: color .2s, background .2s;
     }
-    .nav-menu a:hover { color: #ff2d78; background: rgba(255,45,120,.05); }
+    .nav-menu a:hover { color: #dc2626; background: rgba(220,38,38,.05); }
     .nav-menu a:last-child { border-bottom: none; }
 
     /* site toast — small popup message, used e.g. when settings need login */
@@ -199,7 +199,7 @@
       bottom: 28px;
       transform: translateX(-50%) translateY(20px);
       background: #0b1220;
-      border: 1px solid rgba(255,45,120,.5);
+      border: 1px solid rgba(220,38,38,.5);
       color: var(--white);
       font-weight: 700;
       font-size: .92rem;
@@ -227,17 +227,17 @@
       gap: 8px;
       padding: 44px 8% 20px !important;
       text-align: center;
-      background: rgba(255,45,120,.07);
-      border-bottom: 1px solid rgba(255,45,120,.2) !important;
+      background: rgba(220,38,38,.07);
+      border-bottom: 1px solid rgba(220,38,38,.2) !important;
     }
-    .nav-menu-profile:hover { color: #ff2d78 !important; background: rgba(255,45,120,.13); }
+    .nav-menu-profile:hover { color: #dc2626 !important; background: rgba(220,38,38,.13); }
     .nav-profile-icon {
       width: 48px;
       height: 48px;
       border-radius: 50%;
-      background: rgba(255,45,120,.15);
-      border: 1.5px solid rgba(255,45,120,.5);
-      color: #ff2d78;
+      background: rgba(220,38,38,.15);
+      border: 1.5px solid rgba(220,38,38,.5);
+      color: #dc2626;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -246,7 +246,7 @@
       flex-shrink: 0;
     }
     .nav-menu-profile .nav-profile-text {
-      color: #ff2d78;
+      color: #dc2626;
       font-weight: 800;
       font-size: .92rem;
     }
@@ -276,11 +276,11 @@
     /* ── SETTINGS PAGE — soft background system ── */
     #settingsPage {
       background:
-        radial-gradient(circle at 85% 15%, rgba(255,45,120,.18) 0%, transparent 62%),
+        radial-gradient(circle at 85% 15%, rgba(220,38,38,.18) 0%, transparent 62%),
         radial-gradient(circle at 90% 85%, rgba(96,165,250,.16) 0%, transparent 60%),
-        radial-gradient(circle at 10% 85%, rgba(255,45,120,.15) 0%, transparent 60%),
+        radial-gradient(circle at 10% 85%, rgba(220,38,38,.15) 0%, transparent 60%),
         radial-gradient(circle at 15% 10%, rgba(96,165,250,.14) 0%, transparent 60%),
-        radial-gradient(circle at 50% 50%, rgba(255,45,120,.07) 0%, transparent 70%),
+        radial-gradient(circle at 50% 50%, rgba(220,38,38,.07) 0%, transparent 70%),
         #12182a;
     }
     #settingsPage .rpage-header {
@@ -305,11 +305,11 @@
     /* ── EDIT PROFILE PAGE — soft background system, no black header bar ── */
     #editAccountPage {
       background:
-        radial-gradient(circle at 85% 15%, rgba(255,45,120,.18) 0%, transparent 62%),
+        radial-gradient(circle at 85% 15%, rgba(220,38,38,.18) 0%, transparent 62%),
         radial-gradient(circle at 90% 85%, rgba(96,165,250,.16) 0%, transparent 60%),
-        radial-gradient(circle at 10% 85%, rgba(255,45,120,.15) 0%, transparent 60%),
+        radial-gradient(circle at 10% 85%, rgba(220,38,38,.15) 0%, transparent 60%),
         radial-gradient(circle at 15% 10%, rgba(96,165,250,.14) 0%, transparent 60%),
-        radial-gradient(circle at 50% 50%, rgba(255,45,120,.07) 0%, transparent 70%),
+        radial-gradient(circle at 50% 50%, rgba(220,38,38,.07) 0%, transparent 70%),
         #12182a;
     }
     #editAccountPage .rpage-header {
@@ -323,8 +323,8 @@
     #editAccountPage .oaccount-section {
       gap: 10px;
     }
-    #editAccountPage .olabel { color: #ff2d78; }
-    #editAccountPage .oinput:focus { border-color: #ff2d78; }
+    #editAccountPage .olabel { color: #dc2626; }
+    #editAccountPage .oinput:focus { border-color: #dc2626; }
 
     /* ── ROBLOX YELLOW BACKGROUND ── */
     #robloxPage {
@@ -384,8 +384,8 @@
     }
     #channelsPage {
       background:
-        radial-gradient(circle at 18% 18%, rgba(255,45,120,.18) 0%, transparent 55%),
-        radial-gradient(circle at 85% 80%, rgba(255,45,120,.14) 0%, transparent 55%),
+        radial-gradient(circle at 18% 18%, rgba(220,38,38,.18) 0%, transparent 55%),
+        radial-gradient(circle at 85% 80%, rgba(220,38,38,.14) 0%, transparent 55%),
         var(--black);
     }
     .rpage-tabs, .rpage-panels { position: relative; z-index: 1; }
@@ -400,8 +400,8 @@
       overflow: hidden;
       margin: 4px auto 22px;
       z-index: 1;
-      box-shadow: 0 10px 30px rgba(0,0,0,.4), 0 0 22px rgba(255,45,120,.2);
-      border: 1px solid rgba(255,45,120,.3);
+      box-shadow: 0 10px 30px rgba(0,0,0,.4), 0 0 22px rgba(220,38,38,.2);
+      border: 1px solid rgba(220,38,38,.3);
       touch-action: pan-y;
     }
     .offer-slide {
@@ -422,10 +422,10 @@
       transform: scale(1);
       pointer-events: auto;
     }
-    .offer-slide.o1 { background: linear-gradient(120deg, #0b1220, #ff2d78 70%, #60a5fa); }
-    .offer-slide.o2 { background: linear-gradient(120deg, #0b1220, #ff2d78 70%, #60a5fa); }
-    .offer-slide.o3 { background: linear-gradient(120deg, #0b1220, #ff2d78 70%, #60a5fa); }
-    .offer-slide.o4 { background: linear-gradient(120deg, #0b1220, #ff2d78 70%, #60a5fa); }
+    .offer-slide.o1 { background: linear-gradient(120deg, #0b1220, #dc2626 70%, #60a5fa); }
+    .offer-slide.o2 { background: linear-gradient(120deg, #0b1220, #dc2626 70%, #60a5fa); }
+    .offer-slide.o3 { background: linear-gradient(120deg, #0b1220, #dc2626 70%, #60a5fa); }
+    .offer-slide.o4 { background: linear-gradient(120deg, #0b1220, #dc2626 70%, #60a5fa); }
     .offer-slide::before {
       content: "";
       position: absolute;
@@ -437,7 +437,7 @@
       position: absolute;
       top: 10px;
       right: 14px;
-      background: #ff2d78;
+      background: #dc2626;
       color: #fff;
       font-family: 'Cairo', sans-serif;
       font-weight: 900;
@@ -478,11 +478,11 @@
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: rgba(255,45,120,.4);
+      background: rgba(220,38,38,.4);
       transition: background .3s, width .3s;
     }
     .offer-dot.active {
-      background: #ff2d78;
+      background: #dc2626;
       width: 18px;
       border-radius: 4px;
     }
@@ -498,12 +498,12 @@
       width: 9px;
       height: 9px;
       border-radius: 50%;
-      background: rgba(255,45,120,.4);
+      background: rgba(220,38,38,.4);
       transition: background .3s, width .3s;
       cursor: pointer;
     }
     .games-dot.active {
-      background: #ff2d78;
+      background: #dc2626;
       width: 24px;
       border-radius: 5px;
     }
@@ -599,15 +599,15 @@
       border: 2px solid transparent;
       background:
         linear-gradient(#0b1220, #0b1220) padding-box,
-        linear-gradient(135deg, #ff2d78 0%, #ff6aa5 55%, #60a5fa 100%) border-box;
-      box-shadow: 0 0 10px rgba(255,45,120,.35), 0 0 22px rgba(96,165,250,.25);
+        linear-gradient(135deg, #dc2626 0%, #ef4444 55%, #60a5fa 100%) border-box;
+      box-shadow: 0 0 10px rgba(220,38,38,.35), 0 0 22px rgba(96,165,250,.25);
       margin-bottom: 56px;
       transition: transform .3s, box-shadow .3s;
     }
     @media (hover: hover) and (pointer: fine) {
       .game-card:hover {
         transform: scale(1.04);
-        box-shadow: 0 0 16px rgba(255,45,120,.5), 0 0 30px rgba(96,165,250,.4), 0 8px 32px rgba(0,0,0,.5);
+        box-shadow: 0 0 16px rgba(220,38,38,.5), 0 0 30px rgba(96,165,250,.4), 0 8px 32px rgba(0,0,0,.5);
       }
     }
 
@@ -652,7 +652,7 @@
     #fifatabMenu .rtab-menu-item:hover { background: rgba(111,207,58,.12) !important; }
     #fifatabMenu .rtab-menu-item.active { color: #6fcf3a !important; background: rgba(111,207,58,.18) !important; }
     /* Edit Profile page — purple theme override */
-    #editAccountPage .osave-btn { background: rgba(255,45,120,.15); border-color: #ff2d78; color: #ff2d78; }
+    #editAccountPage .osave-btn { background: rgba(220,38,38,.15); border-color: #dc2626; color: #dc2626; }
     /* Roblox blue theme override — no red/pink anywhere on this page */
     #robloxPage {
       --gold: #2563eb;
@@ -784,11 +784,11 @@
 
     #mobileGamesAllPage {
       background:
-        radial-gradient(circle at 85% 15%, rgba(255,45,120,.28) 0%, transparent 62%),
+        radial-gradient(circle at 85% 15%, rgba(220,38,38,.28) 0%, transparent 62%),
         radial-gradient(circle at 90% 85%, rgba(96,165,250,.30) 0%, transparent 60%),
-        radial-gradient(circle at 10% 85%, rgba(255,45,120,.24) 0%, transparent 60%),
+        radial-gradient(circle at 10% 85%, rgba(220,38,38,.24) 0%, transparent 60%),
         radial-gradient(circle at 15% 10%, rgba(96,165,250,.26) 0%, transparent 60%),
-        radial-gradient(circle at 50% 50%, rgba(255,45,120,.12) 0%, transparent 70%),
+        radial-gradient(circle at 50% 50%, rgba(220,38,38,.12) 0%, transparent 70%),
         #0b1220;
     }
     #mobileGamesAllPage .rpage-header {
@@ -1009,11 +1009,11 @@
     /* ── MY ORDERS PAGE — soft background system, no black header bar ── */
     #ordersPage {
       background:
-        radial-gradient(circle at 85% 15%, rgba(255,45,120,.18) 0%, transparent 62%),
+        radial-gradient(circle at 85% 15%, rgba(220,38,38,.18) 0%, transparent 62%),
         radial-gradient(circle at 90% 85%, rgba(96,165,250,.16) 0%, transparent 60%),
-        radial-gradient(circle at 10% 85%, rgba(255,45,120,.15) 0%, transparent 60%),
+        radial-gradient(circle at 10% 85%, rgba(220,38,38,.15) 0%, transparent 60%),
         radial-gradient(circle at 15% 10%, rgba(96,165,250,.14) 0%, transparent 60%),
-        radial-gradient(circle at 50% 50%, rgba(255,45,120,.07) 0%, transparent 70%),
+        radial-gradient(circle at 50% 50%, rgba(220,38,38,.07) 0%, transparent 70%),
         #12182a;
     }
     /* طلباتي — صف بديل عن الهيدر: كلمة Back لوحدها بلون بنبي + تغيير الطريقة جنبها */
@@ -1030,20 +1030,20 @@
     }
     #ordersPage .rpage-panels { padding-top: 78px !important; }
     #ordersPage .orders-top-row .rpage-back {
-      border-color: rgba(255,45,120,.5);
-      color: #ff2d78;
+      border-color: rgba(220,38,38,.5);
+      color: #dc2626;
       flex: 0 0 auto;
     }
-    #ordersPage .orders-top-row .rpage-back:hover { background: rgba(255,45,120,.1); }
+    #ordersPage .orders-top-row .rpage-back:hover { background: rgba(220,38,38,.1); }
 
     /* ── BALANCE PAGE — نفس نظام الخلفية والهيدر الشفاف بتاع باقي الصفحات ── */
     #balancePage {
       background:
-        radial-gradient(circle at 85% 15%, rgba(255,45,120,.18) 0%, transparent 62%),
+        radial-gradient(circle at 85% 15%, rgba(220,38,38,.18) 0%, transparent 62%),
         radial-gradient(circle at 90% 85%, rgba(96,165,250,.16) 0%, transparent 60%),
-        radial-gradient(circle at 10% 85%, rgba(255,45,120,.15) 0%, transparent 60%),
+        radial-gradient(circle at 10% 85%, rgba(220,38,38,.15) 0%, transparent 60%),
         radial-gradient(circle at 15% 10%, rgba(96,165,250,.14) 0%, transparent 60%),
-        radial-gradient(circle at 50% 50%, rgba(255,45,120,.07) 0%, transparent 70%),
+        radial-gradient(circle at 50% 50%, rgba(220,38,38,.07) 0%, transparent 70%),
         #12182a;
     }
     #balancePage { z-index: 2100; }
@@ -1061,18 +1061,18 @@
     }
     #balancePage .rpage-panels { padding-top: 56px !important; }
     #balancePage .orders-top-row .rpage-back {
-      border-color: rgba(255,45,120,.5);
-      color: #ff2d78;
+      border-color: rgba(220,38,38,.5);
+      color: #dc2626;
       flex: 0 0 auto;
     }
-    #balancePage .orders-top-row .rpage-back:hover { background: rgba(255,45,120,.1); }
+    #balancePage .orders-top-row .rpage-back:hover { background: rgba(220,38,38,.1); }
     #balancePage .apply-btn {
-      background: rgba(255,45,120,.15);
-      border-color: #ff2d78;
-      color: #ff2d78;
+      background: rgba(220,38,38,.15);
+      border-color: #dc2626;
+      color: #dc2626;
     }
-    #balancePage .apply-btn:hover { background: rgba(255,45,120,.28); }
-    #balancePage .oinput:focus { border-color: #ff2d78; }
+    #balancePage .apply-btn:hover { background: rgba(220,38,38,.28); }
+    #balancePage .oinput:focus { border-color: #dc2626; }
 
     /* PUBG dropdown menu: red instead of blue */
     #pubgtabMenu { border-color: rgba(0,180,216,.4) !important; }
@@ -1154,7 +1154,7 @@
       color: #00b4d8;
     }
     .ptoggle:last-child.active {
-      background: rgba(255,45,120,.12);
+      background: rgba(220,38,38,.12);
       border-color: var(--gold);
       color: var(--gold-lt);
     }
@@ -1183,7 +1183,7 @@
       direction: rtl;
     }
     .pcard:not(.has-qty):hover { border-color: #00b4d8; transform: translateY(-2px); }
-    .pcard.hagz { border-color: rgba(255,45,120,.25); }
+    .pcard.hagz { border-color: rgba(220,38,38,.25); }
     .pcard.hagz:not(.has-qty):hover { border-color: var(--gold); }
     .pcard.has-qty { border-color: var(--gold); background: #1a1a1a; }
     .pcard:active { background: #1a1a1a !important; }
@@ -1221,8 +1221,8 @@
       width: 24px;
       height: 24px;
       border-radius: 6px;
-      border: 1px solid rgba(255,45,120,.5);
-      background: rgba(255,45,120,.1);
+      border: 1px solid rgba(220,38,38,.5);
+      background: rgba(220,38,38,.1);
       color: var(--gold);
       font-size: 1rem;
       font-weight: 900;
@@ -1233,7 +1233,7 @@
       justify-content: center;
       transition: background .15s;
     }
-    .qty-btn:hover { background: rgba(255,45,120,.3); }
+    .qty-btn:hover { background: rgba(220,38,38,.3); }
     .qty-num {
       min-width: 20px;
       text-align: center;
@@ -1482,8 +1482,8 @@
     .com-link.com-link-blue:hover, .com-copy-btn:hover { background: linear-gradient(135deg,#3b82f6,#60a5fa); filter: brightness(1.08); box-shadow: 0 6px 18px rgba(59,130,246,.5); }
     .com-link-blue:active, .com-copy-btn:active { transform: scale(.96); }
     .acc-notice {
-      background: rgba(255,45,120,.08);
-      border: 1px solid rgba(255,45,120,.3);
+      background: rgba(220,38,38,.08);
+      border: 1px solid rgba(220,38,38,.3);
       border-radius: 10px;
       padding: 12px 16px;
       font-size: .88rem;
@@ -1574,9 +1574,9 @@
       padding: 0 9px;
       margin-inline: 8px;
       border-radius: 10px;
-      background: rgba(255,45,120,.1);
-      border: 1.5px solid rgba(255,45,120,.4);
-      color: #ff6aa5;
+      background: rgba(220,38,38,.1);
+      border: 1.5px solid rgba(220,38,38,.4);
+      color: #ef4444;
       font-family: 'Cairo', sans-serif;
       font-weight: 800;
       font-size: .85rem;
@@ -1588,7 +1588,7 @@
       transition: background .2s, opacity .25s ease;
     }
     .header-wallet-chip.auth-ready { opacity: 1; }
-    .header-wallet-chip:hover { background: rgba(255,45,120,.2); }
+    .header-wallet-chip:hover { background: rgba(220,38,38,.2); }
     @media (max-width: 420px) {
       #headerLogoText { transform: translateX(10px) scale(.82) !important; }
     }
@@ -1597,9 +1597,9 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      background: rgba(255,45,120,.1);
-      border: 1.5px solid rgba(255,45,120,.4);
-      color: #ff2d78;
+      background: rgba(220,38,38,.1);
+      border: 1.5px solid rgba(220,38,38,.4);
+      color: #dc2626;
       font-family: 'Cairo', sans-serif;
       font-size: .82rem;
       font-weight: 700;
@@ -1612,7 +1612,7 @@
       opacity: 0;
     }
     .header-login-btn.auth-ready { opacity: 1; }
-    .header-login-btn:hover { background: rgba(255,45,120,.2); }
+    .header-login-btn:hover { background: rgba(220,38,38,.2); }
     .header-login-btn.is-logged-in {
       background: transparent;
       border: none;
@@ -1622,7 +1622,7 @@
     .header-login-btn .li-avatar {
       width: 18px; height: 18px;
       border-radius: 50%;
-      background: #ff2d78;
+      background: #dc2626;
       color: #04101f;
       font-size: .68rem;
       font-weight: 900;
@@ -1784,7 +1784,7 @@
 
     /* ── LOGIN PAGE REDESIGN (Welcome / navy+pink style) ── */
     #loginModal.rpage {
-      background: radial-gradient(120% 90% at 12% 0%, rgba(255,45,120,.16), transparent 55%),
+      background: radial-gradient(120% 90% at 12% 0%, rgba(220,38,38,.16), transparent 55%),
                   radial-gradient(120% 90% at 90% 10%, rgba(96,165,250,.14), transparent 55%),
                   #0b1220;
     }
@@ -1806,9 +1806,9 @@
     }
     #loginModal .login-top-right .rtab-select-label {
       font-size: .95rem;
-      background: rgba(255,45,120,.08);
-      border: 1.5px solid rgba(255,45,120,.4);
-      color: #ff2d78;
+      background: rgba(220,38,38,.08);
+      border: 1.5px solid rgba(220,38,38,.4);
+      color: #dc2626;
       width: 38px;
       height: 38px;
       padding: 0;
@@ -1831,7 +1831,7 @@
       border-radius: 50%;
       background: #0b2a4a;
       border: 2px solid #fff;
-      box-shadow: 0 0 0 2px rgba(255,45,120,.25), 0 6px 14px rgba(255,45,120,.25);
+      box-shadow: 0 0 0 2px rgba(220,38,38,.25), 0 6px 14px rgba(220,38,38,.25);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1844,12 +1844,12 @@
       margin: 0;
       padding: 4px 14px;
       font-size: .72rem;
-      background: rgba(255,45,120,.12);
-      border: 1.5px solid rgba(255,45,120,.4);
-      color: #ff2d78;
+      background: rgba(220,38,38,.12);
+      border: 1.5px solid rgba(220,38,38,.4);
+      color: #dc2626;
       border-radius: 16px;
     }
-    #loginModal .auth-en-badge:hover { background: rgba(255,45,120,.22); }
+    #loginModal .auth-en-badge:hover { background: rgba(220,38,38,.22); }
 
     #loginModal .login-title-row {
       flex-direction: column;
@@ -1877,23 +1877,23 @@
       text-align: right;
     }
     #loginModal .oinput::placeholder { color: #8a8a8a; }
-    #loginModal .oinput:focus { border: 2px solid #ff2d78; padding: 7px 14px; }
+    #loginModal .oinput:focus { border: 2px solid #dc2626; padding: 7px 14px; }
     #loginModal .olabel { color: #ddd; padding: 0 8px; font-size: .74rem; }
     #loginModal .order-form { gap: 6px; margin-top: 2px !important; }
     #loginModal .ofield { gap: 2px; }
     #loginModal .pw-wrap .oinput { padding-left: 40px; }
     #loginModal .pw-wrap .oinput:focus { padding-left: 38px; }
     #loginModal .pw-eye { color: #9a9a9a; }
-    #loginModal .pw-eye.active { color: #ff2d78; }
+    #loginModal .pw-eye.active { color: #dc2626; }
 
     #loginModal .login-submit-btn {
-      background: linear-gradient(90deg, #ff2d78, #ff6aa5);
+      background: linear-gradient(90deg, #dc2626, #ef4444);
       color: #fff;
       border-radius: 20px;
       padding: 9px;
       font-size: .85rem;
       letter-spacing: .04em;
-      box-shadow: 0 6px 14px rgba(255,45,120,.3);
+      box-shadow: 0 6px 14px rgba(220,38,38,.3);
       margin-top: 2px;
     }
     #loginModal .login-submit-btn:hover { opacity: .92; }
@@ -1904,37 +1904,14 @@
 
     #loginModal .login-account-box .login-avatar-wrap { margin-bottom: 18px; }
   </style><body>
-<!-- SUPPLIER ANNOUNCEMENT BAR -->
-<a id="supplierAnnounceBar" href="https://wa.me/201069478690?text=%D8%B9%D8%A7%D9%8A%D8%B2%20%D8%A3%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D9%85%D8%B9%D8%A7%D9%83%D9%85%20%D8%A8%D8%AE%D8%B5%D9%88%D8%B5%20%D8%AA%D9%88%D8%B1%D9%8A%D8%AF%20%D8%B1%D9%88%D8%A8%D9%83%D8%B3%20%2F%20%D8%AC%D9%8A%D9%85%20%D8%A8%D8%A7%D8%B3" target="_blank" rel="noopener noreferrer" style="position:fixed;left:0;right:0;z-index:998;background:linear-gradient(90deg, rgba(255,45,120,.2), rgba(255,45,120,.1));border-bottom:1px solid rgba(255,45,120,.35);backdrop-filter:blur(8px);padding:12px 5%;display:flex;align-items:center;justify-content:center;gap:10px;text-align:center;text-decoration:none;cursor:pointer;">
-  <span style="font-size:.95rem;color:var(--white);font-weight:700;line-height:1.4;">عايزين موردين روبكس جيم باس بسعر كويس، لو انت مورد أو تعرف حد تواصل معنا</span>
-  <span style="flex-shrink:0;width:22px;height:22px;border-radius:50%;border:2px solid #ff2d78;color:#ff2d78;font-size:.85rem;font-weight:800;display:flex;align-items:center;justify-content:center;font-style:italic;font-family:Georgia,'Times New Roman',serif;">i</span>
-</a>
-<script>
-  // ============ بيحط شريط "عايزين موردين" تحت الهيدر مباشرة، وبيزود مسافة الـ hero عشان محدش يتغطى ============
-  (function () {
-    function adjustForSupplierBar() {
-      var bar = document.getElementById('supplierAnnounceBar');
-      var header = document.querySelector('header');
-      var hero = document.querySelector('.hero');
-      if (!bar || !header) return;
-      var headerHeight = header.offsetHeight;
-      bar.style.top = headerHeight + 'px';
-      var barHeight = bar.offsetHeight;
-      if (hero) hero.style.paddingTop = (100 + barHeight) + 'px';
-    }
-    window.addEventListener('load', adjustForSupplierBar);
-    window.addEventListener('resize', adjustForSupplierBar);
-    document.addEventListener('DOMContentLoaded', adjustForSupplierBar);
-  })();
-</script>
 <!-- CAT TOAST NOTIFICATION -->
 <div class="site-toast" id="siteToast"></div>
 
 <!-- WALLET LOGIN POPUP -->
 <div id="walletLoginModal" class="ce-modal-overlay" onclick="closeWalletLoginModal()">
-  <div class="ce-modal-box" onclick="event.stopPropagation()" style="text-align:center;border-color:rgba(255,45,120,.4);">
+  <div class="ce-modal-box" onclick="event.stopPropagation()" style="text-align:center;border-color:rgba(220,38,38,.4);">
     <p class="explain-intro" style="margin-bottom:16px;font-size:1rem;"><strong id="walletLoginMsg">سجل دخول لمعرفة رصيدك</strong></p>
-    <button type="button" onclick="goToLoginFromWallet()" style="width:100%;background:linear-gradient(90deg,#ff2d78,#ff6aa5);color:#fff;border:none;border-radius:20px;padding:11px;font-family:'Cairo',sans-serif;font-weight:900;font-size:.95rem;cursor:pointer;box-shadow:0 6px 14px rgba(255,45,120,.3);">تسجيل دخول</button>
+    <button type="button" onclick="goToLoginFromWallet()" style="width:100%;background:linear-gradient(90deg,#dc2626,#ef4444);color:#fff;border:none;border-radius:20px;padding:11px;font-family:'Cairo',sans-serif;font-weight:900;font-size:.95rem;cursor:pointer;box-shadow:0 6px 14px rgba(220,38,38,.3);">تسجيل دخول</button>
     <p style="text-align:center;color:var(--muted);font-size:.78rem;margin-top:14px;">اضغط في أي مكان عشان تقفل</p>
   </div>
 </div>
@@ -1947,17 +1924,17 @@
   <div id="headerLogoBox" style="flex:1;height:64px;margin-inline-start:14px;display:flex;align-items:center;justify-content:center;overflow:visible;">
     <span id="headerLogoText" style="letter-spacing:.04em; display:inline-flex; align-items:center; direction:ltr; transform:translateX(10px);">
       <span style="font-family:'Cinzel', serif; font-weight:700; font-size:1.55rem; background:linear-gradient(180deg,#fff8ec 0%,#e8cfa0 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; filter:drop-shadow(0 2px 5px rgba(0,0,0,.4));">King</span>
-      <span style="font-family:'Playfair Display', serif; font-style:italic; font-weight:700; font-size:1.94rem; color:#ff2d78; text-shadow:0 0 10px rgba(255,45,120,.75),0 0 20px rgba(255,45,120,.35); display:inline-block; margin:0 3px;">&amp;</span>
+      <span style="font-family:'Playfair Display', serif; font-style:italic; font-weight:700; font-size:1.94rem; color:#dc2626; text-shadow:0 0 10px rgba(220,38,38,.75),0 0 20px rgba(220,38,38,.35); display:inline-block; margin:0 3px;">&amp;</span>
       <span style="font-family:'Cinzel', serif; font-weight:700; font-size:1.55rem; background:linear-gradient(180deg,#fff8ec 0%,#e8cfa0 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; filter:drop-shadow(0 2px 5px rgba(0,0,0,.4));">Cat</span>
     </span>
   </div>
 
   <div class="header-wallet-chip" id="headerWalletChip" title="رصيدك" onclick="walletChipClick()">
     <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="flex:0 0 auto;">
-      <path d="M5 7.5 L16.2 3.6 a1.6 1.6 0 0 1 2.1 1.5 V7.5" stroke="#ff6aa5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-      <rect x="2.5" y="7.5" width="19" height="13" rx="3.2" fill="rgba(255,45,120,.16)" stroke="#ff6aa5" stroke-width="1.6"/>
-      <rect x="13.6" y="11.6" width="8.9" height="5.2" rx="2.6" fill="rgba(255,45,120,.35)" stroke="#ff6aa5" stroke-width="1.6"/>
-      <circle cx="17.1" cy="14.2" r="1" fill="#ffe3ee"/>
+      <path d="M5 7.5 L16.2 3.6 a1.6 1.6 0 0 1 2.1 1.5 V7.5" stroke="#ef4444" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="2.5" y="7.5" width="19" height="13" rx="3.2" fill="rgba(220,38,38,.16)" stroke="#ef4444" stroke-width="1.6"/>
+      <rect x="13.6" y="11.6" width="8.9" height="5.2" rx="2.6" fill="rgba(220,38,38,.35)" stroke="#ef4444" stroke-width="1.6"/>
+      <circle cx="17.1" cy="14.2" r="1" fill="#fee2e2"/>
     </svg>
     <span id="headerWalletAmount">0</span>
   </div>
@@ -1982,7 +1959,7 @@
     <span class="nav-profile-text" id="navLoginBtnText">سجل دخول</span>
   </a>
   <a href="javascript:void(0)" onclick="handleSettingsClick()">الإعدادات</a>
-  <a href="javascript:void(0)" id="navBackAdmin" style="display:none;color:#ff2d78;" onclick="sessionStorage.setItem('kc_adminStay','1'); window.location.href='admin.html';">↩️ رجوع لموقع الأدمن</a>
+  <a href="javascript:void(0)" id="navBackAdmin" style="display:none;color:#dc2626;" onclick="sessionStorage.setItem('kc_adminStay','1'); window.location.href='admin.html';">↩️ رجوع لموقع الأدمن</a>
   <a href="javascript:void(0)" onclick="openSiteExplainModal()">الشرح</a>
   <a href="javascript:void(0)" onclick="openChannels()">قنواتنا</a>
   <a href="https://wa.me/201069478690" target="_blank" rel="noopener noreferrer">تواصل معنا</a>
@@ -2002,7 +1979,7 @@
   <!-- LOGIN PAGE (Firebase Auth) — تسجيل الدخول اختياري تمامًا وغير إجباري لإتمام الطلب -->
   <div id="loginModal" class="rpage">
     <div class="login-top-bar">
-      <button class="rpage-back" style="border-color:rgba(255,45,120,.5);color:#ff2d78;" onclick="closeLoginModal()">&#8594; Back</button>
+      <button class="rpage-back" style="border-color:rgba(220,38,38,.5);color:#dc2626;" onclick="closeLoginModal()">&#8594; Back</button>
       <div class="login-top-right">
         <div class="auth-en-badge" id="authFormTitleEn" onclick="switchAuthTab('register')" title="إنشاء حساب">SIGN UP</div>
       </div>
@@ -2016,8 +1993,8 @@
           <div class="login-avatar-wrap">
             <div class="login-avatar-circle">
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="12" cy="8" r="4" fill="#ff2d78"/>
-                <path d="M4 20c0-3.6 3.6-6 8-6s8 2.4 8 6" fill="#ff2d78"/>
+                <circle cx="12" cy="8" r="4" fill="#dc2626"/>
+                <path d="M4 20c0-3.6 3.6-6 8-6s8 2.4 8 6" fill="#dc2626"/>
               </svg>
             </div>
           </div>
@@ -2113,8 +2090,8 @@
 
 
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;position:relative;z-index:1;">
-    <p style="font-size:1.05rem;font-weight:900;letter-spacing:.14em;color:#ff6aa5;text-transform:uppercase;margin:0;">MOBILE GAMES</p>
-    <a href="javascript:void(0)" onclick="openMobileGamesAll()" style="font-size:.82rem;font-weight:800;letter-spacing:.06em;color:#ff6aa5;text-decoration:none;white-space:nowrap;">MORE</a>
+    <p style="font-size:1.05rem;font-weight:900;letter-spacing:.14em;color:#ef4444;text-transform:uppercase;margin:0;">MOBILE GAMES</p>
+    <a href="javascript:void(0)" onclick="openMobileGamesAll()" style="font-size:.82rem;font-weight:800;letter-spacing:.06em;color:#ef4444;text-decoration:none;white-space:nowrap;">MORE</a>
   </div>
 
   <div class="games-grid" id="mobileGamesGrid">
@@ -2297,7 +2274,7 @@
 <!-- MOBILE GAMES — ALL PAGE -->
 <div id="mobileGamesAllPage" class="rpage">
   <div class="rpage-header" style="border-bottom:none;">
-    <button class="rpage-back" style="border-color:rgba(255,45,120,.5);color:#ff2d78;" onclick="closeMobileGamesAll()">&#8594; Back</button>
+    <button class="rpage-back" style="border-color:rgba(220,38,38,.5);color:#dc2626;" onclick="closeMobileGamesAll()">&#8594; Back</button>
   </div>
   <div class="rpage-panels">
     <div class="games-grid" id="mobileGamesAllGrid"></div>
@@ -2340,7 +2317,7 @@
 <!-- CHANNELS PAGE -->
 <div id="channelsPage" class="rpage">
   <div class="rpage-header">
-    <button class="rpage-back" style="border-color:rgba(255,45,120,.5);color:#ff2d78;" onclick="closeChannels()">&#8594; Back</button>
+    <button class="rpage-back" style="border-color:rgba(220,38,38,.5);color:#dc2626;" onclick="closeChannels()">&#8594; Back</button>
   </div>
 
   <div class="rpage-panels" style="display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:16px;padding:24px;">
@@ -2393,7 +2370,7 @@
 <!-- SETTINGS PAGE -->
 <div id="settingsPage" class="rpage">
   <div class="rpage-header" style="border-bottom:none;">
-    <button class="rpage-back" style="border-color:rgba(255,45,120,.5);color:#ff2d78;" onclick="closeSettingsPage()">&#8594; Back</button>
+    <button class="rpage-back" style="border-color:rgba(220,38,38,.5);color:#dc2626;" onclick="closeSettingsPage()">&#8594; Back</button>
   </div>
 
   <div class="rpage-panels" style="display:flex;flex-direction:column;align-items:center;padding:12px 5% 60px;">
@@ -2401,7 +2378,7 @@
 
       <!-- profile -->
       <div style="display:flex;flex-direction:column;align-items:center;gap:12px;padding-bottom:28px;">
-        <span class="nav-profile-icon" id="settingsProfileIcon" style="width:72px;height:72px;font-size:1.6rem;border-width:2px;color:#ff2d78;border-color:rgba(255,45,120,.5);background:rgba(255,45,120,.15);">
+        <span class="nav-profile-icon" id="settingsProfileIcon" style="width:72px;height:72px;font-size:1.6rem;border-width:2px;color:#dc2626;border-color:rgba(220,38,38,.5);background:rgba(220,38,38,.15);">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
         </span>
         <span id="settingsProfileName" style="font-weight:800;font-size:1.15rem;color:var(--white);">سجل دخول</span>
@@ -2446,7 +2423,7 @@
       <div style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:0;">
         <span style="font-size:1.9rem;color:var(--muted);font-weight:800;">&nbsp;</span>
         <div style="display:flex;align-items:baseline;gap:8px;">
-          <span id="balancePageValue" style="font-weight:800;font-size:5rem;color:#ff2d78;">0</span>
+          <span id="balancePageValue" style="font-weight:800;font-size:5rem;color:#dc2626;">0</span>
           <span style="font-weight:700;font-size:1.1rem;color:var(--muted);">EGP</span>
         </div>
       </div>
@@ -2468,7 +2445,7 @@
 <!-- EDIT ACCOUNT PAGE -->
 <div id="editAccountPage" class="rpage">
   <div class="rpage-header" style="border-bottom:none;">
-    <button class="rpage-back" style="border-color:rgba(255,45,120,.5);color:#ff2d78;" onclick="closeEditAccountPage()">&#8594; Back</button>
+    <button class="rpage-back" style="border-color:rgba(220,38,38,.5);color:#dc2626;" onclick="closeEditAccountPage()">&#8594; Back</button>
   </div>
 
   <div class="rpage-panels" style="display:flex;flex-direction:column;align-items:center;padding:12px 5% 60px;">
@@ -2533,7 +2510,7 @@
 
       <div id="orderDetailModal" class="ce-modal-overlay" onclick="closeOrderDetailModal()">
         <div class="ce-modal-box" onclick="event.stopPropagation()">
-          <div id="orderDetailTitle" style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:#ff2d78;letter-spacing:.03em;margin-bottom:14px;text-align:center;"></div>
+          <div id="orderDetailTitle" style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:#dc2626;letter-spacing:.03em;margin-bottom:14px;text-align:center;"></div>
           <div id="orderDetailBody" style="white-space:pre-wrap;font-family:'Cairo',sans-serif;font-size:.9rem;line-height:1.9;color:var(--white);text-align:right;"></div>
           <p style="text-align:center;color:var(--muted);font-size:.78rem;margin-top:18px;">اضغط في أي مكان عشان تقفل</p>
         </div>
@@ -6038,8 +6015,8 @@
     val = val || 0;
     if (val <= 0) return '';
     if (!window.isLoggedIn) {
-      return `<div style="display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:5px 12px;border-radius:20px;background:linear-gradient(135deg,rgba(255,45,120,.18),rgba(255,45,120,.08));border:1px solid rgba(255,45,120,.4);">
-        <span style="font-family:'Cairo',sans-serif;font-weight:800;font-size:.78rem;letter-spacing:.3px;color:#ff2d78;">سجل دخول عشان تاخد كاش باك على شحنتك</span>
+      return `<div style="display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:5px 12px;border-radius:20px;background:linear-gradient(135deg,rgba(220,38,38,.18),rgba(220,38,38,.08));border:1px solid rgba(220,38,38,.4);">
+        <span style="font-family:'Cairo',sans-serif;font-weight:800;font-size:.78rem;letter-spacing:.3px;color:#dc2626;">سجل دخول عشان تاخد كاش باك على شحنتك</span>
       </div>`;
     }
     return `<div style="display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:5px 12px;border-radius:20px;background:linear-gradient(135deg,rgba(111,207,58,.18),rgba(111,207,58,.08));border:1px solid rgba(111,207,58,.4);">
