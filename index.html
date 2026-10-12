@@ -1933,7 +1933,7 @@
 <!-- WALLET LOGIN POPUP -->
 <div id="walletLoginModal" class="ce-modal-overlay" onclick="closeWalletLoginModal()">
   <div class="ce-modal-box" onclick="event.stopPropagation()" style="text-align:center;border-color:rgba(255,45,120,.4);">
-    <p class="explain-intro" style="margin-bottom:16px;font-size:1rem;"><strong>سجل دخول لمعرفة رصيدك</strong></p>
+    <p class="explain-intro" style="margin-bottom:16px;font-size:1rem;"><strong id="walletLoginMsg">سجل دخول لمعرفة رصيدك</strong></p>
     <button type="button" onclick="goToLoginFromWallet()" style="width:100%;background:linear-gradient(90deg,#ff2d78,#ff6aa5);color:#fff;border:none;border-radius:20px;padding:11px;font-family:'Cairo',sans-serif;font-weight:900;font-size:.95rem;cursor:pointer;box-shadow:0 6px 14px rgba(255,45,120,.3);">تسجيل دخول</button>
     <p style="text-align:center;color:var(--muted);font-size:.78rem;margin-top:14px;">اضغط في أي مكان عشان تقفل</p>
   </div>
@@ -2557,6 +2557,7 @@
         <button class="rtab-menu-item" id="brawltab-item-gems" onclick="selectBrawlTab(this,'gems','جواهر')">جواهر</button>
       </div>
     </div>
+    <div class="rtab-select-label" id="brawlBookBtn" style="background:rgba(244,161,0,.08); border-color:rgba(244,161,0,.4); color:#f4a100; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hideBrawlBubble('book'); openBrawlExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
     <div class="rtab-select-label" id="brawlWalletChip" title="رصيدك" onclick="walletChipClick()" style="cursor:pointer; background:rgba(244,161,0,.08); border-color:rgba(244,161,0,.4); color:#f4a100; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:0 10px; flex:0 0 auto; direction:ltr;">
       <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="flex:0 0 auto;">
         <path d="M5 7.5 L16.2 3.6 a1.6 1.6 0 0 1 2.1 1.5 V7.5" stroke="#f4a100" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -2566,13 +2567,12 @@
       </svg>
       <span id="brawlWalletAmount" style="font-weight:800;font-size:.9rem;line-height:1;">0</span>
     </div>
-    <div class="rtab-select-label" id="brawlBookBtn" style="background:rgba(244,161,0,.08); border-color:rgba(244,161,0,.4); color:#f4a100; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hideBrawlBubble('book'); openBrawlExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
-    <div id="brawlBubbleRow" style="position:absolute;top:100%;left:4%;right:4%;margin-top:-4px;display:flex;gap:8px;direction:ltr;z-index:5;pointer-events:none;">
-      <div id="brawlHelpBubble" onclick="hideBrawlBubble('book'); openBrawlExplainModal()" style="pointer-events:auto;position:relative;flex:0 0 120px;min-width:0;direction:rtl;text-align:center;background:#f4a100;color:#0d0d0d;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(244,161,0,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+    <div id="brawlBubbleRow" style="position:absolute;top:100%;left:0;right:0;height:0;margin-top:-4px;z-index:5;pointer-events:none;">
+      <div id="brawlHelpBubble" onclick="hideBrawlBubble('book'); openBrawlExplainModal()" style="pointer-events:auto;position:absolute;top:0;left:0;width:140px;direction:rtl;text-align:center;background:#f4a100;color:#0d0d0d;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(244,161,0,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
         اضغط هنا لرؤية شرح الطريقة
         <span id="brawlHelpArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#f4a100;transform:rotate(45deg);"></span>
       </div>
-      <div id="brawlMethodBubble" onclick="hideBrawlBubble('method'); toggleBrawlTabMenu()" style="pointer-events:auto;position:relative;flex:0 0 auto;white-space:nowrap;direction:rtl;text-align:center;background:#f4a100;color:#0d0d0d;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(244,161,0,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+      <div id="brawlMethodBubble" onclick="hideBrawlBubble('method'); toggleBrawlTabMenu()" style="pointer-events:auto;position:absolute;top:0;left:0;width:122px;direction:rtl;text-align:center;background:#f4a100;color:#0d0d0d;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(244,161,0,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
         اضغط هنا لتغيير طريقة الشحن
         <span id="brawlMethodArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#f4a100;transform:rotate(45deg);"></span>
       </div>
@@ -2642,6 +2642,7 @@
         <button class="rtab-menu-item" id="pestab-item-iphone" onclick="selectPesTab(this,'iphone','ايفون')">ايفون</button>
       </div>
     </div>
+    <div class="rtab-select-label" id="pesBookBtn" style="background:rgba(111,207,58,.08); border-color:rgba(111,207,58,.4); color:#6fcf3a; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hidePesBubble('book'); openPesActiveExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
     <div class="rtab-select-label" id="pesWalletChip" title="رصيدك" onclick="walletChipClick()" style="cursor:pointer; background:rgba(111,207,58,.08); border-color:rgba(111,207,58,.4); color:#6fcf3a; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:0 10px; flex:0 0 auto; direction:ltr;">
       <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="flex:0 0 auto;">
         <path d="M5 7.5 L16.2 3.6 a1.6 1.6 0 0 1 2.1 1.5 V7.5" stroke="#6fcf3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -2651,13 +2652,12 @@
       </svg>
       <span id="pesWalletAmount" style="font-weight:800;font-size:.9rem;line-height:1;">0</span>
     </div>
-    <div class="rtab-select-label" id="pesBookBtn" style="background:rgba(111,207,58,.08); border-color:rgba(111,207,58,.4); color:#6fcf3a; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hidePesBubble('book'); openPesActiveExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
-    <div id="pesBubbleRow" style="position:absolute;top:100%;left:4%;right:4%;margin-top:-4px;display:flex;gap:8px;direction:ltr;z-index:5;pointer-events:none;">
-      <div id="pesHelpBubble" onclick="hidePesBubble('book'); openPesActiveExplainModal()" style="pointer-events:auto;position:relative;flex:0 0 120px;min-width:0;direction:rtl;text-align:center;background:#6fcf3a;color:#0d0d0d;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(111,207,58,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+    <div id="pesBubbleRow" style="position:absolute;top:100%;left:0;right:0;height:0;margin-top:-4px;z-index:5;pointer-events:none;">
+      <div id="pesHelpBubble" onclick="hidePesBubble('book'); openPesActiveExplainModal()" style="pointer-events:auto;position:absolute;top:0;left:0;width:140px;direction:rtl;text-align:center;background:#6fcf3a;color:#0d0d0d;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(111,207,58,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
         اضغط هنا لرؤية شرح الطريقة
         <span id="pesHelpArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#6fcf3a;transform:rotate(45deg);"></span>
       </div>
-      <div id="pesMethodBubble" onclick="hidePesBubble('method'); togglePesTabMenu()" style="pointer-events:auto;position:relative;flex:0 0 auto;white-space:nowrap;direction:rtl;text-align:center;background:#6fcf3a;color:#0d0d0d;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(111,207,58,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+      <div id="pesMethodBubble" onclick="hidePesBubble('method'); togglePesTabMenu()" style="pointer-events:auto;position:absolute;top:0;left:0;width:122px;direction:rtl;text-align:center;background:#6fcf3a;color:#0d0d0d;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(111,207,58,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
         اضغط هنا لتغيير طريقة الشحن
         <span id="pesMethodArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#6fcf3a;transform:rotate(45deg);"></span>
       </div>
@@ -2745,6 +2745,7 @@
         <button class="rtab-menu-item active" id="visatab-item-visa" onclick="selectVisaTab(this,'visa','Visa Recharge')">Visa Recharge</button>
       </div>
     </div>
+    <div class="rtab-select-label" id="visaBookBtn" style="background:rgba(96,165,250,.08); border-color:rgba(96,165,250,.4); color:#60a5fa; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hideVisaBubble(); openVisaExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
     <div class="rtab-select-label" id="visaWalletChip" title="رصيدك" onclick="walletChipClick()" style="cursor:pointer; background:rgba(96,165,250,.08); border-color:rgba(96,165,250,.4); color:#60a5fa; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:0 10px; flex:0 0 auto; direction:ltr;">
       <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="flex:0 0 auto;">
         <path d="M5 7.5 L16.2 3.6 a1.6 1.6 0 0 1 2.1 1.5 V7.5" stroke="#60a5fa" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -2754,9 +2755,8 @@
       </svg>
       <span id="visaWalletAmount" style="font-weight:800;font-size:.9rem;line-height:1;">0</span>
     </div>
-    <div class="rtab-select-label" id="visaBookBtn" style="background:rgba(96,165,250,.08); border-color:rgba(96,165,250,.4); color:#60a5fa; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hideVisaBubble(); openVisaExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
-    <div id="visaBubbleRow" style="position:absolute;top:100%;left:4%;right:4%;margin-top:-4px;display:flex;gap:8px;direction:ltr;z-index:5;pointer-events:none;">
-      <div id="visaHelpBubble" onclick="hideVisaBubble(); openVisaExplainModal()" style="pointer-events:auto;position:relative;flex:0 0 120px;min-width:0;direction:rtl;text-align:center;background:#2563eb;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(37,99,235,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+    <div id="visaBubbleRow" style="position:absolute;top:100%;left:0;right:0;height:0;margin-top:-4px;z-index:5;pointer-events:none;">
+      <div id="visaHelpBubble" onclick="hideVisaBubble(); openVisaExplainModal()" style="pointer-events:auto;position:absolute;top:0;left:0;width:140px;direction:rtl;text-align:center;background:#2563eb;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(37,99,235,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
         اضغط هنا لرؤية شرح الطريقة
         <span id="visaHelpArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#2563eb;transform:rotate(45deg);"></span>
       </div>
@@ -2808,6 +2808,7 @@
         <button class="rtab-menu-item" id="fftab-item-acc" onclick="selectFFTab(this,'acc','داخل الحساب')">داخل الحساب</button>
       </div>
     </div>
+    <div class="rtab-select-label" id="ffBookBtn" style="background:rgba(0,180,216,.08); border-color:rgba(0,180,216,.4); color:#00b4d8; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hideFFBubble('book'); openFFActiveExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
     <div class="rtab-select-label" id="ffWalletChip" title="رصيدك" onclick="walletChipClick()" style="cursor:pointer; background:rgba(0,180,216,.08); border-color:rgba(0,180,216,.4); color:#48cae4; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:0 10px; flex:0 0 auto; direction:ltr;">
       <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="flex:0 0 auto;">
         <path d="M5 7.5 L16.2 3.6 a1.6 1.6 0 0 1 2.1 1.5 V7.5" stroke="#48cae4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -2817,13 +2818,12 @@
       </svg>
       <span id="ffWalletAmount" style="font-weight:800;font-size:.9rem;line-height:1;">0</span>
     </div>
-    <div class="rtab-select-label" id="ffBookBtn" style="background:rgba(0,180,216,.08); border-color:rgba(0,180,216,.4); color:#00b4d8; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hideFFBubble('book'); openFFActiveExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
-    <div id="ffBubbleRow" style="position:absolute;top:100%;left:4%;right:4%;margin-top:-4px;display:flex;gap:8px;direction:ltr;z-index:5;pointer-events:none;">
-      <div id="ffHelpBubble" onclick="hideFFBubble('book'); openFFActiveExplainModal()" style="pointer-events:auto;position:relative;flex:0 0 120px;min-width:0;direction:rtl;text-align:center;background:#00b4d8;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(0,180,216,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+    <div id="ffBubbleRow" style="position:absolute;top:100%;left:0;right:0;height:0;margin-top:-4px;z-index:5;pointer-events:none;">
+      <div id="ffHelpBubble" onclick="hideFFBubble('book'); openFFActiveExplainModal()" style="pointer-events:auto;position:absolute;top:0;left:0;width:140px;direction:rtl;text-align:center;background:#00b4d8;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(0,180,216,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
         اضغط هنا لرؤية شرح الطريقة
         <span id="ffHelpArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#00b4d8;transform:rotate(45deg);"></span>
       </div>
-      <div id="ffMethodBubble" onclick="hideFFBubble('method'); toggleFFTabMenu()" style="pointer-events:auto;position:relative;flex:0 0 auto;white-space:nowrap;direction:rtl;text-align:center;background:#00b4d8;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(0,180,216,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+      <div id="ffMethodBubble" onclick="hideFFBubble('method'); toggleFFTabMenu()" style="pointer-events:auto;position:absolute;top:0;left:0;width:122px;direction:rtl;text-align:center;background:#00b4d8;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(0,180,216,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
         اضغط هنا لتغيير طريقة الشحن
         <span id="ffMethodArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#00b4d8;transform:rotate(45deg);"></span>
       </div>
@@ -2949,6 +2949,7 @@
         <button class="rtab-menu-item" id="pubgtab-item-orod" onclick="selectPubgTab(this,'orod','عروض')">عروض</button>
       </div>
     </div>
+    <div class="rtab-select-label" id="pubgBookBtn" style="background:rgba(0,180,216,.08); border-color:rgba(0,180,216,.4); color:var(--gold); cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hidePubgBubble('book'); openPubgActiveExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
     <div class="rtab-select-label" id="pubgWalletChip" title="رصيدك" onclick="walletChipClick()" style="cursor:pointer; background:rgba(0,180,216,.08); border-color:rgba(0,180,216,.4); color:#48cae4; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:0 10px; flex:0 0 auto; direction:ltr;">
       <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="flex:0 0 auto;">
         <path d="M5 7.5 L16.2 3.6 a1.6 1.6 0 0 1 2.1 1.5 V7.5" stroke="#48cae4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -2958,13 +2959,12 @@
       </svg>
       <span id="pubgWalletAmount" style="font-weight:800;font-size:.9rem;line-height:1;">0</span>
     </div>
-    <div class="rtab-select-label" id="pubgBookBtn" style="background:rgba(0,180,216,.08); border-color:rgba(0,180,216,.4); color:var(--gold); cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hidePubgBubble('book'); openPubgActiveExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
-    <div id="pubgBubbleRow" style="position:absolute;top:100%;left:4%;right:4%;margin-top:-4px;display:flex;gap:8px;direction:ltr;z-index:5;pointer-events:none;">
-      <div id="pubgHelpBubble" onclick="hidePubgBubble('book'); openPubgActiveExplainModal()" style="pointer-events:auto;position:relative;flex:0 0 120px;min-width:0;direction:rtl;text-align:center;background:#00b4d8;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(0,180,216,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+    <div id="pubgBubbleRow" style="position:absolute;top:100%;left:0;right:0;height:0;margin-top:-4px;z-index:5;pointer-events:none;">
+      <div id="pubgHelpBubble" onclick="hidePubgBubble('book'); openPubgActiveExplainModal()" style="pointer-events:auto;position:absolute;top:0;left:0;width:140px;direction:rtl;text-align:center;background:#00b4d8;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(0,180,216,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
         اضغط هنا لرؤية شرح الطريقة
         <span id="pubgHelpArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#00b4d8;transform:rotate(45deg);"></span>
       </div>
-      <div id="pubgMethodBubble" onclick="hidePubgBubble('method'); togglePubgTabMenu()" style="pointer-events:auto;position:relative;flex:0 0 auto;white-space:nowrap;direction:rtl;text-align:center;background:#00b4d8;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(0,180,216,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+      <div id="pubgMethodBubble" onclick="hidePubgBubble('method'); togglePubgTabMenu()" style="pointer-events:auto;position:absolute;top:0;left:0;width:122px;direction:rtl;text-align:center;background:#00b4d8;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(0,180,216,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
         اضغط هنا لتغيير طريقة الشحن
         <span id="pubgMethodArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#00b4d8;transform:rotate(45deg);"></span>
       </div>
@@ -3053,6 +3053,9 @@
         <button class="rtab-menu-item" id="rtab-item-design" onclick="selectRobloxDesignTab(this,'design','طلب تصميم')" style="display:none;">طلب تصميم</button>
       </div>
     </div>
+    <div style="position:relative;display:inline-flex;">
+      <div class="rtab-select-label" id="robloxBookBtn" style="background:rgba(37,99,235,.08); border-color:rgba(37,99,235,.4); color:#2563eb; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hideRobloxBubble('book'); openActiveExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
+    </div>
     <div class="rtab-select-label" id="robloxWalletChip" title="رصيدك" onclick="walletChipClick()" style="cursor:pointer; background:rgba(37,99,235,.08); border-color:rgba(37,99,235,.4); color:#60a5fa; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:0 10px; flex:0 0 auto; direction:ltr;">
       <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="flex:0 0 auto;">
         <path d="M5 7.5 L16.2 3.6 a1.6 1.6 0 0 1 2.1 1.5 V7.5" stroke="#60a5fa" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -3062,15 +3065,12 @@
       </svg>
       <span id="robloxWalletAmount" style="font-weight:800;font-size:.9rem;line-height:1;">0</span>
     </div>
-    <div style="position:relative;display:inline-flex;">
-      <div class="rtab-select-label" id="robloxBookBtn" style="background:rgba(37,99,235,.08); border-color:rgba(37,99,235,.4); color:#2563eb; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hideRobloxBubble('book'); openActiveExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
-    </div>
-    <div id="robloxBubbleRow" style="position:absolute;top:100%;left:4%;right:4%;margin-top:-4px;display:flex;gap:8px;direction:ltr;z-index:5;pointer-events:none;">
-      <div id="robloxHelpBubble" onclick="hideRobloxBubble('book'); openActiveExplainModal()" style="pointer-events:auto;position:relative;flex:0 0 120px;min-width:0;direction:rtl;text-align:center;background:#2563eb;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(37,99,235,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+    <div id="robloxBubbleRow" style="position:absolute;top:100%;left:0;right:0;height:0;margin-top:-4px;z-index:5;pointer-events:none;">
+      <div id="robloxHelpBubble" onclick="hideRobloxBubble('book'); openActiveExplainModal()" style="pointer-events:auto;position:absolute;top:0;left:0;width:140px;direction:rtl;text-align:center;background:#2563eb;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(37,99,235,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
         اضغط هنا لرؤية شرح الطريقة
         <span id="robloxHelpArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#2563eb;transform:rotate(45deg);"></span>
       </div>
-      <div id="robloxMethodBubble" onclick="hideRobloxBubble('method'); toggleRTabMenu()" style="pointer-events:auto;position:relative;flex:0 0 auto;white-space:nowrap;direction:rtl;text-align:center;background:#2563eb;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(37,99,235,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+      <div id="robloxMethodBubble" onclick="hideRobloxBubble('method'); toggleRTabMenu()" style="pointer-events:auto;position:absolute;top:0;left:0;width:122px;direction:rtl;text-align:center;background:#2563eb;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(37,99,235,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
         اضغط هنا لتغيير طريقة الشحن
         <span id="robloxMethodArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#2563eb;transform:rotate(45deg);"></span>
       </div>
@@ -3090,9 +3090,10 @@
       <a href="https://www.roblox.com/share/g/35176043" target="_blank" class="com-link com-link-blue" rel="noopener noreferrer" style="margin:0;">رابط الكميونتي</a>
       <button type="button" class="com-copy-btn" id="communityCopyBtn" onclick="copyCommunityLink()">نسخ</button>
     </div>
-    <a href="https://www.roblox.com/promocodes" target="_blank" id="giftcardLinkTop" class="com-link" rel="noopener noreferrer" style="margin:0; flex:0 0 auto; display:none;">
-      رابط الاسترداد
-    </a>
+    <div id="giftcardLinkTop" class="com-link-wrap" style="display:none;">
+      <a href="https://www.roblox.com/promocodes" target="_blank" class="com-link com-link-blue" rel="noopener noreferrer" style="margin:0;">رابط الاسترداد</a>
+      <button type="button" class="com-copy-btn" id="giftcardCopyBtn" onclick="copyGiftcardLink()">نسخ</button>
+    </div>
   </div>
 
 
@@ -3284,6 +3285,7 @@
         <button class="rtab-menu-item" id="fifatab-item-offers" onclick="selectFifaTab(this,'offers','عروض')">عروض</button>
       </div>
     </div>
+    <div class="rtab-select-label" id="fifaBookBtn" style="background:rgba(111,207,58,.08); border-color:rgba(111,207,58,.4); color:#6fcf3a; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hideFifaBubble('book'); openFifaActiveExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
     <div class="rtab-select-label" id="fifaWalletChip" title="رصيدك" onclick="walletChipClick()" style="cursor:pointer; background:rgba(111,207,58,.08); border-color:rgba(111,207,58,.4); color:#6fcf3a; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:0 10px; flex:0 0 auto; direction:ltr;">
       <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="flex:0 0 auto;">
         <path d="M5 7.5 L16.2 3.6 a1.6 1.6 0 0 1 2.1 1.5 V7.5" stroke="#6fcf3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -3293,13 +3295,12 @@
       </svg>
       <span id="fifaWalletAmount" style="font-weight:800;font-size:.9rem;line-height:1;">0</span>
     </div>
-    <div class="rtab-select-label" id="fifaBookBtn" style="background:rgba(111,207,58,.08); border-color:rgba(111,207,58,.4); color:#6fcf3a; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hideFifaBubble('book'); openFifaActiveExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
-    <div id="fifaBubbleRow" style="position:absolute;top:100%;left:4%;right:4%;margin-top:-4px;display:flex;gap:8px;direction:ltr;z-index:5;pointer-events:none;">
-      <div id="fifaHelpBubble" onclick="hideFifaBubble('book'); openFifaActiveExplainModal()" style="pointer-events:auto;position:relative;flex:0 0 120px;min-width:0;direction:rtl;text-align:center;background:#6fcf3a;color:#0d0d0d;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(111,207,58,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+    <div id="fifaBubbleRow" style="position:absolute;top:100%;left:0;right:0;height:0;margin-top:-4px;z-index:5;pointer-events:none;">
+      <div id="fifaHelpBubble" onclick="hideFifaBubble('book'); openFifaActiveExplainModal()" style="pointer-events:auto;position:absolute;top:0;left:0;width:140px;direction:rtl;text-align:center;background:#6fcf3a;color:#0d0d0d;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(111,207,58,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
         اضغط هنا لرؤية شرح الطريقة
         <span id="fifaHelpArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#6fcf3a;transform:rotate(45deg);"></span>
       </div>
-      <div id="fifaMethodBubble" onclick="hideFifaBubble('method'); toggleFifaTabMenu()" style="pointer-events:auto;position:relative;flex:0 0 auto;white-space:nowrap;direction:rtl;text-align:center;background:#6fcf3a;color:#0d0d0d;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(111,207,58,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+      <div id="fifaMethodBubble" onclick="hideFifaBubble('method'); toggleFifaTabMenu()" style="pointer-events:auto;position:absolute;top:0;left:0;width:122px;direction:rtl;text-align:center;background:#6fcf3a;color:#0d0d0d;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(111,207,58,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
         اضغط هنا لتغيير طريقة الشحن
         <span id="fifaMethodArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#6fcf3a;transform:rotate(45deg);"></span>
       </div>
@@ -3406,16 +3407,38 @@
     // visibility بدل display عشان مكان الفقاعة التانية ميتغيرش لما واحدة تختفي
     if (b) { b.style.visibility = 'hidden'; b.style.pointerEvents = 'none'; }
   }
-  function positionRobloxBubbles() {
-    [['robloxHelpBubble','robloxHelpArrow','robloxBookBtn'], ['robloxMethodBubble','robloxMethodArrow','robloxMethodBtn']].forEach(function (ids) {
+  // وضع الفقاعات تحت العنصر اللي بتشرحه بالظبط (السهم فوق العنصر)
+  function layoutGuideBubbles(pairs) {
+    const items = [];
+    pairs.forEach(function (ids) {
       const bubble = document.getElementById(ids[0]), arrow = document.getElementById(ids[1]), target = document.getElementById(ids[2]);
-      if (!bubble || !arrow || !target) return;
-      const bR = bubble.getBoundingClientRect(), tR = target.getBoundingClientRect();
-      if (!bR.width || !tR.width) return;
-      let x = tR.left + tR.width / 2 - bR.left - 6;
-      x = Math.max(10, Math.min(bR.width - 22, x));
-      arrow.style.left = x + 'px';
+      if (!bubble || !arrow || !target || !bubble.offsetWidth) return;
+      const header = bubble.offsetParent || bubble.parentElement;
+      const hR = header.getBoundingClientRect(), tR = target.getBoundingClientRect();
+      if (!tR.width) return;
+      const bw = bubble.offsetWidth, cx = tR.left + tR.width / 2 - hR.left;
+      items.push({bubble: bubble, arrow: arrow, cx: cx, bw: bw, hw: hR.width, left: cx - bw / 2});
     });
+    items.sort(function (a, b) { return a.left - b.left; });
+    items.forEach(function (it) { it.left = Math.max(6, Math.min(it.hw - it.bw - 6, it.left)); });
+    for (let i = 1; i < items.length; i++) {
+      const a = items[i - 1], b = items[i], gap = 12;
+      const over = a.left + a.bw + gap - b.left;
+      if (over > 0) {
+        const room = b.hw - 6 - (b.left + b.bw);
+        const shiftB = Math.min(over, Math.max(0, room));
+        b.left += shiftB;
+        a.left -= (over - shiftB);
+      }
+    }
+    items.forEach(function (it) {
+      it.bubble.style.left = it.left + 'px';
+      const ax = Math.max(12, Math.min(it.bw - 24, it.cx - it.left - 6));
+      it.arrow.style.left = ax + 'px';
+    });
+  }
+  function positionRobloxBubbles() {
+    layoutGuideBubbles([['robloxHelpBubble','robloxHelpArrow','robloxBookBtn'], ['robloxMethodBubble','robloxMethodArrow','robloxMethodBtn']]);
   }
   window.addEventListener('resize', positionRobloxBubbles);
   // ============ فقاعتا التوجيه في ببجي (نفس روبلوكس) ============
@@ -3424,15 +3447,7 @@
     if (b) { b.style.visibility = 'hidden'; b.style.pointerEvents = 'none'; }
   }
   function positionPubgBubbles() {
-    [['pubgHelpBubble','pubgHelpArrow','pubgBookBtn'], ['pubgMethodBubble','pubgMethodArrow','pubgMethodBtn']].forEach(function (ids) {
-      const bubble = document.getElementById(ids[0]), arrow = document.getElementById(ids[1]), target = document.getElementById(ids[2]);
-      if (!bubble || !arrow || !target) return;
-      const bR = bubble.getBoundingClientRect(), tR = target.getBoundingClientRect();
-      if (!bR.width || !tR.width) return;
-      let x = tR.left + tR.width / 2 - bR.left - 6;
-      x = Math.max(10, Math.min(bR.width - 22, x));
-      arrow.style.left = x + 'px';
-    });
+    layoutGuideBubbles([['pubgHelpBubble','pubgHelpArrow','pubgBookBtn'], ['pubgMethodBubble','pubgMethodArrow','pubgMethodBtn']]);
   }
   window.addEventListener('resize', positionPubgBubbles);
   // ============ فقاعتا التوجيه في فري فاير ============
@@ -3441,15 +3456,7 @@
     if (b) { b.style.visibility = 'hidden'; b.style.pointerEvents = 'none'; }
   }
   function positionFFBubbles() {
-    [['ffHelpBubble','ffHelpArrow','ffBookBtn'], ['ffMethodBubble','ffMethodArrow','ffMethodBtn']].forEach(function (ids) {
-      const bubble = document.getElementById(ids[0]), arrow = document.getElementById(ids[1]), target = document.getElementById(ids[2]);
-      if (!bubble || !arrow || !target) return;
-      const bR = bubble.getBoundingClientRect(), tR = target.getBoundingClientRect();
-      if (!bR.width || !tR.width) return;
-      let x = tR.left + tR.width / 2 - bR.left - 6;
-      x = Math.max(10, Math.min(bR.width - 22, x));
-      arrow.style.left = x + 'px';
-    });
+    layoutGuideBubbles([['ffHelpBubble','ffHelpArrow','ffBookBtn'], ['ffMethodBubble','ffMethodArrow','ffMethodBtn']]);
   }
   window.addEventListener('resize', positionFFBubbles);
   // ============ فقاعتا التوجيه في بيس ============
@@ -3458,15 +3465,7 @@
     if (b) { b.style.visibility = 'hidden'; b.style.pointerEvents = 'none'; }
   }
   function positionPesBubbles() {
-    [['pesHelpBubble','pesHelpArrow','pesBookBtn'], ['pesMethodBubble','pesMethodArrow','pesMethodBtn']].forEach(function (ids) {
-      const bubble = document.getElementById(ids[0]), arrow = document.getElementById(ids[1]), target = document.getElementById(ids[2]);
-      if (!bubble || !arrow || !target) return;
-      const bR = bubble.getBoundingClientRect(), tR = target.getBoundingClientRect();
-      if (!bR.width || !tR.width) return;
-      let x = tR.left + tR.width / 2 - bR.left - 6;
-      x = Math.max(10, Math.min(bR.width - 22, x));
-      arrow.style.left = x + 'px';
-    });
+    layoutGuideBubbles([['pesHelpBubble','pesHelpArrow','pesBookBtn'], ['pesMethodBubble','pesMethodArrow','pesMethodBtn']]);
   }
   window.addEventListener('resize', positionPesBubbles);
   // ============ فقاعتا التوجيه في فيفا ============
@@ -3475,15 +3474,7 @@
     if (b) { b.style.visibility = 'hidden'; b.style.pointerEvents = 'none'; }
   }
   function positionFifaBubbles() {
-    [['fifaHelpBubble','fifaHelpArrow','fifaBookBtn'], ['fifaMethodBubble','fifaMethodArrow','fifaMethodBtn']].forEach(function (ids) {
-      const bubble = document.getElementById(ids[0]), arrow = document.getElementById(ids[1]), target = document.getElementById(ids[2]);
-      if (!bubble || !arrow || !target) return;
-      const bR = bubble.getBoundingClientRect(), tR = target.getBoundingClientRect();
-      if (!bR.width || !tR.width) return;
-      let x = tR.left + tR.width / 2 - bR.left - 6;
-      x = Math.max(10, Math.min(bR.width - 22, x));
-      arrow.style.left = x + 'px';
-    });
+    layoutGuideBubbles([['fifaHelpBubble','fifaHelpArrow','fifaBookBtn'], ['fifaMethodBubble','fifaMethodArrow','fifaMethodBtn']]);
   }
   window.addEventListener('resize', positionFifaBubbles);
   // ============ فقاعتا التوجيه في براول ستارز ============
@@ -3492,15 +3483,7 @@
     if (b) { b.style.visibility = 'hidden'; b.style.pointerEvents = 'none'; }
   }
   function positionBrawlBubbles() {
-    [['brawlHelpBubble','brawlHelpArrow','brawlBookBtn'], ['brawlMethodBubble','brawlMethodArrow','brawlMethodBtn']].forEach(function (ids) {
-      const bubble = document.getElementById(ids[0]), arrow = document.getElementById(ids[1]), target = document.getElementById(ids[2]);
-      if (!bubble || !arrow || !target) return;
-      const bR = bubble.getBoundingClientRect(), tR = target.getBoundingClientRect();
-      if (!bR.width || !tR.width) return;
-      let x = tR.left + tR.width / 2 - bR.left - 6;
-      x = Math.max(10, Math.min(bR.width - 22, x));
-      arrow.style.left = x + 'px';
-    });
+    layoutGuideBubbles([['brawlHelpBubble','brawlHelpArrow','brawlBookBtn'], ['brawlMethodBubble','brawlMethodArrow','brawlMethodBtn']]);
   }
   window.addEventListener('resize', positionBrawlBubbles);
   // ============ فقاعة التوجيه في فيزا (طريقة واحدة بس فمفيش فقاعة تغيير الطريقة) ============
@@ -3509,13 +3492,7 @@
     if (b) { b.style.visibility = 'hidden'; b.style.pointerEvents = 'none'; }
   }
   function positionVisaBubbles() {
-    const bubble = document.getElementById('visaHelpBubble'), arrow = document.getElementById('visaHelpArrow'), target = document.getElementById('visaBookBtn');
-    if (!bubble || !arrow || !target) return;
-    const bR = bubble.getBoundingClientRect(), tR = target.getBoundingClientRect();
-    if (!bR.width || !tR.width) return;
-    let x = tR.left + tR.width / 2 - bR.left - 6;
-    x = Math.max(10, Math.min(bR.width - 22, x));
-    arrow.style.left = x + 'px';
+    layoutGuideBubbles([['visaHelpBubble','visaHelpArrow','visaBookBtn']]);
   }
   window.addEventListener('resize', positionVisaBubbles);
   function openRoblox() {
@@ -4346,8 +4323,12 @@
     if (window.isLoggedIn) {
       openBalancePage();
     } else {
-      document.getElementById('walletLoginModal').classList.add('open');
+      showLoginPrompt('سجل دخول لمعرفة رصيدك');
     }
+  }
+  function showLoginPrompt(msg) {
+    document.getElementById('walletLoginMsg').textContent = msg;
+    document.getElementById('walletLoginModal').classList.add('open');
   }
   function closeWalletLoginModal() {
     document.getElementById('walletLoginModal').classList.remove('open');
@@ -5326,6 +5307,18 @@
   }
 
 
+  function copyGiftcardLink() {
+    const url = 'https://www.roblox.com/promocodes';
+    const done = function () {
+      const b = document.getElementById('giftcardCopyBtn');
+      if (b) { const t = b.textContent; b.textContent = 'تم النسخ'; setTimeout(function () { b.textContent = t; }, 1800); }
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(done).catch(function () { fallbackCopy(url); done(); });
+    } else {
+      fallbackCopy(url); done();
+    }
+  }
   function copyCommunityLink() {
     const url = 'https://www.roblox.com/share/g/35176043';
     const done = function () {
@@ -5353,7 +5346,7 @@
     const linkTop = document.getElementById('communityLinkTop');
     if (linkTop) linkTop.style.display = (id === 'community') ? 'flex' : 'none';
     const giftLinkTop = document.getElementById('giftcardLinkTop');
-    if (giftLinkTop) giftLinkTop.style.display = (id === 'giftcard') ? '' : 'none';
+    if (giftLinkTop) giftLinkTop.style.display = (id === 'giftcard') ? 'flex' : 'none';
   }
 
   let robloxDesignMode = 'design';
@@ -5728,7 +5721,7 @@
       if (navMenu) navMenu.classList.remove('open');
       const navOverlay = document.querySelector('.nav-menu-overlay');
       if (navOverlay) navOverlay.classList.remove('open');
-      showToast('سجل دخول عشان تشوف اعداداتك');
+      showLoginPrompt('سجل دخول عشان تشوف اعداداتك');
     }
   }
 
