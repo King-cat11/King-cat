@@ -275,12 +275,9 @@
     /* ── SETTINGS PAGE — soft background system ── */
     #settingsPage {
       background:
-        radial-gradient(circle at 85% 15%, rgba(220,38,38,.18) 0%, transparent 62%),
-        radial-gradient(circle at 90% 85%, rgba(96,165,250,.16) 0%, transparent 60%),
-        radial-gradient(circle at 10% 85%, rgba(220,38,38,.15) 0%, transparent 60%),
-        radial-gradient(circle at 15% 10%, rgba(96,165,250,.14) 0%, transparent 60%),
-        radial-gradient(circle at 50% 50%, rgba(220,38,38,.07) 0%, transparent 70%),
-        #12182a;
+        radial-gradient(circle at 18% 18%, rgba(220,38,38,.15) 0%, transparent 55%),
+        radial-gradient(circle at 85% 80%, rgba(220,38,38,.10) 0%, transparent 55%),
+        var(--black);
     }
     #settingsPage .rpage-header {
       background: transparent;
@@ -304,12 +301,9 @@
     /* ── EDIT PROFILE PAGE — soft background system, no black header bar ── */
     #editAccountPage {
       background:
-        radial-gradient(circle at 85% 15%, rgba(220,38,38,.18) 0%, transparent 62%),
-        radial-gradient(circle at 90% 85%, rgba(96,165,250,.16) 0%, transparent 60%),
-        radial-gradient(circle at 10% 85%, rgba(220,38,38,.15) 0%, transparent 60%),
-        radial-gradient(circle at 15% 10%, rgba(96,165,250,.14) 0%, transparent 60%),
-        radial-gradient(circle at 50% 50%, rgba(220,38,38,.07) 0%, transparent 70%),
-        #12182a;
+        radial-gradient(circle at 18% 18%, rgba(220,38,38,.15) 0%, transparent 55%),
+        radial-gradient(circle at 85% 80%, rgba(220,38,38,.10) 0%, transparent 55%),
+        var(--black);
     }
     #editAccountPage .rpage-header {
       background: transparent;
@@ -328,32 +322,60 @@
     /* ── ROBLOX YELLOW BACKGROUND ── */
     #robloxPage {
       background:
-        radial-gradient(circle at 18% 18%, rgba(37,99,235,.15) 0%, transparent 55%),
-        radial-gradient(circle at 85% 80%, rgba(37,99,235,.10) 0%, transparent 55%),
+        radial-gradient(circle at 18% 18%, rgba(220,38,38,.15) 0%, transparent 55%),
+        radial-gradient(circle at 85% 80%, rgba(220,38,38,.10) 0%, transparent 55%),
         var(--black);
     }
     #ffPage {
       background:
-        radial-gradient(circle at 18% 18%, rgba(0,180,216,.14) 0%, transparent 55%),
-        radial-gradient(circle at 85% 80%, rgba(0,180,216,.11) 0%, transparent 55%),
+        radial-gradient(circle at 18% 18%, rgba(220,38,38,.14) 0%, transparent 55%),
+        radial-gradient(circle at 85% 80%, rgba(220,38,38,.11) 0%, transparent 55%),
         var(--black);
     }
+    /* فري فاير: ألوان العناصر المشتركة (نفس ببجي وروبلوكس) */
+    #ffPage .rpage-back { border-color: rgba(220,38,38,.45); color: #dc2626; }
+    #ffPage .rpage-back:hover { background: rgba(220,38,38,.12); }
+    #ffPage .rpage-logo { color: #ef4444; }
+    #ffPage .rpage-tabs { border-bottom-color: rgba(220,38,38,.2); }
+    #ffPage .rptab.active,
+    #ffPage .rptab:hover { color: #ef4444; border-bottom-color: #ef4444; }
+    #ffPage .ptoggle.active { background: rgba(220,38,38,.2); border-color: #dc2626; color: #dc2626; }
+    #ffPage .pcard { border-color: rgba(220,38,38,.25); }
+    #ffPage .pcard:not(.has-qty):hover { border-color: #ef4444; }
+    #ffPage .explain-btn { background: rgba(220,38,38,.12); border-color: rgba(220,38,38,.4); color: #dc2626; }
+    #ffPage .explain-btn:hover { background: rgba(220,38,38,.25); }
+    #ffPage .explain-box { border-color: rgba(220,38,38,.25); }
+    #ffPage .explain-num { background: rgba(220,38,38,.2); border-color: #dc2626; color: #dc2626; }
+    #ffPage .oinput:focus { border-color: #ef4444; }
+    #ffPage .apply-btn { background: rgba(220,38,38,.2); border-color: #dc2626; color: #dc2626; }
+    #ffPage .apply-btn:hover { background: rgba(220,38,38,.28); }
+    #ffPage .com-link { background: rgba(239,68,68,.1); border-color: rgba(220,38,38,.45); color: #dc2626; }
+    #ffPage .com-link:hover { background: rgba(220,38,38,.25); }
+    #ffPage .com-link.com-link-blue,
+    #ffPage .com-link.com-link-blue:hover {
+      background: linear-gradient(135deg,#ef4444,#ef4444);
+      color: #fff; border: none;
+    }
+    #ffPage .pcard .egp { color: #ef4444 !important; }
+    #ffPage .pcard.hagz .egp { color: #fca5a5 !important; }
+    #ffPage .qty-num { color: #ef4444 !important; }
+    #ffPage .pcard.hagz .qty-num { color: #fca5a5 !important; }
     #visaPage {
       background:
-        radial-gradient(circle at 18% 18%, rgba(96,165,250,.14) 0%, transparent 55%),
-        radial-gradient(circle at 85% 80%, rgba(96,165,250,.11) 0%, transparent 55%),
+        radial-gradient(circle at 18% 18%, rgba(220,38,38,.15) 0%, transparent 55%),
+        radial-gradient(circle at 85% 80%, rgba(220,38,38,.10) 0%, transparent 55%),
         var(--black);
     }
     #pesPage {
       background:
-        radial-gradient(circle at 18% 18%, rgba(111,207,58,.18) 0%, transparent 55%),
-        radial-gradient(circle at 85% 80%, rgba(74,158,31,.11) 0%, transparent 55%),
+        radial-gradient(circle at 18% 18%, rgba(220,38,38,.15) 0%, transparent 55%),
+        radial-gradient(circle at 85% 80%, rgba(220,38,38,.10) 0%, transparent 55%),
         var(--black);
     }
     #pubgPage {
       background:
-        radial-gradient(circle at 18% 18%, rgba(0,180,216,.14) 0%, transparent 55%),
-        radial-gradient(circle at 85% 80%, rgba(0,180,216,.11) 0%, transparent 55%),
+        radial-gradient(circle at 18% 18%, rgba(220,38,38,.14) 0%, transparent 55%),
+        radial-gradient(circle at 85% 80%, rgba(220,38,38,.11) 0%, transparent 55%),
         var(--black);
     }
     #robloxPage .rpage-header {
@@ -371,20 +393,20 @@
 
     #fifaPage {
       background:
-        radial-gradient(circle at 18% 18%, rgba(111,207,58,.16) 0%, transparent 55%),
-        radial-gradient(circle at 85% 80%, rgba(111,207,58,.12) 0%, transparent 55%),
+        radial-gradient(circle at 18% 18%, rgba(220,38,38,.16) 0%, transparent 55%),
+        radial-gradient(circle at 85% 80%, rgba(220,38,38,.12) 0%, transparent 55%),
         var(--black);
     }
     #brawlPage {
       background:
-        radial-gradient(circle at 18% 18%, rgba(244,161,0,.14) 0%, transparent 55%),
-        radial-gradient(circle at 85% 80%, rgba(244,161,0,.11) 0%, transparent 55%),
+        radial-gradient(circle at 18% 18%, rgba(220,38,38,.14) 0%, transparent 55%),
+        radial-gradient(circle at 85% 80%, rgba(220,38,38,.11) 0%, transparent 55%),
         var(--black);
     }
     #channelsPage {
       background:
-        radial-gradient(circle at 18% 18%, rgba(220,38,38,.18) 0%, transparent 55%),
-        radial-gradient(circle at 85% 80%, rgba(220,38,38,.14) 0%, transparent 55%),
+        radial-gradient(circle at 18% 18%, rgba(220,38,38,.15) 0%, transparent 55%),
+        radial-gradient(circle at 85% 80%, rgba(220,38,38,.10) 0%, transparent 55%),
         var(--black);
     }
     .rpage-tabs, .rpage-panels { position: relative; z-index: 1; }
@@ -624,48 +646,115 @@
       to   { transform: scale(1); opacity: 1; }
     }
 
-    /* PUBG blue theme override (matches Free Fire) */
+    /* PUBG red theme override (same palette as the rest of the site) */
     #pubgPage {
-      --gold: #00b4d8;
-      --gold-lt: #48cae4;
+      --gold: #dc2626;
+      --gold-lt: #ef4444;
     }
     /* FIFA green theme override — no red/pink anywhere on this page */
+    /* ببجي: ألوان العناصر المشتركة */
+    #pubgPage .rpage-back { border-color: rgba(220,38,38,.45); color: #dc2626; }
+    #pubgPage .rpage-back:hover { background: rgba(220,38,38,.12); }
+    #pubgPage .rpage-logo { color: #ef4444; }
+    #pubgPage .rpage-tabs { border-bottom-color: rgba(220,38,38,.2); }
+    #pubgPage .rptab.active,
+    #pubgPage .rptab:hover { color: #ef4444; border-bottom-color: #ef4444; }
+    #pubgPage .ptoggle.active { background: rgba(220,38,38,.2); border-color: #dc2626; color: #dc2626; }
+    #pubgPage .pcard { border-color: rgba(220,38,38,.25); }
+    #pubgPage .pcard:not(.has-qty):hover { border-color: #ef4444; }
+    #pubgPage .explain-btn { background: rgba(220,38,38,.12); border-color: rgba(220,38,38,.4); color: #dc2626; }
+    #pubgPage .explain-btn:hover { background: rgba(220,38,38,.25); }
+    #pubgPage .explain-box { border-color: rgba(220,38,38,.25); }
+    #pubgPage .explain-num { background: rgba(220,38,38,.2); border-color: #dc2626; color: #dc2626; }
+    #pubgPage .oinput:focus { border-color: #ef4444; }
+    #pubgPage .apply-btn { background: rgba(220,38,38,.2); border-color: #dc2626; color: #dc2626; }
+    #pubgPage .apply-btn:hover { background: rgba(220,38,38,.28); }
+    #pubgPage .com-link { background: rgba(239,68,68,.1); border-color: rgba(220,38,38,.45); color: #dc2626; }
+    #pubgPage .com-link:hover { background: rgba(220,38,38,.25); }
+    #pubgPage .com-link.com-link-blue,
+    #pubgPage .com-link.com-link-blue:hover {
+      background: linear-gradient(135deg,#ef4444,#ef4444);
+      color: #fff; border: none;
+    }
+
+    #pubgPage .pcard .egp { color: #ef4444 !important; }
+    #pubgPage .pcard.hagz .egp { color: #fca5a5 !important; }
+    #pubgPage #acc-grand-total { color: #ef4444 !important; }
+    #pubgPage #com-grand-total { color: #ef4444 !important; }
+    #pubgPage .qty-num { color: #ef4444 !important; }
+    #pubgPage .pcard.hagz .qty-num { color: #fca5a5 !important; }
     #fifaPage {
-      --gold: #6fcf3a;
-      --gold-lt: #8fe066;
+      --gold: #dc2626;
+      --gold-lt: #ef4444;
     }
     #fifaPage .qty-btn {
-      border-color: rgba(111,207,58,.5);
-      background: rgba(111,207,58,.1);
-      color: #6fcf3a;
+      border-color: rgba(220,38,38,.5);
+      background: rgba(220,38,38,.1);
+      color: #dc2626;
     }
-    #fifaPage .qty-btn:hover { background: rgba(111,207,58,.3); }
+    #fifaPage .qty-btn:hover { background: rgba(220,38,38,.3); }
     #fifaPage .ptoggle.active {
-      background: rgba(111,207,58,.15);
-      border-color: #6fcf3a;
-      color: #6fcf3a;
+      background: rgba(220,38,38,.15);
+      border-color: #dc2626;
+      color: #dc2626;
     }
     #fifaPage .ptoggle:last-child.active {
-      background: rgba(111,207,58,.12);
+      background: rgba(220,38,38,.12);
     }
-    #fifatabMenu .rtab-menu-item:hover { background: rgba(111,207,58,.12) !important; }
-    #fifatabMenu .rtab-menu-item.active { color: #6fcf3a !important; background: rgba(111,207,58,.18) !important; }
+    #fifatabMenu .rtab-menu-item:hover { background: rgba(220,38,38,.12) !important; }
+    #fifatabMenu .rtab-menu-item.active { color: #dc2626 !important; background: rgba(220,38,38,.18) !important; }
     /* Edit Profile page — purple theme override */
     #editAccountPage .osave-btn { background: rgba(220,38,38,.15); border-color: #dc2626; color: #dc2626; }
-    /* Roblox blue theme override — no red/pink anywhere on this page */
+    /* Roblox red theme override (same palette as the rest of the site) */
     #robloxPage {
-      --gold: #2563eb;
-      --gold-lt: #60a5fa;
+      --gold: #dc2626;
+      --gold-lt: #ef4444;
     }
     #robloxPage .qty-btn {
-      border-color: rgba(37,99,235,.5);
-      background: rgba(37,99,235,.1);
-      color: #2563eb;
+      border-color: rgba(220,38,38,.5);
+      background: rgba(220,38,38,.1);
+      color: #dc2626;
     }
-    #robloxPage .qty-btn:hover { background: rgba(37,99,235,.3); }
-    #rtabMenu { border-color: rgba(37,99,235,.4) !important; }
-    #rtabMenu .rtab-menu-item:hover { background: rgba(37,99,235,.12) !important; }
-    #rtabMenu .rtab-menu-item.active { color: #2563eb !important; background: rgba(37,99,235,.18) !important; }
+    #robloxPage .qty-btn:hover { background: rgba(220,38,38,.3); }
+    #rtabMenu { border-color: rgba(220,38,38,.4) !important; }
+    #rtabMenu .rtab-menu-item:hover { background: rgba(220,38,38,.12) !important; }
+    #rtabMenu .rtab-menu-item.active { color: #dc2626 !important; background: rgba(220,38,38,.18) !important; }
+    /* Brawl Stars red theme (same as Roblox) */
+    #brawlPage { --gold: #dc2626; --gold-lt: #ef4444; }
+    #brawlPage .qty-btn { border-color: rgba(220,38,38,.5); background: rgba(220,38,38,.1); color: #dc2626; }
+    #brawlPage .qty-btn:hover { background: rgba(220,38,38,.3); }
+    #brawlPage .rpage-back { border-color: rgba(220,38,38,.45); color: #dc2626; }
+    #brawlPage .rpage-back:hover { background: rgba(220,38,38,.12); }
+    #brawlPage .pcard { border-color: rgba(220,38,38,.25); }
+    #brawlPage .pcard:not(.has-qty):hover { border-color: #ef4444; }
+    #brawlPage .oinput:focus { border-color: #ef4444; }
+    #brawlPage .explain-box { border-color: rgba(220,38,38,.25); }
+    #brawlPage .pcard .egp { color: #ef4444 !important; }
+    #brawlPage .qty-num { color: #ef4444 !important; }
+    /* Visa red theme (same as Roblox) */
+    #visaPage { --gold: #dc2626; --gold-lt: #ef4444; }
+    #visaPage .qty-btn { border-color: rgba(220,38,38,.5); background: rgba(220,38,38,.1); color: #dc2626; }
+    #visaPage .rpage-back { border-color: rgba(220,38,38,.45); color: #dc2626; }
+    #visaPage .rpage-back:hover { background: rgba(220,38,38,.12); }
+    #visaPage .pcard { border-color: rgba(220,38,38,.25); }
+    #visaPage .pcard:not(.has-qty):hover { border-color: #ef4444; }
+    #visaPage .oinput:focus { border-color: #ef4444; }
+    #visaPage .explain-box { border-color: rgba(220,38,38,.25); }
+    #visatabMenu { border-color: rgba(220,38,38,.4) !important; }
+    #visatabMenu .rtab-menu-item:hover { background: rgba(220,38,38,.12) !important; }
+    #visatabMenu .rtab-menu-item.active { color: #dc2626 !important; background: rgba(220,38,38,.18) !important; }
+    /* PES red theme (same as Roblox) */
+    #pesPage { --gold: #dc2626; --gold-lt: #ef4444; }
+    #pesPage .qty-btn { border-color: rgba(220,38,38,.5); background: rgba(220,38,38,.1); color: #dc2626; }
+    #pesPage .qty-btn:hover { background: rgba(220,38,38,.3); }
+    #pesPage .rpage-back { border-color: rgba(220,38,38,.45); color: #dc2626; }
+    #pesPage .rpage-back:hover { background: rgba(220,38,38,.12); }
+    #pesPage .pcard { border-color: rgba(220,38,38,.25); }
+    #pesPage .pcard:not(.has-qty):hover { border-color: #ef4444; }
+    #pesPage .oinput:focus { border-color: #ef4444; }
+    #pesPage .explain-box { border-color: rgba(220,38,38,.25); }
+    #pesPage .pcard .egp { color: #ef4444 !important; }
+    #pesPage .qty-num { color: #ef4444 !important; }
     #pubgPage .rpage-header {
       background: transparent;
       backdrop-filter: none;
@@ -918,10 +1007,10 @@
       padding: 18px 5% 0;
     }
     .rtab-select-label {
-      background: rgba(96,165,250,.1);
-      border: 1.5px solid rgba(37,99,235,.45);
+      background: rgba(239,68,68,.1);
+      border: 1.5px solid rgba(220,38,38,.45);
       border-radius: 12px;
-      color: #2563eb;
+      color: #dc2626;
       font-family: 'Cairo', sans-serif;
       font-size: 1rem;
       font-weight: 700;
@@ -944,10 +1033,10 @@
       align-items: center;
       justify-content: space-between;
       gap: 8px;
-      background: rgba(96,165,250,.1);
-      border: 1.5px solid rgba(37,99,235,.45);
+      background: rgba(239,68,68,.1);
+      border: 1.5px solid rgba(220,38,38,.45);
       border-radius: 14px;
-      color: #2563eb;
+      color: #dc2626;
       font-family: 'Cairo', sans-serif;
       font-size: .85rem;
       font-weight: 700;
@@ -958,7 +1047,7 @@
       width: 160px;
       box-sizing: border-box;
     }
-    .rtab-select-btn:hover { background: rgba(37,99,235,.16); }
+    .rtab-select-btn:hover { background: rgba(220,38,38,.16); }
     .rtab-select-arrow {
       transition: transform .25s ease;
       font-size: 1rem;
@@ -970,7 +1059,7 @@
       min-width: 220px;
       top: calc(100% + 6px);
       background: #1a1a1a;
-      border: 1.5px solid rgba(96,165,250,.4);
+      border: 1.5px solid rgba(239,68,68,.4);
       border-radius: 14px;
       box-shadow: 0 14px 34px rgba(0,0,0,.5);
       overflow: hidden;
@@ -1002,18 +1091,15 @@
       white-space: nowrap;
     }
     .rtab-menu-item:last-child { border-bottom: none; }
-    .rtab-menu-item:hover { background: rgba(37,99,235,.12); }
-    .rtab-menu-item.active { color: #2563eb; background: rgba(37,99,235,.18); }
+    .rtab-menu-item:hover { background: rgba(220,38,38,.12); }
+    .rtab-menu-item.active { color: #dc2626; background: rgba(220,38,38,.18); }
 
     /* ── MY ORDERS PAGE — soft background system, no black header bar ── */
     #ordersPage {
       background:
-        radial-gradient(circle at 85% 15%, rgba(220,38,38,.18) 0%, transparent 62%),
-        radial-gradient(circle at 90% 85%, rgba(96,165,250,.16) 0%, transparent 60%),
-        radial-gradient(circle at 10% 85%, rgba(220,38,38,.15) 0%, transparent 60%),
-        radial-gradient(circle at 15% 10%, rgba(96,165,250,.14) 0%, transparent 60%),
-        radial-gradient(circle at 50% 50%, rgba(220,38,38,.07) 0%, transparent 70%),
-        #12182a;
+        radial-gradient(circle at 18% 18%, rgba(220,38,38,.15) 0%, transparent 55%),
+        radial-gradient(circle at 85% 80%, rgba(220,38,38,.10) 0%, transparent 55%),
+        var(--black);
     }
     /* طلباتي — صف بديل عن الهيدر: كلمة Back لوحدها بلون بنبي + تغيير الطريقة جنبها */
     #ordersPage .orders-top-row {
@@ -1038,12 +1124,9 @@
     /* ── BALANCE PAGE — نفس نظام الخلفية والهيدر الشفاف بتاع باقي الصفحات ── */
     #balancePage {
       background:
-        radial-gradient(circle at 85% 15%, rgba(220,38,38,.18) 0%, transparent 62%),
-        radial-gradient(circle at 90% 85%, rgba(96,165,250,.16) 0%, transparent 60%),
-        radial-gradient(circle at 10% 85%, rgba(220,38,38,.15) 0%, transparent 60%),
-        radial-gradient(circle at 15% 10%, rgba(96,165,250,.14) 0%, transparent 60%),
-        radial-gradient(circle at 50% 50%, rgba(220,38,38,.07) 0%, transparent 70%),
-        #12182a;
+        radial-gradient(circle at 18% 18%, rgba(220,38,38,.15) 0%, transparent 55%),
+        radial-gradient(circle at 85% 80%, rgba(220,38,38,.10) 0%, transparent 55%),
+        var(--black);
     }
     #balancePage { z-index: 2100; }
     #loginModal.rpage { z-index: 2100; }
@@ -1074,16 +1157,16 @@
     #balancePage .oinput:focus { border-color: #dc2626; }
 
     /* PUBG dropdown menu: red instead of blue */
-    #pubgtabMenu { border-color: rgba(0,180,216,.4) !important; }
-    #pestabMenu { border-color: rgba(111,207,58,.4) !important; }
-    #fifatabMenu { border-color: rgba(111,207,58,.4) !important; }
-    #brawltabMenu { border-color: rgba(244,161,0,.4) !important; }
-    #pubgtabMenu .rtab-menu-item:hover { background: rgba(0,180,216,.12) !important; }
-    #pubgtabMenu .rtab-menu-item.active { color: #48cae4 !important; background: rgba(0,180,216,.18) !important; }
-    #brawltabMenu .rtab-menu-item:hover { background: rgba(244,161,0,.12) !important; }
-    #brawltabMenu .rtab-menu-item.active { color: #f4a100 !important; background: rgba(244,161,0,.18) !important; }
-    #pestabMenu .rtab-menu-item:hover { background: rgba(111,207,58,.12) !important; }
-    #pestabMenu .rtab-menu-item.active { color: #6fcf3a !important; background: rgba(111,207,58,.18) !important; }
+    #pubgtabMenu { border-color: rgba(220,38,38,.4) !important; }
+    #pestabMenu { border-color: rgba(220,38,38,.4) !important; }
+    #fifatabMenu { border-color: rgba(220,38,38,.4) !important; }
+    #brawltabMenu { border-color: rgba(220,38,38,.4) !important; }
+    #pubgtabMenu .rtab-menu-item:hover { background: rgba(220,38,38,.12) !important; }
+    #pubgtabMenu .rtab-menu-item.active { color: #ef4444 !important; background: rgba(220,38,38,.18) !important; }
+    #brawltabMenu .rtab-menu-item:hover { background: rgba(220,38,38,.12) !important; }
+    #brawltabMenu .rtab-menu-item.active { color: #dc2626 !important; background: rgba(220,38,38,.18) !important; }
+    #pestabMenu .rtab-menu-item:hover { background: rgba(220,38,38,.12) !important; }
+    #pestabMenu .rtab-menu-item.active { color: #dc2626 !important; background: rgba(220,38,38,.18) !important; }
 
     .ce-modal-overlay {
       display: none;
@@ -1098,7 +1181,7 @@
     .ce-modal-overlay.open { display: flex; }
     .ce-modal-box {
       background: #161616;
-      border: 1.5px solid rgba(96,165,250,.4);
+      border: 1.5px solid rgba(220,38,38,.4);
       border-radius: 18px;
       padding: 22px 20px;
       max-width: 420px;
@@ -1377,9 +1460,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(96,165,250,.15);
-      border: 1.5px solid #60a5fa;
-      color: #60a5fa;
+      background: rgba(220,38,38,.15);
+      border: 1.5px solid #dc2626;
+      color: #dc2626;
       font-family: 'Cairo', sans-serif;
       font-weight: 800;
       font-size: .85rem;
@@ -1472,13 +1555,13 @@
     .com-link-wrap { display: flex; align-items: stretch; gap: 8px; direction: rtl; }
     .com-link-blue, .com-copy-btn {
       display: inline-flex; align-items: center; justify-content: center;
-      background: linear-gradient(135deg,#3b82f6,#60a5fa); color: #fff; border: none;
+      background: linear-gradient(135deg,#ef4444,#ef4444); color: #fff; border: none;
       font-family: 'Cairo', sans-serif; font-size: .9rem; font-weight: 800; letter-spacing: .01em;
       padding: 11px 18px; border-radius: 12px; cursor: pointer; white-space: nowrap; text-decoration: none;
-      box-shadow: 0 4px 14px rgba(59,130,246,.38);
+      box-shadow: 0 4px 14px rgba(239,68,68,.38);
       transition: transform .15s, box-shadow .2s, filter .2s;
     }
-    .com-link.com-link-blue:hover, .com-copy-btn:hover { background: linear-gradient(135deg,#3b82f6,#60a5fa); filter: brightness(1.08); box-shadow: 0 6px 18px rgba(59,130,246,.5); }
+    .com-link.com-link-blue:hover, .com-copy-btn:hover { background: linear-gradient(135deg,#ef4444,#ef4444); filter: brightness(1.08); box-shadow: 0 6px 18px rgba(239,68,68,.5); }
     .com-link-blue:active, .com-copy-btn:active { transform: scale(.96); }
     .acc-notice {
       background: rgba(220,38,38,.08);
@@ -1502,38 +1585,38 @@
     #robloxPage .rpage-header .rpage-back { padding: 7px 12px; }
     #robloxPage .rpage-header .rtab-select-btn { width: 134px; padding: 12px 12px; }
     #robloxPage #robloxWalletChip { padding: 0 9px; min-width: 72px; }
-    #robloxPage .rpage-back { border-color: rgba(37,99,235,.45); color: #2563eb; }
-    #robloxPage .rpage-back:hover { background: rgba(37,99,235,.12); }
-    #robloxPage .rpage-logo { color: #60a5fa; }
-    #robloxPage .rpage-tabs { border-bottom-color: rgba(37,99,235,.2); }
+    #robloxPage .rpage-back { border-color: rgba(220,38,38,.45); color: #dc2626; }
+    #robloxPage .rpage-back:hover { background: rgba(220,38,38,.12); }
+    #robloxPage .rpage-logo { color: #ef4444; }
+    #robloxPage .rpage-tabs { border-bottom-color: rgba(220,38,38,.2); }
     #robloxPage .rptab.active,
-    #robloxPage .rptab:hover { color: #60a5fa; border-bottom-color: #60a5fa; }
-    #robloxPage .ptoggle.active { background: rgba(37,99,235,.2); border-color: #2563eb; color: #2563eb; }
-    #robloxPage .pcard { border-color: rgba(37,99,235,.25); }
-    #robloxPage .pcard:not(.has-qty):hover { border-color: #60a5fa; }
-    #robloxPage .explain-btn { background: rgba(37,99,235,.12); border-color: rgba(37,99,235,.4); color: #2563eb; }
-    #robloxPage .explain-btn:hover { background: rgba(37,99,235,.25); }
-    #robloxPage .explain-box { border-color: rgba(37,99,235,.25); }
-    #robloxPage .explain-num { background: rgba(37,99,235,.2); border-color: #2563eb; color: #2563eb; }
-    #robloxPage .oinput:focus { border-color: #60a5fa; }
-    #robloxPage .apply-btn { background: rgba(37,99,235,.2); border-color: #2563eb; color: #2563eb; }
-    #robloxPage .apply-btn:hover { background: rgba(37,99,235,.28); }
-    #robloxPage .com-link { background: rgba(96,165,250,.1); border-color: rgba(37,99,235,.45); color: #2563eb; }
-    #robloxPage .com-link:hover { background: rgba(37,99,235,.25); }
+    #robloxPage .rptab:hover { color: #ef4444; border-bottom-color: #ef4444; }
+    #robloxPage .ptoggle.active { background: rgba(220,38,38,.2); border-color: #dc2626; color: #dc2626; }
+    #robloxPage .pcard { border-color: rgba(220,38,38,.25); }
+    #robloxPage .pcard:not(.has-qty):hover { border-color: #ef4444; }
+    #robloxPage .explain-btn { background: rgba(220,38,38,.12); border-color: rgba(220,38,38,.4); color: #dc2626; }
+    #robloxPage .explain-btn:hover { background: rgba(220,38,38,.25); }
+    #robloxPage .explain-box { border-color: rgba(220,38,38,.25); }
+    #robloxPage .explain-num { background: rgba(220,38,38,.2); border-color: #dc2626; color: #dc2626; }
+    #robloxPage .oinput:focus { border-color: #ef4444; }
+    #robloxPage .apply-btn { background: rgba(220,38,38,.2); border-color: #dc2626; color: #dc2626; }
+    #robloxPage .apply-btn:hover { background: rgba(220,38,38,.28); }
+    #robloxPage .com-link { background: rgba(239,68,68,.1); border-color: rgba(220,38,38,.45); color: #dc2626; }
+    #robloxPage .com-link:hover { background: rgba(220,38,38,.25); }
     /* رابط الكميونتي بنفس لون زرار نسخ بالظبط (بيغلب القاعدة العامة بتاعة #robloxPage .com-link) */
     #robloxPage .com-link.com-link-blue,
     #robloxPage .com-link.com-link-blue:hover {
-      background: linear-gradient(135deg,#3b82f6,#60a5fa);
+      background: linear-gradient(135deg,#ef4444,#ef4444);
       color: #fff; border: none;
     }
 
     /* Roblox price colors */
-    #robloxPage .pcard .egp { color: #60a5fa !important; }
-    #robloxPage .pcard.hagz .egp { color: #93c5fd !important; }
-    #robloxPage #acc-grand-total { color: #60a5fa !important; }
-    #robloxPage #com-grand-total { color: #60a5fa !important; }
-    #robloxPage .qty-num { color: #60a5fa !important; }
-    #robloxPage .pcard.hagz .qty-num { color: #93c5fd !important; }
+    #robloxPage .pcard .egp { color: #ef4444 !important; }
+    #robloxPage .pcard.hagz .egp { color: #fca5a5 !important; }
+    #robloxPage #acc-grand-total { color: #ef4444 !important; }
+    #robloxPage #com-grand-total { color: #ef4444 !important; }
+    #robloxPage .qty-num { color: #ef4444 !important; }
+    #robloxPage .pcard.hagz .qty-num { color: #fca5a5 !important; }
 
     /* ببجي: نفس تصغير هيدر روبلوكس عشان المحفظة تاخد مساحتها */
     #pubgPage .rpage-header { padding-left: 4%; padding-right: 4%; gap: 8px !important; }
@@ -1637,9 +1720,9 @@
 
     .auth-en-badge {
       display: inline-block;
-      background: rgba(96,165,250,.15);
-      border: 2px solid rgba(96,165,250,.5);
-      color: #60a5fa;
+      background: rgba(220,38,38,.15);
+      border: 2px solid rgba(220,38,38,.5);
+      color: #dc2626;
       font-family: 'Poppins', 'Cairo', sans-serif;
       font-weight: 800;
       font-size: 1.15rem;
@@ -1651,7 +1734,7 @@
       transition: background .2s, transform .2s;
     }
     .auth-en-badge:hover {
-      background: rgba(96,165,250,.28);
+      background: rgba(220,38,38,.28);
       transform: scale(1.05);
     }
     .login-title-row {
@@ -1693,7 +1776,7 @@
       cursor: pointer;
       transition: background .2s, color .2s;
     }
-    .login-tab.active { background: rgba(96,165,250,.15); color: #60a5fa; }
+    .login-tab.active { background: rgba(220,38,38,.15); color: #dc2626; }
     .google-btn {
       display: flex;
       align-items: center;
@@ -1731,8 +1814,8 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      background: #60a5fa;
-      color: #04101f;
+      background: #dc2626;
+      color: #fff;
       font-family: 'Cairo', sans-serif;
       font-weight: 900;
       font-size: .95rem;
@@ -1783,9 +1866,10 @@
 
     /* ── LOGIN PAGE REDESIGN (Welcome / navy+pink style) ── */
     #loginModal.rpage {
-      background: radial-gradient(120% 90% at 12% 0%, rgba(220,38,38,.16), transparent 55%),
-                  radial-gradient(120% 90% at 90% 10%, rgba(96,165,250,.14), transparent 55%),
-                  #0b1220;
+      background:
+        radial-gradient(circle at 18% 18%, rgba(220,38,38,.15) 0%, transparent 55%),
+        radial-gradient(circle at 85% 80%, rgba(220,38,38,.10) 0%, transparent 55%),
+        var(--black);
     }
     #loginModal .rpage-panels {
       position: relative;
@@ -2522,9 +2606,9 @@
 <!-- BRAWL STARS PAGE -->
 <div id="brawlPage" class="rpage">
   <div class="rpage-header" style="gap:10px;">
-    <button class="rpage-back" style="border-color:rgba(244,161,0,.5);color:#f4a100; height:46px; box-sizing:border-box; display:flex; align-items:center; justify-content:center;" onclick="closeBrawl()">&#8594; Back</button>
+    <button class="rpage-back" style="border-color:rgba(220,38,38,.5);color:#dc2626; height:46px; box-sizing:border-box; display:flex; align-items:center; justify-content:center;" onclick="closeBrawl()">&#8594; Back</button>
     <div class="rtab-select-wrap" id="brawltabSelectWrap">
-      <button class="rtab-select-btn" id="brawlMethodBtn" style="background:rgba(244,161,0,.08); border-color:rgba(244,161,0,.4); color:#f4a100; height:46px; box-sizing:border-box;" onclick="hideBrawlBubble('method'); toggleBrawlTabMenu()">
+      <button class="rtab-select-btn" id="brawlMethodBtn" style="background:rgba(220,38,38,.08); border-color:rgba(220,38,38,.4); color:#dc2626; height:46px; box-sizing:border-box;" onclick="hideBrawlBubble('method'); toggleBrawlTabMenu()">
         <span id="brawltabSelectedLabel">باس</span>
         <span class="rtab-select-arrow">▾</span>
       </button>
@@ -2533,36 +2617,36 @@
         <button class="rtab-menu-item" id="brawltab-item-gems" onclick="selectBrawlTab(this,'gems','جواهر')">جواهر</button>
       </div>
     </div>
-    <div class="rtab-select-label" id="brawlBookBtn" style="background:rgba(244,161,0,.08); border-color:rgba(244,161,0,.4); color:#f4a100; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hideBrawlBubble('book'); openBrawlExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
-    <div class="rtab-select-label" id="brawlWalletChip" title="رصيدك" onclick="walletChipClick()" style="cursor:pointer; background:rgba(244,161,0,.08); border-color:rgba(244,161,0,.4); color:#f4a100; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:0 10px; flex:0 0 auto; direction:ltr;">
+    <div class="rtab-select-label" id="brawlBookBtn" style="background:rgba(220,38,38,.08); border-color:rgba(220,38,38,.4); color:#dc2626; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hideBrawlBubble('book'); openBrawlExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
+    <div class="rtab-select-label" id="brawlWalletChip" title="رصيدك" onclick="walletChipClick()" style="cursor:pointer; background:rgba(220,38,38,.08); border-color:rgba(220,38,38,.4); color:#dc2626; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:0 10px; flex:0 0 auto; direction:ltr;">
       <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="flex:0 0 auto;">
-        <path d="M5 7.5 L16.2 3.6 a1.6 1.6 0 0 1 2.1 1.5 V7.5" stroke="#f4a100" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        <rect x="2.5" y="7.5" width="19" height="13" rx="3.2" fill="rgba(244,161,0,.16)" stroke="#f4a100" stroke-width="1.6"/>
-        <rect x="13.6" y="11.6" width="8.9" height="5.2" rx="2.6" fill="rgba(184,120,0,.35)" stroke="#f4a100" stroke-width="1.6"/>
-        <circle cx="17.1" cy="14.2" r="1" fill="#fff3d6"/>
+        <path d="M5 7.5 L16.2 3.6 a1.6 1.6 0 0 1 2.1 1.5 V7.5" stroke="#dc2626" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="2.5" y="7.5" width="19" height="13" rx="3.2" fill="rgba(220,38,38,.16)" stroke="#dc2626" stroke-width="1.6"/>
+        <rect x="13.6" y="11.6" width="8.9" height="5.2" rx="2.6" fill="rgba(220,38,38,.35)" stroke="#dc2626" stroke-width="1.6"/>
+        <circle cx="17.1" cy="14.2" r="1" fill="#ffe4e4"/>
       </svg>
       <span id="brawlWalletAmount" style="font-weight:800;font-size:.9rem;line-height:1;">0</span>
     </div>
     <div id="brawlBubbleRow" style="position:absolute;top:100%;left:0;right:0;height:0;margin-top:-4px;z-index:5;pointer-events:none;">
-      <div id="brawlHelpBubble" onclick="hideBrawlBubble('book'); openBrawlExplainModal()" style="pointer-events:auto;position:absolute;top:0;left:0;width:140px;direction:rtl;text-align:center;background:#f4a100;color:#0d0d0d;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(244,161,0,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+      <div id="brawlHelpBubble" onclick="hideBrawlBubble('book'); openBrawlExplainModal()" style="pointer-events:auto;position:absolute;top:0;left:0;width:140px;direction:rtl;text-align:center;background:#1d4ed8;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(29,78,216,.5);animation:robloxHelpPulse 2s ease-in-out infinite;">
         اضغط هنا لرؤية شرح الطريقة
-        <span id="brawlHelpArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#f4a100;transform:rotate(45deg);"></span>
+        <span id="brawlHelpArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#1d4ed8;transform:rotate(45deg);"></span>
       </div>
-      <div id="brawlMethodBubble" onclick="hideBrawlBubble('method'); toggleBrawlTabMenu()" style="pointer-events:auto;position:absolute;top:0;left:0;width:122px;direction:rtl;text-align:center;background:#f4a100;color:#0d0d0d;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(244,161,0,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+      <div id="brawlMethodBubble" onclick="hideBrawlBubble('method'); toggleBrawlTabMenu()" style="pointer-events:auto;position:absolute;top:0;left:0;width:122px;direction:rtl;text-align:center;background:#1d4ed8;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(29,78,216,.5);animation:robloxHelpPulse 2s ease-in-out infinite;">
         اضغط هنا لتغيير طريقة الشحن
-        <span id="brawlMethodArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#f4a100;transform:rotate(45deg);"></span>
+        <span id="brawlMethodArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#1d4ed8;transform:rotate(45deg);"></span>
       </div>
     </div>
   </div>
 
   <!-- BRAWL CARD + EMAIL FIELD — card on the left, email field fills the space next to it -->
   <div style="display:flex; align-items:flex-start; gap:14px; padding: 150px 5% 0; direction:ltr;">
-    <div id="brawlCardImg" style="width:30%; max-width:115px; aspect-ratio:3/4; border:1.5px solid rgba(244,161,0,.4); border-radius:16px; overflow:hidden; box-shadow:0 0 10px rgba(244,161,0,.25); flex:0 0 auto;">
+    <div id="brawlCardImg" style="width:30%; max-width:115px; aspect-ratio:3/4; border:1.5px solid rgba(220,38,38,.4); border-radius:16px; overflow:hidden; box-shadow:0 0 10px rgba(220,38,38,.25); flex:0 0 auto;">
       <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/images%20(10).jpeg" alt="Brawl Stars" style="width:100%;height:100%;object-fit:cover;display:block;">
     </div>
     <div class="ofield" id="brawlEmailField" style="flex:1; min-width:0; direction:rtl; margin:0;">
-      <label class="olabel" style="font-size:.95rem;color:#f4a100;">الإيميل <span class="req">*</span></label>
-      <input class="oinput" id="brawl-email" type="email" placeholder="اكتب الإيميل هنا" style="border-color:rgba(244,161,0,.35);text-align:center;font-size:1.05rem;width:100%;" />
+      <label class="olabel" style="font-size:.95rem;color:#dc2626;">الإيميل <span class="req">*</span></label>
+      <input class="oinput" id="brawl-email" type="email" placeholder="اكتب الإيميل هنا" style="border-color:rgba(220,38,38,.35);text-align:center;font-size:1.05rem;width:100%;" />
     </div>
   </div>
 
@@ -2585,17 +2669,17 @@
     <div class="price-grid" id="brawl-prices" style="grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px;">    </div>
 
     <!-- SUMMARY (فاتورة الطلب) -->
-    <div id="brawl-summary" style="display:block; margin-top:14px; background:#241a05; border:1px solid rgba(244,161,0,.3); border-radius:12px; padding:14px;">
+    <div id="brawl-summary" style="display:block; margin-top:14px; background:#1f0f0f; border:1px solid rgba(220,38,38,.3); border-radius:12px; padding:14px;">
       <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">طلبك:</div>
       <div id="brawl-sum-rows"><div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div></div>
-      <div id="brawl-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(244,161,0,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#f4a100;text-align:center;letter-spacing:.04em;">السعر: 0 جنيه</div>
+      <div id="brawl-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(220,38,38,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#dc2626;text-align:center;letter-spacing:.04em;">السعر: 0 جنيه</div>
 
       <div id="brawl-egp-status" style="margin-top:6px;font-size:.8rem;text-align:center;"></div>
 
       <div class="oerror" id="brawl-error" style="margin-top:10px;"></div>
       <div style="display:flex;gap:10px;margin-top:14px;">
-        <button id="brawl-use-egp-btn" onclick="toggleBrawlUseEGP()" style="flex:1;width:auto;background:rgba(244,161,0,.12);border:1.5px solid #f4a100;color:#f4a100;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
-        <button class="com-wa-btn" onclick="sendBrawlOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#b87800,#f4a100);color:#0d0d0d;border:none;font-size:.85rem;padding:12px 6px;">
+        <button id="brawl-use-egp-btn" onclick="toggleBrawlUseEGP()" style="flex:1;width:auto;background:rgba(220,38,38,.12);border:1.5px solid #dc2626;color:#dc2626;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
+        <button class="com-wa-btn" onclick="sendBrawlOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#b91c1c,#ef4444);color:#fff;border:none;font-size:.85rem;padding:12px 6px;">
           شحن
         </button>
       </div>
@@ -2607,9 +2691,9 @@
 <!-- PES PAGE -->
 <div id="pesPage" class="rpage">
   <div class="rpage-header" style="gap:10px;">
-    <button class="rpage-back" style="border-color:rgba(111,207,58,.5);color:#6fcf3a; height:46px; box-sizing:border-box; display:flex; align-items:center; justify-content:center;" onclick="closePes()">&#8594; Back</button>
+    <button class="rpage-back" style="border-color:rgba(220,38,38,.5);color:#dc2626; height:46px; box-sizing:border-box; display:flex; align-items:center; justify-content:center;" onclick="closePes()">&#8594; Back</button>
     <div class="rtab-select-wrap" id="pestabSelectWrap">
-      <button class="rtab-select-btn" id="pesMethodBtn" style="background:rgba(111,207,58,.08); border-color:rgba(111,207,58,.4); color:#6fcf3a; height:46px; box-sizing:border-box;" onclick="hidePesBubble('method'); togglePesTabMenu()">
+      <button class="rtab-select-btn" id="pesMethodBtn" style="background:rgba(220,38,38,.08); border-color:rgba(220,38,38,.4); color:#dc2626; height:46px; box-sizing:border-box;" onclick="hidePesBubble('method'); togglePesTabMenu()">
         <span id="pestabSelectedLabel">اندرويد</span>
         <span class="rtab-select-arrow">▾</span>
       </button>
@@ -2618,24 +2702,24 @@
         <button class="rtab-menu-item" id="pestab-item-iphone" onclick="selectPesTab(this,'iphone','ايفون')">ايفون</button>
       </div>
     </div>
-    <div class="rtab-select-label" id="pesBookBtn" style="background:rgba(111,207,58,.08); border-color:rgba(111,207,58,.4); color:#6fcf3a; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hidePesBubble('book'); openPesActiveExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
-    <div class="rtab-select-label" id="pesWalletChip" title="رصيدك" onclick="walletChipClick()" style="cursor:pointer; background:rgba(111,207,58,.08); border-color:rgba(111,207,58,.4); color:#6fcf3a; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:0 10px; flex:0 0 auto; direction:ltr;">
+    <div class="rtab-select-label" id="pesBookBtn" style="background:rgba(220,38,38,.08); border-color:rgba(220,38,38,.4); color:#dc2626; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hidePesBubble('book'); openPesActiveExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
+    <div class="rtab-select-label" id="pesWalletChip" title="رصيدك" onclick="walletChipClick()" style="cursor:pointer; background:rgba(220,38,38,.08); border-color:rgba(220,38,38,.4); color:#dc2626; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:0 10px; flex:0 0 auto; direction:ltr;">
       <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="flex:0 0 auto;">
-        <path d="M5 7.5 L16.2 3.6 a1.6 1.6 0 0 1 2.1 1.5 V7.5" stroke="#6fcf3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        <rect x="2.5" y="7.5" width="19" height="13" rx="3.2" fill="rgba(111,207,58,.16)" stroke="#6fcf3a" stroke-width="1.6"/>
-        <rect x="13.6" y="11.6" width="8.9" height="5.2" rx="2.6" fill="rgba(74,158,31,.35)" stroke="#6fcf3a" stroke-width="1.6"/>
+        <path d="M5 7.5 L16.2 3.6 a1.6 1.6 0 0 1 2.1 1.5 V7.5" stroke="#dc2626" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="2.5" y="7.5" width="19" height="13" rx="3.2" fill="rgba(220,38,38,.16)" stroke="#dc2626" stroke-width="1.6"/>
+        <rect x="13.6" y="11.6" width="8.9" height="5.2" rx="2.6" fill="rgba(220,38,38,.35)" stroke="#dc2626" stroke-width="1.6"/>
         <circle cx="17.1" cy="14.2" r="1" fill="#eaffd9"/>
       </svg>
       <span id="pesWalletAmount" style="font-weight:800;font-size:.9rem;line-height:1;">0</span>
     </div>
     <div id="pesBubbleRow" style="position:absolute;top:100%;left:0;right:0;height:0;margin-top:-4px;z-index:5;pointer-events:none;">
-      <div id="pesHelpBubble" onclick="hidePesBubble('book'); openPesActiveExplainModal()" style="pointer-events:auto;position:absolute;top:0;left:0;width:140px;direction:rtl;text-align:center;background:#6fcf3a;color:#0d0d0d;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(111,207,58,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+      <div id="pesHelpBubble" onclick="hidePesBubble('book'); openPesActiveExplainModal()" style="pointer-events:auto;position:absolute;top:0;left:0;width:140px;direction:rtl;text-align:center;background:#1d4ed8;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(29,78,216,.5);animation:robloxHelpPulse 2s ease-in-out infinite;">
         اضغط هنا لرؤية شرح الطريقة
-        <span id="pesHelpArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#6fcf3a;transform:rotate(45deg);"></span>
+        <span id="pesHelpArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#1d4ed8;transform:rotate(45deg);"></span>
       </div>
-      <div id="pesMethodBubble" onclick="hidePesBubble('method'); togglePesTabMenu()" style="pointer-events:auto;position:absolute;top:0;left:0;width:122px;direction:rtl;text-align:center;background:#6fcf3a;color:#0d0d0d;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(111,207,58,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+      <div id="pesMethodBubble" onclick="hidePesBubble('method'); togglePesTabMenu()" style="pointer-events:auto;position:absolute;top:0;left:0;width:122px;direction:rtl;text-align:center;background:#1d4ed8;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(29,78,216,.5);animation:robloxHelpPulse 2s ease-in-out infinite;">
         اضغط هنا لتغيير طريقة الشحن
-        <span id="pesMethodArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#6fcf3a;transform:rotate(45deg);"></span>
+        <span id="pesMethodArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#1d4ed8;transform:rotate(45deg);"></span>
       </div>
     </div>
   </div>
@@ -2663,34 +2747,34 @@
 
       <!-- PES CARD + EMAIL FIELD — card on the left, email field fills the space next to it -->
       <div style="display:flex; align-items:flex-start; gap:14px; padding: 114px 0 16px; direction:ltr;">
-        <div style="width:30%; max-width:115px; aspect-ratio:3/4; border:1.5px solid rgba(111,207,58,.4); border-radius:16px; overflow:hidden; box-shadow:0 0 10px rgba(111,207,58,.25); flex:0 0 auto;">
+        <div style="width:30%; max-width:115px; aspect-ratio:3/4; border:1.5px solid rgba(220,38,38,.4); border-radius:16px; overflow:hidden; box-shadow:0 0 10px rgba(220,38,38,.25); flex:0 0 auto;">
           <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/images%20(8).jpeg" alt="eFootball" style="width:100%;height:100%;object-fit:cover;display:block;">
         </div>
         <div class="ofield" style="flex:1; min-width:0; direction:rtl; margin:0;">
-          <label class="olabel" style="font-size:.95rem;color:#6fcf3a;">الإيميل <span class="req">*</span></label>
-          <input class="oinput" id="pes-email" type="email" placeholder="" style="border-color:rgba(111,207,58,.4);width:100%;" />
+          <label class="olabel" style="font-size:.95rem;color:#dc2626;">الإيميل <span class="req">*</span></label>
+          <input class="oinput" id="pes-email" type="email" placeholder="" style="border-color:rgba(220,38,38,.4);width:100%;" />
         </div>
       </div>
 
       <div class="ofield" style="margin-bottom:20px;">
-        <label class="olabel" style="color:#6fcf3a;">الباسورد <span class="req">*</span></label>
-        <input class="oinput" id="pes-pass" type="password" placeholder="" style="border-color:rgba(111,207,58,.4);" />
+        <label class="olabel" style="color:#dc2626;">الباسورد <span class="req">*</span></label>
+        <input class="oinput" id="pes-pass" type="password" placeholder="" style="border-color:rgba(220,38,38,.4);" />
       </div>
 
       <div class="price-grid" id="pes-prices">      </div>
 
       <!-- ملخص الطلب -->
-      <div id="pes-summary" style="display:block; margin-top:16px; background:#0f1f14; border:1px solid rgba(111,207,58,.35); border-radius:12px; padding:14px;">
+      <div id="pes-summary" style="display:block; margin-top:16px; background:#1f0f0f; border:1px solid rgba(220,38,38,.35); border-radius:12px; padding:14px;">
         <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">طلبك:</div>
         <div id="pes-sum-rows"><div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div></div>
-        <div id="pes-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(111,207,58,.25);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#6fcf3a;text-align:center;letter-spacing:.04em;">السعر: 0 جنيه</div>
+        <div id="pes-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(220,38,38,.25);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#dc2626;text-align:center;letter-spacing:.04em;">السعر: 0 جنيه</div>
 
         <div id="pes-egp-status" style="margin-top:6px;font-size:.8rem;text-align:center;"></div>
 
         <div class="oerror" id="pes-error" style="margin-top:10px;"></div>
         <div style="display:flex;gap:10px;margin-top:14px;">
-          <button id="pes-use-egp-btn" onclick="togglePesUseEGP()" style="flex:1;width:auto;background:rgba(111,207,58,.12);border:1.5px solid #6fcf3a;color:#6fcf3a;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
-          <button class="com-wa-btn" onclick="sendPesOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#1e7e34,#6fcf3a);color:#0d0d0d;border:none;font-size:.85rem;padding:12px 6px;">
+          <button id="pes-use-egp-btn" onclick="togglePesUseEGP()" style="flex:1;width:auto;background:rgba(220,38,38,.12);border:1.5px solid #dc2626;color:#dc2626;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
+          <button class="com-wa-btn" onclick="sendPesOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#b91c1c,#ef4444);color:#fff;border:none;font-size:.85rem;padding:12px 6px;">
             شحن
           </button>
         </div>
@@ -2711,9 +2795,9 @@
 <!-- VISA PAGE -->
 <div id="visaPage" class="rpage">
   <div class="rpage-header" style="gap:10px;">
-    <button class="rpage-back" style="border-color:rgba(96,165,250,.5);color:#60a5fa; height:46px; box-sizing:border-box; display:flex; align-items:center; justify-content:center;" onclick="closeVisa()">&#8594; Back</button>
+    <button class="rpage-back" style="border-color:rgba(220,38,38,.5);color:#dc2626; height:46px; box-sizing:border-box; display:flex; align-items:center; justify-content:center;" onclick="closeVisa()">&#8594; Back</button>
     <div class="rtab-select-wrap" id="visatabSelectWrap">
-      <button class="rtab-select-btn" style="background:rgba(96,165,250,.08); border-color:rgba(96,165,250,.4); color:#60a5fa; height:46px; box-sizing:border-box;" onclick="toggleVisaTabMenu()">
+      <button class="rtab-select-btn" style="background:rgba(220,38,38,.08); border-color:rgba(220,38,38,.4); color:#dc2626; height:46px; box-sizing:border-box;" onclick="toggleVisaTabMenu()">
         <span id="visatabSelectedLabel">Visa Recharge</span>
         <span class="rtab-select-arrow">▾</span>
       </button>
@@ -2721,20 +2805,20 @@
         <button class="rtab-menu-item active" id="visatab-item-visa" onclick="selectVisaTab(this,'visa','Visa Recharge')">Visa Recharge</button>
       </div>
     </div>
-    <div class="rtab-select-label" id="visaBookBtn" style="background:rgba(96,165,250,.08); border-color:rgba(96,165,250,.4); color:#60a5fa; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hideVisaBubble(); openVisaExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
-    <div class="rtab-select-label" id="visaWalletChip" title="رصيدك" onclick="walletChipClick()" style="cursor:pointer; background:rgba(96,165,250,.08); border-color:rgba(96,165,250,.4); color:#60a5fa; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:0 10px; flex:0 0 auto; direction:ltr;">
+    <div class="rtab-select-label" id="visaBookBtn" style="background:rgba(220,38,38,.08); border-color:rgba(220,38,38,.4); color:#dc2626; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hideVisaBubble(); openVisaExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
+    <div class="rtab-select-label" id="visaWalletChip" title="رصيدك" onclick="walletChipClick()" style="cursor:pointer; background:rgba(220,38,38,.08); border-color:rgba(220,38,38,.4); color:#dc2626; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:0 10px; flex:0 0 auto; direction:ltr;">
       <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="flex:0 0 auto;">
-        <path d="M5 7.5 L16.2 3.6 a1.6 1.6 0 0 1 2.1 1.5 V7.5" stroke="#60a5fa" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        <rect x="2.5" y="7.5" width="19" height="13" rx="3.2" fill="rgba(96,165,250,.16)" stroke="#60a5fa" stroke-width="1.6"/>
-        <rect x="13.6" y="11.6" width="8.9" height="5.2" rx="2.6" fill="rgba(37,99,235,.35)" stroke="#60a5fa" stroke-width="1.6"/>
-        <circle cx="17.1" cy="14.2" r="1" fill="#e0f2fe"/>
+        <path d="M5 7.5 L16.2 3.6 a1.6 1.6 0 0 1 2.1 1.5 V7.5" stroke="#dc2626" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="2.5" y="7.5" width="19" height="13" rx="3.2" fill="rgba(220,38,38,.16)" stroke="#dc2626" stroke-width="1.6"/>
+        <rect x="13.6" y="11.6" width="8.9" height="5.2" rx="2.6" fill="rgba(220,38,38,.35)" stroke="#dc2626" stroke-width="1.6"/>
+        <circle cx="17.1" cy="14.2" r="1" fill="#ffe4e4"/>
       </svg>
       <span id="visaWalletAmount" style="font-weight:800;font-size:.9rem;line-height:1;">0</span>
     </div>
     <div id="visaBubbleRow" style="position:absolute;top:100%;left:0;right:0;height:0;margin-top:-4px;z-index:5;pointer-events:none;">
-      <div id="visaHelpBubble" onclick="hideVisaBubble(); openVisaExplainModal()" style="pointer-events:auto;position:absolute;top:0;left:0;width:140px;direction:rtl;text-align:center;background:#2563eb;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(37,99,235,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+      <div id="visaHelpBubble" onclick="hideVisaBubble(); openVisaExplainModal()" style="pointer-events:auto;position:absolute;top:0;left:0;width:140px;direction:rtl;text-align:center;background:#1d4ed8;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(29,78,216,.5);animation:robloxHelpPulse 2s ease-in-out infinite;">
         اضغط هنا لرؤية شرح الطريقة
-        <span id="visaHelpArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#2563eb;transform:rotate(45deg);"></span>
+        <span id="visaHelpArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#1d4ed8;transform:rotate(45deg);"></span>
       </div>
     </div>
   </div>
@@ -2751,19 +2835,19 @@
 
     <!-- VISA CARD + REQUEST FIELD — card on the left, request field fills the space next to it -->
     <div style="display:flex; align-items:flex-start; gap:14px; padding: 114px 0 24px; direction:ltr;">
-      <div style="width:30%; max-width:115px; aspect-ratio:3/4; border:1.5px solid rgba(96,165,250,.4); border-radius:16px; overflow:hidden; box-shadow:0 0 10px rgba(96,165,250,.25); background:#0d1626; flex:0 0 auto;">
+      <div style="width:30%; max-width:115px; aspect-ratio:3/4; border:1.5px solid rgba(220,38,38,.4); border-radius:16px; overflow:hidden; box-shadow:0 0 10px rgba(220,38,38,.25); background:#1f0f0f; flex:0 0 auto;">
         <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/sm.svg" alt="Visa" style="width:100%;height:100%;object-fit:cover;display:block;">
       </div>
       <div class="ofield" style="flex:1; min-width:0; direction:rtl; margin:0;">
-        <label class="olabel" style="font-size:.95rem;color:#60a5fa;">الحاجة اللي عايز تشحنها <span class="req">*</span></label>
+        <label class="olabel" style="font-size:.95rem;color:#dc2626;">الحاجة اللي عايز تشحنها <span class="req">*</span></label>
         <textarea class="oinput" id="visa-request" rows="4"
           placeholder="اكتب هنا اللي عايزه..."
-          style="border-color:rgba(96,165,250,.35);resize:none;line-height:1.7;padding:14px;width:100%;"></textarea>
+          style="border-color:rgba(220,38,38,.35);resize:none;line-height:1.7;padding:14px;width:100%;"></textarea>
       </div>
     </div>
 
     <div class="oerror" id="visa-error" style="margin-bottom:10px;"></div>
-    <button class="com-wa-btn" onclick="sendVisaOrder()" style="background:linear-gradient(135deg,#2563eb,#60a5fa);color:#0d0d0d;border:none;">
+    <button class="com-wa-btn" onclick="sendVisaOrder()" style="background:linear-gradient(135deg,#b91c1c,#ef4444);color:#fff;border:none;">
       شحن
     </button>
 
@@ -2773,9 +2857,9 @@
 <!-- FREE FIRE PAGE -->
 <div id="ffPage" class="rpage">
   <div class="rpage-header" style="gap:10px;">
-    <button class="rpage-back" style="border-color:rgba(0,180,216,.5);color:#00b4d8; height:46px; box-sizing:border-box; display:flex; align-items:center; justify-content:center;" onclick="closeFreefire()">&#8594; Back</button>
+    <button class="rpage-back" style="border-color:rgba(220,38,38,.5);color:#dc2626; height:46px; box-sizing:border-box; display:flex; align-items:center; justify-content:center;" onclick="closeFreefire()">&#8594; Back</button>
     <div class="rtab-select-wrap" id="fftabSelectWrap">
-      <button class="rtab-select-btn" id="ffMethodBtn" style="background:rgba(0,180,216,.08); border-color:rgba(0,180,216,.4); color:#00b4d8; height:46px; box-sizing:border-box;" onclick="hideFFBubble('method'); toggleFFTabMenu()">
+      <button class="rtab-select-btn" id="ffMethodBtn" style="background:rgba(220,38,38,.08); border-color:rgba(220,38,38,.4); color:#dc2626; height:46px; box-sizing:border-box;" onclick="hideFFBubble('method'); toggleFFTabMenu()">
         <span id="fftabSelectedLabel">شحن بالـ ID</span>
         <span class="rtab-select-arrow">▾</span>
       </button>
@@ -2784,24 +2868,24 @@
         <button class="rtab-menu-item" id="fftab-item-acc" onclick="selectFFTab(this,'acc','داخل الحساب')">داخل الحساب</button>
       </div>
     </div>
-    <div class="rtab-select-label" id="ffBookBtn" style="background:rgba(0,180,216,.08); border-color:rgba(0,180,216,.4); color:#00b4d8; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hideFFBubble('book'); openFFActiveExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
-    <div class="rtab-select-label" id="ffWalletChip" title="رصيدك" onclick="walletChipClick()" style="cursor:pointer; background:rgba(0,180,216,.08); border-color:rgba(0,180,216,.4); color:#48cae4; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:0 10px; flex:0 0 auto; direction:ltr;">
+    <div class="rtab-select-label" id="ffBookBtn" style="background:rgba(220,38,38,.08); border-color:rgba(220,38,38,.4); color:#dc2626; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hideFFBubble('book'); openFFActiveExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
+    <div class="rtab-select-label" id="ffWalletChip" title="رصيدك" onclick="walletChipClick()" style="cursor:pointer; background:rgba(220,38,38,.08); border-color:rgba(220,38,38,.4); color:#ef4444; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:0 10px; flex:0 0 auto; direction:ltr;">
       <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="flex:0 0 auto;">
-        <path d="M5 7.5 L16.2 3.6 a1.6 1.6 0 0 1 2.1 1.5 V7.5" stroke="#48cae4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        <rect x="2.5" y="7.5" width="19" height="13" rx="3.2" fill="rgba(72,202,228,.16)" stroke="#48cae4" stroke-width="1.6"/>
-        <rect x="13.6" y="11.6" width="8.9" height="5.2" rx="2.6" fill="rgba(0,180,216,.35)" stroke="#48cae4" stroke-width="1.6"/>
-        <circle cx="17.1" cy="14.2" r="1" fill="#e0f7fb"/>
+        <path d="M5 7.5 L16.2 3.6 a1.6 1.6 0 0 1 2.1 1.5 V7.5" stroke="#ef4444" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="2.5" y="7.5" width="19" height="13" rx="3.2" fill="rgba(239,68,68,.16)" stroke="#ef4444" stroke-width="1.6"/>
+        <rect x="13.6" y="11.6" width="8.9" height="5.2" rx="2.6" fill="rgba(220,38,38,.35)" stroke="#ef4444" stroke-width="1.6"/>
+        <circle cx="17.1" cy="14.2" r="1" fill="#fee2e2"/>
       </svg>
       <span id="ffWalletAmount" style="font-weight:800;font-size:.9rem;line-height:1;">0</span>
     </div>
     <div id="ffBubbleRow" style="position:absolute;top:100%;left:0;right:0;height:0;margin-top:-4px;z-index:5;pointer-events:none;">
-      <div id="ffHelpBubble" onclick="hideFFBubble('book'); openFFActiveExplainModal()" style="pointer-events:auto;position:absolute;top:0;left:0;width:140px;direction:rtl;text-align:center;background:#00b4d8;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(0,180,216,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+      <div id="ffHelpBubble" onclick="hideFFBubble('book'); openFFActiveExplainModal()" style="pointer-events:auto;position:absolute;top:0;left:0;width:140px;direction:rtl;text-align:center;background:#1d4ed8;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(29,78,216,.5);animation:robloxHelpPulse 2s ease-in-out infinite;">
         اضغط هنا لرؤية شرح الطريقة
-        <span id="ffHelpArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#00b4d8;transform:rotate(45deg);"></span>
+        <span id="ffHelpArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#1d4ed8;transform:rotate(45deg);"></span>
       </div>
-      <div id="ffMethodBubble" onclick="hideFFBubble('method'); toggleFFTabMenu()" style="pointer-events:auto;position:absolute;top:0;left:0;width:122px;direction:rtl;text-align:center;background:#00b4d8;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(0,180,216,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+      <div id="ffMethodBubble" onclick="hideFFBubble('method'); toggleFFTabMenu()" style="pointer-events:auto;position:absolute;top:0;left:0;width:122px;direction:rtl;text-align:center;background:#1d4ed8;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(29,78,216,.5);animation:robloxHelpPulse 2s ease-in-out infinite;">
         اضغط هنا لتغيير طريقة الشحن
-        <span id="ffMethodArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#00b4d8;transform:rotate(45deg);"></span>
+        <span id="ffMethodArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#1d4ed8;transform:rotate(45deg);"></span>
       </div>
     </div>
   </div>
@@ -2832,32 +2916,32 @@
 
       <!-- FF CARD + ID FIELD — card on the left, ID field fills the space next to it -->
       <div style="display:flex; align-items:flex-start; gap:14px; padding: 114px 0 20px; direction:ltr;">
-        <div style="width:30%; max-width:115px; aspect-ratio:3/4; border:1.5px solid rgba(0,180,216,.4); border-radius:16px; overflow:hidden; box-shadow:0 0 10px rgba(0,180,216,.25); flex:0 0 auto;">
+        <div style="width:30%; max-width:115px; aspect-ratio:3/4; border:1.5px solid rgba(220,38,38,.4); border-radius:16px; overflow:hidden; box-shadow:0 0 10px rgba(220,38,38,.25); flex:0 0 auto;">
           <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/images%20(1).jpeg" alt="Free Fire" style="width:100%;height:100%;object-fit:cover;display:block;">
         </div>
         <div class="ofield" style="flex:1; min-width:0; direction:rtl; margin:0;">
-          <label class="olabel" style="font-size:.95rem;color:#00b4d8;">ID اللاعب <span class="req">*</span></label>
+          <label class="olabel" style="font-size:.95rem;color:#dc2626;">ID اللاعب <span class="req">*</span></label>
           <input class="oinput" id="ff-id" type="text" inputmode="numeric" pattern="[0-9]*"
             placeholder=""
             oninput="this.value=this.value.replace(/[^0-9]/g,'')"
-            style="border-color:rgba(0,180,216,.4);text-align:center;font-size:1.05rem;width:100%;" />
+            style="border-color:rgba(220,38,38,.4);text-align:center;font-size:1.05rem;width:100%;" />
         </div>
       </div>
 
       <div class="price-grid" id="ff-id-prices">      </div>
 
       <!-- ملخص فري فاير ID -->
-      <div id="ff-id-summary" style="display:block; margin-top:14px; background:#081a1f; border:1px solid rgba(0,180,216,.3); border-radius:12px; padding:14px;">
+      <div id="ff-id-summary" style="display:block; margin-top:14px; background:#0f1f3a; border:1px solid rgba(220,38,38,.3); border-radius:12px; padding:14px;">
         <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">طلبك:</div>
         <div id="ff-id-sum-rows"><div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div></div>
-        <div id="ff-id-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(0,180,216,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#6bd4ff;text-align:center;letter-spacing:.04em;">السعر: 0 جنيه</div>
+        <div id="ff-id-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(220,38,38,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#ef4444;text-align:center;letter-spacing:.04em;">السعر: 0 جنيه</div>
 
         <div id="ff-id-egp-status" style="margin-top:6px;font-size:.8rem;text-align:center;"></div>
 
         <div class="oerror" id="ff-id-error" style="margin-top:10px;"></div>
         <div style="display:flex;gap:10px;margin-top:14px;">
-          <button id="ff-id-use-egp-btn" onclick="toggleFFIdUseEGP()" style="flex:1;width:auto;background:rgba(0,180,216,.12);border:1.5px solid #00b4d8;color:#6bd4ff;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
-          <button class="com-wa-btn" onclick="sendFFIdOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#00b4d8,#6bd4ff);color:#fff;border:none;font-size:.85rem;padding:12px 6px;">
+          <button id="ff-id-use-egp-btn" onclick="toggleFFIdUseEGP()" style="flex:1;width:auto;background:rgba(220,38,38,.12);border:1.5px solid #dc2626;color:#ef4444;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
+          <button class="com-wa-btn" onclick="sendFFIdOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#dc2626,#ef4444);color:#fff;border:none;font-size:.85rem;padding:12px 6px;">
             شحن
           </button>
         </div>
@@ -2869,39 +2953,39 @@
 
       <!-- FF CARD + EMAIL FIELD — card on the left, email field fills the space next to it -->
       <div style="display:flex; align-items:flex-start; gap:14px; padding: 114px 0 14px; direction:ltr;">
-        <div style="width:30%; max-width:115px; aspect-ratio:3/4; border:1.5px solid rgba(0,180,216,.4); border-radius:16px; overflow:hidden; box-shadow:0 0 10px rgba(0,180,216,.25); flex:0 0 auto;">
+        <div style="width:30%; max-width:115px; aspect-ratio:3/4; border:1.5px solid rgba(220,38,38,.4); border-radius:16px; overflow:hidden; box-shadow:0 0 10px rgba(220,38,38,.25); flex:0 0 auto;">
           <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/images%20(1).jpeg" alt="Free Fire" style="width:100%;height:100%;object-fit:cover;display:block;">
         </div>
         <div class="ofield" style="flex:1; min-width:0; direction:rtl; margin:0;">
-          <label class="olabel" style="font-size:.95rem;color:#00b4d8;">الإيميل <span class="req">*</span></label>
-          <input class="oinput" id="ff-acc-user" type="text" placeholder="" style="border-color:rgba(0,180,216,.35);width:100%;" />
+          <label class="olabel" style="font-size:.95rem;color:#dc2626;">الإيميل <span class="req">*</span></label>
+          <input class="oinput" id="ff-acc-user" type="text" placeholder="" style="border-color:rgba(220,38,38,.35);width:100%;" />
         </div>
       </div>
 
       <div class="ofield" style="margin-bottom:14px;">
-        <label class="olabel" style="color:#00b4d8;">الباسورد <span class="req">*</span></label>
-        <input class="oinput" id="ff-acc-pass" type="password" placeholder="" style="border-color:rgba(0,180,216,.35);" />
+        <label class="olabel" style="color:#dc2626;">الباسورد <span class="req">*</span></label>
+        <input class="oinput" id="ff-acc-pass" type="password" placeholder="" style="border-color:rgba(220,38,38,.35);" />
       </div>
 
       <div class="ofield" style="margin-bottom:20px;">
-        <label class="olabel" style="color:#00b4d8;">نوع الربط <span class="req">*</span></label>
-        <input class="oinput" id="ff-acc-link" type="text" placeholder="" style="border-color:rgba(0,180,216,.35);" />
+        <label class="olabel" style="color:#dc2626;">نوع الربط <span class="req">*</span></label>
+        <input class="oinput" id="ff-acc-link" type="text" placeholder="" style="border-color:rgba(220,38,38,.35);" />
       </div>
 
       <div class="price-grid" id="ff-acc-prices">      </div>
 
       <!-- ملخص فري فاير حساب -->
-      <div id="ff-acc-summary" style="display:block; margin-top:14px; background:#081a1f; border:1px solid rgba(0,180,216,.3); border-radius:12px; padding:14px;">
+      <div id="ff-acc-summary" style="display:block; margin-top:14px; background:#0f1f3a; border:1px solid rgba(220,38,38,.3); border-radius:12px; padding:14px;">
         <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">طلبك:</div>
         <div id="ff-acc-sum-rows"><div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div></div>
-        <div id="ff-acc-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(0,180,216,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#6bd4ff;text-align:center;letter-spacing:.04em;">السعر: 0 جنيه</div>
+        <div id="ff-acc-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(220,38,38,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#ef4444;text-align:center;letter-spacing:.04em;">السعر: 0 جنيه</div>
 
         <div id="ff-acc-egp-status" style="margin-top:6px;font-size:.8rem;text-align:center;"></div>
 
         <div class="oerror" id="ff-acc-error" style="margin-top:10px;"></div>
         <div style="display:flex;gap:10px;margin-top:14px;">
-          <button id="ff-acc-use-egp-btn" onclick="toggleFFAccUseEGP()" style="flex:1;width:auto;background:rgba(0,180,216,.12);border:1.5px solid #00b4d8;color:#6bd4ff;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
-          <button class="com-wa-btn" onclick="sendFFAccOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#00b4d8,#6bd4ff);color:#fff;border:none;font-size:.85rem;padding:12px 6px;">
+          <button id="ff-acc-use-egp-btn" onclick="toggleFFAccUseEGP()" style="flex:1;width:auto;background:rgba(220,38,38,.12);border:1.5px solid #dc2626;color:#ef4444;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
+          <button class="com-wa-btn" onclick="sendFFAccOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#dc2626,#ef4444);color:#fff;border:none;font-size:.85rem;padding:12px 6px;">
             شحن
           </button>
         </div>
@@ -2914,9 +2998,9 @@
 <!-- PUBG PAGE -->
 <div id="pubgPage" class="rpage">
   <div class="rpage-header" style="gap:10px;">
-    <button class="rpage-back" style="border-color:rgba(0,180,216,.5);color:var(--gold); height:46px; box-sizing:border-box; display:flex; align-items:center; justify-content:center;" onclick="closePubg()">&#8594; Back</button>
+    <button class="rpage-back" style="border-color:rgba(220,38,38,.5);color:var(--gold); height:46px; box-sizing:border-box; display:flex; align-items:center; justify-content:center;" onclick="closePubg()">&#8594; Back</button>
     <div class="rtab-select-wrap" id="pubgtabSelectWrap">
-      <button class="rtab-select-btn" id="pubgMethodBtn" style="background:rgba(0,180,216,.08); border-color:rgba(0,180,216,.4); color:var(--gold); height:46px; box-sizing:border-box;" onclick="hidePubgBubble('method'); togglePubgTabMenu()">
+      <button class="rtab-select-btn" id="pubgMethodBtn" style="background:rgba(220,38,38,.08); border-color:rgba(220,38,38,.4); color:var(--gold); height:46px; box-sizing:border-box;" onclick="hidePubgBubble('method'); togglePubgTabMenu()">
         <span id="pubgtabSelectedLabel">UC</span>
         <span class="rtab-select-arrow">▾</span>
       </button>
@@ -2925,36 +3009,36 @@
         <button class="rtab-menu-item" id="pubgtab-item-orod" onclick="selectPubgTab(this,'orod','عروض')">عروض</button>
       </div>
     </div>
-    <div class="rtab-select-label" id="pubgBookBtn" style="background:rgba(0,180,216,.08); border-color:rgba(0,180,216,.4); color:var(--gold); cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hidePubgBubble('book'); openPubgActiveExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
-    <div class="rtab-select-label" id="pubgWalletChip" title="رصيدك" onclick="walletChipClick()" style="cursor:pointer; background:rgba(0,180,216,.08); border-color:rgba(0,180,216,.4); color:#48cae4; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:0 10px; flex:0 0 auto; direction:ltr;">
+    <div class="rtab-select-label" id="pubgBookBtn" style="background:rgba(220,38,38,.08); border-color:rgba(220,38,38,.4); color:var(--gold); cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hidePubgBubble('book'); openPubgActiveExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
+    <div class="rtab-select-label" id="pubgWalletChip" title="رصيدك" onclick="walletChipClick()" style="cursor:pointer; background:rgba(220,38,38,.08); border-color:rgba(220,38,38,.4); color:#ef4444; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:0 10px; flex:0 0 auto; direction:ltr;">
       <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="flex:0 0 auto;">
-        <path d="M5 7.5 L16.2 3.6 a1.6 1.6 0 0 1 2.1 1.5 V7.5" stroke="#48cae4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        <rect x="2.5" y="7.5" width="19" height="13" rx="3.2" fill="rgba(72,202,228,.16)" stroke="#48cae4" stroke-width="1.6"/>
-        <rect x="13.6" y="11.6" width="8.9" height="5.2" rx="2.6" fill="rgba(0,180,216,.35)" stroke="#48cae4" stroke-width="1.6"/>
-        <circle cx="17.1" cy="14.2" r="1" fill="#e0f7fb"/>
+        <path d="M5 7.5 L16.2 3.6 a1.6 1.6 0 0 1 2.1 1.5 V7.5" stroke="#ef4444" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="2.5" y="7.5" width="19" height="13" rx="3.2" fill="rgba(239,68,68,.16)" stroke="#ef4444" stroke-width="1.6"/>
+        <rect x="13.6" y="11.6" width="8.9" height="5.2" rx="2.6" fill="rgba(220,38,38,.35)" stroke="#ef4444" stroke-width="1.6"/>
+        <circle cx="17.1" cy="14.2" r="1" fill="#fee2e2"/>
       </svg>
       <span id="pubgWalletAmount" style="font-weight:800;font-size:.9rem;line-height:1;">0</span>
     </div>
     <div id="pubgBubbleRow" style="position:absolute;top:100%;left:0;right:0;height:0;margin-top:-4px;z-index:5;pointer-events:none;">
-      <div id="pubgHelpBubble" onclick="hidePubgBubble('book'); openPubgActiveExplainModal()" style="pointer-events:auto;position:absolute;top:0;left:0;width:140px;direction:rtl;text-align:center;background:#00b4d8;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(0,180,216,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+      <div id="pubgHelpBubble" onclick="hidePubgBubble('book'); openPubgActiveExplainModal()" style="pointer-events:auto;position:absolute;top:0;left:0;width:140px;direction:rtl;text-align:center;background:#1d4ed8;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(29,78,216,.5);animation:robloxHelpPulse 2s ease-in-out infinite;">
         اضغط هنا لرؤية شرح الطريقة
-        <span id="pubgHelpArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#00b4d8;transform:rotate(45deg);"></span>
+        <span id="pubgHelpArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#1d4ed8;transform:rotate(45deg);"></span>
       </div>
-      <div id="pubgMethodBubble" onclick="hidePubgBubble('method'); togglePubgTabMenu()" style="pointer-events:auto;position:absolute;top:0;left:0;width:122px;direction:rtl;text-align:center;background:#00b4d8;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(0,180,216,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+      <div id="pubgMethodBubble" onclick="hidePubgBubble('method'); togglePubgTabMenu()" style="pointer-events:auto;position:absolute;top:0;left:0;width:122px;direction:rtl;text-align:center;background:#1d4ed8;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(29,78,216,.5);animation:robloxHelpPulse 2s ease-in-out infinite;">
         اضغط هنا لتغيير طريقة الشحن
-        <span id="pubgMethodArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#00b4d8;transform:rotate(45deg);"></span>
+        <span id="pubgMethodArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#1d4ed8;transform:rotate(45deg);"></span>
       </div>
     </div>
   </div>
 
   <!-- PUBG CARD + ID FIELD — card on the left, ID field fills the space next to it -->
   <div style="display:flex; align-items:flex-start; gap:14px; padding: 150px 5% 0; direction:ltr;">
-    <div style="width:30%; max-width:115px; aspect-ratio:3/4; border:1.5px solid rgba(0,180,216,.4); border-radius:16px; overflow:hidden; box-shadow:0 0 10px rgba(0,180,216,.25); flex:0 0 auto;">
+    <div style="width:30%; max-width:115px; aspect-ratio:3/4; border:1.5px solid rgba(220,38,38,.4); border-radius:16px; overflow:hidden; box-shadow:0 0 10px rgba(220,38,38,.25); flex:0 0 auto;">
       <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/PlayerUnknown's_Battlegrounds_Mobile.webp" alt="PUBG" style="width:100%;height:100%;object-fit:cover;display:block;">
     </div>
     <div class="ofield" style="flex:1; min-width:0; direction:rtl; margin:0;">
       <label class="olabel" style="font-size:.95rem;color:var(--gold-lt);">ID اللاعب <span class="req">*</span></label>
-      <input class="oinput" id="pubg-id" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="" oninput="this.value=this.value.replace(/[^0-9]/g,'')" style="border-color:rgba(0,180,216,.35);text-align:center;font-size:1.05rem;width:100%;" />
+      <input class="oinput" id="pubg-id" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="" oninput="this.value=this.value.replace(/[^0-9]/g,'')" style="border-color:rgba(220,38,38,.35);text-align:center;font-size:1.05rem;width:100%;" />
     </div>
   </div>
 
@@ -2995,17 +3079,17 @@
     </div>
 
     <!-- SHARED SUMMARY (UC + Offers together) -->
-    <div id="pubg-summary" style="display:block; margin-top:14px; background:#0a1f24; border:1px solid rgba(0,180,216,.3); border-radius:12px; padding:14px;">
+    <div id="pubg-summary" style="display:block; margin-top:14px; background:#0f1f3a; border:1px solid rgba(220,38,38,.35); border-radius:12px; padding:14px;">
       <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">طلبك:</div>
       <div id="pubg-sum-rows"><div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div></div>
-      <div id="pubg-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(0,180,216,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--gold);text-align:center;letter-spacing:.04em;">السعر: 0 جنيه</div>
+      <div id="pubg-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(220,38,38,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--gold);text-align:center;letter-spacing:.04em;">السعر: 0 جنيه</div>
 
       <div id="pubg-egp-status" style="margin-top:6px;font-size:.8rem;text-align:center;"></div>
 
       <div class="oerror" id="pubg-error" style="margin-top:10px;"></div>
       <div style="display:flex;gap:10px;margin-top:14px;">
-        <button id="pubg-use-egp-btn" onclick="togglePubgUseEGP()" style="flex:1;width:auto;background:rgba(0,180,216,.12);border:1.5px solid #00b4d8;color:#00b4d8;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
-        <button class="com-wa-btn" onclick="sendPubgOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#0088a8,#00b4d8);color:#0d0d0d;font-size:.85rem;padding:12px 6px;">
+        <button id="pubg-use-egp-btn" onclick="togglePubgUseEGP()" style="flex:1;width:auto;background:rgba(220,38,38,.12);border:1.5px solid #dc2626;color:#dc2626;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
+        <button class="com-wa-btn" onclick="sendPubgOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#b91c1c,#dc2626);color:#fff;font-size:.85rem;padding:12px 6px;">
           شحن
         </button>
       </div>
@@ -3018,7 +3102,7 @@
   <div class="rpage-header" style="gap:10px;">
     <button class="rpage-back" style="height:46px; box-sizing:border-box; display:flex; align-items:center; justify-content:center;" onclick="closeRoblox()">&#8594; Back</button>
     <div class="rtab-select-wrap" id="rtabSelectWrap">
-      <button class="rtab-select-btn" style="background:rgba(37,99,235,.08); border-color:rgba(37,99,235,.4); color:#2563eb; height:46px; box-sizing:border-box;" id="robloxMethodBtn" onclick="hideRobloxBubble('method'); toggleRTabMenu()">
+      <button class="rtab-select-btn" style="background:rgba(220,38,38,.08); border-color:rgba(220,38,38,.4); color:#dc2626; height:46px; box-sizing:border-box;" id="robloxMethodBtn" onclick="hideRobloxBubble('method'); toggleRTabMenu()">
         <span id="rtabSelectedLabel">كميونتي</span>
         <span class="rtab-select-arrow">▾</span>
       </button>
@@ -3030,25 +3114,25 @@
       </div>
     </div>
     <div style="position:relative;display:inline-flex;">
-      <div class="rtab-select-label" id="robloxBookBtn" style="background:rgba(37,99,235,.08); border-color:rgba(37,99,235,.4); color:#2563eb; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hideRobloxBubble('book'); openActiveExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
+      <div class="rtab-select-label" id="robloxBookBtn" style="background:rgba(220,38,38,.08); border-color:rgba(220,38,38,.4); color:#dc2626; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hideRobloxBubble('book'); openActiveExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
     </div>
-    <div class="rtab-select-label" id="robloxWalletChip" title="رصيدك" onclick="walletChipClick()" style="cursor:pointer; background:rgba(37,99,235,.08); border-color:rgba(37,99,235,.4); color:#60a5fa; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:0 10px; flex:0 0 auto; direction:ltr;">
+    <div class="rtab-select-label" id="robloxWalletChip" title="رصيدك" onclick="walletChipClick()" style="cursor:pointer; background:rgba(220,38,38,.08); border-color:rgba(220,38,38,.4); color:#ef4444; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:0 10px; flex:0 0 auto; direction:ltr;">
       <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="flex:0 0 auto;">
-        <path d="M5 7.5 L16.2 3.6 a1.6 1.6 0 0 1 2.1 1.5 V7.5" stroke="#60a5fa" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        <rect x="2.5" y="7.5" width="19" height="13" rx="3.2" fill="rgba(96,165,250,.16)" stroke="#60a5fa" stroke-width="1.6"/>
-        <rect x="13.6" y="11.6" width="8.9" height="5.2" rx="2.6" fill="rgba(37,99,235,.35)" stroke="#60a5fa" stroke-width="1.6"/>
-        <circle cx="17.1" cy="14.2" r="1" fill="#e0f2fe"/>
+        <path d="M5 7.5 L16.2 3.6 a1.6 1.6 0 0 1 2.1 1.5 V7.5" stroke="#ef4444" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="2.5" y="7.5" width="19" height="13" rx="3.2" fill="rgba(239,68,68,.16)" stroke="#ef4444" stroke-width="1.6"/>
+        <rect x="13.6" y="11.6" width="8.9" height="5.2" rx="2.6" fill="rgba(220,38,38,.35)" stroke="#ef4444" stroke-width="1.6"/>
+        <circle cx="17.1" cy="14.2" r="1" fill="#fee2e2"/>
       </svg>
       <span id="robloxWalletAmount" style="font-weight:800;font-size:.9rem;line-height:1;">0</span>
     </div>
     <div id="robloxBubbleRow" style="position:absolute;top:100%;left:0;right:0;height:0;margin-top:-4px;z-index:5;pointer-events:none;">
-      <div id="robloxHelpBubble" onclick="hideRobloxBubble('book'); openActiveExplainModal()" style="pointer-events:auto;position:absolute;top:0;left:0;width:140px;direction:rtl;text-align:center;background:#2563eb;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(37,99,235,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+      <div id="robloxHelpBubble" onclick="hideRobloxBubble('book'); openActiveExplainModal()" style="pointer-events:auto;position:absolute;top:0;left:0;width:140px;direction:rtl;text-align:center;background:#1d4ed8;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(29,78,216,.5);animation:robloxHelpPulse 2s ease-in-out infinite;">
         اضغط هنا لرؤية شرح الطريقة
-        <span id="robloxHelpArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#2563eb;transform:rotate(45deg);"></span>
+        <span id="robloxHelpArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#1d4ed8;transform:rotate(45deg);"></span>
       </div>
-      <div id="robloxMethodBubble" onclick="hideRobloxBubble('method'); toggleRTabMenu()" style="pointer-events:auto;position:absolute;top:0;left:0;width:122px;direction:rtl;text-align:center;background:#2563eb;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(37,99,235,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+      <div id="robloxMethodBubble" onclick="hideRobloxBubble('method'); toggleRTabMenu()" style="pointer-events:auto;position:absolute;top:0;left:0;width:122px;direction:rtl;text-align:center;background:#1d4ed8;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(29,78,216,.5);animation:robloxHelpPulse 2s ease-in-out infinite;">
         اضغط هنا لتغيير طريقة الشحن
-        <span id="robloxMethodArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#2563eb;transform:rotate(45deg);"></span>
+        <span id="robloxMethodArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#1d4ed8;transform:rotate(45deg);"></span>
       </div>
     </div>
   </div>
@@ -3059,7 +3143,7 @@
 
   <!-- ROBLOX CARD — shared image, swapped by JS between Roblox / Roblox Studio -->
   <div style="padding: 150px 5% 0; direction:ltr; display:flex; align-items:flex-start; justify-content:space-between; gap:12px;">
-    <div style="width:30%; max-width:115px; aspect-ratio:3/4; border:1.5px solid rgba(37,99,235,.4); border-radius:16px; overflow:hidden; box-shadow:0 0 10px rgba(37,99,235,.25); flex:0 0 auto;">
+    <div style="width:30%; max-width:115px; aspect-ratio:3/4; border:1.5px solid rgba(220,38,38,.4); border-radius:16px; overflow:hidden; box-shadow:0 0 10px rgba(220,38,38,.25); flex:0 0 auto;">
       <img id="robloxPageThumb" src="https://raw.githubusercontent.com/King-cat11/King-cat/main/b6153b0e699d5b0018791b75a51075921330fa25.png" alt="Roblox" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
     </div>
     <div id="communityLinkTop" class="com-link-wrap">
@@ -3150,17 +3234,17 @@
       <div class="price-grid acc-grid" id="acc-prices"></div>
 
       <!-- ملخص الطلب -->
-      <div id="acc-summary" style="display:block; margin-top:14px; background:#0f1f3a; border:1px solid rgba(37,99,235,.35); border-radius:12px; padding:14px;">
+      <div id="acc-summary" style="display:block; margin-top:14px; background:#0f1f3a; border:1px solid rgba(220,38,38,.35); border-radius:12px; padding:14px;">
         <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">طلبك:</div>
         <div id="acc-sum-rows"><div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div></div>
-        <div id="acc-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(37,99,235,.25);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#2563eb;text-align:center;letter-spacing:.04em;">السعر: 0 جنيه</div>
+        <div id="acc-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(220,38,38,.25);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#dc2626;text-align:center;letter-spacing:.04em;">السعر: 0 جنيه</div>
 
         <div id="acc-egp-status" style="margin-top:6px;font-size:.8rem;text-align:center;"></div>
 
         <div class="oerror" id="acc-error" style="margin-top:10px;"></div>
         <div style="display:flex;gap:10px;margin-top:14px;">
-          <button id="acc-use-egp-btn" onclick="toggleAccUseEGP()" style="flex:1;width:auto;background:rgba(37,99,235,.12);border:1.5px solid #2563eb;color:#60a5fa;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
-          <button class="com-wa-btn" onclick="sendAccOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff;font-size:.85rem;padding:12px 6px;">شحن</button>
+          <button id="acc-use-egp-btn" onclick="toggleAccUseEGP()" style="flex:1;width:auto;background:rgba(220,38,38,.12);border:1.5px solid #dc2626;color:#ef4444;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
+          <button class="com-wa-btn" onclick="sendAccOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#b91c1c,#dc2626);color:#fff;font-size:.85rem;padding:12px 6px;">شحن</button>
         </div>
       </div>
     </div>
@@ -3168,17 +3252,17 @@
     <div class="rpanel" id="rp-giftcard">
       <div class="price-grid" id="giftcard-prices"></div>
 
-      <div id="giftcard-summary" style="display:block; margin-top:14px; background:#0f1f3a; border:1px solid rgba(37,99,235,.35); border-radius:12px; padding:14px;">
+      <div id="giftcard-summary" style="display:block; margin-top:14px; background:#0f1f3a; border:1px solid rgba(220,38,38,.35); border-radius:12px; padding:14px;">
         <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">طلبك:</div>
         <div id="giftcard-sum-rows"><div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div></div>
-        <div id="giftcard-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(37,99,235,.25);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#2563eb;text-align:center;letter-spacing:.04em;">السعر: 0 جنيه</div>
+        <div id="giftcard-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(220,38,38,.25);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#dc2626;text-align:center;letter-spacing:.04em;">السعر: 0 جنيه</div>
 
         <div id="gift-egp-status" style="margin-top:6px;font-size:.8rem;text-align:center;"></div>
 
         <div class="oerror" id="giftcard-error" style="margin-top:10px;"></div>
         <div style="display:flex;gap:10px;margin-top:14px;">
-          <button id="gift-use-egp-btn" onclick="toggleGiftUseEGP()" style="flex:1;width:auto;background:rgba(37,99,235,.12);border:1.5px solid #2563eb;color:#60a5fa;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
-          <button class="com-wa-btn" onclick="sendGiftOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff;font-size:.85rem;padding:12px 6px;">شحن</button>
+          <button id="gift-use-egp-btn" onclick="toggleGiftUseEGP()" style="flex:1;width:auto;background:rgba(220,38,38,.12);border:1.5px solid #dc2626;color:#ef4444;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
+          <button class="com-wa-btn" onclick="sendGiftOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#b91c1c,#dc2626);color:#fff;font-size:.85rem;padding:12px 6px;">شحن</button>
         </div>
       </div>
     </div>
@@ -3211,17 +3295,17 @@
       </div>
 
       <!-- منيو الملخص -->
-      <div id="com-summary" style="display:block; margin-top:14px; background:#0f1f3a; border:1px solid rgba(37,99,235,.3); border-radius:12px; padding:14px;">
+      <div id="com-summary" style="display:block; margin-top:14px; background:#0f1f3a; border:1px solid rgba(220,38,38,.3); border-radius:12px; padding:14px;">
         <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">طلبك:</div>
         <div id="com-sum-rows"><div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div></div>
-        <div id="com-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(37,99,235,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#2563eb;text-align:center;letter-spacing:.04em;">السعر: 0 جنيه</div>
+        <div id="com-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(220,38,38,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#dc2626;text-align:center;letter-spacing:.04em;">السعر: 0 جنيه</div>
 
         <div id="com-egp-status" style="margin-top:6px;font-size:.8rem;text-align:center;"></div>
 
         <div class="oerror" id="com-error" style="margin-top:10px;"></div>
         <div style="display:flex;gap:10px;margin-top:14px;">
-          <button id="com-use-egp-btn" onclick="toggleComUseEGP()" style="flex:1;width:auto;background:rgba(37,99,235,.12);border:1.5px solid #2563eb;color:#60a5fa;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
-          <button class="com-wa-btn" id="com-wa-btn" onclick="sendComOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff;font-size:.85rem;padding:12px 6px;">
+          <button id="com-use-egp-btn" onclick="toggleComUseEGP()" style="flex:1;width:auto;background:rgba(220,38,38,.12);border:1.5px solid #dc2626;color:#ef4444;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
+          <button class="com-wa-btn" id="com-wa-btn" onclick="sendComOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#b91c1c,#dc2626);color:#fff;font-size:.85rem;padding:12px 6px;">
             شحن
           </button>
         </div>
@@ -3240,7 +3324,7 @@
           <input class="oinput" id="design-desc" type="text" placeholder="اكتب عايزه يكون شكله ازاي بالظبط" />
         </div>
         <div class="oerror" id="design-error"></div>
-        <button class="com-wa-btn" onclick="sendDesignOrder()" style="background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff;">تواصل مع المصمم</button>
+        <button class="com-wa-btn" onclick="sendDesignOrder()" style="background:linear-gradient(135deg,#b91c1c,#dc2626);color:#fff;">تواصل مع المصمم</button>
       </div>
     </div>
 
@@ -3250,9 +3334,9 @@
 <!-- FIFA PAGE -->
 <div id="fifaPage" class="rpage">
   <div class="rpage-header" style="gap:10px;">
-    <button class="rpage-back" style="border-color:rgba(111,207,58,.5);color:#6fcf3a; height:46px; box-sizing:border-box; display:flex; align-items:center; justify-content:center;" onclick="closeFifa()">&#8594; Back</button>
+    <button class="rpage-back" style="border-color:rgba(220,38,38,.5);color:#dc2626; height:46px; box-sizing:border-box; display:flex; align-items:center; justify-content:center;" onclick="closeFifa()">&#8594; Back</button>
     <div class="rtab-select-wrap" id="fifatabSelectWrap">
-      <button class="rtab-select-btn" id="fifaMethodBtn" style="background:rgba(111,207,58,.08); border-color:rgba(111,207,58,.4); color:#6fcf3a; height:46px; box-sizing:border-box;" onclick="hideFifaBubble('method'); toggleFifaTabMenu()">
+      <button class="rtab-select-btn" id="fifaMethodBtn" style="background:rgba(220,38,38,.08); border-color:rgba(220,38,38,.4); color:#dc2626; height:46px; box-sizing:border-box;" onclick="hideFifaBubble('method'); toggleFifaTabMenu()">
         <span id="fifatabSelectedLabel">FC/Silver</span>
         <span class="rtab-select-arrow">▾</span>
       </button>
@@ -3261,36 +3345,36 @@
         <button class="rtab-menu-item" id="fifatab-item-offers" onclick="selectFifaTab(this,'offers','عروض')">عروض</button>
       </div>
     </div>
-    <div class="rtab-select-label" id="fifaBookBtn" style="background:rgba(111,207,58,.08); border-color:rgba(111,207,58,.4); color:#6fcf3a; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hideFifaBubble('book'); openFifaActiveExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
-    <div class="rtab-select-label" id="fifaWalletChip" title="رصيدك" onclick="walletChipClick()" style="cursor:pointer; background:rgba(111,207,58,.08); border-color:rgba(111,207,58,.4); color:#6fcf3a; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:0 10px; flex:0 0 auto; direction:ltr;">
+    <div class="rtab-select-label" id="fifaBookBtn" style="background:rgba(220,38,38,.08); border-color:rgba(220,38,38,.4); color:#dc2626; cursor:pointer; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;" onclick="hideFifaBubble('book'); openFifaActiveExplainModal()"><svg width="18" height="24" viewBox="-2 -2 52 68" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="0" y="0" width="48" height="64" rx="5"></rect><path d="M11 0V64"></path><path d="M28 0V26L34 21L40 26V0"></path><path d="M20 40H38M20 50H32"></path></svg></div>
+    <div class="rtab-select-label" id="fifaWalletChip" title="رصيدك" onclick="walletChipClick()" style="cursor:pointer; background:rgba(220,38,38,.08); border-color:rgba(220,38,38,.4); color:#dc2626; height:46px; box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:0 10px; flex:0 0 auto; direction:ltr;">
       <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="flex:0 0 auto;">
-        <path d="M5 7.5 L16.2 3.6 a1.6 1.6 0 0 1 2.1 1.5 V7.5" stroke="#6fcf3a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        <rect x="2.5" y="7.5" width="19" height="13" rx="3.2" fill="rgba(111,207,58,.16)" stroke="#6fcf3a" stroke-width="1.6"/>
-        <rect x="13.6" y="11.6" width="8.9" height="5.2" rx="2.6" fill="rgba(74,158,31,.35)" stroke="#6fcf3a" stroke-width="1.6"/>
-        <circle cx="17.1" cy="14.2" r="1" fill="#eaffd9"/>
+        <path d="M5 7.5 L16.2 3.6 a1.6 1.6 0 0 1 2.1 1.5 V7.5" stroke="#dc2626" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="2.5" y="7.5" width="19" height="13" rx="3.2" fill="rgba(220,38,38,.16)" stroke="#dc2626" stroke-width="1.6"/>
+        <rect x="13.6" y="11.6" width="8.9" height="5.2" rx="2.6" fill="rgba(74,158,31,.35)" stroke="#dc2626" stroke-width="1.6"/>
+        <circle cx="17.1" cy="14.2" r="1" fill="#ffe4e4"/>
       </svg>
       <span id="fifaWalletAmount" style="font-weight:800;font-size:.9rem;line-height:1;">0</span>
     </div>
     <div id="fifaBubbleRow" style="position:absolute;top:100%;left:0;right:0;height:0;margin-top:-4px;z-index:5;pointer-events:none;">
-      <div id="fifaHelpBubble" onclick="hideFifaBubble('book'); openFifaActiveExplainModal()" style="pointer-events:auto;position:absolute;top:0;left:0;width:140px;direction:rtl;text-align:center;background:#6fcf3a;color:#0d0d0d;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(111,207,58,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+      <div id="fifaHelpBubble" onclick="hideFifaBubble('book'); openFifaActiveExplainModal()" style="pointer-events:auto;position:absolute;top:0;left:0;width:140px;direction:rtl;text-align:center;background:#1d4ed8;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(29,78,216,.5);animation:robloxHelpPulse 2s ease-in-out infinite;">
         اضغط هنا لرؤية شرح الطريقة
-        <span id="fifaHelpArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#6fcf3a;transform:rotate(45deg);"></span>
+        <span id="fifaHelpArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#1d4ed8;transform:rotate(45deg);"></span>
       </div>
-      <div id="fifaMethodBubble" onclick="hideFifaBubble('method'); toggleFifaTabMenu()" style="pointer-events:auto;position:absolute;top:0;left:0;width:122px;direction:rtl;text-align:center;background:#6fcf3a;color:#0d0d0d;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(111,207,58,.4);animation:robloxHelpPulse 2s ease-in-out infinite;">
+      <div id="fifaMethodBubble" onclick="hideFifaBubble('method'); toggleFifaTabMenu()" style="pointer-events:auto;position:absolute;top:0;left:0;width:122px;direction:rtl;text-align:center;background:#1d4ed8;color:#fff;font-size:.78rem;font-weight:700;line-height:1.6;padding:8px 10px;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(29,78,216,.5);animation:robloxHelpPulse 2s ease-in-out infinite;">
         اضغط هنا لتغيير طريقة الشحن
-        <span id="fifaMethodArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#6fcf3a;transform:rotate(45deg);"></span>
+        <span id="fifaMethodArrow" style="position:absolute;top:-6px;left:17px;width:12px;height:12px;background:#1d4ed8;transform:rotate(45deg);"></span>
       </div>
     </div>
   </div>
 
   <!-- FIFA CARD + EMAIL FIELD — card on the left, email field fills the space next to it; shared across both tabs -->
   <div style="display:flex; align-items:flex-start; gap:14px; padding: 150px 5% 0; direction:ltr;">
-    <div style="width:30%; max-width:115px; aspect-ratio:3/4; border:1.5px solid rgba(111,207,58,.4); border-radius:16px; overflow:hidden; box-shadow:0 0 10px rgba(111,207,58,.25); flex:0 0 auto;">
+    <div style="width:30%; max-width:115px; aspect-ratio:3/4; border:1.5px solid rgba(220,38,38,.4); border-radius:16px; overflow:hidden; box-shadow:0 0 10px rgba(220,38,38,.25); flex:0 0 auto;">
       <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/images%20(7).jpeg" alt="FIFA" style="width:100%;height:100%;object-fit:cover;display:block;">
     </div>
     <div class="ofield" style="flex:1; min-width:0; direction:rtl; margin:0;">
-      <label class="olabel" style="font-size:.95rem;color:#6fcf3a;">الإيميل <span class="req">*</span></label>
-      <input class="oinput" id="fifa-user" type="text" placeholder="" style="border-color:rgba(111,207,58,.35);width:100%;" />
+      <label class="olabel" style="font-size:.95rem;color:#dc2626;">الإيميل <span class="req">*</span></label>
+      <input class="oinput" id="fifa-user" type="text" placeholder="" style="border-color:rgba(220,38,38,.35);width:100%;" />
     </div>
   </div>
   <div class="oerror" id="fifa-coins-error" style="margin: 8px 5% 0;"></div>
@@ -3334,16 +3418,16 @@
 
   </div>
 
-  <div id="fifa-summary" style="display:block; margin-top:14px; background:#0d1a08; border:1px solid rgba(111,207,58,.3); border-radius:12px; padding:14px;">
+  <div id="fifa-summary" style="display:block; margin-top:14px; background:#1f0f0f; border:1px solid rgba(220,38,38,.3); border-radius:12px; padding:14px;">
     <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">طلبك:</div>
     <div id="fifa-sum-rows"><div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div></div>
-    <div id="fifa-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(111,207,58,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#6fcf3a;text-align:center;letter-spacing:.04em;">السعر: 0 جنيه</div>
+    <div id="fifa-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(220,38,38,.2);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#dc2626;text-align:center;letter-spacing:.04em;">السعر: 0 جنيه</div>
 
     <div id="fifa-egp-status" style="margin-top:6px;font-size:.8rem;text-align:center;"></div>
 
     <div style="display:flex;gap:10px;margin-top:14px;">
-      <button id="fifa-use-egp-btn" onclick="toggleFifaUseEGP()" style="flex:1;width:auto;background:rgba(111,207,58,.12);border:1.5px solid #6fcf3a;color:#6fcf3a;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
-      <button class="com-wa-btn" onclick="sendFifaCoinsOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#1e7e34,#6fcf3a);color:#0d0d0d;border:none;font-size:.85rem;padding:12px 6px;">
+      <button id="fifa-use-egp-btn" onclick="toggleFifaUseEGP()" style="flex:1;width:auto;background:rgba(220,38,38,.12);border:1.5px solid #dc2626;color:#dc2626;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:10px;cursor:pointer;transition:background .2s;">استخدام EGP</button>
+      <button class="com-wa-btn" onclick="sendFifaCoinsOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#b91c1c,#ef4444);color:#fff;border:none;font-size:.85rem;padding:12px 6px;">
         شحن
       </button>
     </div>
@@ -3513,7 +3597,7 @@
     ['acc','gift','com'].forEach(p => {
       const btn = document.getElementById(p + '-use-egp-btn');
       const status = document.getElementById(p + '-egp-status');
-      if (btn) { btn.style.background = 'rgba(37,99,235,.12)'; btn.textContent = 'استخدام EGP'; }
+      if (btn) { btn.style.background = 'rgba(220,38,38,.12)'; btn.textContent = 'استخدام EGP'; }
       if (status) status.textContent = '';
     });
   }
@@ -3621,14 +3705,14 @@
     if (balance <= 0) {
       accUseEGP = false;
       if (statusDiv) { statusDiv.textContent = 'ليس معك عملات'; statusDiv.style.color = '#e05555'; }
-      if (btn) { btn.style.background = 'rgba(37,99,235,.12)'; btn.textContent = 'استخدام EGP'; }
+      if (btn) { btn.style.background = 'rgba(220,38,38,.12)'; btn.textContent = 'استخدام EGP'; }
       renderAccSummary();
       return;
     }
     accUseEGP = !accUseEGP;
     if (statusDiv) statusDiv.textContent = '';
     if (btn) {
-      btn.style.background = accUseEGP ? 'rgba(37,99,235,.35)' : 'rgba(37,99,235,.12)';
+      btn.style.background = accUseEGP ? 'rgba(220,38,38,.35)' : 'rgba(220,38,38,.12)';
       btn.textContent = accUseEGP ? 'تم التفعيل' : 'استخدام EGP';
     }
     renderAccSummary();
@@ -3647,11 +3731,11 @@
     }
     rowsDiv.innerHTML = keys.map(k => {
       const item = accCart[k];
-      return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(37,99,235,.15);gap:8px;">
+      return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(220,38,38,.15);gap:8px;">
         <span style="flex:1;">${item.label} (${item.qty})</span>
         <div style="display:flex;align-items:center;gap:6px;">
-          <button onclick="changeAccQty('${k}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(37,99,235,.4);background:#1a1a1a;color:#2563eb;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;opacity:.75;">−</button>
-          <button onclick="changeAccQty('${k}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(37,99,235,.5);background:#1a1a1a;color:#2563eb;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
+          <button onclick="changeAccQty('${k}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(220,38,38,.4);background:#1a1a1a;color:#dc2626;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;opacity:.75;">−</button>
+          <button onclick="changeAccQty('${k}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(220,38,38,.5);background:#1a1a1a;color:#dc2626;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
         </div>
       </div>`;
     }).join('');
@@ -3784,14 +3868,14 @@
     if (balance <= 0) {
       comUseEGP = false;
       if (statusDiv) { statusDiv.textContent = 'ليس معك عملات'; statusDiv.style.color = '#e05555'; }
-      if (btn) { btn.style.background = 'rgba(37,99,235,.12)'; btn.textContent = 'استخدام EGP'; }
+      if (btn) { btn.style.background = 'rgba(220,38,38,.12)'; btn.textContent = 'استخدام EGP'; }
       renderComSummary();
       return;
     }
     comUseEGP = !comUseEGP;
     if (statusDiv) statusDiv.textContent = '';
     if (btn) {
-      btn.style.background = comUseEGP ? 'rgba(37,99,235,.35)' : 'rgba(37,99,235,.12)';
+      btn.style.background = comUseEGP ? 'rgba(220,38,38,.35)' : 'rgba(220,38,38,.12)';
       btn.textContent = comUseEGP ? 'تم التفعيل' : 'استخدام EGP';
     }
     renderComSummary();
@@ -3812,11 +3896,11 @@
     const finalRob = totalRob + bonus;
     rowsDiv.innerHTML = items.map(item => {
       const key = item.rob + '_' + item.price;
-      return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(37,99,235,.15);gap:8px;">
+      return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(220,38,38,.15);gap:8px;">
         <span style="flex:1;">${item.label} (${item.qty})</span>
         <div style="display:flex;align-items:center;gap:6px;">
-          <button onclick="changeCartQty('${key}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(37,99,235,.4);background:#1a1a1a;color:#2563eb;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;opacity:.75;">−</button>
-          <button onclick="changeCartQty('${key}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(37,99,235,.5);background:#1a1a1a;color:#2563eb;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
+          <button onclick="changeCartQty('${key}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(220,38,38,.4);background:#1a1a1a;color:#dc2626;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;opacity:.75;">−</button>
+          <button onclick="changeCartQty('${key}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(220,38,38,.5);background:#1a1a1a;color:#dc2626;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
         </div>
       </div>`;
     }).join('');
@@ -3969,14 +4053,14 @@
     if (balance <= 0) {
       giftUseEGP = false;
       if (statusDiv) { statusDiv.textContent = 'ليس معك عملات'; statusDiv.style.color = '#e05555'; }
-      if (btn) { btn.style.background = 'rgba(37,99,235,.12)'; btn.textContent = 'استخدام EGP'; }
+      if (btn) { btn.style.background = 'rgba(220,38,38,.12)'; btn.textContent = 'استخدام EGP'; }
       renderGiftSummary();
       return;
     }
     giftUseEGP = !giftUseEGP;
     if (statusDiv) statusDiv.textContent = '';
     if (btn) {
-      btn.style.background = giftUseEGP ? 'rgba(37,99,235,.35)' : 'rgba(37,99,235,.12)';
+      btn.style.background = giftUseEGP ? 'rgba(220,38,38,.35)' : 'rgba(220,38,38,.12)';
       btn.textContent = giftUseEGP ? 'تم التفعيل' : 'استخدام EGP';
     }
     renderGiftSummary();
@@ -3995,11 +4079,11 @@
     }
     rowsDiv.innerHTML = items.map(item => {
       const key = item.usd + '_' + item.price;
-      return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(37,99,235,.15);gap:8px;">
+      return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(220,38,38,.15);gap:8px;">
         <span style="flex:1;">${item.label} (${item.qty})</span>
         <div style="display:flex;align-items:center;gap:6px;">
-          <button onclick="changeGiftCartQty('${key}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(37,99,235,.4);background:#1a1a1a;color:#2563eb;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;opacity:.75;">−</button>
-          <button onclick="changeGiftCartQty('${key}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(37,99,235,.5);background:#1a1a1a;color:#2563eb;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
+          <button onclick="changeGiftCartQty('${key}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(220,38,38,.4);background:#1a1a1a;color:#dc2626;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;opacity:.75;">−</button>
+          <button onclick="changeGiftCartQty('${key}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(220,38,38,.5);background:#1a1a1a;color:#dc2626;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
         </div>
       </div>`;
     }).join('');
@@ -4072,10 +4156,10 @@
     pubgUseEGP = false;
     const egpBtn = document.getElementById('pubg-use-egp-btn');
     const egpStatus = document.getElementById('pubg-egp-status');
-    if (egpBtn) { egpBtn.style.background = 'rgba(0,180,216,.12)'; egpBtn.textContent = 'استخدام EGP'; }
+    if (egpBtn) { egpBtn.style.background = 'rgba(220,38,38,.12)'; egpBtn.textContent = 'استخدام EGP'; }
     if (egpStatus) egpStatus.textContent = '';
     document.querySelectorAll('#pubgPage .pubg-pcard').forEach(c => {
-      c.style.borderColor = 'rgba(0,180,216,.2)';
+      c.style.borderColor = 'rgba(220,38,38,.2)';
       c.style.background = '#1a1a1a';
       const qc = c.querySelector('.qty-ctrl');
       if (qc) { qc.style.display = 'none'; c.querySelector('.qty-num').textContent = '0'; }
@@ -4105,13 +4189,13 @@
     const qtyNum  = card.querySelector('.qty-num');
     if (pubgCart[key]) {
       delete pubgCart[key];
-      card.style.borderColor = 'rgba(0,180,216,.2)';
+      card.style.borderColor = 'rgba(220,38,38,.2)';
       card.style.background = '#1a1a1a';
       if (qtyCtrl) { qtyCtrl.style.display = 'none'; if (qtyNum) qtyNum.textContent = '0'; }
     } else {
       pubgCart[key] = { type, uc, price, egp, qty: 1 };
       card.style.borderColor = 'var(--gold)';
-      card.style.background = 'rgba(0,180,216,.15)';
+      card.style.background = 'rgba(220,38,38,.15)';
       if (qtyCtrl) { qtyCtrl.style.display = 'flex'; if (qtyNum) qtyNum.textContent = '1'; }
     }
     renderPubgSummary();
@@ -4136,7 +4220,7 @@
       document.querySelectorAll('#pubgPage .pubg-pcard').forEach(c => {
         const type = c.closest('#pubg-panel-uc') ? 'uc' : 'orod';
         if (pubgKey(c, type) === key) {
-          c.style.borderColor = 'rgba(0,180,216,.2)';
+          c.style.borderColor = 'rgba(220,38,38,.2)';
           c.style.background = '#1a1a1a';
           const qc = c.querySelector('.qty-ctrl');
           if (qc) { qc.style.display = 'none'; c.querySelector('.qty-num').textContent = '0'; }
@@ -4171,14 +4255,14 @@
     if (balance <= 0) {
       pubgUseEGP = false;
       if (statusDiv) { statusDiv.textContent = 'ليس معك عملات'; statusDiv.style.color = '#e05555'; }
-      if (btn) { btn.style.background = 'rgba(0,180,216,.12)'; btn.textContent = 'استخدام EGP'; }
+      if (btn) { btn.style.background = 'rgba(220,38,38,.12)'; btn.textContent = 'استخدام EGP'; }
       renderPubgSummary();
       return;
     }
     pubgUseEGP = !pubgUseEGP;
     if (statusDiv) statusDiv.textContent = '';
     if (btn) {
-      btn.style.background = pubgUseEGP ? 'rgba(0,180,216,.35)' : 'rgba(0,180,216,.12)';
+      btn.style.background = pubgUseEGP ? 'rgba(220,38,38,.35)' : 'rgba(220,38,38,.12)';
       btn.textContent = pubgUseEGP ? 'تم التفعيل' : 'استخدام EGP';
     }
     renderPubgSummary();
@@ -4197,11 +4281,11 @@
     }
     rowsDiv.innerHTML = keys.map(k => {
       const item = pubgCart[k];
-      return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(0,180,216,.12);gap:8px;">
+      return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(220,38,38,.12);gap:8px;">
         <span style="flex:1;">${pubgLabel(item)} (${item.qty})</span>
         <div style="display:flex;align-items:center;gap:6px;">
-          <button onclick="changePubgQty('${k}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:#1a1a1a;color:#48cae4;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">−</button>
-          <button onclick="changePubgQty('${k}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(0,180,216,.5);background:#1a1a1a;color:var(--gold);font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
+          <button onclick="changePubgQty('${k}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:#1a1a1a;color:#ef4444;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">−</button>
+          <button onclick="changePubgQty('${k}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(220,38,38,.5);background:#1a1a1a;color:var(--gold);font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
         </div>
       </div>`;
     }).join('');
@@ -4371,10 +4455,10 @@
     brawlUseEGP = false;
     const egpBtn = document.getElementById('brawl-use-egp-btn');
     const egpStatus = document.getElementById('brawl-egp-status');
-    if (egpBtn) { egpBtn.style.background = 'rgba(244,161,0,.12)'; egpBtn.textContent = 'استخدام EGP'; }
+    if (egpBtn) { egpBtn.style.background = 'rgba(220,38,38,.12)'; egpBtn.textContent = 'استخدام EGP'; }
     if (egpStatus) egpStatus.textContent = '';
     document.querySelectorAll('#brawl-prices .brawl-pcard').forEach(c => {
-      c.style.borderColor = 'rgba(244,161,0,.25)';
+      c.style.borderColor = 'rgba(220,38,38,.25)';
       c.style.background = '';
       const qc = c.querySelector('.qty-ctrl');
       if (qc) { qc.style.display = 'none'; c.querySelector('.qty-num').textContent = '0'; }
@@ -4399,13 +4483,13 @@
     const qtyNum  = card.querySelector('.qty-num');
     if (brawlCart[key]) {
       delete brawlCart[key];
-      card.style.borderColor = 'rgba(244,161,0,.25)';
+      card.style.borderColor = 'rgba(220,38,38,.25)';
       card.style.background = '';
       if (qtyCtrl) { qtyCtrl.style.display = 'none'; if (qtyNum) qtyNum.textContent = '0'; }
     } else {
       brawlCart[key] = { pass, price, egp, qty: 1 };
-      card.style.borderColor = '#f4a100';
-      card.style.background = 'rgba(244,161,0,.15)';
+      card.style.borderColor = '#dc2626';
+      card.style.background = 'rgba(220,38,38,.15)';
       if (qtyCtrl) { qtyCtrl.style.display = 'flex'; if (qtyNum) qtyNum.textContent = '1'; }
     }
     renderBrawlSummary();
@@ -4428,7 +4512,7 @@
       delete brawlCart[key];
       document.querySelectorAll('#brawl-prices .brawl-pcard').forEach(c => {
         if (brawlKey(c) === key) {
-          c.style.borderColor = 'rgba(244,161,0,.25)';
+          c.style.borderColor = 'rgba(220,38,38,.25)';
           c.style.background = '';
           const qc = c.querySelector('.qty-ctrl');
           if (qc) { qc.style.display = 'none'; c.querySelector('.qty-num').textContent = '0'; }
@@ -4455,14 +4539,14 @@
     if (balance <= 0) {
       brawlUseEGP = false;
       if (statusDiv) { statusDiv.textContent = 'ليس معك عملات'; statusDiv.style.color = '#e05555'; }
-      if (btn) { btn.style.background = 'rgba(244,161,0,.12)'; btn.textContent = 'استخدام EGP'; }
+      if (btn) { btn.style.background = 'rgba(220,38,38,.12)'; btn.textContent = 'استخدام EGP'; }
       renderBrawlSummary();
       return;
     }
     brawlUseEGP = !brawlUseEGP;
     if (statusDiv) statusDiv.textContent = '';
     if (btn) {
-      btn.style.background = brawlUseEGP ? 'rgba(244,161,0,.35)' : 'rgba(244,161,0,.12)';
+      btn.style.background = brawlUseEGP ? 'rgba(220,38,38,.35)' : 'rgba(220,38,38,.12)';
       btn.textContent = brawlUseEGP ? 'تم التفعيل' : 'استخدام EGP';
     }
     renderBrawlSummary();
@@ -4479,11 +4563,11 @@
     }
     rowsDiv.innerHTML = keys.map(k => {
       const item = brawlCart[k];
-      return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(244,161,0,.12);gap:8px;">
+      return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(220,38,38,.12);gap:8px;">
         <span style="flex:1;">${item.pass} (${item.qty})</span>
         <div style="display:flex;align-items:center;gap:6px;">
-          <button onclick="changeBrawlQty('${k}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:#1a1a1a;color:#f4a100;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">−</button>
-          <button onclick="changeBrawlQty('${k}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(244,161,0,.5);background:#1a1a1a;color:#f4a100;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
+          <button onclick="changeBrawlQty('${k}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:#1a1a1a;color:#dc2626;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">−</button>
+          <button onclick="changeBrawlQty('${k}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(220,38,38,.5);background:#1a1a1a;color:#dc2626;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
         </div>
       </div>`;
     }).join('');
@@ -4533,7 +4617,7 @@
     pesCart = {};
     renderPesSummary();
     document.querySelectorAll('#pes-prices .pcard').forEach(c => {
-      c.style.borderColor = 'rgba(111,207,58,.25)';
+      c.style.borderColor = 'rgba(220,38,38,.25)';
       c.style.background = '';
       const qc = c.querySelector('.qty-ctrl');
       if (qc) { qc.style.display = 'none'; c.querySelector('.qty-num').textContent = '0'; }
@@ -4551,14 +4635,14 @@
     if (balance <= 0) {
       pesUseEGP = false;
       if (statusDiv) { statusDiv.textContent = 'ليس معك عملات'; statusDiv.style.color = '#e05555'; }
-      if (btn) { btn.style.background = 'rgba(111,207,58,.12)'; btn.textContent = 'استخدام EGP'; }
+      if (btn) { btn.style.background = 'rgba(220,38,38,.12)'; btn.textContent = 'استخدام EGP'; }
       renderPesSummary();
       return;
     }
     pesUseEGP = !pesUseEGP;
     if (statusDiv) statusDiv.textContent = '';
     if (btn) {
-      btn.style.background = pesUseEGP ? 'rgba(111,207,58,.35)' : 'rgba(111,207,58,.12)';
+      btn.style.background = pesUseEGP ? 'rgba(220,38,38,.35)' : 'rgba(220,38,38,.12)';
       btn.textContent = pesUseEGP ? 'تم التفعيل' : 'استخدام EGP';
     }
     renderPesSummary();
@@ -4573,13 +4657,13 @@
     const qtyNum  = card.querySelector('.qty-num');
     if (pesCart[key]) {
       delete pesCart[key];
-      card.style.borderColor = 'rgba(111,207,58,.25)';
+      card.style.borderColor = 'rgba(220,38,38,.25)';
       card.style.background = '';
       if (qtyCtrl) { qtyCtrl.style.display = 'none'; if (qtyNum) qtyNum.textContent = '0'; }
     } else {
       pesCart[key] = { coin, price, egp, qty: 1 };
-      card.style.borderColor = '#6fcf3a';
-      card.style.background = 'rgba(111,207,58,.2)';
+      card.style.borderColor = '#dc2626';
+      card.style.background = 'rgba(220,38,38,.2)';
       if (qtyCtrl) { qtyCtrl.style.display = 'flex'; if (qtyNum) qtyNum.textContent = '1'; }
     }
     renderPesSummary();
@@ -4602,7 +4686,7 @@
       delete pesCart[key];
       document.querySelectorAll('#pes-prices .pcard').forEach(c => {
         if ((c.dataset.coin + '_' + c.dataset.price) === key) {
-          c.style.borderColor = 'rgba(111,207,58,.25)';
+          c.style.borderColor = 'rgba(220,38,38,.25)';
           c.style.background = '';
           const qc = c.querySelector('.qty-ctrl');
           if (qc) { qc.style.display = 'none'; c.querySelector('.qty-num').textContent = '0'; }
@@ -4632,11 +4716,11 @@
     }
     rowsDiv.innerHTML = keys.map(k => {
       const item = pesCart[k];
-      return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(111,207,58,.15);gap:8px;">
+      return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(220,38,38,.15);gap:8px;">
         <span style="flex:1;">${item.coin} Coins (${item.qty})</span>
         <div style="display:flex;align-items:center;gap:6px;">
-          <button onclick="changePesQty('${k}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(111,207,58,.4);background:#0f1f14;color:#6fcf3a;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;opacity:.75;">−</button>
-          <button onclick="changePesQty('${k}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(111,207,58,.5);background:#0f1f14;color:#6fcf3a;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
+          <button onclick="changePesQty('${k}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(220,38,38,.4);background:#1f0f0f;color:#dc2626;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;opacity:.75;">−</button>
+          <button onclick="changePesQty('${k}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(220,38,38,.5);background:#1f0f0f;color:#dc2626;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
         </div>
       </div>`;
     }).join('');
@@ -4715,7 +4799,7 @@
     // reset carts
     ffIdCart = {}; ffAccCart = {};
     document.querySelectorAll('#ff-id-prices .pcard, #ff-acc-prices .pcard').forEach(c => {
-      c.style.borderColor = 'rgba(0,180,216,.25)';
+      c.style.borderColor = 'rgba(220,38,38,.25)';
       c.style.background = '';
       c.classList.remove('has-qty');
       const qc = c.querySelector('.qty-ctrl');
@@ -4736,8 +4820,8 @@
       const active = t === type;
       tab.classList.toggle('active', active);
       panel.classList.toggle('active', active);
-      tab.style.color = active ? '#00b4d8' : '';
-      tab.style.borderBottomColor = active ? '#00b4d8' : '';
+      tab.style.color = active ? '#dc2626' : '';
+      tab.style.borderBottomColor = active ? '#dc2626' : '';
     });
   }
 
@@ -4751,14 +4835,14 @@
     if (balance <= 0) {
       ffIdUseEGP = false;
       if (statusDiv) { statusDiv.textContent = 'ليس معك عملات'; statusDiv.style.color = '#e05555'; }
-      if (btn) { btn.style.background = 'rgba(0,180,216,.12)'; btn.textContent = 'استخدام EGP'; }
+      if (btn) { btn.style.background = 'rgba(220,38,38,.12)'; btn.textContent = 'استخدام EGP'; }
       renderFFIdSummary();
       return;
     }
     ffIdUseEGP = !ffIdUseEGP;
     if (statusDiv) statusDiv.textContent = '';
     if (btn) {
-      btn.style.background = ffIdUseEGP ? 'rgba(0,180,216,.35)' : 'rgba(0,180,216,.12)';
+      btn.style.background = ffIdUseEGP ? 'rgba(220,38,38,.35)' : 'rgba(220,38,38,.12)';
       btn.textContent = ffIdUseEGP ? 'تم التفعيل' : 'استخدام EGP';
     }
     renderFFIdSummary();
@@ -4774,14 +4858,14 @@
     if (ffIdCart[key]) {
       delete ffIdCart[key];
       card.classList.remove('has-qty');
-      card.style.borderColor = 'rgba(0,180,216,.25)';
+      card.style.borderColor = 'rgba(220,38,38,.25)';
       card.style.background = '';
       if (qtyCtrl) { qtyCtrl.style.display = 'none'; if(qtyNum) qtyNum.textContent = '0'; }
     } else {
       ffIdCart[key] = { label, price, egp, qty: 1 };
       card.classList.add('has-qty');
-      card.style.borderColor = '#00b4d8';
-      card.style.background = 'rgba(0,180,216,.15)';
+      card.style.borderColor = '#dc2626';
+      card.style.background = 'rgba(220,38,38,.15)';
       if (qtyCtrl) { qtyCtrl.style.display = 'flex'; if(qtyNum) qtyNum.textContent = '1'; }
     }
     renderFFIdSummary();
@@ -4805,7 +4889,7 @@
       document.querySelectorAll('#ff-id-prices .pcard').forEach(c => {
         if ((c.dataset.diamond + '_' + c.dataset.price) === key) {
           c.classList.remove('has-qty');
-          c.style.borderColor = 'rgba(0,180,216,.25)';
+          c.style.borderColor = 'rgba(220,38,38,.25)';
           c.style.background = '';
           const qc = c.querySelector('.qty-ctrl');
           if (qc) { qc.style.display = 'none'; c.querySelector('.qty-num').textContent = '0'; }
@@ -4835,11 +4919,11 @@
     }
     rowsDiv.innerHTML = keys.map(k => {
       const item = ffIdCart[k];
-      return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(0,180,216,.12);gap:8px;">
+      return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(220,38,38,.12);gap:8px;">
         <span style="flex:1;">${item.label} (${item.qty})</span>
         <div style="display:flex;align-items:center;gap:6px;">
-          <button onclick="changeFFIdQty('${k}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:#001a26;color:#6bd4ff;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">−</button>
-          <button onclick="changeFFIdQty('${k}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(0,180,216,.5);background:#001a26;color:#00b4d8;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
+          <button onclick="changeFFIdQty('${k}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:#001a26;color:#ef4444;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">−</button>
+          <button onclick="changeFFIdQty('${k}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(220,38,38,.5);background:#001a26;color:#dc2626;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
         </div>
       </div>`;
     }).join('');
@@ -4886,14 +4970,14 @@
     if (balance <= 0) {
       ffAccUseEGP = false;
       if (statusDiv) { statusDiv.textContent = 'ليس معك عملات'; statusDiv.style.color = '#e05555'; }
-      if (btn) { btn.style.background = 'rgba(0,180,216,.12)'; btn.textContent = 'استخدام EGP'; }
+      if (btn) { btn.style.background = 'rgba(220,38,38,.12)'; btn.textContent = 'استخدام EGP'; }
       renderFFAccSummary();
       return;
     }
     ffAccUseEGP = !ffAccUseEGP;
     if (statusDiv) statusDiv.textContent = '';
     if (btn) {
-      btn.style.background = ffAccUseEGP ? 'rgba(0,180,216,.35)' : 'rgba(0,180,216,.12)';
+      btn.style.background = ffAccUseEGP ? 'rgba(220,38,38,.35)' : 'rgba(220,38,38,.12)';
       btn.textContent = ffAccUseEGP ? 'تم التفعيل' : 'استخدام EGP';
     }
     renderFFAccSummary();
@@ -4909,14 +4993,14 @@
     if (ffAccCart[key]) {
       delete ffAccCart[key];
       card.classList.remove('has-qty');
-      card.style.borderColor = 'rgba(0,180,216,.25)';
+      card.style.borderColor = 'rgba(220,38,38,.25)';
       card.style.background = '';
       if (qtyCtrl) { qtyCtrl.style.display = 'none'; if(qtyNum) qtyNum.textContent = '0'; }
     } else {
       ffAccCart[key] = { label, price, egp, qty: 1 };
       card.classList.add('has-qty');
-      card.style.borderColor = '#00b4d8';
-      card.style.background = 'rgba(0,180,216,.15)';
+      card.style.borderColor = '#dc2626';
+      card.style.background = 'rgba(220,38,38,.15)';
       if (qtyCtrl) { qtyCtrl.style.display = 'flex'; if(qtyNum) qtyNum.textContent = '1'; }
     }
     renderFFAccSummary();
@@ -4940,7 +5024,7 @@
       document.querySelectorAll('#ff-acc-prices .pcard').forEach(c => {
         if ((c.dataset.diamond + '_' + c.dataset.price) === key) {
           c.classList.remove('has-qty');
-          c.style.borderColor = 'rgba(0,180,216,.25)';
+          c.style.borderColor = 'rgba(220,38,38,.25)';
           c.style.background = '';
           const qc = c.querySelector('.qty-ctrl');
           if (qc) { qc.style.display = 'none'; c.querySelector('.qty-num').textContent = '0'; }
@@ -4970,11 +5054,11 @@
     }
     rowsDiv.innerHTML = keys.map(k => {
       const item = ffAccCart[k];
-      return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(0,180,216,.12);gap:8px;">
+      return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(220,38,38,.12);gap:8px;">
         <span style="flex:1;">${item.label} (${item.qty})</span>
         <div style="display:flex;align-items:center;gap:6px;">
-          <button onclick="changeFFAccQty('${k}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:#001a26;color:#6bd4ff;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">−</button>
-          <button onclick="changeFFAccQty('${k}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(0,180,216,.5);background:#001a26;color:#00b4d8;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
+          <button onclick="changeFFAccQty('${k}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:#001a26;color:#ef4444;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">−</button>
+          <button onclick="changeFFAccQty('${k}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(220,38,38,.5);background:#001a26;color:#dc2626;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
         </div>
       </div>`;
     }).join('');
@@ -5104,14 +5188,14 @@
     if (balance <= 0) {
       fifaUseEGP = false;
       if (statusDiv) { statusDiv.textContent = 'ليس معك عملات'; statusDiv.style.color = '#e05555'; }
-      if (btn) { btn.style.background = 'rgba(111,207,58,.12)'; btn.textContent = 'استخدام EGP'; }
+      if (btn) { btn.style.background = 'rgba(220,38,38,.12)'; btn.textContent = 'استخدام EGP'; }
       renderFifaSummary();
       return;
     }
     fifaUseEGP = !fifaUseEGP;
     if (statusDiv) statusDiv.textContent = '';
     if (btn) {
-      btn.style.background = fifaUseEGP ? 'rgba(111,207,58,.35)' : 'rgba(111,207,58,.12)';
+      btn.style.background = fifaUseEGP ? 'rgba(220,38,38,.35)' : 'rgba(220,38,38,.12)';
       btn.textContent = fifaUseEGP ? 'تم التفعيل' : 'استخدام EGP';
     }
     renderFifaSummary();
@@ -5188,11 +5272,11 @@
     }
     rowsDiv.innerHTML = items.map(item => {
       const key = item.type === 'عرض' ? ('offer_' + item.label) : (item.amt + '_' + item.type);
-      return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(111,207,58,.12);gap:8px;">
+      return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(220,38,38,.12);gap:8px;">
         <span style="flex:1;">${item.label} (${item.qty})</span>
         <div style="display:flex;align-items:center;gap:6px;">
-          <button onclick="changeFifaCartQty('${key}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(111,207,58,.4);background:#1a1a1a;color:#6fcf3a;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;opacity:.75;">−</button>
-          <button onclick="changeFifaCartQty('${key}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(111,207,58,.5);background:#1a1a1a;color:#6fcf3a;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
+          <button onclick="changeFifaCartQty('${key}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(220,38,38,.4);background:#1a1a1a;color:#dc2626;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;opacity:.75;">−</button>
+          <button onclick="changeFifaCartQty('${key}',1)"  style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(220,38,38,.5);background:#1a1a1a;color:#dc2626;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
         </div>
       </div>`;
     }).join('');
@@ -5824,10 +5908,10 @@
   // ============ أسعار براول ستارز الديناميكية — بتتغير من لوحة الأدمن وتتحدث هنا لايف من غير ريفريش ============
   function buildBrawlCardHTML(item) {
     const cb = item.egp || 0;
-    return `<div class="pcard brawl-pcard" style="border-color:rgba(244,161,0,.25); padding: 12px 10px; flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px;" data-pass="${item.label}" data-price="${item.price}" data-egp="${cb}" onclick="toggleBrawlAmt(this)">
+    return `<div class="pcard brawl-pcard" style="border-color:rgba(220,38,38,.25); padding: 12px 10px; flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px;" data-pass="${item.label}" data-price="${item.price}" data-egp="${cb}" onclick="toggleBrawlAmt(this)">
         <span class="rob" style="font-size:.85rem;line-height:1.4;font-weight:900;">${item.label}</span>
         <span class="egp">EGP ${item.price}</span>
-        <div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(244,161,0,.5);color:#f4a100;background:rgba(244,161,0,.1);" onclick="event.stopPropagation();changeBrawlQtyCard(this,-1)">−</button><span class="qty-num" style="color:#f4a100;">0</span><button class="qty-btn" style="border-color:rgba(244,161,0,.5);color:#f4a100;background:rgba(244,161,0,.1);" onclick="event.stopPropagation();changeBrawlQtyCard(this,1)">+</button></div>
+        <div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(220,38,38,.5);color:#dc2626;background:rgba(220,38,38,.1);" onclick="event.stopPropagation();changeBrawlQtyCard(this,-1)">−</button><span class="qty-num" style="color:#dc2626;">0</span><button class="qty-btn" style="border-color:rgba(220,38,38,.5);color:#dc2626;background:rgba(220,38,38,.1);" onclick="event.stopPropagation();changeBrawlQtyCard(this,1)">+</button></div>
       </div>`;
   }
   function applyBrawlPricing(data) {
@@ -5849,7 +5933,7 @@
   // ============ أسعار بيس الديناميكية — بتتغير من لوحة الأدمن وتتحدث هنا لايف من غير ريفريش ============
   function buildPesCardHTML(item) {
     const cb = item.egp || 0;
-    return `<div class="pcard" style="border-color:rgba(111,207,58,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-coin="${item.coin}" data-price="${item.price}" data-egp="${cb}" onclick="togglePesAmt(this)"><span class="rob">Coins </span><span class="rob-val">${item.coin}</span><span class="egp">EGP ${item.price}</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#6fcf3a;">0</span><button class="qty-btn" style="border-color:rgba(111,207,58,.5);color:#6fcf3a;background:rgba(111,207,58,.12);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>`;
+    return `<div class="pcard" style="border-color:rgba(220,38,38,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-coin="${item.coin}" data-price="${item.price}" data-egp="${cb}" onclick="togglePesAmt(this)"><span class="rob">Coins </span><span class="rob-val">${item.coin}</span><span class="egp">EGP ${item.price}</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(220,38,38,.5);color:#dc2626;background:rgba(220,38,38,.12);" onclick="event.stopPropagation();changePesQtyCard(this,-1)">−</button><span class="qty-num" style="color:#dc2626;">0</span><button class="qty-btn" style="border-color:rgba(220,38,38,.5);color:#dc2626;background:rgba(220,38,38,.12);" onclick="event.stopPropagation();changePesQtyCard(this,1)">+</button></div></div>`;
   }
   function applyPesPricing(data) {
     if (!data) return;
@@ -5870,16 +5954,16 @@
   // ============ أسعار فيفا الديناميكية — بتتغير من لوحة الأدمن وتتحدث هنا لايف من غير ريفريش ============
   function buildFifaCoinCardHTML(item, type) {
     const cb = item.egp || 0;
-    return `<div class="pcard" style="border-color:rgba(111,207,58,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-amt="${item.amt}" data-price="${item.price}" data-type="${type}" data-egp="${cb}" onclick="addFifaItem(this)"><span class="rob">${type} </span><span class="rob-val">${item.amt}</span><span class="egp">EGP ${item.price}</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeFifaQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeFifaQtyCard(this,1)">+</button></div></div>`;
+    return `<div class="pcard" style="border-color:rgba(220,38,38,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-amt="${item.amt}" data-price="${item.price}" data-type="${type}" data-egp="${cb}" onclick="addFifaItem(this)"><span class="rob">${type} </span><span class="rob-val">${item.amt}</span><span class="egp">EGP ${item.price}</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeFifaQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeFifaQtyCard(this,1)">+</button></div></div>`;
   }
   function buildFifaOrodCardHTML(item) {
     const cb = item.egp || 0;
     const origLine = item.origPrice > 0
       ? `<span class="sep" style="font-size:.78rem;opacity:.7;">بدل</span><span class="egp" style="text-decoration:line-through;opacity:.5;margin-left:6px;">${item.origPrice}ج</span>`
       : '';
-    return `<div class="pcard" style="border-color:rgba(111,207,58,.25); padding: 12px 10px; flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px;" data-amt="0" data-price="${item.price}" data-type="عرض" data-label="${item.label}" data-egp="${cb}" onclick="addFifaItem(this)">
+    return `<div class="pcard" style="border-color:rgba(220,38,38,.25); padding: 12px 10px; flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px;" data-amt="0" data-price="${item.price}" data-type="عرض" data-label="${item.label}" data-egp="${cb}" onclick="addFifaItem(this)">
         <span class="rob-val" style="font-size:.9rem;line-height:1.4;font-weight:900;">${item.label}</span>
-        <span class="egp" style="color:#6fcf3a;font-weight:900;">${item.price}ج</span>
+        <span class="egp" style="color:#dc2626;font-weight:900;">${item.price}ج</span>
         ${origLine}
         <div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeFifaQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeFifaQtyCard(this,1)">+</button></div>
       </div>`;
@@ -5913,7 +5997,7 @@
     const body = item.custom
       ? `<span class="rob-val">${label.replace(/^اشتراك\s*/, '')}</span>`
       : `<span class="rob-val">${item.diamond}</span><span class="rob">Diamond</span>`;
-    return `<div class="pcard" style="border-color:rgba(0,180,216,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-diamond="${item.diamond}" data-price="${item.price}" data-label="${label}" data-egp="${cb}" onclick="${toggleFn}(this)">${body}<span class="egp">EGP ${item.price}</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:#00b4d8;background:rgba(0,180,216,.1);" onclick="event.stopPropagation();${changeFn}(this,-1)">−</button><span class="qty-num" style="color:#00b4d8;">0</span><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:#00b4d8;background:rgba(0,180,216,.1);" onclick="event.stopPropagation();${changeFn}(this,1)">+</button></div></div>`;
+    return `<div class="pcard" style="border-color:rgba(220,38,38,.25); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-diamond="${item.diamond}" data-price="${item.price}" data-label="${label}" data-egp="${cb}" onclick="${toggleFn}(this)">${body}<span class="egp">EGP ${item.price}</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(220,38,38,.5);color:#dc2626;background:rgba(220,38,38,.1);" onclick="event.stopPropagation();${changeFn}(this,-1)">−</button><span class="qty-num" style="color:#dc2626;">0</span><button class="qty-btn" style="border-color:rgba(220,38,38,.5);color:#dc2626;background:rgba(220,38,38,.1);" onclick="event.stopPropagation();${changeFn}(this,1)">+</button></div></div>`;
   }
   function applyFFPricing(data) {
     if (!data) return;
@@ -5937,16 +6021,16 @@
   // ============ أسعار ببجي الديناميكية — بتتغير من لوحة الأدمن وتتحدث هنا لايف من غير ريفريش ============
   function buildPubgUcCardHTML(item) {
     const cb = item.egp || 0;
-    return `<div class="pcard pubg-pcard" style="border-color:rgba(0,180,216,.2); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-uc="${item.uc}" data-price="${item.price}" data-egp="${cb}" onclick="togglePubgAmt(this,'uc')"><span class="rob">UC </span><span class="rob-val">${item.uc}</span><span class="egp">EGP ${item.price}</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,-1)">−</button><span class="qty-num" style="color:var(--gold);">0</span><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,1)">+</button></div></div>`;
+    return `<div class="pcard pubg-pcard" style="border-color:rgba(220,38,38,.2); flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px; padding: 10px 8px;" data-uc="${item.uc}" data-price="${item.price}" data-egp="${cb}" onclick="togglePubgAmt(this,'uc')"><span class="rob">UC </span><span class="rob-val">${item.uc}</span><span class="egp">EGP ${item.price}</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(220,38,38,.5);color:var(--gold);background:rgba(220,38,38,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,-1)">−</button><span class="qty-num" style="color:var(--gold);">0</span><button class="qty-btn" style="border-color:rgba(220,38,38,.5);color:var(--gold);background:rgba(220,38,38,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,1)">+</button></div></div>`;
   }
   function buildPubgOrodCardHTML(item) {
     const cb = item.egp || 0;
     const key = (item.label || '') + (item.desc ? ' (' + item.desc + ')' : '');
-    return `<div class="pcard pubg-pcard" style="border-color:rgba(0,180,216,.2); padding: 12px 10px; flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px;" data-uc="${key}" data-price="${item.price}" data-egp="${cb}" onclick="togglePubgAmt(this,'orod')">
+    return `<div class="pcard pubg-pcard" style="border-color:rgba(220,38,38,.2); padding: 12px 10px; flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; min-height: 52px;" data-uc="${key}" data-price="${item.price}" data-egp="${cb}" onclick="togglePubgAmt(this,'orod')">
           <span class="rob-val" style="font-size:.75rem;line-height:1.3;">${item.label || ''}</span>
           <span class="rob" style="font-size:.68rem;color:#aaa;">${item.desc || ''}</span>
           <span class="egp">EGP ${item.price}</span>
-        <div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,-1)">−</button><span class="qty-num" style="color:var(--gold);">0</span><button class="qty-btn" style="border-color:rgba(0,180,216,.5);color:var(--gold);background:rgba(0,180,216,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,1)">+</button></div></div>`;
+        <div class="qty-ctrl" style="display:none;"><button class="qty-btn" style="border-color:rgba(220,38,38,.5);color:var(--gold);background:rgba(220,38,38,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,-1)">−</button><span class="qty-num" style="color:var(--gold);">0</span><button class="qty-btn" style="border-color:rgba(220,38,38,.5);color:var(--gold);background:rgba(220,38,38,.1);" onclick="event.stopPropagation();changePubgQtyCard(this,1)">+</button></div></div>`;
   }
   function applyPubgPricing(data) {
     if (!data) return;
