@@ -1293,7 +1293,7 @@
   </div>
 
   <div style="display:flex;flex-direction:column;gap:10px;margin-top:18px;">
-    <button type="button" id="contestShowCardBtn" class="back-btn" style="width:100%;justify-content:center;margin:0;" onclick="toggleContestFlag('showCard')">👁️ كارت المسابقة في الموقع: مخفي</button>
+    <button type="button" id="contestShowCardBtn" class="back-btn" style="width:100%;justify-content:center;margin:0;" onclick="toggleContestFlag('showCard')">👁️ كارت المسابقة: مخفي</button>
     <button type="button" id="contestClosedBtn" class="back-btn" style="width:100%;justify-content:center;margin:0;" onclick="toggleContestFlag('closed')">🔓 التسجيل: مفتوح</button>
   </div>
 
@@ -4011,13 +4011,13 @@
     const a = document.getElementById('contestShowCardBtn');
     const b = document.getElementById('contestClosedBtn');
     if (a) {
-      a.textContent = contestFlags.showCard ? '👁️ كارت المسابقة في الموقع: ظاهر (اضغط للإخفاء)' : '👁️ كارت المسابقة في الموقع: مخفي (اضغط للإظهار)';
+      a.textContent = contestFlags.showCard ? '👁️ كارت المسابقة: ظاهر' : '👁️ كارت المسابقة: مخفي';
       a.style.background = contestFlags.showCard ? 'rgba(111,207,58,.14)' : '';
       a.style.borderColor = contestFlags.showCard ? 'rgba(111,207,58,.45)' : '';
       a.style.color = contestFlags.showCard ? '#6fcf3a' : '';
     }
     if (b) {
-      b.textContent = contestFlags.closed ? '🔒 التسجيل: اكتمل العدد (اضغط للفتح)' : '🔓 التسجيل: مفتوح (اضغط لقفله "اكتمل العدد")';
+      b.textContent = contestFlags.closed ? '🔒 التسجيل: اكتمل العدد' : '🔓 التسجيل: مفتوح';
       b.style.background = contestFlags.closed ? 'rgba(224,85,85,.14)' : '';
       b.style.borderColor = contestFlags.closed ? 'rgba(224,85,85,.45)' : '';
       b.style.color = contestFlags.closed ? '#e05555' : '';

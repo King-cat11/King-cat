@@ -2229,11 +2229,9 @@
     </div>
     <div class="offer-slide o5" id="offerContestSlide" data-off="1" style="cursor:pointer;" onclick="openContests()">
       <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/IMG-20260701-WA0002.jpg" alt="مسابقة" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.45;" />
-      <div class="offer-badge">🏆 مسابقة</div>
       <div class="offer-bottom-fade"></div>
       <div class="offer-text offer-text-bottom">
-        <div class="offer-title offer-title-glow" id="offerContestTitle">مسابقة</div>
-        <span class="offer-cta">سجّل الآن</span>
+        <div class="offer-title offer-title-glow">تسجيل</div>
       </div>
     </div>
     <button class="offer-arrow prev" data-dir="next" aria-label="التالي"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 6L9 12L15 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -6269,7 +6267,6 @@
     // كارت المسابقة في الكروت اللي بتلف — بيظهر بس لما الأدمن يفعّله والمسابقة تكون متحددة
     const slideEl = $('offerContestSlide'), dotEl = $('offerContestDot');
     if (slideEl && dotEl) {
-      if ($('offerContestTitle')) $('offerContestTitle').textContent = title ? ('🏆 ' + title) : '';
       const wasShown = !slideEl.hasAttribute('data-off');
       if (showCard !== wasShown) {
         if (showCard) { slideEl.removeAttribute('data-off'); dotEl.removeAttribute('data-off'); }
