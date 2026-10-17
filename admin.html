@@ -879,24 +879,7 @@
 <div id="authGate">
   <div class="gate-spinner"></div>
   <div class="gate-text" id="gateText">جاري التحقق من الصلاحية...</div>
-  <!-- ===== زرار مؤقت للتجربة — امسحه لما تخلص ===== -->
-  <div id="gateActions" style="display:flex; flex-direction:column; gap:10px; margin-top:18px; width:min(280px,80vw);">
-    <button type="button" onclick="enterTestMode()" style="background:#dc2626; color:#fff; border:none; border-radius:12px; padding:13px; font-family:'Cairo',sans-serif; font-weight:900; font-size:1rem; cursor:pointer;">🧪 تست مؤقت</button>
-  </div>
-  <!-- ===== نهاية الزرار المؤقت ===== -->
 </div>
-<script>
-  // ===== تست مؤقت: سكريبت عادي مستقل (مش جوه الـ module) عشان يشتغل حتى لو Firebase مش محمّل. امسحه مع الزرار لما تخلص =====
-  window.__testBypass = false;
-  window.enterTestMode = function () {
-    window.__testBypass = true;
-    var gate = document.getElementById('authGate');
-    var content = document.getElementById('adminContent');
-    if (gate) gate.style.display = 'none';
-    if (content) content.style.display = 'block';
-    if (typeof window.initAdminNavHistory === 'function') window.initAdminNavHistory();
-  };
-</script>
 
 <!-- ============ محتوى لوحة التحكم (مخفي لحد ما نتأكد إن اليوزر أدمن) ============ -->
 <div id="adminContent" style="display:none;">
@@ -1297,11 +1280,11 @@
     </div>
     <div style="display:flex;flex-direction:column;gap:6px;">
       <label for="contestStartInput" style="font-weight:800;font-size:.9rem;">⏰ هتبدأ في</label>
-      <div style="position:relative;">
-        <div id="contestStartDisplay" class="oinput" dir="rtl" style="width:100%;box-sizing:border-box;min-height:46px;display:flex;align-items:center;justify-content:space-between;gap:8px;"></div>
-        <input type="datetime-local" id="contestStartInput" onchange="syncContestStartDisplay()" oninput="syncContestStartDisplay()" style="position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;color-scheme:dark;">
-        <button type="button" id="contestStartClear" onclick="clearContestStart()" style="display:none;position:absolute;left:8px;top:50%;transform:translateY(-50%);z-index:2;background:rgba(255,255,255,.1);color:#fff;border:none;border-radius:50%;width:28px;height:28px;font-size:.85rem;cursor:pointer;">✕</button>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <input type="datetime-local" id="contestStartInput" class="oinput" onchange="syncContestStartDisplay()" oninput="syncContestStartDisplay()" onclick="try{ if (this.showPicker) this.showPicker(); }catch(e){}" style="flex:1;min-width:0;box-sizing:border-box;min-height:46px;cursor:pointer;color-scheme:dark;text-align:right;">
+        <button type="button" id="contestStartClear" onclick="clearContestStart()" style="display:none;flex-shrink:0;background:rgba(255,255,255,.1);color:#fff;border:none;border-radius:50%;width:34px;height:34px;font-size:.9rem;cursor:pointer;">✕</button>
       </div>
+      <div id="contestStartDisplay" style="color:var(--muted);font-size:.78rem;min-height:1.2em;"></div>
     </div>
     <div style="display:flex;flex-direction:column;gap:6px;">
       <label for="contestPhoneInput" style="font-weight:800;font-size:.9rem;">📞 رقم المسؤول عن المسابقة</label>
@@ -2901,9 +2884,8 @@
   }
 
 
-  // مؤقتاً: بدل التحويل الفوري للموقع بنعرض السبب على شاشة التحقق (والزرار المؤقت فاضل ظاهر)
+  // بنعرض سبب الرفض على شاشة التحقق
   function rejectAndRedirect(message) {
-    if (window.__testBypass) return;
     const txt = document.getElementById('gateText');
     if (txt) txt.textContent = (message || 'مفيش صلاحية دخول');
     const spin = document.querySelector('#authGate .gate-spinner');
@@ -4029,7 +4011,13 @@
       document.getElementById('contestPrizeInput').value = data.prize || '';
       document.getElementById('contestStartInput').value = data.startAt || '';
       window.syncContestStartDisplay();
-      document.getElementById('contestPhoneInput').value = data.phone || '';
+      // الرقم محفوظ في مستند أدمن بس (adminData/contestPhone) عشان ميظهرش في الموقع الأساسي — data.phone احتياطي للمسابقات القديمة
+      let phone = data.phone || '';
+      try {
+        const phoneSnap = await getDoc(doc(db, 'adminData', 'contestPhone'));
+        if (phoneSnap.exists() && phoneSnap.data().phone) phone = phoneSnap.data().phone;
+      } catch (e) { console.error('تعذر تحميل رقم المسابقة:', e); }
+      document.getElementById('contestPhoneInput').value = phone;
       if (statusEl) statusEl.textContent = '';
       window.loadContestEntries();
     } catch (err) {
@@ -4116,15 +4104,29 @@
   window.saveContest = async function () {
     const statusEl = document.getElementById('contestsAdminStatus');
     if (statusEl) { statusEl.textContent = 'بيتم الحفظ...'; statusEl.className = 'login-status'; }
+    const title = document.getElementById('contestTitleInput').value.trim();
+    const prize = document.getElementById('contestPrizeInput').value.trim();
+    const startAt = document.getElementById('contestStartInput').value;
+    const phone = document.getElementById('contestPhoneInput').value.trim();
+    const start = window.formatContestStart(startAt);
+
+    // لازم كل البيانات تتكتب قبل ما المسابقة تتعمل
+    if (!title || !prize || !startAt || !start || !phone) {
+      const missing = [];
+      if (!title) missing.push('المسابقة');
+      if (!prize) missing.push('الجايزة');
+      if (!startAt || !start) missing.push('ميعاد البداية');
+      if (!phone) missing.push('رقم المسؤول');
+      if (statusEl) { statusEl.textContent = 'كمّل كل البيانات الأول: ' + missing.join('، '); statusEl.className = 'login-status err'; }
+      return;
+    }
+
+    if (statusEl) { statusEl.textContent = 'بيتم الحفظ...'; statusEl.className = 'login-status'; }
     try {
-      await setDoc(doc(db, 'pricing', 'contest'), {
-        title: document.getElementById('contestTitleInput').value.trim(),
-        prize: document.getElementById('contestPrizeInput').value.trim(),
-        start: window.formatContestStart(document.getElementById('contestStartInput').value),
-        startAt: document.getElementById('contestStartInput').value,
-        phone: document.getElementById('contestPhoneInput').value.trim(),
-        updatedAt: serverTimestamp()
-      });
+      // المستند العام اللي الموقع بيقراه — من غير الرقم
+      await setDoc(doc(db, 'pricing', 'contest'), { title, prize, start, startAt, updatedAt: serverTimestamp() });
+      // الرقم في مستند أدمن بس، مخفي عن الموقع الأساسي
+      await setDoc(doc(db, 'adminData', 'contestPhone'), { phone, updatedAt: serverTimestamp() });
       if (statusEl) { statusEl.textContent = 'تم الحفظ ✅'; statusEl.className = 'login-status ok'; }
     } catch (err) {
       console.error('تعذر حفظ المسابقة:', err);
@@ -4134,12 +4136,20 @@
 
   window.clearContest = async function () {
     if (!confirm('متأكد إنك عايز تمسح المسابقة؟')) return;
-    document.getElementById('contestTitleInput').value = '';
-    document.getElementById('contestPrizeInput').value = '';
-    document.getElementById('contestStartInput').value = '';
-    window.syncContestStartDisplay();
-    document.getElementById('contestPhoneInput').value = '';
-    await window.saveContest();
+    const statusEl = document.getElementById('contestsAdminStatus');
+    try {
+      await setDoc(doc(db, 'pricing', 'contest'), { title: '', prize: '', start: '', startAt: '', updatedAt: serverTimestamp() });
+      await setDoc(doc(db, 'adminData', 'contestPhone'), { phone: '', updatedAt: serverTimestamp() });
+      document.getElementById('contestTitleInput').value = '';
+      document.getElementById('contestPrizeInput').value = '';
+      document.getElementById('contestStartInput').value = '';
+      window.syncContestStartDisplay();
+      document.getElementById('contestPhoneInput').value = '';
+      if (statusEl) { statusEl.textContent = 'تم مسح المسابقة ✅'; statusEl.className = 'login-status ok'; }
+    } catch (err) {
+      console.error('تعذر مسح المسابقة:', err);
+      if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء المسح، حاول تاني'; statusEl.className = 'login-status err'; }
+    }
   };
 
   // ============ تسجيل الخروج الحقيقي ============
