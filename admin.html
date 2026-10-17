@@ -12,24 +12,23 @@
 
   :root {
     --black:
-      radial-gradient(circle at 85% 15%, rgba(255,45,120,.28) 0%, transparent 62%),
-      radial-gradient(circle at 90% 85%, rgba(96,165,250,.30) 0%, transparent 60%),
-      radial-gradient(circle at 10% 85%, rgba(255,45,120,.24) 0%, transparent 60%),
-      radial-gradient(circle at 15% 10%, rgba(96,165,250,.26) 0%, transparent 60%),
-      radial-gradient(circle at 50% 50%, rgba(255,45,120,.12) 0%, transparent 70%),
-      #0b1220;
+      radial-gradient(circle at 85% 15%, rgba(37,99,235,.14) 0%, transparent 62%),
+      radial-gradient(circle at 90% 85%, rgba(59,130,246,.10) 0%, transparent 60%),
+      radial-gradient(circle at 10% 85%, rgba(37,99,235,.12) 0%, transparent 60%),
+      radial-gradient(circle at 15% 10%, rgba(59,130,246,.09) 0%, transparent 60%),
+      #040b1f;
     --white:   #f5f3ee;
-    --blue:    #2563eb;
-    --blue-lt: #60a5fa;
-    --pink:    #ff2d78;
-    --pink-lt: #ff9dc6;
+    --blue:    #b91c1c;
+    --blue-lt: #ef4444;
+    --pink:    #dc2626;
+    --pink-lt: #ef4444;
     --cream:   #f3e6c8;
     --gray:    #2a2a2a;
     --muted:   #888;
     --radius:  12px;
   }
 
-  html { scroll-behavior: smooth; background: #0b1220; }
+  html { scroll-behavior: smooth; background: #040b1f; }
 
   body {
     background: var(--black);
@@ -52,9 +51,9 @@
     justify-content: space-between;
     padding: 0 5%;
     height: 70px;
-    background: linear-gradient(120deg, rgba(11,18,32,.94) 0%, rgba(30,15,35,.94) 50%, rgba(11,18,32,.94) 100%);
+    background: linear-gradient(120deg, rgba(4,11,31,.94) 0%, rgba(4,11,31,.94) 50%, rgba(4,11,31,.94) 100%);
     backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255,45,120,.35);
+    border-bottom: 1px solid rgba(220,38,38,.35);
   }
   .hamburger {
     display: flex;
@@ -100,8 +99,8 @@
     font-size: .68rem;
     font-weight: 800;
     color: var(--pink-lt);
-    background: rgba(255,45,120,.12);
-    border: 1px solid rgba(255,45,120,.35);
+    background: rgba(220,38,38,.12);
+    border: 1px solid rgba(220,38,38,.35);
     border-radius: 20px;
     padding: 3px 10px;
     margin-inline-start: 10px;
@@ -109,8 +108,8 @@
   .header-admin-icon {
     width: 38px; height: 38px;
     border-radius: 50%;
-    background: rgba(255,45,120,.12);
-    border: 1.5px solid rgba(255,45,120,.4);
+    background: rgba(220,38,38,.12);
+    border: 1.5px solid rgba(220,38,38,.4);
     display: flex; align-items: center; justify-content: center;
     color: var(--pink-lt);
     font-weight: 900;
@@ -137,7 +136,7 @@
     width: 72%;
     max-width: 320px;
     background: #0d0d0d;
-    border-left: 1px solid rgba(255,45,120,.25);
+    border-left: 1px solid rgba(220,38,38,.25);
     box-shadow: -8px 0 32px rgba(0,0,0,.9);
     display: flex;
     flex-direction: column;
@@ -153,8 +152,8 @@
     top: 20px; left: 20px;
     width: 34px; height: 34px;
     display: flex; align-items: center; justify-content: center;
-    background: rgba(255,45,120,.1);
-    border: 1px solid rgba(255,45,120,.25);
+    background: rgba(220,38,38,.1);
+    border: 1px solid rgba(220,38,38,.25);
     border-radius: 50%;
     color: var(--white);
     font-size: 1.1rem;
@@ -168,14 +167,14 @@
     gap: 8px;
     padding: 54px 8% 22px;
     text-align: center;
-    background: rgba(255,45,120,.07);
-    border-bottom: 1px solid rgba(255,45,120,.2);
+    background: rgba(220,38,38,.07);
+    border-bottom: 1px solid rgba(220,38,38,.2);
   }
   .nav-profile-icon {
     width: 52px; height: 52px;
     border-radius: 50%;
-    background: rgba(255,45,120,.15);
-    border: 1.5px solid rgba(255,45,120,.5);
+    background: rgba(220,38,38,.15);
+    border: 1.5px solid rgba(220,38,38,.5);
     color: var(--pink-lt);
     display: flex; align-items: center; justify-content: center;
     font-size: 1.2rem;
@@ -201,12 +200,12 @@
     text-decoration: none;
     font-weight: 700;
     font-size: .95rem;
-    border-bottom: 1px solid rgba(255,45,120,.1);
+    border-bottom: 1px solid rgba(220,38,38,.1);
     transition: color .2s, background .2s;
     cursor: pointer;
   }
   .nav-menu a .ic { font-size: 1.1rem; width: 22px; text-align: center; }
-  .nav-menu a:hover, .nav-menu a.active { color: var(--pink-lt); background: rgba(255,45,120,.08); }
+  .nav-menu a:hover, .nav-menu a.active { color: var(--pink-lt); background: rgba(220,38,38,.08); }
   .nav-menu a.logout { color: #e05555; margin-top: auto; }
   .nav-menu a.logout:hover { background: rgba(224,85,85,.08); }
 
@@ -263,7 +262,7 @@
   }
   .stat-card {
     background: #141414;
-    border: 1px solid rgba(37,99,235,.2);
+    border: 1px solid rgba(220,38,38,.2);
     border-radius: 10px;
     padding: 10px 8px;
     display: flex;
@@ -273,8 +272,8 @@
   .stat-card .stat-icon {
     width: 28px; height: 28px;
     border-radius: 7px;
-    background: rgba(37,99,235,.12);
-    border: 1px solid rgba(37,99,235,.3);
+    background: rgba(220,38,38,.12);
+    border: 1px solid rgba(220,38,38,.3);
     display: flex; align-items: center; justify-content: center;
     font-size: .8rem;
     color: var(--blue-lt);
@@ -303,24 +302,24 @@
     padding: 10px 8px;
     gap: 6px;
     background: #141414;
-    border-color: rgba(255,45,120,.35);
+    border-color: rgba(220,38,38,.35);
     transition: border-color .2s, transform .2s;
   }
-  .robux-stats-grid .stat-card:hover { border-color: #ff2d78; transform: translateY(-2px); }
+  .robux-stats-grid .stat-card:hover { border-color: #dc2626; transform: translateY(-2px); }
   .robux-stats-grid .stat-card .stat-icon {
     width: 26px; height: 26px;
     border-radius: 7px;
-    background: rgba(255,45,120,.15);
-    border-color: rgba(255,45,120,.4);
-    color: #ff2d78;
+    background: rgba(220,38,38,.15);
+    border-color: rgba(220,38,38,.4);
+    color: #dc2626;
     font-size: .75rem;
   }
   .robux-stats-grid .stat-card .stat-value {
     font-size: 1.15rem;
-    color: #ff2d78;
+    color: #dc2626;
   }
   #robuxCard-withdrawnPrice { cursor: default; }
-  #robuxCard-withdrawnPrice:hover { border-color: rgba(255,45,120,.35); transform: none; }
+  #robuxCard-withdrawnPrice:hover { border-color: rgba(220,38,38,.35); transform: none; }
 
   /* section title */
   .section-title {
@@ -339,17 +338,17 @@
   }
 
   /* الصفحة الرئيسية بس — أي حاجة كانت زرقاء تتحول وردي */
-  #dashboard .stat-card { border-color: rgba(255,45,120,.2); }
+  #dashboard .stat-card { border-color: rgba(220,38,38,.2); }
   #dashboard .stat-card .stat-icon {
-    background: rgba(255,45,120,.12);
-    border-color: rgba(255,45,120,.3);
+    background: rgba(220,38,38,.12);
+    border-color: rgba(220,38,38,.3);
     color: var(--pink-lt);
   }
   #dashboard .section-title .dot { background: var(--pink-lt); }
   #dashboard .admin-card:hover { border-color: var(--pink); }
   #dashboard .admin-card .ac-icon {
-    background: rgba(255,45,120,.12);
-    border-color: rgba(255,45,120,.3);
+    background: rgba(220,38,38,.12);
+    border-color: rgba(220,38,38,.3);
     color: var(--pink-lt);
   }
 
@@ -377,8 +376,8 @@
     border-radius: 10px;
     display: flex; align-items: center; justify-content: center;
     font-size: 1.2rem;
-    background: rgba(37,99,235,.12);
-    border: 1px solid rgba(37,99,235,.3);
+    background: rgba(220,38,38,.12);
+    border: 1px solid rgba(220,38,38,.3);
     color: var(--blue-lt);
   }
   .admin-card .ac-title { font-weight: 800; font-size: .92rem; color: var(--white); }
@@ -419,9 +418,9 @@
     transition: background .2s, color .2s;
     user-select: none;
   }
-  .orders-tab.active { background: rgba(255,45,120,.16); color: var(--pink-lt); }
+  .orders-tab.active { background: rgba(220,38,38,.16); color: var(--pink-lt); }
   .orders-tab:hover:not(.active) { color: #ccc; }
-  .add-order-tab:hover { background: rgba(255,45,120,.28); color: var(--pink-lt); }
+  .add-order-tab:hover { background: rgba(220,38,38,.28); color: var(--pink-lt); }
 
   /* ── CASH INVOICES DAY TABS ── */
   .day-tabs {
@@ -449,7 +448,7 @@
     transition: background .2s, color .2s;
     user-select: none;
   }
-  .day-tab.active { background: rgba(255,45,120,.16); color: var(--pink-lt); }
+  .day-tab.active { background: rgba(220,38,38,.16); color: var(--pink-lt); }
   .day-tab:hover:not(.active) { color: #ccc; }
 
   /* recent orders placeholder table */
@@ -490,9 +489,9 @@
   .o-action-btn.done.active    { background: rgba(111,207,58,.25); }
   .o-action-btn.pending { color: #f4a100; border: 1px solid rgba(244,161,0,.35); background: rgba(244,161,0,.06); }
   .o-action-btn.pending.active { background: rgba(244,161,0,.25); }
-  .o-action-btn.cancel  { color: var(--pink); border: 1px solid rgba(255,45,120,.35); background: rgba(255,45,120,.06); }
-  .o-action-btn.cancel:hover  { background: rgba(255,45,120,.2); }
-  .o-action-btn.cancel.active { background: rgba(255,45,120,.25); }
+  .o-action-btn.cancel  { color: var(--pink); border: 1px solid rgba(220,38,38,.35); background: rgba(220,38,38,.06); }
+  .o-action-btn.cancel:hover  { background: rgba(220,38,38,.2); }
+  .o-action-btn.cancel.active { background: rgba(220,38,38,.25); }
 
   .order-date-row {
     display: flex;
@@ -521,9 +520,9 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: rgba(255,45,120,.12);
-    border: 1px solid rgba(255,45,120,.3);
-    color: #ff2d78;
+    background: rgba(220,38,38,.12);
+    border: 1px solid rgba(220,38,38,.3);
+    color: #dc2626;
     font-family: 'Cairo', sans-serif;
     font-weight: 800;
     font-size: .82rem;
@@ -532,45 +531,45 @@
     cursor: pointer;
     margin-bottom: 14px;
   }
-  .back-btn:hover { background: rgba(255,45,120,.22); }
+  .back-btn:hover { background: rgba(220,38,38,.22); }
   #robloxPricingPage .back-btn {
-    background: rgba(255,45,120,.12);
-    border-color: rgba(255,45,120,.3);
-    color: #ff2d78;
+    background: rgba(220,38,38,.12);
+    border-color: rgba(220,38,38,.3);
+    color: #dc2626;
   }
-  #robloxPricingPage .back-btn:hover { background: rgba(255,45,120,.22); }
+  #robloxPricingPage .back-btn:hover { background: rgba(220,38,38,.22); }
   #pricingPage .back-btn {
-    background: rgba(255,45,120,.12);
-    border-color: rgba(255,45,120,.3);
-    color: #ff2d78;
+    background: rgba(220,38,38,.12);
+    border-color: rgba(220,38,38,.3);
+    color: #dc2626;
   }
-  #pricingPage .back-btn:hover { background: rgba(255,45,120,.22); }
-  #pricingPage .admin-card:hover { border-color: #ff2d78; }
+  #pricingPage .back-btn:hover { background: rgba(220,38,38,.22); }
+  #pricingPage .admin-card:hover { border-color: #dc2626; }
   #pricingPage .admin-card .ac-icon {
-    background: rgba(255,45,120,.12);
-    border-color: rgba(255,45,120,.3);
-    color: #ff2d78;
+    background: rgba(220,38,38,.12);
+    border-color: rgba(220,38,38,.3);
+    color: #dc2626;
   }
   #ordersPage .back-btn {
-    background: rgba(255,45,120,.12);
-    border-color: rgba(255,45,120,.3);
-    color: #ff2d78;
+    background: rgba(220,38,38,.12);
+    border-color: rgba(220,38,38,.3);
+    color: #dc2626;
   }
-  #ordersPage .back-btn:hover { background: rgba(255,45,120,.22); }
+  #ordersPage .back-btn:hover { background: rgba(220,38,38,.22); }
 
   #currencyPage .back-btn {
-    background: rgba(255,45,120,.12);
-    border-color: rgba(255,45,120,.3);
-    color: #ff2d78;
+    background: rgba(220,38,38,.12);
+    border-color: rgba(220,38,38,.3);
+    color: #dc2626;
   }
-  #currencyPage .back-btn:hover { background: rgba(255,45,120,.22); }
-  #currencyPage .stat-card { border-color: rgba(255,45,120,.2); }
+  #currencyPage .back-btn:hover { background: rgba(220,38,38,.22); }
+  #currencyPage .stat-card { border-color: rgba(220,38,38,.2); }
   #currencyPage .stat-card .stat-icon {
-    background: rgba(255,45,120,.12);
-    border-color: rgba(255,45,120,.3);
-    color: #ff2d78;
+    background: rgba(220,38,38,.12);
+    border-color: rgba(220,38,38,.3);
+    color: #dc2626;
   }
-  #currencyPage .oinput:focus { border-color: #ff2d78; }
+  #currencyPage .oinput:focus { border-color: #dc2626; }
 
   .order-top-row {
     display: flex;
@@ -601,9 +600,9 @@
   .date-filter-row .o-date-input { flex: 1; }
   .date-filter-clear {
     flex-shrink: 0;
-    background: rgba(255,45,120,.12);
-    border: 1px solid rgba(255,45,120,.3);
-    color: #ff2d78;
+    background: rgba(220,38,38,.12);
+    border: 1px solid rgba(220,38,38,.3);
+    color: #dc2626;
     font-family: 'Cairo', sans-serif;
     font-weight: 800;
     font-size: .78rem;
@@ -612,7 +611,7 @@
     cursor: pointer;
     white-space: nowrap;
   }
-  .date-filter-clear:hover { background: rgba(255,45,120,.22); }
+  .date-filter-clear:hover { background: rgba(220,38,38,.22); }
 
   .o-due-badge {
     display: inline-flex;
@@ -644,8 +643,8 @@
     position: absolute;
     inset: 0;
     background-image:
-      linear-gradient(rgba(37,99,235,.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(37,99,235,.05) 1px, transparent 1px);
+      linear-gradient(rgba(220,38,38,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(220,38,38,.05) 1px, transparent 1px);
     background-size: 60px 60px;
     pointer-events: none;
   }
@@ -654,7 +653,7 @@
     width: 100%;
     max-width: 380px;
     background: #101010;
-    border: 1.5px solid rgba(37,99,235,.3);
+    border: 1.5px solid rgba(220,38,38,.3);
     border-radius: 18px;
     padding: 34px 26px;
     box-shadow: 0 20px 50px rgba(0,0,0,.6);
@@ -693,17 +692,17 @@
   }
   .oinput:focus { border-color: var(--blue-lt); }
   .oinput::placeholder { color: #555; }
-  #robuxEditOverlay .oinput:focus { border-color: #ff2d78; }
-  #robloxPricingPage .oinput:focus { border-color: #ff2d78; }
-  #manualOrderOverlay .oinput:focus { border-color: #ff2d78; }
-  #manualOrderOverlay .login-submit-btn { background: #ff2d78; }
+  #robuxEditOverlay .oinput:focus { border-color: #dc2626; }
+  #robloxPricingPage .oinput:focus { border-color: #dc2626; }
+  #manualOrderOverlay .oinput:focus { border-color: #dc2626; }
+  #manualOrderOverlay .login-submit-btn { background: #dc2626; }
   .login-submit-btn {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
     background: var(--blue-lt);
-    color: #04101f;
+    color: #ffffff;
     font-family: 'Cairo', sans-serif;
     font-weight: 900;
     font-size: .95rem;
@@ -747,7 +746,7 @@
     flex-shrink: 0; white-space: nowrap; width: 30px;
   }
   .price-row .custom-check input { width: 13px; height: 13px; flex-shrink: 0; }
-  #robloxPricingPage .custom-check input { accent-color: #ff2d78; }
+  #robloxPricingPage .custom-check input { accent-color: #dc2626; }
   .price-cols-head {
     display: flex;
     align-items: center;
@@ -787,7 +786,7 @@
   .price-section-head-title { font-weight: 800; font-size: .95rem; color: var(--white); display: flex; align-items: center; gap: 8px; }
   .price-section-count {
     font-size: .7rem; font-weight: 800; color: var(--pink-lt);
-    background: rgba(255,45,120,.12); border: 1px solid rgba(255,45,120,.3);
+    background: rgba(220,38,38,.12); border: 1px solid rgba(220,38,38,.3);
     border-radius: 20px; padding: 2px 9px; margin-inline-start: 4px;
   }
   .price-section-chevron { color: var(--pink-lt); font-size: .75rem; flex-shrink: 0; }
@@ -835,7 +834,7 @@
   #authGate .gate-spinner {
     width: 42px; height: 42px;
     border-radius: 50%;
-    border: 3px solid rgba(96,165,250,.25);
+    border: 3px solid rgba(239,68,68,.25);
     border-top-color: var(--blue-lt);
     animation: gateSpin .8s linear infinite;
   }
@@ -859,9 +858,9 @@
     background: var(--black);
   }
   @media (min-width: 481px) {
-    html { background: #0b1220; }
+    html { background: #040b1f; }
     .phone-frame {
-      box-shadow: 0 0 0 1px rgba(96,165,250,.15), 0 30px 90px rgba(0,0,0,.85);
+      box-shadow: 0 0 0 1px rgba(239,68,68,.15), 0 30px 90px rgba(0,0,0,.85);
     }
   }
   /* تصغير عام للمقاسات الكبيرة عشان تتناسب مع شاشة الموبايل دايمًا */
@@ -879,8 +878,25 @@
 <!-- ============ شاشة التحقق من صلاحية الأدمن (تظهر لحد ما يتأكد الكود إنه أدمن فعلاً) ============ -->
 <div id="authGate">
   <div class="gate-spinner"></div>
-  <div class="gate-text">جاري التحقق من الصلاحية...</div>
+  <div class="gate-text" id="gateText">جاري التحقق من الصلاحية...</div>
+  <!-- ===== زرار مؤقت للتجربة — امسحه لما تخلص ===== -->
+  <div id="gateActions" style="display:flex; flex-direction:column; gap:10px; margin-top:18px; width:min(280px,80vw);">
+    <button type="button" onclick="enterTestMode()" style="background:#dc2626; color:#fff; border:none; border-radius:12px; padding:13px; font-family:'Cairo',sans-serif; font-weight:900; font-size:1rem; cursor:pointer;">🧪 تست مؤقت</button>
+  </div>
+  <!-- ===== نهاية الزرار المؤقت ===== -->
 </div>
+<script>
+  // ===== تست مؤقت: سكريبت عادي مستقل (مش جوه الـ module) عشان يشتغل حتى لو Firebase مش محمّل. امسحه مع الزرار لما تخلص =====
+  window.__testBypass = false;
+  window.enterTestMode = function () {
+    window.__testBypass = true;
+    var gate = document.getElementById('authGate');
+    var content = document.getElementById('adminContent');
+    if (gate) gate.style.display = 'none';
+    if (content) content.style.display = 'block';
+    if (typeof window.initAdminNavHistory === 'function') window.initAdminNavHistory();
+  };
+</script>
 
 <!-- ============ محتوى لوحة التحكم (مخفي لحد ما نتأكد إن اليوزر أدمن) ============ -->
 <div id="adminContent" style="display:none;">
@@ -951,6 +967,10 @@
     <div class="admin-card admin-card-compact" onclick="showCurrencyPage()">
       <div class="ac-icon">💰</div>
       <div class="ac-title">العملات</div>
+    </div>
+    <div class="admin-card admin-card-compact" onclick="showContestsAdminPage()">
+      <div class="ac-icon">🏆</div>
+      <div class="ac-title">المسابقات</div>
     </div>
   </div>
 </main>
@@ -1078,7 +1098,7 @@
   </div>
 
   <div id="robloxPricingStatus" class="login-status" style="margin-top:14px;"></div>
-  <button class="login-submit-btn" style="margin-top:6px;background:#ff2d78;" onclick="saveRobloxPricing()">💾 حفظ كل التعديلات</button>
+  <button class="login-submit-btn" style="margin-top:6px;background:#dc2626;" onclick="saveRobloxPricing()">💾 حفظ كل التعديلات</button>
 </main>
 
 <!-- ============ صفحة أسعار ببجي ============ -->
@@ -1117,7 +1137,7 @@
   </div>
 
   <div id="pubgPricingStatus" class="login-status" style="margin-top:14px;"></div>
-  <button class="login-submit-btn" style="margin-top:6px;background:#ff2d78;" onclick="savePubgPricing()">💾 حفظ كل التعديلات</button>
+  <button class="login-submit-btn" style="margin-top:6px;background:#dc2626;" onclick="savePubgPricing()">💾 حفظ كل التعديلات</button>
 </main>
 
 <!-- ============ صفحة أسعار فري فاير ============ -->
@@ -1150,7 +1170,7 @@
   </div>
 
   <div id="ffPricingStatus" class="login-status" style="margin-top:14px;"></div>
-  <button class="login-submit-btn" style="margin-top:6px;background:#ff2d78;" onclick="saveFFPricing()">💾 حفظ كل التعديلات</button>
+  <button class="login-submit-btn" style="margin-top:6px;background:#dc2626;" onclick="saveFFPricing()">💾 حفظ كل التعديلات</button>
 </main>
 
 <!-- ============ صفحة أسعار فيفا ============ -->
@@ -1206,7 +1226,7 @@
   </div>
 
   <div id="fifaPricingStatus" class="login-status" style="margin-top:14px;"></div>
-  <button class="login-submit-btn" style="margin-top:6px;background:#ff2d78;" onclick="saveFifaPricing()">💾 حفظ كل التعديلات</button>
+  <button class="login-submit-btn" style="margin-top:6px;background:#dc2626;" onclick="saveFifaPricing()">💾 حفظ كل التعديلات</button>
 </main>
 
 <!-- ============ صفحة أسعار بيس ============ -->
@@ -1234,7 +1254,7 @@
   </div>
 
   <div id="pesPricingStatus" class="login-status" style="margin-top:14px;"></div>
-  <button class="login-submit-btn" style="margin-top:6px;background:#ff2d78;" onclick="savePesPricing()">💾 حفظ كل التعديلات</button>
+  <button class="login-submit-btn" style="margin-top:6px;background:#dc2626;" onclick="savePesPricing()">💾 حفظ كل التعديلات</button>
 </main>
 
 <!-- ============ صفحة أسعار براول ستارز ============ -->
@@ -1256,15 +1276,62 @@
   </div>
 
   <div id="brawlPricingStatus" class="login-status" style="margin-top:14px;"></div>
-  <button class="login-submit-btn" style="margin-top:6px;background:#ff2d78;" onclick="saveBrawlPricing()">💾 حفظ كل التعديلات</button>
+  <button class="login-submit-btn" style="margin-top:6px;background:#dc2626;" onclick="saveBrawlPricing()">💾 حفظ كل التعديلات</button>
+</main>
+
+<!-- ============ صفحة المسابقات — البيانات دي بتظهر في صفحة "مسابقاتنا" في الموقع (pricing/contest) ============ -->
+<main id="contestsAdminPage" style="display:none;">
+  <div class="rp-header-row">
+    <button class="back-btn" onclick="showDashboard()">→ Back</button>
+    <div class="eyebrow roblox-eyebrow">Contests</div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:14px;margin-top:6px;">
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <label for="contestTitleInput" style="font-weight:800;font-size:.9rem;">🏆 المسابقة</label>
+      <input type="text" id="contestTitleInput" class="oinput" dir="rtl" style="width:100%;box-sizing:border-box;">
+    </div>
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <label for="contestPrizeInput" style="font-weight:800;font-size:.9rem;">🎁 الجايزة</label>
+      <input type="text" id="contestPrizeInput" class="oinput" dir="rtl" style="width:100%;box-sizing:border-box;">
+    </div>
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <label for="contestStartInput" style="font-weight:800;font-size:.9rem;">⏰ هتبدأ في</label>
+      <div style="position:relative;">
+        <div id="contestStartDisplay" class="oinput" dir="rtl" style="width:100%;box-sizing:border-box;min-height:46px;display:flex;align-items:center;justify-content:space-between;gap:8px;"></div>
+        <input type="datetime-local" id="contestStartInput" onchange="syncContestStartDisplay()" oninput="syncContestStartDisplay()" style="position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;color-scheme:dark;">
+        <button type="button" id="contestStartClear" onclick="clearContestStart()" style="display:none;position:absolute;left:8px;top:50%;transform:translateY(-50%);z-index:2;background:rgba(255,255,255,.1);color:#fff;border:none;border-radius:50%;width:28px;height:28px;font-size:.85rem;cursor:pointer;">✕</button>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <label for="contestPhoneInput" style="font-weight:800;font-size:.9rem;">📞 رقم المسؤول عن المسابقة</label>
+      <input type="tel" id="contestPhoneInput" class="oinput" inputmode="tel" style="width:100%;box-sizing:border-box;direction:ltr;text-align:left;">
+    </div>
+  </div>
+
+  <div id="contestsAdminStatus" class="login-status" style="margin-top:14px;"></div>
+  <button class="login-submit-btn" style="margin-top:6px;width:100%;background:#dc2626;" onclick="saveContest()">💾 حفظ المسابقة</button>
+  <button class="back-btn" style="width:100%;justify-content:center;margin-top:10px;" onclick="clearContest()">🗑️ مسح المسابقة</button>
+
+  <!-- ===== المسجلين في المسابقة (خانة مطوية) ===== -->
+  <div id="rp-sec-contestEntries" class="price-section" style="margin-top:20px;">
+    <div class="price-section-head" onclick="togglePriceSection('contestEntries')">
+      <div class="price-section-head-title">👥 المسجلين في المسابقة <span class="price-section-count" id="count-contestEntries">0</span></div>
+      <span class="price-section-chevron">▾</span>
+    </div>
+    <div class="price-section-body"><div class="price-section-body-inner">
+      <div id="contestEntriesList" style="display:flex;flex-direction:column;gap:8px;"></div>
+      <button class="back-btn" style="width:100%;justify-content:center;margin-top:12px;" onclick="event.stopPropagation();clearContestEntries()">🗑️ مسح قايمة المسجلين</button>
+    </div></div>
+  </div>
 </main>
 
 <!-- ============ صفحة حسبة الروبوكس (أدمن بس) ============ -->
 <main id="robuxCalcPage" style="display:none;">
   <div class="rp-header-row">
-    <button class="back-btn" style="background:rgba(255,45,120,.12);border-color:rgba(255,45,120,.35);color:#ff2d78;" onclick="showDashboard()">→ Back</button>
+    <button class="back-btn" style="background:rgba(220,38,38,.12);border-color:rgba(220,38,38,.35);color:#dc2626;" onclick="showDashboard()">→ Back</button>
     <div class="eyebrow roblox-eyebrow">Accounts</div>
-    <button type="button" onclick="openRobuxNetCalcOverlay()" title="حاسبة صافي / غير صافي" aria-label="حاسبة صافي / غير صافي" style="width:36px;height:36px;flex-shrink:0;border-radius:50%;border:none;background:radial-gradient(circle at 35% 28%, #ff5b96, #ff2d78 65%, #c21f5c);box-shadow:0 3px 10px rgba(255,45,120,.4), inset 0 1px 0 rgba(255,255,255,.25);font-size:1rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;">🧮</button>
+    <button type="button" onclick="openRobuxNetCalcOverlay()" title="حاسبة صافي / غير صافي" aria-label="حاسبة صافي / غير صافي" style="width:36px;height:36px;flex-shrink:0;border-radius:50%;border:none;background:radial-gradient(circle at 35% 28%, #ff5b96, #dc2626 65%, #c21f5c);box-shadow:0 3px 10px rgba(220,38,38,.4), inset 0 1px 0 rgba(255,255,255,.25);font-size:1rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;">🧮</button>
   </div>
 
   <div class="stats-grid robux-stats-grid">
@@ -1291,7 +1358,7 @@
   </div>
 
   <!-- ============ فراغ + خط وردي واضح بيفصل بين كروت الروبكس اللي فوق وكارت إجمالي الكاش تحت (قسم مختلف) ============ -->
-  <div style="border-top:3px solid #ff2d78;margin:22px 0;"></div>
+  <div style="border-top:3px solid #dc2626;margin:22px 0;"></div>
 
   <div class="stats-grid robux-stats-grid">
     <div class="stat-card" onclick="openCashOverlay()">
@@ -1317,8 +1384,8 @@
 
 <!-- ============ بوب أب حاسبة الروبوكس (صافي / غير صافي) — بتحسب الرقم التاني تلقائي ============ -->
 <div id="robuxNetCalcOverlay" onclick="closeRobuxNetCalcOverlay(event)" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:4000;align-items:center;justify-content:center;padding:20px;">
-  <div onclick="event.stopPropagation()" style="width:100%;max-width:380px;max-height:88vh;overflow-y:auto;background:#141414;border:1.5px solid rgba(255,45,120,.4);border-radius:16px;padding:22px;">
-    <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#ff2d78;letter-spacing:.03em;margin-bottom:16px;">🧮 حاسبة صافي / غير صافي</div>
+  <div onclick="event.stopPropagation()" style="width:100%;max-width:380px;max-height:88vh;overflow-y:auto;background:#141414;border:1.5px solid rgba(220,38,38,.4);border-radius:16px;padding:22px;">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#dc2626;letter-spacing:.03em;margin-bottom:16px;">🧮 حاسبة صافي / غير صافي</div>
 
     <input type="number" class="oinput" id="robuxNetCalcAmount" placeholder="اكتب الرقم" style="width:100%;margin-bottom:10px;" oninput="calcRobuxNet()">
     <div style="display:flex;gap:8px;margin-bottom:10px;">
@@ -1332,7 +1399,7 @@
 <!-- ============ صفحة كل الفواتير المسجلة — بتتصفّح باليوم (الأحد للسبت)، وأي فاتورة قدايم من أسبوع بتتمسح تلقائي ============ -->
 <main id="cashInvoicesPage" style="display:none;">
   <div class="rp-header-row">
-    <button class="back-btn" style="background:rgba(255,45,120,.12);border-color:rgba(255,45,120,.35);color:#ff2d78;" onclick="showRobuxCalcPage()">→ Back</button>
+    <button class="back-btn" style="background:rgba(220,38,38,.12);border-color:rgba(220,38,38,.35);color:#dc2626;" onclick="showRobuxCalcPage()">→ Back</button>
     <div class="eyebrow roblox-eyebrow">Invoices</div>
   </div>
 
@@ -1420,17 +1487,17 @@
 
 <!-- ============ مودال تفاصيل الطلب الكاملة ============ -->
 <div id="orderDetailOverlay" onclick="closeOrderDetail(event)" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:4000;align-items:center;justify-content:center;padding:20px;">
-  <div onclick="event.stopPropagation()" style="width:100%;max-width:420px;background:#141414;border:1.5px solid rgba(255,45,120,.35);border-radius:16px;padding:22px;max-height:80vh;overflow-y:auto;">
-    <div id="orderDetailTitleAdmin" style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:#ff2d78;letter-spacing:.03em;margin-bottom:12px;"></div>
+  <div onclick="event.stopPropagation()" style="width:100%;max-width:420px;background:#141414;border:1.5px solid rgba(220,38,38,.35);border-radius:16px;padding:22px;max-height:80vh;overflow-y:auto;">
+    <div id="orderDetailTitleAdmin" style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:#dc2626;letter-spacing:.03em;margin-bottom:12px;"></div>
     <div id="orderDetailBodyAdmin" style="white-space:pre-wrap;font-family:'Cairo',sans-serif;font-size:.9rem;line-height:1.9;color:var(--white);direction:rtl;"></div>
-    <button onclick="closeOrderDetail()" style="margin-top:18px;width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,45,120,.35);background:rgba(255,45,120,.1);color:#ff2d78;font-family:'Cairo',sans-serif;font-weight:800;font-size:.88rem;cursor:pointer;">قفل</button>
+    <button onclick="closeOrderDetail()" style="margin-top:18px;width:100%;padding:12px;border-radius:10px;border:1px solid rgba(220,38,38,.35);background:rgba(220,38,38,.1);color:#dc2626;font-family:'Cairo',sans-serif;font-weight:800;font-size:.88rem;cursor:pointer;">قفل</button>
   </div>
 </div>
 
 <!-- ============ مودال إضافة طلب يدوي (عميل مش مسجل بحساب) ============ -->
 <div id="manualOrderOverlay" onclick="closeManualOrderModal(event)" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:4000;align-items:center;justify-content:center;padding:20px;">
-  <div onclick="event.stopPropagation()" style="width:100%;max-width:420px;background:#141414;border:1.5px solid rgba(255,45,120,.35);border-radius:16px;padding:22px;max-height:85vh;overflow-y:auto;">
-    <div style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:#ff2d78;letter-spacing:.03em;margin-bottom:16px;">إضافة طلب</div>
+  <div onclick="event.stopPropagation()" style="width:100%;max-width:420px;background:#141414;border:1.5px solid rgba(220,38,38,.35);border-radius:16px;padding:22px;max-height:85vh;overflow-y:auto;">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:#dc2626;letter-spacing:.03em;margin-bottom:16px;">إضافة طلب</div>
     <div class="order-form">
       <div class="ofield">
         <textarea class="oinput" id="manualOrderText" rows="6" style="resize:vertical;" placeholder="اكتب هنا أي تفاصيل عن الطلب..."></textarea>
@@ -1444,19 +1511,19 @@
       </div>
       <div id="manualOrderStatus" class="login-status"></div>
       <button class="login-submit-btn" onclick="submitManualOrder()">إضافة الطلب</button>
-      <button class="back-btn" style="width:100%;justify-content:center;margin:0;background:rgba(255,45,120,.12);border-color:rgba(255,45,120,.35);color:#ff2d78;" onclick="closeManualOrderModal()">إلغاء</button>
+      <button class="back-btn" style="width:100%;justify-content:center;margin:0;background:rgba(220,38,38,.12);border-color:rgba(220,38,38,.35);color:#dc2626;" onclick="closeManualOrderModal()">إلغاء</button>
     </div>
   </div>
 </div>
 
 <!-- ============ مودال تعديل خانة روبوكس واحدة ============ -->
 <div id="robuxEditOverlay" onclick="closeRobuxEdit(event)" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:4000;align-items:center;justify-content:center;padding:20px;">
-  <div onclick="event.stopPropagation()" style="width:100%;max-width:360px;background:#141414;border:1.5px solid rgba(255,45,120,.4);border-radius:16px;padding:22px;">
-    <div id="robuxEditTitle" style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#ff2d78;letter-spacing:.03em;margin-bottom:16px;"></div>
+  <div onclick="event.stopPropagation()" style="width:100%;max-width:360px;background:#141414;border:1.5px solid rgba(220,38,38,.4);border-radius:16px;padding:22px;">
+    <div id="robuxEditTitle" style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#dc2626;letter-spacing:.03em;margin-bottom:16px;"></div>
     <input type="number" class="oinput" id="robuxEditInput" style="width:100%;text-align:center;font-size:1rem;padding:12px;margin-bottom:16px;" placeholder="اكتب القيمة">
     <div id="robuxNormalButtons" style="display:flex;gap:8px;">
-      <button class="login-submit-btn" id="robuxSaveNormalBtn" style="flex:1;background:#ff2d78;margin-top:0;" onclick="saveRobuxEdit()">💾 حفظ</button>
-      <button class="back-btn" style="flex:1;justify-content:center;margin:0;background:rgba(255,45,120,.12);border-color:rgba(255,45,120,.35);color:#ff2d78;" onclick="closeRobuxEdit()">إلغاء</button>
+      <button class="login-submit-btn" id="robuxSaveNormalBtn" style="flex:1;background:#dc2626;margin-top:0;" onclick="saveRobuxEdit()">💾 حفظ</button>
+      <button class="back-btn" style="flex:1;justify-content:center;margin:0;background:rgba(220,38,38,.12);border-color:rgba(220,38,38,.35);color:#dc2626;" onclick="closeRobuxEdit()">إلغاء</button>
     </div>
     <div id="robuxBuySellButtons" style="display:none;gap:8px;">
       <button class="login-submit-btn" style="flex:1;background:#6fcf3a;margin-top:0;" onclick="saveRobuxAdjust('buy')">➕ شراء</button>
@@ -1467,13 +1534,13 @@
 
 <!-- ============ بوب أب الكاش (إجمالي الكاش + طلبات سحب/إيداع) ============ -->
 <div id="cashOverlay" onclick="closeCashOverlay(event)" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:4000;align-items:center;justify-content:center;padding:20px;">
-  <div onclick="event.stopPropagation()" style="width:100%;max-width:380px;max-height:88vh;overflow-y:auto;background:#141414;border:1.5px solid rgba(255,45,120,.4);border-radius:16px;padding:22px;">
+  <div onclick="event.stopPropagation()" style="width:100%;max-width:380px;max-height:88vh;overflow-y:auto;background:#141414;border:1.5px solid rgba(220,38,38,.4);border-radius:16px;padding:22px;">
     <!-- ============ صف العنوان + زرار الفواتير على نفس الخط، وتحته خط وردي واضح بيفصل عن إجمالي الكاش وباقي القسم ============ -->
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#ff2d78;letter-spacing:.03em;">الكاش</div>
-      <button type="button" onclick="openCashInvoicesPage()" title="كل الفواتير المسجلة" aria-label="كل الفواتير المسجلة" style="width:36px;height:36px;flex-shrink:0;border-radius:50%;border:none;background:radial-gradient(circle at 35% 28%, #ff5b96, #ff2d78 65%, #c21f5c);box-shadow:0 3px 10px rgba(255,45,120,.4), inset 0 1px 0 rgba(255,255,255,.25);font-size:1rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;">🧾</button>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#dc2626;letter-spacing:.03em;">الكاش</div>
+      <button type="button" onclick="openCashInvoicesPage()" title="كل الفواتير المسجلة" aria-label="كل الفواتير المسجلة" style="width:36px;height:36px;flex-shrink:0;border-radius:50%;border:none;background:radial-gradient(circle at 35% 28%, #ff5b96, #dc2626 65%, #c21f5c);box-shadow:0 3px 10px rgba(220,38,38,.4), inset 0 1px 0 rgba(255,255,255,.25);font-size:1rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;">🧾</button>
     </div>
-    <div style="border-bottom:2px solid #ff2d78;margin-bottom:12px;"></div>
+    <div style="border-bottom:2px solid #dc2626;margin-bottom:12px;"></div>
     <div style="color:var(--muted);font-size:.85rem;margin-bottom:16px;"><span id="cashOverlayTotal" style="color:var(--white);font-weight:800;">—</span> EGP</div>
 
     <input type="number" class="oinput" id="cashReqAmount" placeholder="المبلغ" style="width:100%;margin-bottom:10px;">
@@ -1483,18 +1550,18 @@
       <button type="button" class="o-action-btn pending" id="cashReqTypeDepositBtn" style="flex:1;" onclick="setCashReqType('deposit')">📥 إيداع</button>
     </div>
     <div id="cashReqStatus" class="login-status" style="margin-bottom:8px;"></div>
-    <button class="login-submit-btn" style="background:#ff2d78;" onclick="submitCashRequest()">➕ إضافة</button>
+    <button class="login-submit-btn" style="background:#dc2626;" onclick="submitCashRequest()">➕ إضافة</button>
   </div>
 </div>
 
 <!-- ============ بوب أب الدائن والمدين (إضافة حساب مباشرة + ايموجي فاتورة يوديك لصفحة ليا/عليا) ============ -->
 <div id="debtsOverlay" onclick="closeDebtsOverlay(event)" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:4000;align-items:center;justify-content:center;padding:20px;">
-  <div onclick="event.stopPropagation()" style="width:100%;max-width:380px;max-height:88vh;overflow-y:auto;background:#141414;border:1.5px solid rgba(255,45,120,.4);border-radius:16px;padding:22px;">
+  <div onclick="event.stopPropagation()" style="width:100%;max-width:380px;max-height:88vh;overflow-y:auto;background:#141414;border:1.5px solid rgba(220,38,38,.4);border-radius:16px;padding:22px;">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#ff2d78;letter-spacing:.03em;">دائن ومدين</div>
-      <button type="button" onclick="openDebtsInvoicePage()" title="فاتورة" aria-label="فاتورة" style="width:36px;height:36px;flex-shrink:0;border-radius:50%;border:none;background:radial-gradient(circle at 35% 28%, #ff5b96, #ff2d78 65%, #c21f5c);box-shadow:0 3px 10px rgba(255,45,120,.4), inset 0 1px 0 rgba(255,255,255,.25);font-size:1rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;">📋</button>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#dc2626;letter-spacing:.03em;">دائن ومدين</div>
+      <button type="button" onclick="openDebtsInvoicePage()" title="فاتورة" aria-label="فاتورة" style="width:36px;height:36px;flex-shrink:0;border-radius:50%;border:none;background:radial-gradient(circle at 35% 28%, #ff5b96, #dc2626 65%, #c21f5c);box-shadow:0 3px 10px rgba(220,38,38,.4), inset 0 1px 0 rgba(255,255,255,.25);font-size:1rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;">📋</button>
     </div>
-    <div style="border-bottom:2px solid #ff2d78;margin-bottom:12px;"></div>
+    <div style="border-bottom:2px solid #dc2626;margin-bottom:12px;"></div>
 
     <input type="text" class="oinput" id="debtPersonName" placeholder="اسم الشخص" style="width:100%;margin-bottom:10px;">
     <input type="tel" class="oinput" id="debtPersonPhone" placeholder="رقم الفون" style="width:100%;margin-bottom:10px;">
@@ -1504,14 +1571,14 @@
       <button type="button" class="o-action-btn pending" id="debtTypeAlaihBtn" style="flex:1;" onclick="setDebtType('alaih')">ليا</button>
     </div>
     <div id="debtStatus" class="login-status" style="margin-bottom:8px;"></div>
-    <button class="login-submit-btn" style="background:#ff2d78;" onclick="submitDebtEntry()">➕ حفظ</button>
+    <button class="login-submit-btn" style="background:#dc2626;" onclick="submitDebtEntry()">➕ حفظ</button>
   </div>
 </div>
 
 <!-- ============ صفحة فاتورة الدائن والمدين — إجمالي وقايمة الحسابات مقسّمة (ليا / عليا) ============ -->
 <main id="debtsInvoicePage" style="display:none;">
   <div class="rp-header-row">
-    <button class="back-btn" style="background:rgba(255,45,120,.12);border-color:rgba(255,45,120,.35);color:#ff2d78;" onclick="showRobuxCalcPage()">→ Back</button>
+    <button class="back-btn" style="background:rgba(220,38,38,.12);border-color:rgba(220,38,38,.35);color:#dc2626;" onclick="showRobuxCalcPage()">→ Back</button>
     <div class="eyebrow roblox-eyebrow">Invoice</div>
   </div>
 
@@ -1539,8 +1606,8 @@
 
 <!-- ============ بوب أب فاتورة شخص واحد — كل الحركات (إضافة/خصم) وإمكانية حذف الحساب كله ============ -->
 <div id="personDebtOverlay" onclick="closePersonDebtOverlay(event)" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:4000;align-items:center;justify-content:center;padding:20px;">
-  <div onclick="event.stopPropagation()" style="width:100%;max-width:380px;max-height:88vh;overflow-y:auto;background:#141414;border:1.5px solid rgba(255,45,120,.4);border-radius:16px;padding:22px;">
-    <div id="personDebtName" style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#ff2d78;letter-spacing:.03em;margin-bottom:6px;"></div>
+  <div onclick="event.stopPropagation()" style="width:100%;max-width:380px;max-height:88vh;overflow-y:auto;background:#141414;border:1.5px solid rgba(220,38,38,.4);border-radius:16px;padding:22px;">
+    <div id="personDebtName" style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#dc2626;letter-spacing:.03em;margin-bottom:6px;"></div>
     <div id="personDebtPhone" style="color:var(--muted);font-size:.8rem;margin-bottom:10px;"></div>
     <div id="personDebtBalance" style="font-weight:800;margin-bottom:16px;font-size:.95rem;"></div>
 
@@ -1550,7 +1617,7 @@
       <button type="button" class="o-action-btn done active" id="personDebtDirAddBtn" style="flex:1;" onclick="setPersonDebtDirection('add')">➕ إضافة</button>
       <button type="button" class="o-action-btn cancel" id="personDebtDirSubBtn" style="flex:1;" onclick="setPersonDebtDirection('sub')">➖ خصم</button>
     </div>
-    <button class="login-submit-btn" style="background:#ff2d78;margin-bottom:8px;" onclick="addPersonDebtEntry()">💾 حفظ</button>
+    <button class="login-submit-btn" style="background:#dc2626;margin-bottom:8px;" onclick="addPersonDebtEntry()">💾 حفظ</button>
     <div id="personDebtStatus" class="login-status" style="margin-bottom:8px;"></div>
 
     <div class="table-wrap" id="personDebtWrap" style="margin-top:10px;"></div>
@@ -1612,6 +1679,8 @@
     hideCashOverlayDom();
     hideDebtsOverlayDom();
     hidePersonDebtOverlayDom();
+    const contestsAdminEl = document.getElementById('contestsAdminPage');
+    if (contestsAdminEl) contestsAdminEl.style.display = 'none';
   }
 
   // ============ نظام تنقل موحّد بزرار رجوع الفون (History API) ============
@@ -1671,7 +1740,8 @@
     brawlPricing: () => { showPricingPage(); showBrawlPricing(); },
     robuxCalc: () => showRobuxCalcPage(),
     cashInvoices: () => showCashInvoicesPage(),
-    debtsInvoice: () => showDebtsInvoicePage()
+    debtsInvoice: () => showDebtsInvoicePage(),
+    contests: () => showContestsAdminPage()
   };
 
   const adminOverlayRenderers = {
@@ -1760,6 +1830,22 @@
     adminNavGoToPage('currency');
   }
   window.showCurrencyPage = showCurrencyPage;
+
+  // ============ التنقل لصفحة المسابقات ============
+  function showContestsAdminPage() {
+    ['dashboard','ordersPage','pricingPage','robloxPricingPage','pubgPricingPage','ffPricingPage','fifaPricingPage','pesPricingPage','brawlPricingPage','currencyPage','robuxCalcPage','cashInvoicesPage','debtsInvoicePage'].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.style.display = 'none';
+    });
+    adminNavCloseAllOverlaysDom();
+    document.getElementById('contestsAdminPage').style.display = 'block';
+    document.getElementById('navHome').classList.remove('active');
+    document.body.classList.add('no-header');
+    window.scrollTo(0, 0);
+    if (typeof window.loadContest === 'function') window.loadContest();
+    adminNavGoToPage('contests');
+  }
+  window.showContestsAdminPage = showContestsAdminPage;
 
   // ============ التنقل لصفحة الألعاب وصفحة أسعار روبلكس ============
   function showPricingPage() {
@@ -2088,7 +2174,7 @@
             <div class="o-game">${esc(o.game)}</div>
             <div class="o-user">${esc(o.user)} · ${esc(o.time)}${o.price ? ' · ' + esc(o.price) + ' جنيه' : ''}</div>
             ${o.egpEarned > 0 ? `<div class="o-user" style="color:#6fcf3a;">🎁 كاش باك: ${esc(o.egpEarned)} EGP</div>` : ''}
-            <div class="o-user" style="color:${o.egpUsed > 0 ? '#60a5fa' : 'var(--muted)'};">💳 استخدم رصيد خصم: ${o.egpUsed > 0 ? 'نعم (' + esc(o.egpUsed) + ' EGP)' : 'لا'}</div>
+            <div class="o-user" style="color:${o.egpUsed > 0 ? '#ef4444' : 'var(--muted)'};">💳 استخدم رصيد خصم: ${o.egpUsed > 0 ? 'نعم (' + esc(o.egpUsed) + ' EGP)' : 'لا'}</div>
           </div>
         </div>
         ${isNewTab ? `
@@ -2515,7 +2601,7 @@
     if (section === 'pubgOrod') {
       return `<div class="price-row" data-section="pubgOrod" style="flex-wrap:wrap;">
         <input type="text" class="oinput label-input" placeholder="اسم العرض" value="${item.label != null ? item.label : ''}" style="flex:1 1 100%;">
-        <input type="text" class="oinput desc-input" placeholder="الوصف (مثلاً 170UC + 900G)" value="${item.desc != null ? item.desc : ''}" style="flex:1 1 100%;">
+        <input type="text" class="oinput desc-input" placeholder="الوصف" value="${item.desc != null ? item.desc : ''}" style="flex:1 1 100%;">
         <input type="number" class="oinput price-input" placeholder="السعر" value="${item.price != null ? item.price : ''}">
         <input type="number" class="oinput egp-input" placeholder="EGP" value="${item.egp != null ? item.egp : ''}">
         <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
@@ -2525,7 +2611,7 @@
       const isCustom = !!item.custom;
       return `<div class="price-row" data-section="${section}">
         <input type="text" class="oinput amt-input" placeholder="دايموند" value="${item.diamond != null ? item.diamond : ''}">
-        <input type="text" class="oinput label-input" placeholder="الاسم (مثلاً 100 Diamond)" value="${item.label != null ? item.label : ''}">
+        <input type="text" class="oinput label-input" placeholder="الاسم" value="${item.label != null ? item.label : ''}">
         <input type="number" class="oinput price-input" placeholder="السعر" value="${item.price != null ? item.price : ''}">
         <input type="number" class="oinput egp-input" placeholder="EGP" value="${item.egp != null ? item.egp : ''}">
         <label class="custom-check"><input type="checkbox" ${isCustom ? 'checked' : ''}> اشتراك</label>
@@ -2542,7 +2628,7 @@
     }
     if (section === 'fifaOrod') {
       return `<div class="price-row" data-section="fifaOrod" style="flex-wrap:wrap;">
-        <input type="text" class="oinput label-input" placeholder="اسم العرض (مثلاً ⭐ تصريح النجم)" value="${item.label != null ? item.label : ''}" style="flex:1 1 100%;">
+        <input type="text" class="oinput label-input" placeholder="اسم العرض" value="${item.label != null ? item.label : ''}" style="flex:1 1 100%;">
         <input type="number" class="oinput price-input" placeholder="السعر" value="${item.price != null ? item.price : ''}">
         <input type="number" class="oinput orig-price-input" placeholder="السعر قبل الخصم (اختياري)" value="${item.origPrice != null ? item.origPrice : ''}">
         <input type="number" class="oinput egp-input" placeholder="EGP" value="${item.egp != null ? item.egp : ''}">
@@ -2559,7 +2645,7 @@
     }
     if (section === 'brawl') {
       return `<div class="price-row" data-section="brawl">
-        <input type="text" class="oinput label-input" placeholder="اسم الباقة (مثلاً BRAWL PASS)" value="${item.label != null ? item.label : ''}">
+        <input type="text" class="oinput label-input" placeholder="اسم الباقة" value="${item.label != null ? item.label : ''}">
         <input type="number" class="oinput price-input" placeholder="السعر" value="${item.price != null ? item.price : ''}">
         <input type="number" class="oinput egp-input" placeholder="EGP" value="${item.egp != null ? item.egp : ''}">
         <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
@@ -2622,7 +2708,7 @@
   }
 
   function togglePriceSection(key) {
-    const sections = ['acc', 'comFawri', 'bonusCodes', 'comHagz', 'giftcard', 'pubgUc', 'pubgOrod', 'ffId', 'ffAcc', 'fifaFc', 'fifaSilver', 'fifaOrod', 'pes', 'brawl'];
+    const sections = ['acc', 'comFawri', 'bonusCodes', 'comHagz', 'giftcard', 'pubgUc', 'pubgOrod', 'ffId', 'ffAcc', 'fifaFc', 'fifaSilver', 'fifaOrod', 'pes', 'brawl', 'contestEntries'];
     sections.forEach(s => {
       const el = document.getElementById('rp-sec-' + s);
       if (!el) return;
@@ -2814,9 +2900,14 @@
     if (adminContent) adminContent.style.display = 'block';
   }
 
+
+  // مؤقتاً: بدل التحويل الفوري للموقع بنعرض السبب على شاشة التحقق (والزرار المؤقت فاضل ظاهر)
   function rejectAndRedirect(message) {
-    if (message) alert(message);
-    window.location.href = "index.html";
+    if (window.__testBypass) return;
+    const txt = document.getElementById('gateText');
+    if (txt) txt.textContent = (message || 'مفيش صلاحية دخول');
+    const spin = document.querySelector('#authGate .gate-spinner');
+    if (spin) spin.style.display = 'none';
   }
 
   // ============ حماية الصفحة: onAuthStateChanged + التحقق من role في Firestore ============
@@ -3925,6 +4016,130 @@
       console.error('تعذر تحميل أكواد الزيادة:', err);
       window.renderBonusCodes([]);
     }
+  };
+
+  // ============ المسابقة الحالية — بتظهر في صفحة "مسابقاتنا" في الموقع (pricing/contest) ============
+  window.loadContest = async function () {
+    const statusEl = document.getElementById('contestsAdminStatus');
+    if (statusEl) { statusEl.textContent = 'بيتحمل...'; statusEl.className = 'login-status'; }
+    try {
+      const snap = await getDoc(doc(db, 'pricing', 'contest'));
+      const data = snap.exists() ? snap.data() : {};
+      document.getElementById('contestTitleInput').value = data.title || '';
+      document.getElementById('contestPrizeInput').value = data.prize || '';
+      document.getElementById('contestStartInput').value = data.startAt || '';
+      window.syncContestStartDisplay();
+      document.getElementById('contestPhoneInput').value = data.phone || '';
+      if (statusEl) statusEl.textContent = '';
+      window.loadContestEntries();
+    } catch (err) {
+      console.error('تعذر تحميل المسابقة:', err);
+      if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء التحميل'; statusEl.className = 'login-status err'; }
+    }
+  };
+
+  // ============ المسجلين في المسابقة (من الموقع: contestEntries/{uid}) ============
+  function escHtml(v) {
+    return String(v == null ? '' : v).replace(/[&<>"']/g, function (ch) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch];
+    });
+  }
+  window.loadContestEntries = async function () {
+    const listEl = document.getElementById('contestEntriesList');
+    const countEl = document.getElementById('count-contestEntries');
+    if (!listEl) return;
+    try {
+      const snap = await getDocs(collection(db, 'contestEntries'));
+      const rows = [];
+      snap.forEach(function (d) { rows.push(d.data()); });
+      rows.sort(function (a, b) {
+        const ta = a.createdAt && a.createdAt.toMillis ? a.createdAt.toMillis() : 0;
+        const tb = b.createdAt && b.createdAt.toMillis ? b.createdAt.toMillis() : 0;
+        return tb - ta;
+      });
+      if (countEl) countEl.textContent = rows.length;
+      if (!rows.length) {
+        listEl.innerHTML = '<div style="color:#888;font-size:.85rem;text-align:center;padding:8px;">لسه محدش سجّل</div>';
+        return;
+      }
+      listEl.innerHTML = rows.map(function (r, i) {
+        const when = (r.createdAt && r.createdAt.toDate)
+          ? r.createdAt.toDate().toLocaleString('ar-EG-u-nu-latn', { day: 'numeric', month: 'long', hour: 'numeric', minute: '2-digit' })
+          : '';
+        return '<div style="background:#1a1a1a;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 12px;">' +
+          '<div style="font-weight:800;font-size:.95rem;">' + (i + 1) + '. ' + escHtml(r.nickname || 'عميل') + '</div>' +
+          '<div style="color:#999;font-size:.78rem;margin-top:3px;direction:ltr;text-align:right;">' + escHtml(r.username || '') + '</div>' +
+          '<div style="color:#888;font-size:.75rem;margin-top:3px;">' + escHtml(r.contest || '') + (when ? ' — ' + escHtml(when) : '') + '</div>' +
+          '</div>';
+      }).join('');
+    } catch (err) {
+      console.error('تعذر تحميل المسجلين في المسابقة:', err);
+      if (countEl) countEl.textContent = '!';
+      listEl.innerHTML = '<div style="color:#e05555;font-size:.85rem;text-align:center;padding:8px;">تعذر تحميل المسجلين</div>';
+    }
+  };
+  window.clearContestEntries = async function () {
+    if (!confirm('متأكد إنك عايز تمسح كل المسجلين في المسابقة؟')) return;
+    try {
+      const snap = await getDocs(collection(db, 'contestEntries'));
+      await Promise.all(snap.docs.map(function (d) { return deleteDoc(d.ref); }));
+    } catch (err) {
+      console.error('تعذر مسح المسجلين:', err);
+      alert('تعذر مسح المسجلين');
+    }
+    window.loadContestEntries();
+  };
+
+  // بيحوّل التاريخ المختار (شهر/يوم/ساعة) لنص عربي بيظهر في الموقع، مثال: "الأحد 20 أكتوبر — الساعة 8:00 م"
+  window.syncContestStartDisplay = function () {
+    const input = document.getElementById('contestStartInput');
+    const disp = document.getElementById('contestStartDisplay');
+    const clr = document.getElementById('contestStartClear');
+    if (!input || !disp) return;
+    disp.textContent = input.value ? window.formatContestStart(input.value) : '';
+    if (clr) clr.style.display = input.value ? 'block' : 'none';
+  };
+  window.clearContestStart = function () {
+    document.getElementById('contestStartInput').value = '';
+    window.syncContestStartDisplay();
+  };
+
+  window.formatContestStart = function (val) {
+    if (!val) return '';
+    const d = new Date(val);
+    if (isNaN(d.getTime())) return '';
+    const datePart = d.toLocaleDateString('ar-EG-u-nu-latn', { weekday: 'long', day: 'numeric', month: 'long' });
+    const timePart = d.toLocaleTimeString('ar-EG-u-nu-latn', { hour: 'numeric', minute: '2-digit', hour12: true });
+    return datePart + ' — الساعة ' + timePart;
+  };
+
+  window.saveContest = async function () {
+    const statusEl = document.getElementById('contestsAdminStatus');
+    if (statusEl) { statusEl.textContent = 'بيتم الحفظ...'; statusEl.className = 'login-status'; }
+    try {
+      await setDoc(doc(db, 'pricing', 'contest'), {
+        title: document.getElementById('contestTitleInput').value.trim(),
+        prize: document.getElementById('contestPrizeInput').value.trim(),
+        start: window.formatContestStart(document.getElementById('contestStartInput').value),
+        startAt: document.getElementById('contestStartInput').value,
+        phone: document.getElementById('contestPhoneInput').value.trim(),
+        updatedAt: serverTimestamp()
+      });
+      if (statusEl) { statusEl.textContent = 'تم الحفظ ✅'; statusEl.className = 'login-status ok'; }
+    } catch (err) {
+      console.error('تعذر حفظ المسابقة:', err);
+      if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء الحفظ، حاول تاني'; statusEl.className = 'login-status err'; }
+    }
+  };
+
+  window.clearContest = async function () {
+    if (!confirm('متأكد إنك عايز تمسح المسابقة؟')) return;
+    document.getElementById('contestTitleInput').value = '';
+    document.getElementById('contestPrizeInput').value = '';
+    document.getElementById('contestStartInput').value = '';
+    window.syncContestStartDisplay();
+    document.getElementById('contestPhoneInput').value = '';
+    await window.saveContest();
   };
 
   // ============ تسجيل الخروج الحقيقي ============

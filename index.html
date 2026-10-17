@@ -890,14 +890,46 @@
     }
 
 
+    /* ===== صفحة المسابقات ===== */
+    #contestsPage .rpage-header {
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border-bottom: none;
+      box-shadow: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 2010;
+    }
+    #contestsPage {
+      background:
+        radial-gradient(circle at 85% 15%, rgba(37,99,235,.07) 0%, transparent 62%),
+        radial-gradient(circle at 90% 85%, rgba(59,130,246,.05) 0%, transparent 60%),
+        radial-gradient(circle at 10% 85%, rgba(37,99,235,.06) 0%, transparent 60%),
+        radial-gradient(circle at 15% 10%, rgba(59,130,246,.04) 0%, transparent 60%),
+        #020512;
+    }
+    .contest-cup-wrap { width: 250px; max-width: 72vw; align-self: center; margin: 0 auto; flex: 0 0 auto; margin-top: 8px; filter: drop-shadow(0 10px 28px rgba(220,38,38,.35)); }
+    .contest-cup-wrap svg { width: 100%; height: auto; display: block; }
+    .contest-info { width: 100%; max-width: 460px; margin-top: 10px; padding: 0 4px; text-align: right; display: flex; flex-direction: column; gap: 12px; }
+    .contest-row { font-family: 'Cairo', sans-serif; font-size: 1.4rem; line-height: 1.8; text-align: right; word-break: break-word; }
+    .contest-k { color: #ef4444; font-weight: 900; margin-left: 6px; }
+    .contest-v { color: var(--white); font-weight: 700; }
+    .contest-reg { width: 100%; max-width: 460px; margin-top: 14px; padding: 0 4px; display: flex; flex-direction: column; gap: 12px; }
+    .contest-reg-title { font-family: 'Cairo', sans-serif; font-weight: 900; font-size: 1.25rem; color: var(--white); text-align: right; }
+    .contest-reg-btn { width: 100%; padding: 16px; border: none; border-radius: 14px; background: linear-gradient(135deg,#b91c1c,#ef4444); color: #fff; font-family: 'Cairo', sans-serif; font-weight: 900; font-size: 1.2rem; cursor: pointer; }
+    .contest-wa-num { text-align: center; font-family: 'Cairo', sans-serif; font-size: 1.45rem; font-weight: 900; letter-spacing: .08em; color: #ef4444; text-decoration: none; }
+    .contest-reg-btn:active { transform: scale(.98); }
+
     #mobileGamesAllPage {
       background:
-        radial-gradient(circle at 85% 15%, rgba(220,38,38,.28) 0%, transparent 62%),
-        radial-gradient(circle at 90% 85%, rgba(96,165,250,.30) 0%, transparent 60%),
-        radial-gradient(circle at 10% 85%, rgba(220,38,38,.24) 0%, transparent 60%),
-        radial-gradient(circle at 15% 10%, rgba(96,165,250,.26) 0%, transparent 60%),
-        radial-gradient(circle at 50% 50%, rgba(220,38,38,.12) 0%, transparent 70%),
-        #0b1220;
+        radial-gradient(circle at 85% 15%, rgba(37,99,235,.07) 0%, transparent 62%),
+        radial-gradient(circle at 90% 85%, rgba(59,130,246,.05) 0%, transparent 60%),
+        radial-gradient(circle at 10% 85%, rgba(37,99,235,.06) 0%, transparent 60%),
+        radial-gradient(circle at 15% 10%, rgba(59,130,246,.04) 0%, transparent 60%),
+        #020512;
     }
     #mobileGamesAllPage .rpage-header {
       background: transparent;
@@ -1312,7 +1344,7 @@
     .pcard .egp {
       font-family: 'Bebas Neue', sans-serif;
       font-size: 1.3rem;
-      color: #6fcf3a;
+      color: #ef4444;
       letter-spacing: .04em;
     }
     .qty-ctrl {
@@ -2071,6 +2103,7 @@
   <a href="javascript:void(0)" id="navBackAdmin" style="display:none;color:#dc2626;" onclick="sessionStorage.setItem('kc_adminStay','1'); window.location.href='admin.html';">↩️ رجوع لموقع الأدمن</a>
   <a href="javascript:void(0)" onclick="openSiteExplainModal()">الشرح</a>
   <a href="javascript:void(0)" onclick="openChannels()">قنواتنا</a>
+  <a href="javascript:void(0)" id="navContests" onclick="openContests()">مسابقاتنا</a>
   <a href="https://wa.me/201069478690" target="_blank" rel="noopener noreferrer">تواصل معنا</a>
 </nav>
 
@@ -2473,6 +2506,123 @@
         <div style="margin-right:auto;color:#ff0050;font-size:1.2rem;">←</div>
       </div>
     </a>
+
+  </div>
+</div>
+
+<!-- CONTESTS PAGE -->
+<div id="contestsPage" class="rpage">
+  <div class="rpage-header">
+    <button class="rpage-back" style="border-color:rgba(220,38,38,.5);color:var(--gold); height:46px; box-sizing:border-box; display:flex; align-items:center; justify-content:center;" onclick="closeContests()">&#8594; Back</button>
+  </div>
+
+  <div class="rpage-panels" style="display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:12px;padding:78px 24px 40px;">
+    <div class="contest-cup-wrap">
+      <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" overflow="visible" aria-hidden="true">
+  <defs>
+    <linearGradient id="gBowl" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#a16207"/>
+      <stop offset=".22" stop-color="#facc15"/>
+      <stop offset=".42" stop-color="#fef08a"/>
+      <stop offset=".62" stop-color="#fbbf24"/>
+      <stop offset="1" stop-color="#92400e"/>
+    </linearGradient>
+    <linearGradient id="gGold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fde68a"/>
+      <stop offset=".5" stop-color="#f59e0b"/>
+      <stop offset="1" stop-color="#92400e"/>
+    </linearGradient>
+    <linearGradient id="gStem" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#92400e"/>
+      <stop offset=".35" stop-color="#fcd34d"/>
+      <stop offset=".6" stop-color="#f59e0b"/>
+      <stop offset="1" stop-color="#78350f"/>
+    </linearGradient>
+    <linearGradient id="gBase" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ef4444"/>
+      <stop offset=".5" stop-color="#b91c1c"/>
+      <stop offset="1" stop-color="#5f0f0f"/>
+    </linearGradient>
+    <linearGradient id="gBlade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#9ca3af"/>
+      <stop offset=".45" stop-color="#f9fafb"/>
+      <stop offset="1" stop-color="#6b7280"/>
+    </linearGradient>
+    <linearGradient id="gShield" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#dc2626"/>
+      <stop offset=".6" stop-color="#8f1414"/>
+      <stop offset="1" stop-color="#3b0707"/>
+    </linearGradient>
+    <linearGradient id="gCrown" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ef4444"/>
+      <stop offset="1" stop-color="#7f1d1d"/>
+    </linearGradient>
+    <radialGradient id="gGlow" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#ef4444" stop-opacity=".38"/>
+      <stop offset="1" stop-color="#ef4444" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <circle cx="100" cy="118" r="104" fill="url(#gGlow)"/>
+
+  <!-- swords -->
+  <g id="sw1" transform="rotate(42 100 124)">
+    <path d="M100 -16 L107 4 L107 172 L93 172 L93 4 Z" fill="url(#gBlade)" stroke="#4b5563" stroke-width=".8"/>
+    <path d="M100 -8 L100 168" stroke="#fff" stroke-opacity=".75" stroke-width="1.4"/>
+    <rect x="80" y="171" width="40" height="8" rx="4" fill="url(#gGold)" stroke="#78350f" stroke-width=".8"/>
+    <rect x="95" y="180" width="10" height="26" rx="2.5" fill="#7f1d1d"/>
+    <path d="M95 186 H105 M95 192 H105 M95 198 H105" stroke="#450a0a" stroke-width="1"/>
+    <circle cx="100" cy="212" r="7" fill="url(#gGold)" stroke="#78350f" stroke-width=".8"/>
+  </g>
+  <use href="#sw1" transform="translate(200 0) scale(-1 1)"/>
+
+  <!-- handles -->
+  <path d="M50 52 C8 44 4 108 56 124" fill="none" stroke="#78350f" stroke-width="11" stroke-linecap="round"/>
+  <path d="M50 52 C8 44 4 108 56 124" fill="none" stroke="url(#gGold)" stroke-width="8" stroke-linecap="round"/>
+  <path d="M150 52 C192 44 196 108 144 124" fill="none" stroke="#78350f" stroke-width="11" stroke-linecap="round"/>
+  <path d="M150 52 C192 44 196 108 144 124" fill="none" stroke="url(#gGold)" stroke-width="8" stroke-linecap="round"/>
+
+  <!-- bowl -->
+  <path d="M46 40 H154 C157 92 134 132 100 142 C66 132 43 92 46 40 Z" fill="url(#gBowl)" stroke="#92400e" stroke-width="1"/>
+  <ellipse cx="100" cy="40" rx="54" ry="9" fill="#fde68a" stroke="#b45309" stroke-width="1"/>
+  <ellipse cx="100" cy="41" rx="48" ry="6.2" fill="#6b2a07"/>
+  <path d="M58 52 C57 80 66 106 84 124" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="4.5" stroke-linecap="round"/>
+
+  <!-- text on cup -->
+  <g text-anchor="middle">
+    <g font-family="'Cinzel', serif" font-weight="700" font-size="24">
+      <text x="100" y="79" fill="#fff7d6" opacity=".55" transform="translate(0 1)">King</text>
+      <text x="100" y="79" fill="#7f1d1d">King</text>
+      <text x="100" y="124" fill="#fff7d6" opacity=".55" transform="translate(0 1)">Cat</text>
+      <text x="100" y="124" fill="#7f1d1d">Cat</text>
+    </g>
+    <g font-family="'Playfair Display', serif" font-style="italic" font-weight="700" font-size="27">
+      <text x="100" y="105" fill="#fff7d6" opacity=".55" transform="translate(0 1)">&amp;</text>
+      <text x="100" y="105" fill="#b91c1c">&amp;</text>
+    </g>
+  </g>
+
+  <!-- stem + base -->
+  <path d="M91 142 C93 154 92 160 88 170 L112 170 C108 160 107 154 109 142 Z" fill="url(#gStem)"/>
+  <ellipse cx="100" cy="152" rx="15" ry="5" fill="url(#gGold)" stroke="#78350f" stroke-width=".8"/>
+  <ellipse cx="100" cy="142" rx="21" ry="5.5" fill="#b45309"/>
+  <rect x="66" y="168" width="68" height="14" rx="4" fill="url(#gGold)" stroke="#78350f" stroke-width=".8"/>
+  <rect x="50" y="180" width="100" height="30" rx="7" fill="url(#gBase)" stroke="#3b0707" stroke-width="1"/>
+  <rect x="50" y="180" width="100" height="6" rx="3" fill="#fff" opacity=".18"/>
+  <rect x="56" y="196" width="88" height="2" rx="1" fill="#fde68a" opacity=".6"/>
+</svg>
+    </div>
+
+    <div class="contest-info" id="contestInfo" dir="rtl">
+      <div class="contest-row"><span class="contest-k">المسابقة:</span> <span class="contest-v" id="contestTitle">مفيش مسابقة دلوقتي</span></div>
+      <div class="contest-row" id="contestPrizeRow" style="display:none;"><span class="contest-k">الجايزة:</span> <span class="contest-v" id="contestPrize"></span></div>
+      <div class="contest-row" id="contestStartRow" style="display:none;"><span class="contest-k">هتبدأ في:</span> <span class="contest-v" id="contestStart"></span></div>
+    </div>
+
+    <div class="contest-reg" id="contestReg" dir="rtl" style="display:none;">
+      <button type="button" class="contest-reg-btn" onclick="registerContest()">📲 سجّل في المسابقة</button>
+      <a class="contest-wa-num" id="contestWaNum" href="javascript:void(0)" onclick="registerContest()" dir="ltr">01069478690</a>
+    </div>
   </div>
 </div>
 
@@ -4357,6 +4507,17 @@
     document.body.style.overflow = '';
   }
 
+  // ── CONTESTS ──
+  function openContests() {
+    document.getElementById('contestsPage').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('navMenu').classList.remove('open');
+  }
+  function closeContests() {
+    document.getElementById('contestsPage').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
   // ── SETTINGS ──
   function openSettingsPage() {
     document.getElementById('settingsPage').classList.add('open');
@@ -6149,6 +6310,53 @@
     console.error('تعذر تحميل أكواد الزيادة:', err);
   });
 
+  // ============ المسابقة الحالية (العنوان + الجائزة) — من لوحة الأدمن، بث حي ============
+  function applyContest(data) {
+    const val = (k) => ((data && data[k]) || '').toString().trim();
+    const title = val('title'), prize = val('prize'), start = val('start'), phone = val('phone');
+    const $ = (id) => document.getElementById(id);
+    if (!$('contestTitle')) return;
+    window.__contest = { title, prize, start, phone };
+    if ($('contestWaNum')) $('contestWaNum').textContent = phone || '01069478690';
+    $('contestTitle').textContent = title || 'مفيش مسابقة دلوقتي';
+    $('contestPrize').textContent = prize;
+    $('contestStart').textContent = start;
+    $('contestPrizeRow').style.display = (title && prize) ? '' : 'none';
+    $('contestStartRow').style.display = (title && start) ? '' : 'none';
+    $('contestReg').style.display = title ? '' : 'none';
+  }
+  window.registerContest = function () {
+    const c = window.__contest || {};
+    if (!c.title) return;
+    const user = auth.currentUser;
+    if (!user) {
+      closeContests();
+      showLoginPrompt('سجّل دخول الأول عشان تقدر تسجل في المسابقة');
+      return;
+    }
+    const nick = ((user.displayName || shownIdentity(user) || '') + '').trim() || 'عميل';
+    const msg = 'عايز اسجل في المسابقة\nاللقب: ' + nick;
+    // رقم المسؤول عن المسابقة (من لوحة الأدمن) — لو فاضي بنستخدم رقم المتجر
+    let wa = ((c.phone || '') + '').replace(/\D/g, '');
+    if (wa.startsWith('00')) wa = wa.slice(2);
+    if (wa.startsWith('0')) wa = '20' + wa.slice(1);
+    if (!wa) wa = '201069478690';
+    window.open('https://wa.me/' + wa + '?text=' + encodeURIComponent(msg), '_blank');
+    // بنسجل المشترك في Firestore عشان يظهر في لوحة الأدمن (مستند واحد لكل مستخدم)
+    setDoc(doc(db, 'contestEntries', user.uid), {
+      uid: user.uid,
+      nickname: nick,
+      username: (shownIdentity(user) || '') + '',
+      contest: c.title,
+      createdAt: serverTimestamp()
+    }).catch((err) => console.error('تعذر تسجيل المشترك في المسابقة:', err));
+  };
+  onSnapshot(doc(db, 'pricing', 'contest'), (snap) => {
+    applyContest(snap.exists() ? snap.data() : null);
+  }, (err) => {
+    console.error('تعذر تحميل المسابقة:', err);
+  });
+
   // ============ التحقق من صلاحية المستخدم (role) وتوجيهه لو أدمن ============
   // بيتنفذ بعد أي تسجيل دخول ناجح (Google أو إيميل) وكمان عند تحميل الصفحة لو المستخدم مسجل دخول بالفعل
   async function checkUserRoleAndRedirect(user) {
@@ -6787,6 +6995,7 @@
   var CLOSE_FN_MAP = {
     loginModal: 'closeLoginModal',
     channelsPage: 'closeChannels',
+    contestsPage: 'closeContests',
     settingsPage: 'closeSettingsPage',
     editAccountPage: 'closeEditAccountPage',
     ordersPage: 'closeOrdersPage',
