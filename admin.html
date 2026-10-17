@@ -2880,6 +2880,13 @@
   window.fbGetDocs = getDocs;
   window.fbOnSnapshot = onSnapshot;
 
+  // ============ حساب الأدمن الوحيد المسموح له يدخل ============
+  // حط هنا الـ UID بتاع حسابك (من Firebase Console ← Authentication ← Users).
+  // لو سيبتها فاضية: هتفتح الصفحة في وضع الإعداد وتعرضلك الـ UID بتاعك بعد ما تسجل دخول.
+  const ADMIN_UIDS = [
+    // "ضع_الـ_UID_هنا"
+  ];
+
   const authGate = document.getElementById('authGate');
   const adminContent = document.getElementById('adminContent');
 
@@ -2906,10 +2913,13 @@
     }
 
     try {
-      const userRef = doc(db, "users", user.uid);
-      const userSnap = await getDoc(userRef);
-
-      if (!userSnap.exists() || userSnap.data().role !== "admin") {
+      // الدخول مسموح للـ UID المكتوب فوق بس — مفيش أي حساب بيبقى أدمن عن طريق حقل role في قاعدة البيانات
+      if (!ADMIN_UIDS.length) {
+        // وضع الإعداد: لسه مفيش UID متحدد، فبنعرض الـ UID بتاعك عشان تنسخه وتحطه في ADMIN_UIDS
+        rejectAndRedirect('وضع الإعداد — انسخ الـ UID ده وحطه في ADMIN_UIDS: ' + user.uid);
+        return;
+      }
+      if (!ADMIN_UIDS.includes(user.uid)) {
         // مش أدمن
         rejectAndRedirect('معندكش صلاحية الدخول للوحة التحكم');
         return;
