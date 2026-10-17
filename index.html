@@ -929,6 +929,38 @@
     .contest-reg-btn:active { transform: scale(.98); }
     .contest-reg-btn:disabled { background: linear-gradient(135deg,#166534,#22c55e); cursor: default; opacity: .95; transform: none; }
 
+    /* رسالة "سجل في المسابقة الآن" — بتنزل من فوق بنبض وتختفي بعد 5 ثواني */
+    .contest-banner {
+      position: fixed;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-24px);
+      z-index: 1500;
+      padding: 12px 24px;
+      border-radius: 999px;
+      background: linear-gradient(135deg,#b91c1c,#ef4444);
+      color: #fff;
+      font-family: 'Cairo', sans-serif;
+      font-weight: 900;
+      font-size: .98rem;
+      white-space: nowrap;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      box-shadow: 0 8px 24px rgba(220,38,38,.45);
+      transition: opacity .35s ease, transform .35s ease;
+    }
+    .contest-banner.show {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+      animation: contestBannerPulse 1.1s ease-in-out infinite;
+    }
+    @keyframes contestBannerPulse {
+      0%, 100% { transform: translateX(-50%) translateY(0) scale(1);    box-shadow: 0 8px 24px rgba(220,38,38,.45), 0 0 0 0 rgba(239,68,68,.55); }
+      50%      { transform: translateX(-50%) translateY(0) scale(1.07); box-shadow: 0 10px 30px rgba(220,38,38,.6),  0 0 0 12px rgba(239,68,68,0); }
+    }
+
     #mobileGamesAllPage {
       background:
         radial-gradient(circle at 85% 15%, rgba(37,99,235,.07) 0%, transparent 62%),
@@ -2054,6 +2086,9 @@
 <!-- CAT TOAST NOTIFICATION -->
 <div class="site-toast" id="siteToast"></div>
 
+<!-- رسالة تفعيل المسابقة (بتظهر من فوق 5 ثواني) -->
+<div class="contest-banner" id="contestBanner" onclick="hideContestBanner(); openContests();">سجل في المسابقة الآن</div>
+
 <!-- WALLET LOGIN POPUP -->
 <div id="walletLoginModal" class="ce-modal-overlay" onclick="closeWalletLoginModal()">
   <div class="ce-modal-box" onclick="event.stopPropagation()" style="text-align:center;border-color:rgba(220,38,38,.4);">
@@ -2227,6 +2262,41 @@
         <div class="offer-title offer-title-glow">Visa</div>
       </div>
     </div>
+    <div class="offer-slide o3" style="cursor:pointer;" onclick="openPubg()">
+      <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/PlayerUnknown's_Battlegrounds_Mobile.webp" alt="PUBG Mobile" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;" />
+      <div class="offer-bottom-fade"></div>
+      <div class="offer-text offer-text-bottom">
+        <div class="offer-title offer-title-glow">PUBG Mobile</div>
+      </div>
+    </div>
+    <div class="offer-slide o3" style="cursor:pointer;" onclick="openFreefire()">
+      <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/images%20(1).jpeg" alt="Free Fire" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;" />
+      <div class="offer-bottom-fade"></div>
+      <div class="offer-text offer-text-bottom">
+        <div class="offer-title offer-title-glow">Free Fire</div>
+      </div>
+    </div>
+    <div class="offer-slide o3" style="cursor:pointer;" onclick="openBrawl()">
+      <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/images%20(10).jpeg" alt="Brawl Stars" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;" />
+      <div class="offer-bottom-fade"></div>
+      <div class="offer-text offer-text-bottom">
+        <div class="offer-title offer-title-glow">Brawl Stars</div>
+      </div>
+    </div>
+    <div class="offer-slide o3" style="cursor:pointer;" onclick="openPes()">
+      <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/images%20(8).jpeg" alt="eFootball" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;" />
+      <div class="offer-bottom-fade"></div>
+      <div class="offer-text offer-text-bottom">
+        <div class="offer-title offer-title-glow">eFootball</div>
+      </div>
+    </div>
+    <div class="offer-slide o3" style="cursor:pointer;" onclick="openFifa()">
+      <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/images%20(7).jpeg" alt="FIFA" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;" />
+      <div class="offer-bottom-fade"></div>
+      <div class="offer-text offer-text-bottom">
+        <div class="offer-title offer-title-glow">FIFA</div>
+      </div>
+    </div>
     <div class="offer-slide o5" id="offerContestSlide" data-off="1" style="cursor:pointer;" onclick="openContests()">
       <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/IMG-20260701-WA0002.jpg" alt="مسابقة" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.45;" />
       <div class="offer-bottom-fade"></div>
@@ -2238,6 +2308,11 @@
     <button class="offer-arrow next" data-dir="prev" aria-label="السابق"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     <div class="offer-dots">
       <span class="offer-dot active"></span>
+      <span class="offer-dot"></span>
+      <span class="offer-dot"></span>
+      <span class="offer-dot"></span>
+      <span class="offer-dot"></span>
+      <span class="offer-dot"></span>
       <span class="offer-dot"></span>
       <span class="offer-dot"></span>
       <span class="offer-dot" id="offerContestDot" data-off="1"></span>
@@ -6248,6 +6323,19 @@
   });
 
   // ============ المسابقة الحالية (العنوان + الجائزة) — من لوحة الأدمن، بث حي ============
+  let contestBannerTimer = null;
+  window.hideContestBanner = function () {
+    const b = document.getElementById('contestBanner');
+    if (b) b.classList.remove('show');
+    clearTimeout(contestBannerTimer);
+  };
+  window.showContestBanner = function () {
+    const b = document.getElementById('contestBanner');
+    if (!b) return;
+    b.classList.add('show');
+    clearTimeout(contestBannerTimer);
+    contestBannerTimer = setTimeout(window.hideContestBanner, 5000);
+  };
   function applyContest(data) {
     const val = (k) => ((data && data[k]) || '').toString().trim();
     const title = val('title'), prize = val('prize'), start = val('start'), phone = val('phone');
@@ -6270,6 +6358,12 @@
     $('contestReg').style.display = (title && phone) ? '' : 'none';
     renderContestReg();
     // كارت المسابقة في الكروت اللي بتلف — بيظهر بس لما الأدمن يفعّله والمسابقة تكون متحددة
+    // رسالة "سجل في المسابقة الآن": بتظهر لما الكرت يتفعل (أول تحميل للصفحة أو لحظة ما الأدمن يفعّله) وتختفي بعد 5 ثواني
+    // (مش بتظهر لو المستخدم مسجل في المسابقة بالفعل — بنستنى نعرف حالة تسجيله الأول)
+    if (showCard && window.__lastContestShowCard !== true) window.__contestBannerPending = true;
+    if (!showCard) { window.__contestBannerPending = false; window.hideContestBanner(); }
+    window.__lastContestShowCard = showCard;
+    if (typeof window.tryContestBanner === 'function') window.tryContestBanner();
     const slideEl = $('offerContestSlide'), dotEl = $('offerContestDot');
     if (slideEl && dotEl) {
       const wasShown = !slideEl.hasAttribute('data-off');
@@ -6293,17 +6387,35 @@
     btn.disabled = registered || full;
     btn.classList.toggle('is-full', full);
     btn.textContent = registered ? 'تم التسجيل' : (full ? 'اكتمل العدد' : 'سجّل في المسابقة');
+    // لو سجّل في المسابقة والرسالة ظاهرة، تختفي فوراً
+    if (registered && typeof window.hideContestBanner === 'function') window.hideContestBanner();
   }
+  // بتظهر رسالة "سجل في المسابقة الآن" بس لو لسه مش مسجل، وبعد ما نعرف حالة تسجيله فعلاً
+  window.__contestEntryReady = false;
+  window.tryContestBanner = function () {
+    if (!window.__contestBannerPending || !window.__contestEntryReady) return;
+    window.__contestBannerPending = false;
+    const c = window.__contest || {}, e = window.__contestEntry;
+    const registered = !!(e && c.title && e.contest === c.title);
+    if (!registered) window.showContestBanner();
+  };
   let contestEntryUnsub = null;
   onAuthStateChanged(auth, (user) => {
     if (contestEntryUnsub) { contestEntryUnsub(); contestEntryUnsub = null; }
     window.__contestEntry = null;
+    window.__contestEntryReady = false;
     renderContestReg();
-    if (!user) return;
+    if (!user) { window.__contestEntryReady = true; window.tryContestBanner(); return; }
     contestEntryUnsub = onSnapshot(doc(db, 'contestEntries', user.uid), (snap) => {
       window.__contestEntry = snap.exists() ? snap.data() : null;
+      window.__contestEntryReady = true;
       renderContestReg();
-    }, (err) => console.error('تعذر قراءة تسجيلك في المسابقة:', err));
+      window.tryContestBanner();
+    }, (err) => {
+      console.error('تعذر قراءة تسجيلك في المسابقة:', err);
+      window.__contestEntryReady = true;
+      window.tryContestBanner();
+    });
   });
   window.registerContest = function () {
     const c = window.__contest || {};
