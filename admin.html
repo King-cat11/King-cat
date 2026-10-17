@@ -1292,6 +1292,11 @@
     </div>
   </div>
 
+  <div style="display:flex;flex-direction:column;gap:10px;margin-top:18px;">
+    <button type="button" id="contestShowCardBtn" class="back-btn" style="width:100%;justify-content:center;margin:0;" onclick="toggleContestFlag('showCard')">👁️ كارت المسابقة في الموقع: مخفي</button>
+    <button type="button" id="contestClosedBtn" class="back-btn" style="width:100%;justify-content:center;margin:0;" onclick="toggleContestFlag('closed')">🔓 التسجيل: مفتوح</button>
+  </div>
+
   <div id="contestsAdminStatus" class="login-status" style="margin-top:14px;"></div>
   <button class="login-submit-btn" style="margin-top:6px;width:100%;background:#dc2626;" onclick="saveContest()">💾 حفظ المسابقة</button>
   <button class="back-btn" style="width:100%;justify-content:center;margin-top:10px;" onclick="clearContest()">🗑️ مسح المسابقة</button>
@@ -4000,6 +4005,44 @@
     }
   };
 
+  // إعدادات المسابقة اللي بتتغير بضغطة: إظهار الكارت في الكروت اللي بتلف + قفل التسجيل (اكتمل العدد)
+  const contestFlags = { showCard: false, closed: false };
+  window.renderContestFlagBtns = function () {
+    const a = document.getElementById('contestShowCardBtn');
+    const b = document.getElementById('contestClosedBtn');
+    if (a) {
+      a.textContent = contestFlags.showCard ? '👁️ كارت المسابقة في الموقع: ظاهر (اضغط للإخفاء)' : '👁️ كارت المسابقة في الموقع: مخفي (اضغط للإظهار)';
+      a.style.background = contestFlags.showCard ? 'rgba(111,207,58,.14)' : '';
+      a.style.borderColor = contestFlags.showCard ? 'rgba(111,207,58,.45)' : '';
+      a.style.color = contestFlags.showCard ? '#6fcf3a' : '';
+    }
+    if (b) {
+      b.textContent = contestFlags.closed ? '🔒 التسجيل: اكتمل العدد (اضغط للفتح)' : '🔓 التسجيل: مفتوح (اضغط لقفله "اكتمل العدد")';
+      b.style.background = contestFlags.closed ? 'rgba(224,85,85,.14)' : '';
+      b.style.borderColor = contestFlags.closed ? 'rgba(224,85,85,.45)' : '';
+      b.style.color = contestFlags.closed ? '#e05555' : '';
+    }
+  };
+  window.toggleContestFlag = async function (key) {
+    const statusEl = document.getElementById('contestsAdminStatus');
+    try {
+      const snap = await getDoc(doc(db, 'pricing', 'contest'));
+      const cur = snap.exists() ? snap.data() : {};
+      if (!cur.title) {
+        if (statusEl) { statusEl.textContent = 'احفظ المسابقة الأول وبعدين فعّل الكارت أو اقفل التسجيل'; statusEl.className = 'login-status err'; }
+        return;
+      }
+      const next = !contestFlags[key];
+      await setDoc(doc(db, 'pricing', 'contest'), { [key]: next }, { merge: true });
+      contestFlags[key] = next;
+      window.renderContestFlagBtns();
+      if (statusEl) { statusEl.textContent = 'تم ✅'; statusEl.className = 'login-status ok'; setTimeout(() => { if (statusEl.textContent === 'تم ✅') statusEl.textContent = ''; }, 1500); }
+    } catch (err) {
+      console.error('تعذر تحديث إعداد المسابقة:', err);
+      if (statusEl) { statusEl.textContent = 'حصلت مشكلة، حاول تاني'; statusEl.className = 'login-status err'; }
+    }
+  };
+
   // ============ المسابقة الحالية — بتظهر في صفحة "مسابقاتنا" في الموقع (pricing/contest) ============
   window.loadContest = async function () {
     const statusEl = document.getElementById('contestsAdminStatus');
@@ -4012,6 +4055,9 @@
       document.getElementById('contestStartInput').value = data.startAt || '';
       window.syncContestStartDisplay();
       document.getElementById('contestPhoneInput').value = data.phone || '';
+      contestFlags.showCard = data.showCard === true;
+      contestFlags.closed = data.closed === true;
+      window.renderContestFlagBtns();
       if (statusEl) statusEl.textContent = '';
       window.loadContestEntries();
     } catch (err) {
@@ -4125,7 +4171,7 @@
     if (statusEl) { statusEl.textContent = 'بيتم الحفظ...'; statusEl.className = 'login-status'; }
     try {
       // الموقع الأساسي بيستخدم الرقم ده في زرار التسجيل بس، ومش بيعرضه
-      await setDoc(doc(db, 'pricing', 'contest'), { title, prize, start, startAt, phone, updatedAt: serverTimestamp() });
+      await setDoc(doc(db, 'pricing', 'contest'), { title, prize, start, startAt, phone, showCard: contestFlags.showCard, closed: contestFlags.closed, updatedAt: serverTimestamp() });
       if (statusEl) { statusEl.textContent = 'تم الحفظ ✅'; statusEl.className = 'login-status ok'; }
     } catch (err) {
       console.error('تعذر حفظ المسابقة:', err);
@@ -4137,7 +4183,7 @@
     if (!confirm('متأكد إنك عايز تمسح المسابقة؟')) return;
     const statusEl = document.getElementById('contestsAdminStatus');
     try {
-      await setDoc(doc(db, 'pricing', 'contest'), { title: '', prize: '', start: '', startAt: '', phone: '', updatedAt: serverTimestamp() });
+      await setDoc(doc(db, 'pricing', 'contest'), { title: '', prize: '', start: '', startAt: '', phone: '', showCard: false, closed: false, updatedAt: serverTimestamp() });
       // المسابقة خلصت: بنمسح كل المسجلين عشان يقدروا يسجلوا في اللي بعدها
       const entriesSnap = await getDocs(collection(db, 'contestEntries'));
       await Promise.all(entriesSnap.docs.map(function (d) { return deleteDoc(d.ref); }));
@@ -4146,6 +4192,8 @@
       document.getElementById('contestStartInput').value = '';
       window.syncContestStartDisplay();
       document.getElementById('contestPhoneInput').value = '';
+      contestFlags.showCard = false; contestFlags.closed = false;
+      window.renderContestFlagBtns();
       window.loadContestEntries();
       if (statusEl) { statusEl.textContent = 'تم مسح المسابقة ✅'; statusEl.className = 'login-status ok'; }
     } catch (err) {

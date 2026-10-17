@@ -467,6 +467,11 @@
     .offer-slide.o2 { background: linear-gradient(120deg, #0b1220, #dc2626 70%, #60a5fa); }
     .offer-slide.o3 { background: linear-gradient(120deg, #0b1220, #dc2626 70%, #60a5fa); }
     .offer-slide.o4 { background: linear-gradient(120deg, #0b1220, #dc2626 70%, #60a5fa); }
+    .offer-slide.o5 { background: linear-gradient(120deg, #0b1220, #b91c1c 70%, #ef4444); }
+    .offer-slide[data-off], .offer-dot[data-off] { display: none !important; }
+    .offer-cta { display: inline-block; margin-top: 8px; background: #fff; color: #b91c1c; font-family: 'Cairo', sans-serif; font-weight: 900; font-size: .85rem; padding: 6px 18px; border-radius: 999px; box-shadow: 0 4px 14px rgba(0,0,0,.35); }
+    .offer-dot { cursor: pointer; }
+    .contest-reg-btn.is-full:disabled { background: linear-gradient(135deg,#3f3f46,#71717a); }
     .offer-slide::before {
       content: "";
       position: absolute;
@@ -912,9 +917,9 @@
         #020512;
     }
     .contest-cup-wrap { width: 250px; max-width: 72vw; align-self: center; margin: 0 auto; flex: 0 0 auto; margin-top: 8px; filter: drop-shadow(0 10px 28px rgba(220,38,38,.35)); }
-    .contest-cup-wrap svg { width: 100%; height: auto; display: block; }
+    .contest-cup-wrap img { width: 100%; height: auto; display: block; border-radius: 26px; border: 1.5px solid rgba(220,38,38,.45); box-shadow: 0 0 0 4px rgba(220,38,38,.08), 0 14px 36px rgba(0,0,0,.55); background: #0d0d0d; object-fit: cover; }
     .contest-info { width: 100%; max-width: 460px; margin-top: 10px; padding: 0 4px; text-align: right; display: flex; flex-direction: column; gap: 12px; }
-    .contest-row { font-family: 'Cairo', sans-serif; font-size: 1.4rem; line-height: 1.8; text-align: right; word-break: break-word; }
+    .contest-row { text-shadow: 0 2px 10px rgba(0,0,0,.75); font-family: 'Cairo', sans-serif; font-size: 1.4rem; line-height: 1.8; text-align: right; word-break: break-word; }
     .contest-k { color: #ef4444; font-weight: 900; margin-left: 6px; }
     .contest-v { color: var(--white); font-weight: 700; }
     .contest-reg { width: 100%; max-width: 460px; margin-top: 14px; padding: 0 4px; display: flex; flex-direction: column; gap: 12px; }
@@ -2222,12 +2227,22 @@
         <div class="offer-title offer-title-glow">Visa</div>
       </div>
     </div>
+    <div class="offer-slide o5" id="offerContestSlide" data-off="1" style="cursor:pointer;" onclick="openContests()">
+      <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/IMG-20260701-WA0002.jpg" alt="مسابقة" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.45;" />
+      <div class="offer-badge">🏆 مسابقة</div>
+      <div class="offer-bottom-fade"></div>
+      <div class="offer-text offer-text-bottom">
+        <div class="offer-title offer-title-glow" id="offerContestTitle">مسابقة</div>
+        <span class="offer-cta">سجّل الآن</span>
+      </div>
+    </div>
     <button class="offer-arrow prev" data-dir="next" aria-label="التالي"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 6L9 12L15 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     <button class="offer-arrow next" data-dir="prev" aria-label="السابق"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     <div class="offer-dots">
       <span class="offer-dot active"></span>
       <span class="offer-dot"></span>
       <span class="offer-dot"></span>
+      <span class="offer-dot" id="offerContestDot" data-off="1"></span>
     </div>
   </div>
 
@@ -2519,99 +2534,7 @@
 
   <div class="rpage-panels" style="display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:12px;padding:78px 24px 40px;">
     <div class="contest-cup-wrap">
-      <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" overflow="visible" aria-hidden="true">
-  <defs>
-    <linearGradient id="gBowl" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#a16207"/>
-      <stop offset=".22" stop-color="#facc15"/>
-      <stop offset=".42" stop-color="#fef08a"/>
-      <stop offset=".62" stop-color="#fbbf24"/>
-      <stop offset="1" stop-color="#92400e"/>
-    </linearGradient>
-    <linearGradient id="gGold" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#fde68a"/>
-      <stop offset=".5" stop-color="#f59e0b"/>
-      <stop offset="1" stop-color="#92400e"/>
-    </linearGradient>
-    <linearGradient id="gStem" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#92400e"/>
-      <stop offset=".35" stop-color="#fcd34d"/>
-      <stop offset=".6" stop-color="#f59e0b"/>
-      <stop offset="1" stop-color="#78350f"/>
-    </linearGradient>
-    <linearGradient id="gBase" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#ef4444"/>
-      <stop offset=".5" stop-color="#b91c1c"/>
-      <stop offset="1" stop-color="#5f0f0f"/>
-    </linearGradient>
-    <linearGradient id="gBlade" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#9ca3af"/>
-      <stop offset=".45" stop-color="#f9fafb"/>
-      <stop offset="1" stop-color="#6b7280"/>
-    </linearGradient>
-    <linearGradient id="gShield" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#dc2626"/>
-      <stop offset=".6" stop-color="#8f1414"/>
-      <stop offset="1" stop-color="#3b0707"/>
-    </linearGradient>
-    <linearGradient id="gCrown" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#ef4444"/>
-      <stop offset="1" stop-color="#7f1d1d"/>
-    </linearGradient>
-    <radialGradient id="gGlow" cx=".5" cy=".5" r=".5">
-      <stop offset="0" stop-color="#ef4444" stop-opacity=".38"/>
-      <stop offset="1" stop-color="#ef4444" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
-
-  <circle cx="100" cy="118" r="104" fill="url(#gGlow)"/>
-
-  <!-- swords -->
-  <g id="sw1" transform="rotate(42 100 124)">
-    <path d="M100 -16 L107 4 L107 172 L93 172 L93 4 Z" fill="url(#gBlade)" stroke="#4b5563" stroke-width=".8"/>
-    <path d="M100 -8 L100 168" stroke="#fff" stroke-opacity=".75" stroke-width="1.4"/>
-    <rect x="80" y="171" width="40" height="8" rx="4" fill="url(#gGold)" stroke="#78350f" stroke-width=".8"/>
-    <rect x="95" y="180" width="10" height="26" rx="2.5" fill="#7f1d1d"/>
-    <path d="M95 186 H105 M95 192 H105 M95 198 H105" stroke="#450a0a" stroke-width="1"/>
-    <circle cx="100" cy="212" r="7" fill="url(#gGold)" stroke="#78350f" stroke-width=".8"/>
-  </g>
-  <use href="#sw1" transform="translate(200 0) scale(-1 1)"/>
-
-  <!-- handles -->
-  <path d="M50 52 C8 44 4 108 56 124" fill="none" stroke="#78350f" stroke-width="11" stroke-linecap="round"/>
-  <path d="M50 52 C8 44 4 108 56 124" fill="none" stroke="url(#gGold)" stroke-width="8" stroke-linecap="round"/>
-  <path d="M150 52 C192 44 196 108 144 124" fill="none" stroke="#78350f" stroke-width="11" stroke-linecap="round"/>
-  <path d="M150 52 C192 44 196 108 144 124" fill="none" stroke="url(#gGold)" stroke-width="8" stroke-linecap="round"/>
-
-  <!-- bowl -->
-  <path d="M46 40 H154 C157 92 134 132 100 142 C66 132 43 92 46 40 Z" fill="url(#gBowl)" stroke="#92400e" stroke-width="1"/>
-  <ellipse cx="100" cy="40" rx="54" ry="9" fill="#fde68a" stroke="#b45309" stroke-width="1"/>
-  <ellipse cx="100" cy="41" rx="48" ry="6.2" fill="#6b2a07"/>
-  <path d="M58 52 C57 80 66 106 84 124" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="4.5" stroke-linecap="round"/>
-
-  <!-- text on cup -->
-  <g text-anchor="middle">
-    <g font-family="'Cinzel', serif" font-weight="700" font-size="24">
-      <text x="100" y="79" fill="#fff7d6" opacity=".55" transform="translate(0 1)">King</text>
-      <text x="100" y="79" fill="#7f1d1d">King</text>
-      <text x="100" y="124" fill="#fff7d6" opacity=".55" transform="translate(0 1)">Cat</text>
-      <text x="100" y="124" fill="#7f1d1d">Cat</text>
-    </g>
-    <g font-family="'Playfair Display', serif" font-style="italic" font-weight="700" font-size="27">
-      <text x="100" y="105" fill="#fff7d6" opacity=".55" transform="translate(0 1)">&amp;</text>
-      <text x="100" y="105" fill="#b91c1c">&amp;</text>
-    </g>
-  </g>
-
-  <!-- stem + base -->
-  <path d="M91 142 C93 154 92 160 88 170 L112 170 C108 160 107 154 109 142 Z" fill="url(#gStem)"/>
-  <ellipse cx="100" cy="152" rx="15" ry="5" fill="url(#gGold)" stroke="#78350f" stroke-width=".8"/>
-  <ellipse cx="100" cy="142" rx="21" ry="5.5" fill="#b45309"/>
-  <rect x="66" y="168" width="68" height="14" rx="4" fill="url(#gGold)" stroke="#78350f" stroke-width=".8"/>
-  <rect x="50" y="180" width="100" height="30" rx="7" fill="url(#gBase)" stroke="#3b0707" stroke-width="1"/>
-  <rect x="50" y="180" width="100" height="6" rx="3" fill="#fff" opacity=".18"/>
-  <rect x="56" y="196" width="88" height="2" rx="1" fill="#fde68a" opacity=".6"/>
-</svg>
+      <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/IMG-20260701-WA0002.jpg" alt="King&amp;Cat" loading="lazy" />
     </div>
 
     <div class="contest-info" id="contestInfo" dir="rtl">
@@ -5743,8 +5666,8 @@
 <script>
   (function () {
     const container = document.getElementById('offersCarousel');
-    const slides = document.querySelectorAll('#offersCarousel .offer-slide');
-    const dots = document.querySelectorAll('#offersCarousel .offer-dot');
+    let slides = Array.from(container.querySelectorAll('.offer-slide:not([data-off])'));
+    let dots = Array.from(container.querySelectorAll('.offer-dot:not([data-off])'));
     if (!slides.length) return;
 
     const AUTOPLAY_MS = 5000;
@@ -5805,11 +5728,27 @@
       });
     });
 
-    // clickable dots
-    dots.forEach((dot, i) => {
-      dot.style.cursor = 'pointer';
-      dot.addEventListener('click', () => { goTo(i); startTimer(); });
+    // clickable dots (delegation, عشان نقطة كارت المسابقة بتظهر وتختفي)
+    container.querySelector('.offer-dots').addEventListener('click', (e) => {
+      const d = e.target.closest('.offer-dot');
+      const i = d ? dots.indexOf(d) : -1;
+      if (i >= 0) { goTo(i); startTimer(); }
     });
+
+    // بتتنادى لما كارت المسابقة يظهر أو يختفي (من إعدادات الأدمن) — بتعيد حساب الكروت الظاهرة
+    window.refreshOfferSlides = function () {
+      finishPendingTransition();
+      container.querySelectorAll('.offer-slide').forEach(snapToRest);
+      slides = Array.from(container.querySelectorAll('.offer-slide:not([data-off])'));
+      dots = Array.from(container.querySelectorAll('.offer-dot:not([data-off])'));
+      container.querySelectorAll('.offer-slide').forEach(el => el.classList.remove('active'));
+      container.querySelectorAll('.offer-dot').forEach(el => el.classList.remove('active'));
+      if (idx >= slides.length) idx = 0;
+      locked = false;
+      slides[idx].classList.add('active');
+      dots[idx].classList.add('active');
+      startTimer();
+    };
 
     // pause on hover / focus (desktop)
     container.addEventListener('mouseenter', stopTimer);
@@ -6316,7 +6255,9 @@
     const title = val('title'), prize = val('prize'), start = val('start'), phone = val('phone');
     const $ = (id) => document.getElementById(id);
     if (!$('contestTitle')) return;
-    window.__contest = { title, prize, start, phone };
+    const showCard = !!(data && data.showCard === true) && !!title;
+    const closed = !!(data && data.closed === true);
+    window.__contest = { title, prize, start, phone, closed };
     $('contestTitle').textContent = title || 'مفيش مسابقة دلوقتي';
     $('contestPrize').textContent = prize;
     $('contestStart').textContent = start;
@@ -6325,6 +6266,17 @@
     // زرار التسجيل بيظهر بس لو العنوان والرقم (من لوحة الأدمن) موجودين — والرقم نفسه مش بيتعرض في الصفحة
     $('contestReg').style.display = (title && phone) ? '' : 'none';
     renderContestReg();
+    // كارت المسابقة في الكروت اللي بتلف — بيظهر بس لما الأدمن يفعّله والمسابقة تكون متحددة
+    const slideEl = $('offerContestSlide'), dotEl = $('offerContestDot');
+    if (slideEl && dotEl) {
+      if ($('offerContestTitle')) $('offerContestTitle').textContent = title ? ('🏆 ' + title) : '';
+      const wasShown = !slideEl.hasAttribute('data-off');
+      if (showCard !== wasShown) {
+        if (showCard) { slideEl.removeAttribute('data-off'); dotEl.removeAttribute('data-off'); }
+        else { slideEl.setAttribute('data-off', '1'); dotEl.setAttribute('data-off', '1'); }
+        if (typeof window.refreshOfferSlides === 'function') window.refreshOfferSlides();
+      }
+    }
   }
   // حالة تسجيل المستخدم الحالي في المسابقة الحالية (من contestEntries/{uid}) — لو مسجل بيظهر "تم التسجيل" ومينفعش يسجل تاني
   // لحد ما الأدمن يشيله من المسجلين أو المسابقة تتغير/تتمسح
@@ -6335,8 +6287,10 @@
     const c = window.__contest || {};
     const e = window.__contestEntry;
     const registered = !!(e && c.title && e.contest === c.title);
-    btn.disabled = registered;
-    btn.textContent = registered ? '✅ تم التسجيل' : '📲 سجّل في المسابقة';
+    const full = !registered && !!c.closed;
+    btn.disabled = registered || full;
+    btn.classList.toggle('is-full', full);
+    btn.textContent = registered ? '✅ تم التسجيل' : (full ? '🚫 اكتمل العدد' : '📲 سجّل في المسابقة');
   }
   let contestEntryUnsub = null;
   onAuthStateChanged(auth, (user) => {
@@ -6353,7 +6307,8 @@
     const c = window.__contest || {};
     if (!c.title) return;
     const regBtn = document.getElementById('contestRegBtn');
-    if (regBtn && regBtn.disabled) return; // مسجل بالفعل
+    if (regBtn && regBtn.disabled) return; // مسجل بالفعل أو اكتمل العدد
+    if (c.closed) return;
     const user = auth.currentUser;
     if (!user) {
       closeContests();
