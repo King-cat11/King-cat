@@ -922,6 +922,7 @@
     .contest-reg-btn { width: 100%; padding: 16px; border: none; border-radius: 14px; background: linear-gradient(135deg,#b91c1c,#ef4444); color: #fff; font-family: 'Cairo', sans-serif; font-weight: 900; font-size: 1.2rem; cursor: pointer; }
     .contest-wa-num { text-align: center; font-family: 'Cairo', sans-serif; font-size: 1.45rem; font-weight: 900; letter-spacing: .08em; color: #ef4444; text-decoration: none; }
     .contest-reg-btn:active { transform: scale(.98); }
+    .contest-reg-btn:disabled { background: linear-gradient(135deg,#166534,#22c55e); cursor: default; opacity: .95; transform: none; }
 
     #mobileGamesAllPage {
       background:
@@ -2620,8 +2621,7 @@
     </div>
 
     <div class="contest-reg" id="contestReg" dir="rtl" style="display:none;">
-      <button type="button" class="contest-reg-btn" onclick="registerContest()">📲 سجّل في المسابقة</button>
-      <a class="contest-wa-num" id="contestWaNum" href="javascript:void(0)" onclick="registerContest()" dir="ltr">01069478690</a>
+      <button type="button" class="contest-reg-btn" id="contestRegBtn" onclick="registerContest()">📲 سجّل في المسابقة</button>
     </div>
   </div>
 </div>
@@ -6317,17 +6317,43 @@
     const $ = (id) => document.getElementById(id);
     if (!$('contestTitle')) return;
     window.__contest = { title, prize, start, phone };
-    if ($('contestWaNum')) $('contestWaNum').textContent = phone || '01069478690';
     $('contestTitle').textContent = title || 'مفيش مسابقة دلوقتي';
     $('contestPrize').textContent = prize;
     $('contestStart').textContent = start;
     $('contestPrizeRow').style.display = (title && prize) ? '' : 'none';
     $('contestStartRow').style.display = (title && start) ? '' : 'none';
-    $('contestReg').style.display = title ? '' : 'none';
+    // زرار التسجيل بيظهر بس لو العنوان والرقم (من لوحة الأدمن) موجودين — والرقم نفسه مش بيتعرض في الصفحة
+    $('contestReg').style.display = (title && phone) ? '' : 'none';
+    renderContestReg();
   }
+  // حالة تسجيل المستخدم الحالي في المسابقة الحالية (من contestEntries/{uid}) — لو مسجل بيظهر "تم التسجيل" ومينفعش يسجل تاني
+  // لحد ما الأدمن يشيله من المسجلين أو المسابقة تتغير/تتمسح
+  window.__contestEntry = null;
+  function renderContestReg() {
+    const btn = document.getElementById('contestRegBtn');
+    if (!btn) return;
+    const c = window.__contest || {};
+    const e = window.__contestEntry;
+    const registered = !!(e && c.title && e.contest === c.title);
+    btn.disabled = registered;
+    btn.textContent = registered ? '✅ تم التسجيل' : '📲 سجّل في المسابقة';
+  }
+  let contestEntryUnsub = null;
+  onAuthStateChanged(auth, (user) => {
+    if (contestEntryUnsub) { contestEntryUnsub(); contestEntryUnsub = null; }
+    window.__contestEntry = null;
+    renderContestReg();
+    if (!user) return;
+    contestEntryUnsub = onSnapshot(doc(db, 'contestEntries', user.uid), (snap) => {
+      window.__contestEntry = snap.exists() ? snap.data() : null;
+      renderContestReg();
+    }, (err) => console.error('تعذر قراءة تسجيلك في المسابقة:', err));
+  });
   window.registerContest = function () {
     const c = window.__contest || {};
     if (!c.title) return;
+    const regBtn = document.getElementById('contestRegBtn');
+    if (regBtn && regBtn.disabled) return; // مسجل بالفعل
     const user = auth.currentUser;
     if (!user) {
       closeContests();
@@ -6336,11 +6362,14 @@
     }
     const nick = ((user.displayName || shownIdentity(user) || '') + '').trim() || 'عميل';
     const msg = 'عايز اسجل في المسابقة\nاللقب: ' + nick;
-    // رقم المسؤول عن المسابقة (من لوحة الأدمن) — لو فاضي بنستخدم رقم المتجر
+    // رقم المسؤول عن المسابقة جاي من لوحة الأدمن بس (مفيش رقم احتياطي)
     let wa = ((c.phone || '') + '').replace(/\D/g, '');
     if (wa.startsWith('00')) wa = wa.slice(2);
     if (wa.startsWith('0')) wa = '20' + wa.slice(1);
-    if (!wa) wa = '201069478690';
+    if (!wa) return;
+    // بنثبّت "تم التسجيل" فورًا عشان مفيش تسجيل مرتين، ولو الكتابة فشلت بنرجّعه
+    window.__contestEntry = { contest: c.title };
+    renderContestReg();
     window.open('https://wa.me/' + wa + '?text=' + encodeURIComponent(msg), '_blank');
     // بنسجل المشترك في Firestore عشان يظهر في لوحة الأدمن (مستند واحد لكل مستخدم)
     setDoc(doc(db, 'contestEntries', user.uid), {
@@ -6349,7 +6378,7 @@
       username: (shownIdentity(user) || '') + '',
       contest: c.title,
       createdAt: serverTimestamp()
-    }).catch((err) => console.error('تعذر تسجيل المشترك في المسابقة:', err));
+    }).catch((err) => { console.error('تعذر تسجيل المشترك في المسابقة:', err); window.__contestEntry = null; renderContestReg(); });
   };
   onSnapshot(doc(db, 'pricing', 'contest'), (snap) => {
     applyContest(snap.exists() ? snap.data() : null);

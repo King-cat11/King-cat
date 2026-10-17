@@ -4011,13 +4011,7 @@
       document.getElementById('contestPrizeInput').value = data.prize || '';
       document.getElementById('contestStartInput').value = data.startAt || '';
       window.syncContestStartDisplay();
-      // الرقم محفوظ في مستند أدمن بس (adminData/contestPhone) عشان ميظهرش في الموقع الأساسي — data.phone احتياطي للمسابقات القديمة
-      let phone = data.phone || '';
-      try {
-        const phoneSnap = await getDoc(doc(db, 'adminData', 'contestPhone'));
-        if (phoneSnap.exists() && phoneSnap.data().phone) phone = phoneSnap.data().phone;
-      } catch (e) { console.error('تعذر تحميل رقم المسابقة:', e); }
-      document.getElementById('contestPhoneInput').value = phone;
+      document.getElementById('contestPhoneInput').value = data.phone || '';
       if (statusEl) statusEl.textContent = '';
       window.loadContestEntries();
     } catch (err) {
@@ -4039,7 +4033,7 @@
     try {
       const snap = await getDocs(collection(db, 'contestEntries'));
       const rows = [];
-      snap.forEach(function (d) { rows.push(d.data()); });
+      snap.forEach(function (d) { var x = d.data(); x._id = d.id; rows.push(x); });
       rows.sort(function (a, b) {
         const ta = a.createdAt && a.createdAt.toMillis ? a.createdAt.toMillis() : 0;
         const tb = b.createdAt && b.createdAt.toMillis ? b.createdAt.toMillis() : 0;
@@ -4055,7 +4049,8 @@
           ? r.createdAt.toDate().toLocaleString('ar-EG-u-nu-latn', { day: 'numeric', month: 'long', hour: 'numeric', minute: '2-digit' })
           : '';
         return '<div style="background:#1a1a1a;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 12px;">' +
-          '<div style="font-weight:800;font-size:.95rem;">' + (i + 1) + '. ' + escHtml(r.nickname || 'عميل') + '</div>' +
+          '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;"><div style="font-weight:800;font-size:.95rem;">' + (i + 1) + '. ' + escHtml(r.nickname || 'عميل') + '</div>' +
+          '<button type="button" onclick="removeContestEntry(\'' + escHtml(r._id) + '\')" style="flex-shrink:0;background:rgba(224,85,85,.1);color:#e05555;border:1px solid rgba(224,85,85,.4);border-radius:8px;padding:4px 10px;font-family:\'Cairo\',sans-serif;font-weight:800;font-size:.72rem;cursor:pointer;">شيل من المسابقة</button></div>' +
           '<div style="color:#999;font-size:.78rem;margin-top:3px;direction:ltr;text-align:right;">' + escHtml(r.username || '') + '</div>' +
           '<div style="color:#888;font-size:.75rem;margin-top:3px;">' + escHtml(r.contest || '') + (when ? ' — ' + escHtml(when) : '') + '</div>' +
           '</div>';
@@ -4065,6 +4060,12 @@
       if (countEl) countEl.textContent = '!';
       listEl.innerHTML = '<div style="color:#e05555;font-size:.85rem;text-align:center;padding:8px;">تعذر تحميل المسجلين</div>';
     }
+  };
+  window.removeContestEntry = async function (id) {
+    if (!confirm('تشيل الحساب ده من المسابقة؟ هيقدر يسجل تاني.')) return;
+    try { await deleteDoc(doc(db, 'contestEntries', id)); }
+    catch (err) { console.error('تعذر شيل المشترك:', err); alert('تعذر شيل المشترك'); }
+    window.loadContestEntries();
   };
   window.clearContestEntries = async function () {
     if (!confirm('متأكد إنك عايز تمسح كل المسجلين في المسابقة؟')) return;
@@ -4123,10 +4124,8 @@
 
     if (statusEl) { statusEl.textContent = 'بيتم الحفظ...'; statusEl.className = 'login-status'; }
     try {
-      // المستند العام اللي الموقع بيقراه — من غير الرقم
-      await setDoc(doc(db, 'pricing', 'contest'), { title, prize, start, startAt, updatedAt: serverTimestamp() });
-      // الرقم في مستند أدمن بس، مخفي عن الموقع الأساسي
-      await setDoc(doc(db, 'adminData', 'contestPhone'), { phone, updatedAt: serverTimestamp() });
+      // الموقع الأساسي بيستخدم الرقم ده في زرار التسجيل بس، ومش بيعرضه
+      await setDoc(doc(db, 'pricing', 'contest'), { title, prize, start, startAt, phone, updatedAt: serverTimestamp() });
       if (statusEl) { statusEl.textContent = 'تم الحفظ ✅'; statusEl.className = 'login-status ok'; }
     } catch (err) {
       console.error('تعذر حفظ المسابقة:', err);
@@ -4138,13 +4137,16 @@
     if (!confirm('متأكد إنك عايز تمسح المسابقة؟')) return;
     const statusEl = document.getElementById('contestsAdminStatus');
     try {
-      await setDoc(doc(db, 'pricing', 'contest'), { title: '', prize: '', start: '', startAt: '', updatedAt: serverTimestamp() });
-      await setDoc(doc(db, 'adminData', 'contestPhone'), { phone: '', updatedAt: serverTimestamp() });
+      await setDoc(doc(db, 'pricing', 'contest'), { title: '', prize: '', start: '', startAt: '', phone: '', updatedAt: serverTimestamp() });
+      // المسابقة خلصت: بنمسح كل المسجلين عشان يقدروا يسجلوا في اللي بعدها
+      const entriesSnap = await getDocs(collection(db, 'contestEntries'));
+      await Promise.all(entriesSnap.docs.map(function (d) { return deleteDoc(d.ref); }));
       document.getElementById('contestTitleInput').value = '';
       document.getElementById('contestPrizeInput').value = '';
       document.getElementById('contestStartInput').value = '';
       window.syncContestStartDisplay();
       document.getElementById('contestPhoneInput').value = '';
+      window.loadContestEntries();
       if (statusEl) { statusEl.textContent = 'تم مسح المسابقة ✅'; statusEl.className = 'login-status ok'; }
     } catch (err) {
       console.error('تعذر مسح المسابقة:', err);
