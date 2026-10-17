@@ -2329,6 +2329,13 @@
   </div>
 
   <div class="offers-carousel" id="offersCarousel">
+    <div class="offer-slide o5" id="offerContestSlide" data-off="1" style="cursor:pointer;" onclick="openContests()">
+      <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/IMG-20260701-WA0002.jpg" alt="مسابقة" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.45;" />
+      <div class="offer-bottom-fade"></div>
+      <div class="offer-text offer-text-bottom">
+        <div class="offer-title offer-title-glow">تسجيل في المسابقة</div>
+      </div>
+    </div>
     <div class="offer-slide o1 active" style="cursor:pointer;" onclick="openRobloxDesign()">
       <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/b6153b0e699d5b0018791b75a51075921330fa25.png" alt="Roblox Studio" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;" />
       <div class="offer-badge">جديد</div>
@@ -2388,16 +2395,10 @@
         <div class="offer-title offer-title-glow">FIFA</div>
       </div>
     </div>
-    <div class="offer-slide o5" id="offerContestSlide" data-off="1" style="cursor:pointer;" onclick="openContests()">
-      <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/IMG-20260701-WA0002.jpg" alt="مسابقة" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.45;" />
-      <div class="offer-bottom-fade"></div>
-      <div class="offer-text offer-text-bottom">
-        <div class="offer-title offer-title-glow">تسجيل في المسابقة</div>
-      </div>
-    </div>
     <button class="offer-arrow prev" data-dir="next" aria-label="التالي"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 6L9 12L15 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     <button class="offer-arrow next" data-dir="prev" aria-label="السابق"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     <div class="offer-dots">
+      <span class="offer-dot" id="offerContestDot" data-off="1"></span>
       <span class="offer-dot active"></span>
       <span class="offer-dot"></span>
       <span class="offer-dot"></span>
@@ -2406,7 +2407,6 @@
       <span class="offer-dot"></span>
       <span class="offer-dot"></span>
       <span class="offer-dot"></span>
-      <span class="offer-dot" id="offerContestDot" data-off="1"></span>
     </div>
   </div>
 
@@ -5900,8 +5900,9 @@
     });
 
     // بتتنادى لما كارت المسابقة يظهر أو يختفي (من إعدادات الأدمن) — بتعيد حساب الكروت الظاهرة
-    window.refreshOfferSlides = function () {
+    window.refreshOfferSlides = function (resetToFirst) {
       finishPendingTransition();
+      if (resetToFirst) idx = 0;
       container.querySelectorAll('.offer-slide').forEach(snapToRest);
       slides = Array.from(container.querySelectorAll('.offer-slide:not([data-off])'));
       dots = Array.from(container.querySelectorAll('.offer-dot:not([data-off])'));
@@ -6471,7 +6472,7 @@
       if (showCard !== wasShown) {
         if (showCard) { slideEl.removeAttribute('data-off'); dotEl.removeAttribute('data-off'); }
         else { slideEl.setAttribute('data-off', '1'); dotEl.setAttribute('data-off', '1'); }
-        if (typeof window.refreshOfferSlides === 'function') window.refreshOfferSlides();
+        if (typeof window.refreshOfferSlides === 'function') window.refreshOfferSlides(true);
       }
     }
   }
