@@ -204,6 +204,11 @@
     transition: color .2s, background .2s;
     cursor: pointer;
   }
+  .stat-card .stat-icon svg { width: 16px; height: 16px; }
+  .admin-card .ac-icon svg { width: 22px; height: 22px; }
+  .admin-card.admin-card-compact .ac-icon svg { width: 18px; height: 18px; }
+  .nav-menu a .ic { display: inline-flex; align-items: center; justify-content: center; }
+  .nav-menu a .ic svg { width: 18px; height: 18px; }
   .stat-icon:empty, .ac-icon:empty, .nav-menu a .ic:empty { display: none !important; }
   .nav-menu a .ic { font-size: 1.1rem; width: 22px; text-align: center; }
   .nav-menu a:hover, .nav-menu a.active { color: var(--pink-lt); background: rgba(220,38,38,.08); }
@@ -913,9 +918,9 @@
     <span class="nav-profile-sub">admin@kingcat.com</span>
   </div>
   <div class="nav-menu-links">
-    <a href="javascript:void(0)" class="active" id="navHome" onclick="showDashboard()"><span class="ic"></span> الرئيسية</a>
-    <a href="javascript:void(0)" id="navBackSite" onclick="sessionStorage.setItem('kc_adminStay','1'); window.location.href='index.html';"><span class="ic"></span> رجوع للموقع الاساسي</a>
-    <a href="javascript:void(0)" class="logout" onclick="adminLogout()"><span class="ic"></span> تسجيل الخروج</a>
+    <a href="javascript:void(0)" class="active" id="navHome" onclick="showDashboard()"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg></span> الرئيسية</a>
+    <a href="javascript:void(0)" id="navBackSite" onclick="sessionStorage.setItem('kc_adminStay','1'); window.location.href='index.html';"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14L4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3"/></svg></span> رجوع للموقع الاساسي</a>
+    <a href="javascript:void(0)" class="logout" onclick="adminLogout()"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg></span> تسجيل الخروج</a>
   </div>
 </nav>
 
@@ -923,17 +928,17 @@
 <main id="dashboard">
   <div class="stats-grid">
     <div class="stat-card">
-      <div class="stat-icon"></div>
+      <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 16V8h3.2a2.2 2.2 0 0 1 0 4.4H9.5M12.5 12.4L15 16"/></svg></div>
       <div class="stat-value" id="statRemainingRobux">—</div>
       <div class="stat-label">إجمالي الروب المتبقي</div>
     </div>
     <div class="stat-card">
-      <div class="stat-icon"></div>
+      <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2h12v20l-3-2-3 2-3-2-3 2zM9 7h6M9 11h6M9 15h4"/></svg></div>
       <div class="stat-value" id="statPendingOrders">—</div>
       <div class="stat-label">طلبات</div>
     </div>
     <div class="stat-card">
-      <div class="stat-icon"></div>
+      <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 10v.01M18 14v.01"/></svg></div>
       <div class="stat-value" id="statTotalCurrency">—</div>
       <div class="stat-label">إجمالي العملات EGP</div>
     </div>
@@ -943,23 +948,23 @@
 
   <div class="cards-grid" style="grid-template-columns:repeat(3,1fr);">
     <div class="admin-card admin-card-compact" onclick="showRobuxCalcPage()">
-      <div class="ac-icon"></div>
+      <div class="ac-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 16V8h3.2a2.2 2.2 0 0 1 0 4.4H9.5M12.5 12.4L15 16"/></svg></div>
       <div class="ac-title">حساباتي</div>
     </div>
     <div class="admin-card admin-card-compact" onclick="showOrdersPage()">
-      <div class="ac-icon"></div>
+      <div class="ac-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2h12v20l-3-2-3 2-3-2-3 2zM9 7h6M9 11h6M9 15h4"/></svg></div>
       <div class="ac-title">الطلبات</div>
     </div>
     <div class="admin-card admin-card-compact" onclick="showPricingPage()">
-      <div class="ac-icon"></div>
+      <div class="ac-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="11" rx="5"/><path d="M7 10v5M4.5 12.5h5M15.5 11.5h.01M18 13.5h.01"/></svg></div>
       <div class="ac-title">الألعاب</div>
     </div>
     <div class="admin-card admin-card-compact" onclick="showCurrencyPage()">
-      <div class="ac-icon"></div>
+      <div class="ac-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 10v.01M18 14v.01"/></svg></div>
       <div class="ac-title">العملات</div>
     </div>
     <div class="admin-card admin-card-compact" onclick="showContestsAdminPage()">
-      <div class="ac-icon"></div>
+      <div class="ac-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg></div>
       <div class="ac-title">المسابقات</div>
     </div>
   </div>
@@ -973,27 +978,27 @@
   </div>
   <div class="cards-grid" style="grid-template-columns:1fr;">
     <div class="admin-card admin-card-row" onclick="showRobloxPricing()">
-      <div class="ac-icon"></div>
+      <div class="ac-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l9 5v10l-9 5-9-5V7zM3 7l9 5 9-5M12 12v10"/></svg></div>
       <div class="ac-title">روبلكس</div>
     </div>
     <div class="admin-card admin-card-row" onclick="showPubgPricing()">
-      <div class="ac-icon"></div>
+      <div class="ac-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></div>
       <div class="ac-title">ببجي</div>
     </div>
     <div class="admin-card admin-card-row" onclick="showFFPricing()">
-      <div class="ac-icon"></div>
+      <div class="ac-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22c4 0 7-2.8 7-7 0-3-1.8-5-3.5-7-.5 1.5-1.5 2.5-2.5 3 .5-3-.7-6-3-8-.3 3-2.5 5-4 7.2C4.7 12.4 5 14 5 15c0 4.200 3 7 7 7z"/></svg></div>
       <div class="ac-title">فري فاير</div>
     </div>
     <div class="admin-card admin-card-row" onclick="showFifaPricing()">
-      <div class="ac-icon"></div>
+      <div class="ac-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8l3.5 2.5-1.3 4h-4.4l-1.3-4zM12 8V3M15.5 10.5l5-1.5M14.2 14.5l3 4M9.8 14.5l-3 4M8.5 10.5l-5-1.5"/></svg></div>
       <div class="ac-title">فيفا</div>
     </div>
     <div class="admin-card admin-card-row" onclick="showPesPricing()">
-      <div class="ac-icon"></div>
+      <div class="ac-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="1"/><path d="M9 6v12M15 6v12M3 12h18"/></svg></div>
       <div class="ac-title">بيس</div>
     </div>
     <div class="admin-card admin-card-row" onclick="showBrawlPricing()">
-      <div class="ac-icon"></div>
+      <div class="ac-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg></div>
       <div class="ac-title">براول ستارز</div>
     </div>
   </div>
@@ -1298,7 +1303,6 @@
       <input type="tel" id="contestPhoneInput" class="oinput" inputmode="tel" style="width:100%;box-sizing:border-box;direction:ltr;text-align:left;">
     </div>
   </div>
-  </div>
 
   <div style="display:flex;flex-direction:column;gap:10px;margin-top:18px;">
     <button type="button" id="contestClosedBtn" class="back-btn" style="width:100%;justify-content:center;margin:0;background:rgba(220,38,38,.18);border-color:rgba(220,38,38,.6);color:#ef4444;" onclick="toggleContestOpen()">التسجيل: مقفول</button>
@@ -1331,22 +1335,22 @@
 
   <div class="stats-grid robux-stats-grid">
     <div class="stat-card" onclick="openRobuxEdit('priceThousand','سعر الالف')">
-      <div class="stat-icon"></div>
+      <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V3h9l9 9-9 9z"/><circle cx="7.5" cy="7.5" r="1.2"/></svg></div>
       <div class="stat-value" id="robuxVal-priceThousand">—</div>
       <div class="stat-label">سعر الألف</div>
     </div>
     <div class="stat-card" onclick="openRobuxEdit('bought','الكمية الأساسية')">
-      <div class="stat-icon"></div>
+      <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.5a1 1 0 0 0 1 .8h8.6a1 1 0 0 0 1-.8L20 7H6"/></svg></div>
       <div class="stat-value" id="robuxVal-bought">—</div>
       <div class="stat-label">الكمية الأساسية</div>
     </div>
     <div class="stat-card" onclick="openRobuxEdit('remaining','الكمية المتبقية')">
-      <div class="stat-icon"></div>
+      <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8l-9-5-9 5v8l9 5 9-5zM3 8l9 5 9-5M12 13v8"/></svg></div>
       <div class="stat-value" id="robuxVal-remaining">—</div>
       <div class="stat-label">الكمية المتبقية</div>
     </div>
     <div class="stat-card" id="robuxCard-withdrawnPrice">
-      <div class="stat-icon"></div>
+      <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16V8M8.5 11.5L12 8l3.5 3.5"/></svg></div>
       <div class="stat-value" id="robuxVal-withdrawnPrice">—</div>
       <div class="stat-label">سعر المسحوب</div>
     </div>
@@ -1357,12 +1361,12 @@
 
   <div class="stats-grid robux-stats-grid">
     <div class="stat-card" onclick="openCashOverlay()">
-      <div class="stat-icon"></div>
+      <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 10v.01M18 14v.01"/></svg></div>
       <div class="stat-value" id="cashTotalValue">—</div>
       <div class="stat-label">إجمالي الكاش</div>
     </div>
     <div class="stat-card" onclick="openDebtsOverlay()">
-      <div class="stat-icon"></div>
+      <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h14M14 4l4 4-4 4M20 16H6M10 12l-4 4 4 4"/></svg></div>
       <div class="stat-label" style="font-weight:800;color:var(--white);font-size:.72rem;">دائن ومدين</div>
       <div style="display:flex;justify-content:space-between;font-size:.78rem;">
         <span style="color:#6fcf3a;font-weight:800;">ليا</span>
@@ -1401,12 +1405,12 @@
   <!-- ============ إجمالي السحب والإيداع لآخر أسبوع (كل الفواتير المحفوظة حاليًا، مش مقسّمة على اليوم المختار) ============ -->
   <div class="stats-grid" style="grid-template-columns:1fr 1fr;margin-bottom:18px;">
     <div class="stat-card">
-      <div class="stat-icon"></div>
+      <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16V8M8.5 11.5L12 8l3.5 3.5"/></svg></div>
       <div class="stat-value" id="cashInvoicesTotalWithdraw">—</div>
       <div class="stat-label">إجمالي السحب (الأسبوع)</div>
     </div>
     <div class="stat-card">
-      <div class="stat-icon"></div>
+      <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8.5 12.5L12 16l3.5-3.5"/></svg></div>
       <div class="stat-value" id="cashInvoicesTotalDeposit">—</div>
       <div class="stat-label">إجمالي الإيداع (الأسبوع)</div>
     </div>
@@ -1427,7 +1431,7 @@
 
   <div class="stats-grid" style="grid-template-columns:1fr;margin-bottom:18px;">
     <div class="stat-card">
-      <div class="stat-icon"></div>
+      <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 10v.01M18 14v.01"/></svg></div>
       <div class="stat-value" id="currencyTotalValue">—</div>
       <div class="stat-label">إجمالي العملات (كل الزباين) EGP</div>
     </div>
@@ -1579,12 +1583,12 @@
 
   <div class="stats-grid" style="grid-template-columns:1fr 1fr;margin-bottom:18px;">
     <div class="stat-card">
-      <div class="stat-icon"></div>
+      <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8.5 12.5L12 16l3.5-3.5"/></svg></div>
       <div class="stat-value" id="debtsInvoiceTotalLia" style="color:#6fcf3a;">—</div>
       <div class="stat-label">ليا</div>
     </div>
     <div class="stat-card">
-      <div class="stat-icon"></div>
+      <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16V8M8.5 11.5L12 8l3.5 3.5"/></svg></div>
       <div class="stat-value" id="debtsInvoiceTotalAlaya" style="color:#e05555;">—</div>
       <div class="stat-label">عليا</div>
     </div>
