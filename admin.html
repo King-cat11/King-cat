@@ -399,7 +399,7 @@
     align-items: center; justify-content: center; padding: 20px;
     background: rgba(0,0,0,.65); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
   }
-  #custCoinsOverlay.open { display: flex; }
+  #custCoinsOverlay.open { display: flex; overscroll-behavior: contain; }
   #custCoinsOverlay .cc-box {
     width: 100%; max-width: 340px; padding: 20px 18px 16px;
     background: #07122b; border: 1px solid rgba(127,29,29,.55); border-radius: 18px;
@@ -1742,6 +1742,27 @@
     document.body.style.width = '';
     window.scrollTo(0, scrollLockY);
   }
+  // تثبيت الصفحة ورا بوب أب بروفايل العميل عشان مفيش سكرول
+  window.lockCcScroll = function () {
+    if (window.__ccLocked) return;
+    window.__ccLockY = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = -window.__ccLockY + 'px';
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.width = '100%';
+    window.__ccLocked = true;
+  };
+  window.unlockCcScroll = function () {
+    if (!window.__ccLocked) return;
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.width = '';
+    window.scrollTo(0, window.__ccLockY || 0);
+    window.__ccLocked = false;
+  };
   function openMenu() {
     scrollLockY = window.scrollY;
     document.body.style.position = 'fixed';
@@ -1777,6 +1798,7 @@
     if (customersEl) customersEl.style.display = 'none';
     const ccEl = document.getElementById('custCoinsOverlay');
     if (ccEl) ccEl.classList.remove('open');
+    if (window.unlockCcScroll) window.unlockCcScroll();
   }
 
   // ============ نظام تنقل موحّد بزرار رجوع الفون (History API) ============
@@ -3703,9 +3725,11 @@
     document.getElementById('ccAmount').value = '';
     document.getElementById('ccStatus').textContent = '';
     document.getElementById('custCoinsOverlay').classList.add('open');
+    window.lockCcScroll();
   };
   window.closeCustomerCoins = function () {
     document.getElementById('custCoinsOverlay').classList.remove('open');
+    window.unlockCcScroll();
     window.__ccUid = null;
   };
   window.adjustCustomerCoins = async function (sign) {
