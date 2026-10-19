@@ -358,52 +358,74 @@
     color: var(--pink-lt);
   }
 
-  /* ===== عملائنا ===== */
+  /* ===== عملائنا — ألوان هادية ===== */
+  #customersPage .stat-card { border-color: rgba(255,255,255,.08); background: rgba(255,255,255,.025); }
+  #customersPage .stat-card .stat-icon { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.1); color: #9aa6b8; }
+  #customersPage .stat-card .stat-value { color: #e6e9ef; }
+  #customersPage .stat-card .stat-value.cu-good { color: #8fbf9f; }
+  #customersPage .stat-card .stat-value.cu-bad { color: #cf9a9a; }
+  #customersPage .stat-card .stat-label { color: #8a94a6; }
+  #customersPage .oinput:focus, #custCoinsOverlay .oinput:focus { border-color: #7d8aa3; }
   .cu-card {
     background: rgba(255,255,255,.03);
-    border: 1px solid rgba(220,38,38,.2);
+    border: 1px solid rgba(255,255,255,.08);
     border-radius: 14px;
     padding: 12px;
-    display: flex; flex-direction: column; gap: 10px;
   }
   .cu-top { display: flex; align-items: center; gap: 12px; }
   .cu-avatar {
-    position: relative; flex: 0 0 auto;
-    width: 46px; height: 46px; border-radius: 50%;
+    flex: 0 0 auto;
+    width: 44px; height: 44px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-weight: 900; font-size: 1.2rem; color: #fff;
-    background: linear-gradient(145deg, #ef4444, #991b1b);
-    box-shadow: 0 4px 12px rgba(220,38,38,.35), inset 0 1px 0 rgba(255,255,255,.3);
+    font-weight: 800; font-size: 1.1rem; color: #f1e6e6;
+    background: linear-gradient(145deg, #8a4f55, #5d3439);
   }
   .cu-info { flex: 1; min-width: 0; }
-  .cu-name { font-weight: 800; font-size: 1rem; color: var(--white); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .cu-name { font-weight: 700; font-size: .98rem; color: #e6e9ef; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .cu-coins {
-    flex: 0 0 auto; text-align: center; line-height: 1.2; cursor: pointer; font-family: inherit; color: inherit;
+    flex: 0 0 auto; text-align: center; line-height: 1.25; cursor: pointer;
+    font-family: inherit; color: inherit;
     padding: 6px 12px; border-radius: 10px;
-    background: rgba(111,207,58,.1); border: 1px solid rgba(111,207,58,.3);
+    background: rgba(143,191,159,.08); border: 1px solid rgba(143,191,159,.25);
+    transition: background .15s ease;
   }
-  .cu-coins b { display: block; font-size: 1.05rem; color: #6fcf3a; font-family: 'Bebas Neue','Cairo',sans-serif; letter-spacing: .02em; }
-  .cu-coins span { display: flex; align-items: center; justify-content: center; gap: 4px; font-size: .66rem; color: var(--muted); }
+  .cu-coins:hover { background: rgba(143,191,159,.14); }
+  .cu-coins b { display: block; font-size: 1.05rem; font-weight: 700; color: #a3cdb0; font-family: 'Bebas Neue','Cairo',sans-serif; letter-spacing: .02em; }
+  .cu-coins span { display: flex; align-items: center; justify-content: center; gap: 4px; font-size: .66rem; color: #8a94a6; }
   .cu-coins span svg { width: 11px; height: 11px; }
-  .cu-coins:active { transform: scale(.96); }
   /* نافذة تعديل العملات */
   #custCoinsOverlay {
     position: fixed; inset: 0; z-index: 3000; display: none;
     align-items: center; justify-content: center; padding: 20px;
-    background: rgba(0,0,0,.65); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+    background: rgba(0,0,0,.55);
   }
   #custCoinsOverlay.open { display: flex; }
   #custCoinsOverlay .cc-box {
     width: 100%; max-width: 340px; padding: 20px 18px 16px;
-    background: #0b1220; border: 1px solid rgba(220,38,38,.35); border-radius: 18px;
-    box-shadow: 0 20px 50px rgba(0,0,0,.6);
+    background: #111827; border: 1px solid rgba(255,255,255,.1); border-radius: 16px;
+    box-shadow: 0 12px 32px rgba(0,0,0,.45);
   }
-  #custCoinsOverlay .cc-title { font-weight: 900; font-size: 1.05rem; color: #dc2626; margin-bottom: 2px; }
-  #custCoinsOverlay .cc-name { font-weight: 700; color: var(--white); margin-bottom: 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  #custCoinsOverlay .cc-cur { color: var(--muted); font-size: .85rem; margin-bottom: 12px; }
-  #custCoinsOverlay .cc-cur b { color: #6fcf3a; font-size: 1.1rem; }
+  #custCoinsOverlay .cc-title { font-weight: 800; font-size: 1.02rem; color: #e6e9ef; margin-bottom: 2px; }
+  #custCoinsOverlay .cc-name { font-weight: 600; color: #aab3c2; margin-bottom: 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  #custCoinsOverlay .cc-cur { color: #8a94a6; font-size: .85rem; margin-bottom: 12px; }
+  #custCoinsOverlay .cc-cur b { color: #a3cdb0; font-size: 1.1rem; }
   #custCoinsOverlay .cc-btns { display: flex; gap: 8px; margin-top: 12px; }
-  #custCoinsOverlay .cc-status { min-height: 1.2em; margin-top: 8px; font-size: .8rem; text-align: center; color: #ef4444; }
+  #custCoinsOverlay .cc-btn {
+    flex: 1; padding: 10px; border-radius: 10px; cursor: pointer;
+    font-family: 'Cairo', sans-serif; font-weight: 700; font-size: .9rem;
+    border: 1px solid; transition: background .15s ease;
+  }
+  #custCoinsOverlay .cc-btn:disabled { opacity: .5; cursor: default; }
+  #custCoinsOverlay .cc-btn.minus { color: #d6a5a5; background: rgba(207,143,143,.1); border-color: rgba(207,143,143,.3); }
+  #custCoinsOverlay .cc-btn.minus:hover:not(:disabled) { background: rgba(207,143,143,.18); }
+  #custCoinsOverlay .cc-btn.plus { color: #a3cdb0; background: rgba(143,191,159,.1); border-color: rgba(143,191,159,.3); }
+  #custCoinsOverlay .cc-btn.plus:hover:not(:disabled) { background: rgba(143,191,159,.18); }
+  #custCoinsOverlay .cc-status { min-height: 1.2em; margin-top: 8px; font-size: .8rem; text-align: center; color: #d6a5a5; }
+  #custCoinsOverlay .cc-cancel {
+    width: 100%; margin-top: 6px; padding: 9px; border-radius: 10px; cursor: pointer;
+    font-family: 'Cairo', sans-serif; font-weight: 600; font-size: .85rem;
+    color: #aab3c2; background: transparent; border: 1px solid rgba(255,255,255,.1);
+  }
 
   /* quick action cards (sections of the admin) */
   .cards-grid {
@@ -1514,11 +1536,11 @@
     <div class="cc-cur">العملات الحالية: <b id="ccCurrent">0</b> EGP</div>
     <input type="number" class="oinput" id="ccAmount" inputmode="numeric" min="1" placeholder="اكتب القيمة" style="width:100%;box-sizing:border-box;direction:ltr;text-align:left;">
     <div class="cc-btns">
-      <button type="button" class="o-action-btn cancel" style="flex:1;" onclick="adjustCustomerCoins(-1)">تقليل</button>
-      <button type="button" class="o-action-btn done" style="flex:1;" onclick="adjustCustomerCoins(1)">زيادة</button>
+      <button type="button" class="cc-btn minus" id="ccMinusBtn" onclick="adjustCustomerCoins(-1)">تقليل</button>
+      <button type="button" class="cc-btn plus" id="ccPlusBtn" onclick="adjustCustomerCoins(1)">زيادة</button>
     </div>
     <div class="cc-status" id="ccStatus"></div>
-    <button type="button" class="back-btn" style="width:100%;justify-content:center;margin:4px 0 0;" onclick="closeCustomerCoins()">إلغاء</button>
+    <button type="button" class="cc-cancel" onclick="closeCustomerCoins()">إلغاء</button>
   </div>
 </div>
 
@@ -1531,13 +1553,13 @@
 
   <div class="stats-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:16px;">
     <div class="stat-card">
-      <div class="stat-icon" style="color:#6fcf3a;background:rgba(111,207,58,.12);border-color:rgba(111,207,58,.35);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.5"/></svg></div>
-      <div class="stat-value" id="customersDoneCount" style="color:#6fcf3a;">0</div>
+      <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.5"/></svg></div>
+      <div class="stat-value cu-good" id="customersDoneCount">0</div>
       <div class="stat-label">طلبات تمت الشهر ده</div>
     </div>
     <div class="stat-card">
       <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg></div>
-      <div class="stat-value" id="customersCancelCount" style="color:#ef4444;">0</div>
+      <div class="stat-value cu-bad" id="customersCancelCount">0</div>
       <div class="stat-label">طلبات اتلغت الشهر ده</div>
     </div>
     <div class="stat-card">
@@ -2354,6 +2376,7 @@
   let usersData = [];
   window.usersData = usersData;
 
+  let lastCustSig = '';
   function renderCurrencyUsers() {
     const totalEl = document.getElementById('currencyTotalValue');
     const statTotalEl = document.getElementById('statTotalCurrency');
@@ -2367,6 +2390,7 @@
     const totalCountEl = document.getElementById('customersTotalCount');
     if (totalCountEl) totalCountEl.textContent = usersData.length;
     if (!usersData.length) {
+      lastCustSig = '';
       wrap.style.display = 'none';
       if (emptyMsg) emptyMsg.style.display = 'block';
       return;
@@ -2376,12 +2400,26 @@
     const term = searchInput ? searchInput.value.trim().toLowerCase() : '';
     const filtered = term ? usersData.filter(u => (u.label || '').toLowerCase().includes(term)) : usersData;
     if (!filtered.length) {
+      lastCustSig = '';
       wrap.style.display = 'none';
       if (emptyMsg) { emptyMsg.style.display = 'block'; emptyMsg.textContent = 'مفيش نتايج مطابقة للقب ده'; }
       return;
     }
     wrap.style.display = 'flex';
     if (emptyMsg) { emptyMsg.style.display = 'none'; emptyMsg.textContent = 'مفيش عملاء مسجلين لسه'; }
+    // لو نفس العملاء بنفس الترتيب والبحث، بنحدّث رقم العملات بس في مكانه من غير ما نعيد رسم القايمة (عشان مفيش وميض ولا قفز)
+    const sig = filtered.map(u => u.uid + '|' + u.label).join('\n') + '#' + term;
+    if (sig === lastCustSig && wrap.children.length) {
+      const byUid = {};
+      filtered.forEach(u => { byUid[u.uid] = u.balance || 0; });
+      wrap.querySelectorAll('.cu-card').forEach(card => {
+        const b = card.querySelector('.cu-coins b');
+        const v = byUid[card.getAttribute('data-uid')];
+        if (b && v !== undefined && b.textContent !== String(v)) b.textContent = v;
+      });
+      return;
+    }
+    lastCustSig = sig;
     wrap.innerHTML = filtered.map(u => {
       const initial = (u.label || '?').trim().charAt(0).toUpperCase() || '?';
       return `
@@ -3123,7 +3161,7 @@
           balance: typeof d.balance === 'number' ? d.balance : 0
         });
       });
-      window.usersData.sort((a, b) => (b.balance || 0) - (a.balance || 0));
+      window.usersData.sort((a, b) => (a.label || '').localeCompare(b.label || '', 'ar')); // ترتيب ثابت بالاسم — مفيش كارت بيقفز لما رصيد حد يتغير
       if (typeof window.renderCurrencyUsers === 'function') window.renderCurrencyUsers();
     }, (err) => {
       console.error('تعذر تحميل بيانات المستخدمين:', err);
@@ -3700,12 +3738,16 @@
     window.__ccUid = null;
   };
   window.adjustCustomerCoins = async function (sign) {
+    if (window.__ccBusy) return;
     const uid = window.__ccUid;
     const statusEl = document.getElementById('ccStatus');
     const amt = parseInt(document.getElementById('ccAmount').value, 10);
     if (!uid) return;
     if (!amt || amt <= 0) { statusEl.textContent = 'اكتب قيمة صحيحة أكبر من صفر'; return; }
     statusEl.textContent = '';
+    const btns = [document.getElementById('ccMinusBtn'), document.getElementById('ccPlusBtn')];
+    window.__ccBusy = true;
+    btns.forEach(b => { if (b) b.disabled = true; });
     try {
       const userRef = doc(db, 'users', uid);
       const snap = await getDoc(userRef);
@@ -3715,6 +3757,9 @@
     } catch (err) {
       console.error('تعذر تعديل عملات العميل:', err);
       statusEl.textContent = 'حصلت مشكلة أثناء التعديل، حاول تاني';
+    } finally {
+      window.__ccBusy = false;
+      btns.forEach(b => { if (b) b.disabled = false; });
     }
   };
 
