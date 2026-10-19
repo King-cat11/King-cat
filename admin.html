@@ -383,8 +383,6 @@
   .cu-pf-row { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:9px 11px; margin-bottom:8px; background:#0a1a3a; border:1px solid rgba(30,58,138,.55); border-radius:10px; }
   .cu-pf-row .k { color: var(--muted); font-size:.74rem; font-weight:700; flex:0 0 auto; }
   .cu-pf-row .v { color: var(--white); font-weight:800; font-size:.88rem; direction:ltr; text-align:left; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; min-width:0; }
-  .cu-eye { flex:0 0 auto; width:28px; height:28px; border-radius:8px; border:1px solid rgba(127,29,29,.6); background:rgba(127,29,29,.2); color:#e8a0a0; display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; }
-  .cu-eye svg { width:16px; height:16px; }
   .cu-info { flex: 1; min-width: 0; }
   .cu-name { font-weight: 800; font-size: .9rem; color: var(--white); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .cu-coins {
@@ -1521,8 +1519,6 @@
     <div class="cc-title">بيانات العميل</div>
     <div class="cu-pf-row"><span class="k">اللقب</span><span class="v" id="ccName" dir="auto"></span></div>
     <div class="cu-pf-row"><span class="k">اليوزر</span><span class="v" id="ccUser"></span></div>
-    <div class="cu-pf-row"><span class="k">الباس</span><span class="v" id="ccPass" style="flex:1;"></span>
-      <button type="button" class="cu-eye" id="ccEye" onclick="toggleCcPass()" aria-label="إظهار الباسورد"></button></div>
     <div class="cc-cur" style="margin-top:12px;">العملات الحالية: <b id="ccCurrent">0</b> EGP</div>
     <input type="number" class="oinput" id="ccAmount" inputmode="numeric" min="1" placeholder="اكتب القيمة" style="width:100%;box-sizing:border-box;direction:ltr;text-align:left;">
     <div class="cc-btns">
@@ -3133,7 +3129,6 @@
           uid: docSnap.id,
           label: d.displayName || d.email || docSnap.id,
           username: d.username || d.email || '',
-          password: d.password || d.pass || '',
           balance: typeof d.balance === 'number' ? d.balance : 0
         });
       });
@@ -3704,30 +3699,10 @@
     window.__ccUid = uid;
     document.getElementById('ccName').textContent = u.label || '';
     document.getElementById('ccUser').textContent = u.username || '—';
-    window.__ccPassShown = false;
-    window.renderCcPass();
     document.getElementById('ccCurrent').textContent = u.balance || 0;
     document.getElementById('ccAmount').value = '';
     document.getElementById('ccStatus').textContent = '';
     document.getElementById('custCoinsOverlay').classList.add('open');
-    setTimeout(function () { document.getElementById('ccAmount').focus(); }, 50);
-  };
-  const EYE_ON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>';
-  const EYE_OFF = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.9 17.9A10.5 10.5 0 0 1 12 19C5.6 19 2 12 2 12a18 18 0 0 1 5-5.7M9.9 5.2A9.7 9.7 0 0 1 12 5c6.4 0 10 7 10 7a18 18 0 0 1-2.2 3.2M1 1l22 22M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>';
-  window.renderCcPass = function () {
-    const u = (window.usersData || []).find(x => x.uid === window.__ccUid);
-    const passEl = document.getElementById('ccPass');
-    const eye = document.getElementById('ccEye');
-    const pw = u ? u.password : '';
-    if (!pw) { passEl.textContent = 'غير متاح'; passEl.style.color = 'var(--muted)'; eye.style.display = 'none'; return; }
-    passEl.style.color = '';
-    eye.style.display = 'flex';
-    passEl.textContent = window.__ccPassShown ? pw : '•'.repeat(Math.min(pw.length, 14));
-    eye.innerHTML = window.__ccPassShown ? EYE_OFF : EYE_ON;
-  };
-  window.toggleCcPass = function () {
-    window.__ccPassShown = !window.__ccPassShown;
-    window.renderCcPass();
   };
   window.closeCustomerCoins = function () {
     document.getElementById('custCoinsOverlay').classList.remove('open');
