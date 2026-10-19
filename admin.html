@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>King&amp;cat - لوحة التحكم</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Bebas+Neue&family=Cinzel:wght@600;700;800&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Bebas+Neue&family=Cinzel:wght@600;700;800&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet" />
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   html, body { -webkit-tap-highlight-color: transparent; }
@@ -80,14 +80,14 @@
     margin-inline-start: 14px;
   }
   .header-title .name {
-    font-family: 'Cinzel', serif;
+    font-family: 'Cinzel','Cairo',serif;
     font-weight: 700;
     font-size: 1.4rem;
     letter-spacing: .04em;
     color: var(--cream);
   }
   .header-title .name .amp {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Playfair Display','Cairo',serif;
     font-style: italic;
     font-weight: 700;
     font-size: 1.25em;
@@ -204,6 +204,7 @@
     transition: color .2s, background .2s;
     cursor: pointer;
   }
+  .stat-icon:empty, .ac-icon:empty, .nav-menu a .ic:empty { display: none !important; }
   .nav-menu a .ic { font-size: 1.1rem; width: 22px; text-align: center; }
   .nav-menu a:hover, .nav-menu a.active { color: var(--pink-lt); background: rgba(220,38,38,.08); }
   .nav-menu a.logout { color: #e05555; margin-top: auto; }
@@ -226,7 +227,7 @@
     margin-bottom: 6px;
   }
   .eyebrow.roblox-eyebrow {
-    font-family: 'Cinzel', serif;
+    font-family: 'Cinzel','Cairo',serif;
     font-weight: 700;
     font-size: 1.6rem;
     letter-spacing: .04em;
@@ -242,7 +243,7 @@
   .rp-header-row .back-btn { margin: 0; }
   .rp-header-row .eyebrow.roblox-eyebrow { margin: 0; }
   .page-head h1 {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Bebas Neue','Cairo',sans-serif;
     font-size: 2.1rem;
     letter-spacing: .04em;
     color: var(--white);
@@ -279,7 +280,7 @@
     color: var(--blue-lt);
   }
   .stat-card .stat-value {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Bebas Neue','Cairo',sans-serif;
     font-size: 1.3rem;
     color: var(--white);
     letter-spacing: .03em;
@@ -663,7 +664,7 @@
     margin-bottom: 22px;
   }
   .admin-login-logo .name {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Bebas Neue','Cairo',sans-serif;
     font-size: 2rem;
     letter-spacing: .06em;
     color: var(--white);
@@ -677,6 +678,12 @@
   .order-form { display: flex; flex-direction: column; gap: 14px; }
   .ofield { display: flex; flex-direction: column; gap: 6px; }
   .olabel { font-size: .85rem; font-weight: 700; color: #ccc; }
+  /* كتابة عربي سليمة في كل الحقول */
+  input, textarea, select, button { font-family: 'Cairo', sans-serif; }
+  input[type="text"], input[type="search"], input[type="tel"], input:not([type]), textarea {
+    unicode-bidi: plaintext;
+    text-align: start;
+  }
   .oinput {
     background: #1a1a1a;
     border: 1.5px solid rgba(255,255,255,.12);
@@ -906,9 +913,9 @@
     <span class="nav-profile-sub">admin@kingcat.com</span>
   </div>
   <div class="nav-menu-links">
-    <a href="javascript:void(0)" class="active" id="navHome" onclick="showDashboard()"><span class="ic">🏠</span> الرئيسية</a>
-    <a href="javascript:void(0)" id="navBackSite" onclick="sessionStorage.setItem('kc_adminStay','1'); window.location.href='index.html';"><span class="ic">↩️</span> رجوع للموقع الاساسي</a>
-    <a href="javascript:void(0)" class="logout" onclick="adminLogout()"><span class="ic">🚪</span> تسجيل الخروج</a>
+    <a href="javascript:void(0)" class="active" id="navHome" onclick="showDashboard()"><span class="ic"></span> الرئيسية</a>
+    <a href="javascript:void(0)" id="navBackSite" onclick="sessionStorage.setItem('kc_adminStay','1'); window.location.href='index.html';"><span class="ic"></span> رجوع للموقع الاساسي</a>
+    <a href="javascript:void(0)" class="logout" onclick="adminLogout()"><span class="ic"></span> تسجيل الخروج</a>
   </div>
 </nav>
 
@@ -916,17 +923,17 @@
 <main id="dashboard">
   <div class="stats-grid">
     <div class="stat-card">
-      <div class="stat-icon">🪙</div>
+      <div class="stat-icon"></div>
       <div class="stat-value" id="statRemainingRobux">—</div>
       <div class="stat-label">إجمالي الروب المتبقي</div>
     </div>
     <div class="stat-card">
-      <div class="stat-icon">🧾</div>
+      <div class="stat-icon"></div>
       <div class="stat-value" id="statPendingOrders">—</div>
       <div class="stat-label">طلبات</div>
     </div>
     <div class="stat-card">
-      <div class="stat-icon">💰</div>
+      <div class="stat-icon"></div>
       <div class="stat-value" id="statTotalCurrency">—</div>
       <div class="stat-label">إجمالي العملات EGP</div>
     </div>
@@ -936,23 +943,23 @@
 
   <div class="cards-grid" style="grid-template-columns:repeat(3,1fr);">
     <div class="admin-card admin-card-compact" onclick="showRobuxCalcPage()">
-      <div class="ac-icon">🪙</div>
+      <div class="ac-icon"></div>
       <div class="ac-title">حساباتي</div>
     </div>
     <div class="admin-card admin-card-compact" onclick="showOrdersPage()">
-      <div class="ac-icon">🧾</div>
+      <div class="ac-icon"></div>
       <div class="ac-title">الطلبات</div>
     </div>
     <div class="admin-card admin-card-compact" onclick="showPricingPage()">
-      <div class="ac-icon">🎮</div>
+      <div class="ac-icon"></div>
       <div class="ac-title">الألعاب</div>
     </div>
     <div class="admin-card admin-card-compact" onclick="showCurrencyPage()">
-      <div class="ac-icon">💰</div>
+      <div class="ac-icon"></div>
       <div class="ac-title">العملات</div>
     </div>
     <div class="admin-card admin-card-compact" onclick="showContestsAdminPage()">
-      <div class="ac-icon">🏆</div>
+      <div class="ac-icon"></div>
       <div class="ac-title">المسابقات</div>
     </div>
   </div>
@@ -966,27 +973,27 @@
   </div>
   <div class="cards-grid" style="grid-template-columns:1fr;">
     <div class="admin-card admin-card-row" onclick="showRobloxPricing()">
-      <div class="ac-icon">🎮</div>
+      <div class="ac-icon"></div>
       <div class="ac-title">روبلكس</div>
     </div>
     <div class="admin-card admin-card-row" onclick="showPubgPricing()">
-      <div class="ac-icon">🔫</div>
+      <div class="ac-icon"></div>
       <div class="ac-title">ببجي</div>
     </div>
     <div class="admin-card admin-card-row" onclick="showFFPricing()">
-      <div class="ac-icon">🔥</div>
+      <div class="ac-icon"></div>
       <div class="ac-title">فري فاير</div>
     </div>
     <div class="admin-card admin-card-row" onclick="showFifaPricing()">
-      <div class="ac-icon">⚽</div>
+      <div class="ac-icon"></div>
       <div class="ac-title">فيفا</div>
     </div>
     <div class="admin-card admin-card-row" onclick="showPesPricing()">
-      <div class="ac-icon">🥅</div>
+      <div class="ac-icon"></div>
       <div class="ac-title">بيس</div>
     </div>
     <div class="admin-card admin-card-row" onclick="showBrawlPricing()">
-      <div class="ac-icon">⭐</div>
+      <div class="ac-icon"></div>
       <div class="ac-title">براول ستارز</div>
     </div>
   </div>
@@ -1001,7 +1008,7 @@
 
   <div id="rp-sec-acc" class="price-section">
     <div class="price-section-head" onclick="togglePriceSection('acc')">
-      <div class="price-section-head-title">📱 داخل الحساب <span class="price-section-count" id="count-acc"></span></div>
+      <div class="price-section-head-title">داخل الحساب <span class="price-section-count" id="count-acc"></span></div>
       <span class="price-section-chevron">▾</span>
     </div>
     <div class="price-section-body"><div class="price-section-body-inner">
@@ -1014,13 +1021,13 @@
         <span class="spacer-remove"></span>
       </div>
       <div class="price-rows" id="rows-acc"></div>
-      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('acc')">➕ إضافة سعر جديد</button>
+      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('acc')">إضافة سعر جديد</button>
     </div></div>
   </div>
 
   <div id="rp-sec-comFawri" class="price-section">
     <div class="price-section-head" onclick="togglePriceSection('comFawri')">
-      <div class="price-section-head-title">⚡ كوميونتي فوري <span class="price-section-count" id="count-comFawri"></span></div>
+      <div class="price-section-head-title">كوميونتي فوري <span class="price-section-count" id="count-comFawri"></span></div>
       <span class="price-section-chevron">▾</span>
     </div>
     <div class="price-section-body"><div class="price-section-body-inner">
@@ -1031,13 +1038,13 @@
         <span class="spacer-remove"></span>
       </div>
       <div class="price-rows" id="rows-comFawri"></div>
-      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('comFawri')">➕ إضافة سعر جديد</button>
+      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('comFawri')">إضافة سعر جديد</button>
     </div></div>
   </div>
 
   <div id="rp-sec-comHagz" class="price-section">
     <div class="price-section-head" onclick="togglePriceSection('comHagz')">
-      <div class="price-section-head-title">📅 كوميونتي حجز <span class="price-section-count" id="count-comHagz"></span></div>
+      <div class="price-section-head-title">كوميونتي حجز <span class="price-section-count" id="count-comHagz"></span></div>
       <span class="price-section-chevron">▾</span>
     </div>
     <div class="price-section-body"><div class="price-section-body-inner">
@@ -1048,13 +1055,13 @@
         <span class="spacer-remove"></span>
       </div>
       <div class="price-rows" id="rows-comHagz"></div>
-      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('comHagz')">➕ إضافة سعر جديد</button>
+      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('comHagz')">إضافة سعر جديد</button>
     </div></div>
   </div>
 
   <div id="rp-sec-giftcard" class="price-section">
     <div class="price-section-head" onclick="togglePriceSection('giftcard')">
-      <div class="price-section-head-title">🎁 جيفت كارد <span class="price-section-count" id="count-giftcard"></span></div>
+      <div class="price-section-head-title">جيفت كارد <span class="price-section-count" id="count-giftcard"></span></div>
       <span class="price-section-chevron">▾</span>
     </div>
     <div class="price-section-body"><div class="price-section-body-inner">
@@ -1065,23 +1072,23 @@
         <span class="spacer-remove"></span>
       </div>
       <div class="price-rows" id="rows-giftcard"></div>
-      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('giftcard')">➕ إضافة سعر جديد</button>
+      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('giftcard')">إضافة سعر جديد</button>
     </div></div>
   </div>
 
   <div id="rp-sec-bonusCodes" class="price-section">
     <div class="price-section-head" onclick="togglePriceSection('bonusCodes')">
-      <div class="price-section-head-title">🏷️ أكواد الزيادة <span class="price-section-count" id="count-bonusCodes"></span></div>
+      <div class="price-section-head-title">أكواد الزيادة <span class="price-section-count" id="count-bonusCodes"></span></div>
       <span class="price-section-chevron">▾</span>
     </div>
     <div class="price-section-body"><div class="price-section-body-inner">
       <div class="price-rows" id="rows-bonusCodes"></div>
-      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addBonusCodeRow()">➕ إضافة كود جديد</button>
+      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addBonusCodeRow()">إضافة كود جديد</button>
     </div></div>
   </div>
 
   <div id="robloxPricingStatus" class="login-status" style="margin-top:14px;"></div>
-  <button class="login-submit-btn" style="margin-top:6px;background:#dc2626;" onclick="saveRobloxPricing()">💾 حفظ كل التعديلات</button>
+  <button class="login-submit-btn" style="margin-top:6px;background:#dc2626;" onclick="saveRobloxPricing()">حفظ كل التعديلات</button>
 </main>
 
 <!-- ============ صفحة أسعار ببجي ============ -->
@@ -1093,7 +1100,7 @@
 
   <div id="rp-sec-pubgUc" class="price-section">
     <div class="price-section-head" onclick="togglePriceSection('pubgUc')">
-      <div class="price-section-head-title">💎 UC <span class="price-section-count" id="count-pubgUc"></span></div>
+      <div class="price-section-head-title">UC <span class="price-section-count" id="count-pubgUc"></span></div>
       <span class="price-section-chevron">▾</span>
     </div>
     <div class="price-section-body"><div class="price-section-body-inner">
@@ -1104,23 +1111,23 @@
         <span class="spacer-remove"></span>
       </div>
       <div class="price-rows" id="rows-pubgUc"></div>
-      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('pubgUc')">➕ إضافة سعر جديد</button>
+      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('pubgUc')">إضافة سعر جديد</button>
     </div></div>
   </div>
 
   <div id="rp-sec-pubgOrod" class="price-section">
     <div class="price-section-head" onclick="togglePriceSection('pubgOrod')">
-      <div class="price-section-head-title">🎁 عروض <span class="price-section-count" id="count-pubgOrod"></span></div>
+      <div class="price-section-head-title">عروض <span class="price-section-count" id="count-pubgOrod"></span></div>
       <span class="price-section-chevron">▾</span>
     </div>
     <div class="price-section-body"><div class="price-section-body-inner">
       <div class="price-rows" id="rows-pubgOrod"></div>
-      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('pubgOrod')">➕ إضافة عرض جديد</button>
+      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('pubgOrod')">إضافة عرض جديد</button>
     </div></div>
   </div>
 
   <div id="pubgPricingStatus" class="login-status" style="margin-top:14px;"></div>
-  <button class="login-submit-btn" style="margin-top:6px;background:#dc2626;" onclick="savePubgPricing()">💾 حفظ كل التعديلات</button>
+  <button class="login-submit-btn" style="margin-top:6px;background:#dc2626;" onclick="savePubgPricing()">حفظ كل التعديلات</button>
 </main>
 
 <!-- ============ صفحة أسعار فري فاير ============ -->
@@ -1132,28 +1139,28 @@
 
   <div id="rp-sec-ffId" class="price-section">
     <div class="price-section-head" onclick="togglePriceSection('ffId')">
-      <div class="price-section-head-title">🆔 فري فاير (ID) <span class="price-section-count" id="count-ffId"></span></div>
+      <div class="price-section-head-title">فري فاير (ID) <span class="price-section-count" id="count-ffId"></span></div>
       <span class="price-section-chevron">▾</span>
     </div>
     <div class="price-section-body"><div class="price-section-body-inner">
       <div class="price-rows" id="rows-ffId"></div>
-      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('ffId')">➕ إضافة سعر جديد</button>
+      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('ffId')">إضافة سعر جديد</button>
     </div></div>
   </div>
 
   <div id="rp-sec-ffAcc" class="price-section">
     <div class="price-section-head" onclick="togglePriceSection('ffAcc')">
-      <div class="price-section-head-title">👤 فري فاير (حساب) <span class="price-section-count" id="count-ffAcc"></span></div>
+      <div class="price-section-head-title">فري فاير (حساب) <span class="price-section-count" id="count-ffAcc"></span></div>
       <span class="price-section-chevron">▾</span>
     </div>
     <div class="price-section-body"><div class="price-section-body-inner">
       <div class="price-rows" id="rows-ffAcc"></div>
-      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('ffAcc')">➕ إضافة سعر جديد</button>
+      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('ffAcc')">إضافة سعر جديد</button>
     </div></div>
   </div>
 
   <div id="ffPricingStatus" class="login-status" style="margin-top:14px;"></div>
-  <button class="login-submit-btn" style="margin-top:6px;background:#dc2626;" onclick="saveFFPricing()">💾 حفظ كل التعديلات</button>
+  <button class="login-submit-btn" style="margin-top:6px;background:#dc2626;" onclick="saveFFPricing()">حفظ كل التعديلات</button>
 </main>
 
 <!-- ============ صفحة أسعار فيفا ============ -->
@@ -1165,7 +1172,7 @@
 
   <div id="rp-sec-fifaFc" class="price-section">
     <div class="price-section-head" onclick="togglePriceSection('fifaFc')">
-      <div class="price-section-head-title">💰 FC <span class="price-section-count" id="count-fifaFc"></span></div>
+      <div class="price-section-head-title">FC <span class="price-section-count" id="count-fifaFc"></span></div>
       <span class="price-section-chevron">▾</span>
     </div>
     <div class="price-section-body"><div class="price-section-body-inner">
@@ -1176,13 +1183,13 @@
         <span class="spacer-remove"></span>
       </div>
       <div class="price-rows" id="rows-fifaFc"></div>
-      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('fifaFc')">➕ إضافة سعر جديد</button>
+      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('fifaFc')">إضافة سعر جديد</button>
     </div></div>
   </div>
 
   <div id="rp-sec-fifaSilver" class="price-section">
     <div class="price-section-head" onclick="togglePriceSection('fifaSilver')">
-      <div class="price-section-head-title">🥈 Silver <span class="price-section-count" id="count-fifaSilver"></span></div>
+      <div class="price-section-head-title">Silver <span class="price-section-count" id="count-fifaSilver"></span></div>
       <span class="price-section-chevron">▾</span>
     </div>
     <div class="price-section-body"><div class="price-section-body-inner">
@@ -1193,23 +1200,23 @@
         <span class="spacer-remove"></span>
       </div>
       <div class="price-rows" id="rows-fifaSilver"></div>
-      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('fifaSilver')">➕ إضافة سعر جديد</button>
+      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('fifaSilver')">إضافة سعر جديد</button>
     </div></div>
   </div>
 
   <div id="rp-sec-fifaOrod" class="price-section">
     <div class="price-section-head" onclick="togglePriceSection('fifaOrod')">
-      <div class="price-section-head-title">🎁 عروض <span class="price-section-count" id="count-fifaOrod"></span></div>
+      <div class="price-section-head-title">عروض <span class="price-section-count" id="count-fifaOrod"></span></div>
       <span class="price-section-chevron">▾</span>
     </div>
     <div class="price-section-body"><div class="price-section-body-inner">
       <div class="price-rows" id="rows-fifaOrod"></div>
-      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('fifaOrod')">➕ إضافة عرض جديد</button>
+      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('fifaOrod')">إضافة عرض جديد</button>
     </div></div>
   </div>
 
   <div id="fifaPricingStatus" class="login-status" style="margin-top:14px;"></div>
-  <button class="login-submit-btn" style="margin-top:6px;background:#dc2626;" onclick="saveFifaPricing()">💾 حفظ كل التعديلات</button>
+  <button class="login-submit-btn" style="margin-top:6px;background:#dc2626;" onclick="saveFifaPricing()">حفظ كل التعديلات</button>
 </main>
 
 <!-- ============ صفحة أسعار بيس ============ -->
@@ -1221,7 +1228,7 @@
 
   <div id="rp-sec-pes" class="price-section">
     <div class="price-section-head" onclick="togglePriceSection('pes')">
-      <div class="price-section-head-title">🪙 Coins <span class="price-section-count" id="count-pes"></span></div>
+      <div class="price-section-head-title">Coins <span class="price-section-count" id="count-pes"></span></div>
       <span class="price-section-chevron">▾</span>
     </div>
     <div class="price-section-body"><div class="price-section-body-inner">
@@ -1232,12 +1239,12 @@
         <span class="spacer-remove"></span>
       </div>
       <div class="price-rows" id="rows-pes"></div>
-      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('pes')">➕ إضافة سعر جديد</button>
+      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('pes')">إضافة سعر جديد</button>
     </div></div>
   </div>
 
   <div id="pesPricingStatus" class="login-status" style="margin-top:14px;"></div>
-  <button class="login-submit-btn" style="margin-top:6px;background:#dc2626;" onclick="savePesPricing()">💾 حفظ كل التعديلات</button>
+  <button class="login-submit-btn" style="margin-top:6px;background:#dc2626;" onclick="savePesPricing()">حفظ كل التعديلات</button>
 </main>
 
 <!-- ============ صفحة أسعار براول ستارز ============ -->
@@ -1249,17 +1256,17 @@
 
   <div id="rp-sec-brawl" class="price-section">
     <div class="price-section-head" onclick="togglePriceSection('brawl')">
-      <div class="price-section-head-title">⭐ باقات <span class="price-section-count" id="count-brawl"></span></div>
+      <div class="price-section-head-title">باقات <span class="price-section-count" id="count-brawl"></span></div>
       <span class="price-section-chevron">▾</span>
     </div>
     <div class="price-section-body"><div class="price-section-body-inner">
       <div class="price-rows" id="rows-brawl"></div>
-      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('brawl')">➕ إضافة باقة جديدة</button>
+      <button class="back-btn" style="width:100%;justify-content:center;margin-top:8px;" onclick="event.stopPropagation();addPriceRow('brawl')">إضافة باقة جديدة</button>
     </div></div>
   </div>
 
   <div id="brawlPricingStatus" class="login-status" style="margin-top:14px;"></div>
-  <button class="login-submit-btn" style="margin-top:6px;background:#dc2626;" onclick="saveBrawlPricing()">💾 حفظ كل التعديلات</button>
+  <button class="login-submit-btn" style="margin-top:6px;background:#dc2626;" onclick="saveBrawlPricing()">حفظ كل التعديلات</button>
 </main>
 
 <!-- ============ صفحة المسابقات — البيانات دي بتظهر في صفحة "مسابقاتنا" في الموقع (pricing/contest) ============ -->
@@ -1271,15 +1278,15 @@
 
   <div style="display:flex;flex-direction:column;gap:14px;margin-top:6px;">
     <div style="display:flex;flex-direction:column;gap:6px;">
-      <label for="contestTitleInput" style="font-weight:800;font-size:.9rem;">🏆 المسابقة</label>
+      <label for="contestTitleInput" style="font-weight:800;font-size:.9rem;">المسابقة</label>
       <input type="text" id="contestTitleInput" class="oinput" dir="rtl" style="width:100%;box-sizing:border-box;">
     </div>
     <div style="display:flex;flex-direction:column;gap:6px;">
-      <label for="contestPrizeInput" style="font-weight:800;font-size:.9rem;">🎁 الجايزة</label>
+      <label for="contestPrizeInput" style="font-weight:800;font-size:.9rem;">الجايزة</label>
       <input type="text" id="contestPrizeInput" class="oinput" dir="rtl" style="width:100%;box-sizing:border-box;">
     </div>
     <div style="display:flex;flex-direction:column;gap:6px;">
-      <label for="contestStartInput" style="font-weight:800;font-size:.9rem;">⏰ هتبدأ في</label>
+      <label for="contestStartInput" style="font-weight:800;font-size:.9rem;">هتبدأ في</label>
       <div style="display:flex;align-items:center;gap:8px;">
         <input type="datetime-local" id="contestStartInput" class="oinput" onchange="syncContestStartDisplay()" oninput="syncContestStartDisplay()" onclick="try{ if (this.showPicker) this.showPicker(); }catch(e){}" style="flex:1;min-width:0;box-sizing:border-box;min-height:46px;cursor:pointer;color-scheme:dark;text-align:right;">
         <button type="button" id="contestStartClear" onclick="clearContestStart()" style="display:none;flex-shrink:0;background:rgba(255,255,255,.1);color:#fff;border:none;border-radius:50%;width:34px;height:34px;font-size:.9rem;cursor:pointer;">✕</button>
@@ -1287,29 +1294,29 @@
       <div id="contestStartDisplay" style="color:var(--muted);font-size:.78rem;min-height:1.2em;"></div>
     </div>
     <div style="display:flex;flex-direction:column;gap:6px;">
-      <label for="contestPhoneInput" style="font-weight:800;font-size:.9rem;">📞 رقم المسؤول عن المسابقة</label>
+      <label for="contestPhoneInput" style="font-weight:800;font-size:.9rem;">رقم المسؤول عن المسابقة</label>
       <input type="tel" id="contestPhoneInput" class="oinput" inputmode="tel" style="width:100%;box-sizing:border-box;direction:ltr;text-align:left;">
     </div>
   </div>
+  </div>
 
   <div style="display:flex;flex-direction:column;gap:10px;margin-top:18px;">
-    <button type="button" id="contestShowCardBtn" class="back-btn" style="width:100%;justify-content:center;margin:0;" onclick="toggleContestFlag('showCard')">👁️ كارت المسابقة: مخفي</button>
-    <button type="button" id="contestClosedBtn" class="back-btn" style="width:100%;justify-content:center;margin:0;" onclick="toggleContestFlag('closed')">🔓 التسجيل: مفتوح</button>
+    <button type="button" id="contestClosedBtn" class="back-btn" style="width:100%;justify-content:center;margin:0;background:rgba(220,38,38,.18);border-color:rgba(220,38,38,.6);color:#ef4444;" onclick="toggleContestOpen()">التسجيل: مقفول</button>
   </div>
 
   <div id="contestsAdminStatus" class="login-status" style="margin-top:14px;"></div>
-  <button class="login-submit-btn" style="margin-top:6px;width:100%;background:#dc2626;" onclick="saveContest()">💾 حفظ المسابقة</button>
-  <button class="back-btn" style="width:100%;justify-content:center;margin-top:10px;" onclick="clearContest()">🗑️ مسح المسابقة</button>
+  <button class="login-submit-btn" style="margin-top:6px;width:100%;background:#dc2626;" onclick="saveContest()">حفظ المسابقة</button>
+  <button class="back-btn" style="width:100%;justify-content:center;margin-top:10px;" onclick="clearContest()">مسح المسابقة</button>
 
   <!-- ===== المسجلين في المسابقة (خانة مطوية) ===== -->
   <div id="rp-sec-contestEntries" class="price-section" style="margin-top:20px;">
     <div class="price-section-head" onclick="togglePriceSection('contestEntries')">
-      <div class="price-section-head-title">👥 المسجلين في المسابقة <span class="price-section-count" id="count-contestEntries">0</span></div>
+      <div class="price-section-head-title">المسجلين في المسابقة <span class="price-section-count" id="count-contestEntries">0</span></div>
       <span class="price-section-chevron">▾</span>
     </div>
     <div class="price-section-body"><div class="price-section-body-inner">
       <div id="contestEntriesList" style="display:flex;flex-direction:column;gap:8px;"></div>
-      <button class="back-btn" style="width:100%;justify-content:center;margin-top:12px;" onclick="event.stopPropagation();clearContestEntries()">🗑️ مسح قايمة المسجلين</button>
+      <button class="back-btn" style="width:100%;justify-content:center;margin-top:12px;" onclick="event.stopPropagation();clearContestEntries()">مسح قايمة المسجلين</button>
     </div></div>
   </div>
 </main>
@@ -1319,27 +1326,27 @@
   <div class="rp-header-row">
     <button class="back-btn" style="background:rgba(220,38,38,.12);border-color:rgba(220,38,38,.35);color:#dc2626;" onclick="showDashboard()">→ Back</button>
     <div class="eyebrow roblox-eyebrow">Accounts</div>
-    <button type="button" onclick="openRobuxNetCalcOverlay()" title="حاسبة صافي / غير صافي" aria-label="حاسبة صافي / غير صافي" style="width:36px;height:36px;flex-shrink:0;border-radius:50%;border:none;background:radial-gradient(circle at 35% 28%, #ff5b96, #dc2626 65%, #c21f5c);box-shadow:0 3px 10px rgba(220,38,38,.4), inset 0 1px 0 rgba(255,255,255,.25);font-size:1rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;">🧮</button>
+    <button type="button" onclick="openRobuxNetCalcOverlay()" title="حاسبة صافي / غير صافي" aria-label="حاسبة صافي / غير صافي" style="width:36px;height:36px;flex-shrink:0;border-radius:50%;border:none;background:radial-gradient(circle at 35% 28%, #ff5b96, #dc2626 65%, #c21f5c);box-shadow:0 3px 10px rgba(220,38,38,.4), inset 0 1px 0 rgba(255,255,255,.25);font-size:1rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M8 6h8M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01M8 19h.01M12 19h.01M16 19h.01"/></svg></button>
   </div>
 
   <div class="stats-grid robux-stats-grid">
     <div class="stat-card" onclick="openRobuxEdit('priceThousand','سعر الالف')">
-      <div class="stat-icon">💵</div>
+      <div class="stat-icon"></div>
       <div class="stat-value" id="robuxVal-priceThousand">—</div>
       <div class="stat-label">سعر الألف</div>
     </div>
     <div class="stat-card" onclick="openRobuxEdit('bought','الكمية الأساسية')">
-      <div class="stat-icon">🛒</div>
+      <div class="stat-icon"></div>
       <div class="stat-value" id="robuxVal-bought">—</div>
       <div class="stat-label">الكمية الأساسية</div>
     </div>
     <div class="stat-card" onclick="openRobuxEdit('remaining','الكمية المتبقية')">
-      <div class="stat-icon">📦</div>
+      <div class="stat-icon"></div>
       <div class="stat-value" id="robuxVal-remaining">—</div>
       <div class="stat-label">الكمية المتبقية</div>
     </div>
     <div class="stat-card" id="robuxCard-withdrawnPrice">
-      <div class="stat-icon">📤</div>
+      <div class="stat-icon"></div>
       <div class="stat-value" id="robuxVal-withdrawnPrice">—</div>
       <div class="stat-label">سعر المسحوب</div>
     </div>
@@ -1350,12 +1357,12 @@
 
   <div class="stats-grid robux-stats-grid">
     <div class="stat-card" onclick="openCashOverlay()">
-      <div class="stat-icon">💵</div>
+      <div class="stat-icon"></div>
       <div class="stat-value" id="cashTotalValue">—</div>
       <div class="stat-label">إجمالي الكاش</div>
     </div>
     <div class="stat-card" onclick="openDebtsOverlay()">
-      <div class="stat-icon">🤝</div>
+      <div class="stat-icon"></div>
       <div class="stat-label" style="font-weight:800;color:var(--white);font-size:.72rem;">دائن ومدين</div>
       <div style="display:flex;justify-content:space-between;font-size:.78rem;">
         <span style="color:#6fcf3a;font-weight:800;">ليا</span>
@@ -1373,7 +1380,7 @@
 <!-- ============ بوب أب حاسبة الروبوكس (صافي / غير صافي) — بتحسب الرقم التاني تلقائي ============ -->
 <div id="robuxNetCalcOverlay" onclick="closeRobuxNetCalcOverlay(event)" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:4000;align-items:center;justify-content:center;padding:20px;">
   <div onclick="event.stopPropagation()" style="width:100%;max-width:380px;max-height:88vh;overflow-y:auto;background:#141414;border:1.5px solid rgba(220,38,38,.4);border-radius:16px;padding:22px;">
-    <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#dc2626;letter-spacing:.03em;margin-bottom:16px;">🧮 حاسبة صافي / غير صافي</div>
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#dc2626;letter-spacing:.03em;margin-bottom:16px;">حاسبة صافي / غير صافي</div>
 
     <input type="number" class="oinput" id="robuxNetCalcAmount" placeholder="اكتب الرقم" style="width:100%;margin-bottom:10px;" oninput="calcRobuxNet()">
     <div style="display:flex;gap:8px;margin-bottom:10px;">
@@ -1394,12 +1401,12 @@
   <!-- ============ إجمالي السحب والإيداع لآخر أسبوع (كل الفواتير المحفوظة حاليًا، مش مقسّمة على اليوم المختار) ============ -->
   <div class="stats-grid" style="grid-template-columns:1fr 1fr;margin-bottom:18px;">
     <div class="stat-card">
-      <div class="stat-icon">📤</div>
+      <div class="stat-icon"></div>
       <div class="stat-value" id="cashInvoicesTotalWithdraw">—</div>
       <div class="stat-label">إجمالي السحب (الأسبوع)</div>
     </div>
     <div class="stat-card">
-      <div class="stat-icon">📥</div>
+      <div class="stat-icon"></div>
       <div class="stat-value" id="cashInvoicesTotalDeposit">—</div>
       <div class="stat-label">إجمالي الإيداع (الأسبوع)</div>
     </div>
@@ -1420,7 +1427,7 @@
 
   <div class="stats-grid" style="grid-template-columns:1fr;margin-bottom:18px;">
     <div class="stat-card">
-      <div class="stat-icon">💰</div>
+      <div class="stat-icon"></div>
       <div class="stat-value" id="currencyTotalValue">—</div>
       <div class="stat-label">إجمالي العملات (كل الزباين) EGP</div>
     </div>
@@ -1428,14 +1435,14 @@
 
   <div class="price-section">
     <div class="price-section-head" onclick="toggleRedemptionSection()">
-      <div class="price-section-head-title">🎟️ أكواد الاسترداد <span class="price-section-count" id="count-redemptionCodes"></span></div>
+      <div class="price-section-head-title">أكواد الاسترداد <span class="price-section-count" id="count-redemptionCodes"></span></div>
       <span class="price-section-chevron" id="redemptionChevron">▾</span>
     </div>
     <div class="price-section-body" id="redemptionSectionBody"><div class="price-section-body-inner">
       <div class="order-actions" style="margin-bottom:10px;">
         <input type="text" class="oinput" id="newRedemptionCode" placeholder="الكود" style="flex:1;min-width:90px;text-transform:uppercase;">
         <input type="number" class="oinput" id="newRedemptionAmount" placeholder="القيمة EGP" style="flex:1;min-width:90px;">
-        <button class="o-action-btn done" style="flex:0 0 auto;min-width:0;font-size:.68rem;padding:8px 10px;white-space:normal;" onclick="addRedemptionCode()">➕ إضافة</button>
+        <button class="o-action-btn done" style="flex:0 0 auto;min-width:0;font-size:.68rem;padding:8px 10px;white-space:normal;" onclick="addRedemptionCode()">إضافة</button>
       </div>
       <div id="redemptionCodesStatus" class="login-status"></div>
       <div class="table-wrap" id="redemptionCodesWrap"></div>
@@ -1445,11 +1452,11 @@
 
   <div class="price-section" style="margin-top:14px;">
     <div class="price-section-head" onclick="toggleCurrencyUsersSection()">
-      <div class="price-section-head-title">👥 حسابات العملاء <span class="price-section-count" id="count-currencyUsers"></span></div>
+      <div class="price-section-head-title">حسابات العملاء <span class="price-section-count" id="count-currencyUsers"></span></div>
       <span class="price-section-chevron" id="currencyUsersChevron">▾</span>
     </div>
     <div class="price-section-body" id="currencyUsersSectionBody"><div class="price-section-body-inner">
-      <input type="text" class="oinput" id="currencyUsersSearch" placeholder="🔍 دور بالاسم..." style="width:100%;margin-bottom:10px;" oninput="renderCurrencyUsers()">
+      <input type="text" class="oinput" id="currencyUsersSearch" placeholder="دور بالاسم..." style="width:100%;margin-bottom:10px;" oninput="renderCurrencyUsers()">
       <div class="table-wrap" id="currencyUsersWrap"></div>
       <p id="currencyEmptyMsg" style="display:none;text-align:center;color:var(--muted);font-size:.85rem;padding:20px;">مفيش مستخدمين مسجلين لسه</p>
     </div></div>
@@ -1464,7 +1471,7 @@
   </div>
 
   <div class="orders-tabs" id="ordersTabs">
-    <div class="orders-tab add-order-tab" onclick="openManualOrderModal()">➕ طلب</div>
+    <div class="orders-tab add-order-tab" onclick="openManualOrderModal()">طلب</div>
     <div class="orders-tab active" data-filter="new" onclick="filterOrders('new', this)">طلبات</div>
     <div class="orders-tab" data-filter="pending" onclick="filterOrders('pending', this)">انتظار</div>
   </div>
@@ -1510,12 +1517,12 @@
     <div id="robuxEditTitle" style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#dc2626;letter-spacing:.03em;margin-bottom:16px;"></div>
     <input type="number" class="oinput" id="robuxEditInput" style="width:100%;text-align:center;font-size:1rem;padding:12px;margin-bottom:16px;" placeholder="اكتب القيمة">
     <div id="robuxNormalButtons" style="display:flex;gap:8px;">
-      <button class="login-submit-btn" id="robuxSaveNormalBtn" style="flex:1;background:#dc2626;margin-top:0;" onclick="saveRobuxEdit()">💾 حفظ</button>
+      <button class="login-submit-btn" id="robuxSaveNormalBtn" style="flex:1;background:#dc2626;margin-top:0;" onclick="saveRobuxEdit()">حفظ</button>
       <button class="back-btn" style="flex:1;justify-content:center;margin:0;background:rgba(220,38,38,.12);border-color:rgba(220,38,38,.35);color:#dc2626;" onclick="closeRobuxEdit()">إلغاء</button>
     </div>
     <div id="robuxBuySellButtons" style="display:none;gap:8px;">
-      <button class="login-submit-btn" style="flex:1;background:#6fcf3a;margin-top:0;" onclick="saveRobuxAdjust('buy')">➕ شراء</button>
-      <button class="login-submit-btn" style="flex:1;background:#e05555;margin-top:0;" onclick="saveRobuxAdjust('sell')">➖ بيع</button>
+      <button class="login-submit-btn" style="flex:1;background:#6fcf3a;margin-top:0;" onclick="saveRobuxAdjust('buy')">شراء</button>
+      <button class="login-submit-btn" style="flex:1;background:#e05555;margin-top:0;" onclick="saveRobuxAdjust('sell')">بيع</button>
     </div>
   </div>
 </div>
@@ -1526,7 +1533,7 @@
     <!-- ============ صف العنوان + زرار الفواتير على نفس الخط، وتحته خط وردي واضح بيفصل عن إجمالي الكاش وباقي القسم ============ -->
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
       <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#dc2626;letter-spacing:.03em;">الكاش</div>
-      <button type="button" onclick="openCashInvoicesPage()" title="كل الفواتير المسجلة" aria-label="كل الفواتير المسجلة" style="width:36px;height:36px;flex-shrink:0;border-radius:50%;border:none;background:radial-gradient(circle at 35% 28%, #ff5b96, #dc2626 65%, #c21f5c);box-shadow:0 3px 10px rgba(220,38,38,.4), inset 0 1px 0 rgba(255,255,255,.25);font-size:1rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;">🧾</button>
+      <button type="button" onclick="openCashInvoicesPage()" title="كل الفواتير المسجلة" aria-label="كل الفواتير المسجلة" style="width:36px;height:36px;flex-shrink:0;border-radius:50%;border:none;background:radial-gradient(circle at 35% 28%, #ff5b96, #dc2626 65%, #c21f5c);box-shadow:0 3px 10px rgba(220,38,38,.4), inset 0 1px 0 rgba(255,255,255,.25);font-size:1rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2h12v20l-3-2-3 2-3-2-3 2zM9 7h6M9 11h6M9 15h4"/></svg></button>
     </div>
     <div style="border-bottom:2px solid #dc2626;margin-bottom:12px;"></div>
     <div style="color:var(--muted);font-size:.85rem;margin-bottom:16px;"><span id="cashOverlayTotal" style="color:var(--white);font-weight:800;">—</span> EGP</div>
@@ -1534,11 +1541,11 @@
     <input type="number" class="oinput" id="cashReqAmount" placeholder="المبلغ" style="width:100%;margin-bottom:10px;">
     <input type="text" class="oinput" id="cashReqReason" placeholder="السبب" style="width:100%;margin-bottom:10px;">
     <div style="display:flex;gap:8px;margin-bottom:10px;">
-      <button type="button" class="o-action-btn done active" id="cashReqTypeWithdrawBtn" style="flex:1;" onclick="setCashReqType('withdraw')">📤 سحب</button>
-      <button type="button" class="o-action-btn pending" id="cashReqTypeDepositBtn" style="flex:1;" onclick="setCashReqType('deposit')">📥 إيداع</button>
+      <button type="button" class="o-action-btn done active" id="cashReqTypeWithdrawBtn" style="flex:1;" onclick="setCashReqType('withdraw')">سحب</button>
+      <button type="button" class="o-action-btn pending" id="cashReqTypeDepositBtn" style="flex:1;" onclick="setCashReqType('deposit')">إيداع</button>
     </div>
     <div id="cashReqStatus" class="login-status" style="margin-bottom:8px;"></div>
-    <button class="login-submit-btn" style="background:#dc2626;" onclick="submitCashRequest()">➕ إضافة</button>
+    <button class="login-submit-btn" style="background:#dc2626;" onclick="submitCashRequest()">إضافة</button>
   </div>
 </div>
 
@@ -1547,7 +1554,7 @@
   <div onclick="event.stopPropagation()" style="width:100%;max-width:380px;max-height:88vh;overflow-y:auto;background:#141414;border:1.5px solid rgba(220,38,38,.4);border-radius:16px;padding:22px;">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
       <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#dc2626;letter-spacing:.03em;">دائن ومدين</div>
-      <button type="button" onclick="openDebtsInvoicePage()" title="فاتورة" aria-label="فاتورة" style="width:36px;height:36px;flex-shrink:0;border-radius:50%;border:none;background:radial-gradient(circle at 35% 28%, #ff5b96, #dc2626 65%, #c21f5c);box-shadow:0 3px 10px rgba(220,38,38,.4), inset 0 1px 0 rgba(255,255,255,.25);font-size:1rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;">📋</button>
+      <button type="button" onclick="openDebtsInvoicePage()" title="فاتورة" aria-label="فاتورة" style="width:36px;height:36px;flex-shrink:0;border-radius:50%;border:none;background:radial-gradient(circle at 35% 28%, #ff5b96, #dc2626 65%, #c21f5c);box-shadow:0 3px 10px rgba(220,38,38,.4), inset 0 1px 0 rgba(255,255,255,.25);font-size:1rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></button>
     </div>
     <div style="border-bottom:2px solid #dc2626;margin-bottom:12px;"></div>
 
@@ -1559,7 +1566,7 @@
       <button type="button" class="o-action-btn pending" id="debtTypeAlaihBtn" style="flex:1;" onclick="setDebtType('alaih')">ليا</button>
     </div>
     <div id="debtStatus" class="login-status" style="margin-bottom:8px;"></div>
-    <button class="login-submit-btn" style="background:#dc2626;" onclick="submitDebtEntry()">➕ حفظ</button>
+    <button class="login-submit-btn" style="background:#dc2626;" onclick="submitDebtEntry()">حفظ</button>
   </div>
 </div>
 
@@ -1572,12 +1579,12 @@
 
   <div class="stats-grid" style="grid-template-columns:1fr 1fr;margin-bottom:18px;">
     <div class="stat-card">
-      <div class="stat-icon">🤝</div>
+      <div class="stat-icon"></div>
       <div class="stat-value" id="debtsInvoiceTotalLia" style="color:#6fcf3a;">—</div>
       <div class="stat-label">ليا</div>
     </div>
     <div class="stat-card">
-      <div class="stat-icon">🤝</div>
+      <div class="stat-icon"></div>
       <div class="stat-value" id="debtsInvoiceTotalAlaya" style="color:#e05555;">—</div>
       <div class="stat-label">عليا</div>
     </div>
@@ -1602,16 +1609,16 @@
     <input type="number" class="oinput" id="personDebtAmount" placeholder="المبلغ" style="width:100%;margin-bottom:10px;">
     <!-- ============ اختيار الحركة بس: إضافة بتزود في إجمالي الشخص، خصم بيقلل منه — نوع الحساب (ليا/عليا) بتاعه اتحدد لما اتعمل الحساب من الصفحة اللي برا ومش بيتغير من هنا ============ -->
     <div style="display:flex;gap:8px;margin-bottom:10px;">
-      <button type="button" class="o-action-btn done active" id="personDebtDirAddBtn" style="flex:1;" onclick="setPersonDebtDirection('add')">➕ إضافة</button>
-      <button type="button" class="o-action-btn cancel" id="personDebtDirSubBtn" style="flex:1;" onclick="setPersonDebtDirection('sub')">➖ خصم</button>
+      <button type="button" class="o-action-btn done active" id="personDebtDirAddBtn" style="flex:1;" onclick="setPersonDebtDirection('add')">إضافة</button>
+      <button type="button" class="o-action-btn cancel" id="personDebtDirSubBtn" style="flex:1;" onclick="setPersonDebtDirection('sub')">خصم</button>
     </div>
-    <button class="login-submit-btn" style="background:#dc2626;margin-bottom:8px;" onclick="addPersonDebtEntry()">💾 حفظ</button>
+    <button class="login-submit-btn" style="background:#dc2626;margin-bottom:8px;" onclick="addPersonDebtEntry()">حفظ</button>
     <div id="personDebtStatus" class="login-status" style="margin-bottom:8px;"></div>
 
     <div class="table-wrap" id="personDebtWrap" style="margin-top:10px;"></div>
     <p id="personDebtEmptyMsg" style="display:none;text-align:center;color:var(--muted);font-size:.85rem;padding:20px;">مفيش حركات مسجلة لسه</p>
 
-    <button class="back-btn" style="width:100%;justify-content:center;margin-top:18px;background:rgba(224,85,85,.12);border-color:rgba(224,85,85,.4);color:#e05555;" onclick="deletePersonDebtAccount()">🗑️ حذف الحساب كله</button>
+    <button class="back-btn" style="width:100%;justify-content:center;margin-top:18px;background:rgba(224,85,85,.12);border-color:rgba(224,85,85,.4);color:#e05555;" onclick="deletePersonDebtAccount()">حذف الحساب كله</button>
   </div>
 </div>
 
@@ -2044,7 +2051,7 @@
   }
   window.showDebtsInvoicePage = showDebtsInvoicePage;
 
-  // بيتنادى من ايموجي "📋" جوه بوب أب الدائن والمدين — بيقفل البوب أب (DOM بس) وينتقل للصفحة
+  // بيتنادى من ايموجي "" جوه بوب أب الدائن والمدين — بيقفل البوب أب (DOM بس) وينتقل للصفحة
   function openDebtsInvoicePage() {
     hideDebtsOverlayDom();
     showDebtsInvoicePage();
@@ -2161,8 +2168,8 @@
           <div onclick="showOrderDetail('${o.id}')" style="cursor:pointer;flex:1;min-width:0;">
             <div class="o-game">${esc(o.game)}</div>
             <div class="o-user">${esc(o.user)} · ${esc(o.time)}${o.price ? ' · ' + esc(o.price) + ' جنيه' : ''}</div>
-            ${o.egpEarned > 0 ? `<div class="o-user" style="color:#6fcf3a;">🎁 كاش باك: ${esc(o.egpEarned)} EGP</div>` : ''}
-            <div class="o-user" style="color:${o.egpUsed > 0 ? '#ef4444' : 'var(--muted)'};">💳 استخدم رصيد خصم: ${o.egpUsed > 0 ? 'نعم (' + esc(o.egpUsed) + ' EGP)' : 'لا'}</div>
+            ${o.egpEarned > 0 ? `<div class="o-user" style="color:#6fcf3a;">كاش باك: ${esc(o.egpEarned)} EGP</div>` : ''}
+            <div class="o-user" style="color:${o.egpUsed > 0 ? '#ef4444' : 'var(--muted)'};">استخدم رصيد خصم: ${o.egpUsed > 0 ? 'نعم (' + esc(o.egpUsed) + ' EGP)' : 'لا'}</div>
           </div>
         </div>
         ${isNewTab ? `
@@ -2219,8 +2226,8 @@
     const o = ordersData.find(x => x.id === id);
     if (!o) return;
     document.getElementById('orderDetailTitleAdmin').textContent = o.game || 'طلب';
-    const cashbackNote = o.egpEarned > 0 ? `\n\n🎁 كاش باك: ${o.egpEarned} EGP (هيتسجل لرصيد العميل لما تدوس "تم")` : '';
-    const discountNote = `\n\n💳 استخدم رصيد خصم: ${o.egpUsed > 0 ? 'نعم (' + o.egpUsed + ' EGP)' : 'لا'}`;
+    const cashbackNote = o.egpEarned > 0 ? `\n\nكاش باك: ${o.egpEarned} EGP (هيتسجل لرصيد العميل لما تدوس "تم")` : '';
+    const discountNote = `\n\nاستخدم رصيد خصم: ${o.egpUsed > 0 ? 'نعم (' + o.egpUsed + ' EGP)' : 'لا'}`;
     document.getElementById('orderDetailBodyAdmin').textContent = (o.fullDetails || 'مفيش تفاصيل إضافية') + cashbackNote + discountNote;
     document.getElementById('orderDetailOverlay').style.display = 'flex';
     adminNavSetOverlay('orderDetail', { id });
@@ -2277,8 +2284,8 @@
         <div class="o-user">الرصيد الحالي: <strong style="color:#6fcf3a;">${u.balance || 0} EGP</strong></div>
         <div class="order-actions">
           <input type="number" class="oinput" id="cur-amt-${esc(u.uid)}" placeholder="القيمة" style="flex:1;min-width:70px;">
-          <button class="o-action-btn done" onclick="adjustUserBalance('${esc(u.uid)}', 1)">➕ إضافة</button>
-          <button class="o-action-btn cancel" onclick="adjustUserBalance('${esc(u.uid)}', -1)">➖ خصم</button>
+          <button class="o-action-btn done" onclick="adjustUserBalance('${esc(u.uid)}', 1)">إضافة</button>
+          <button class="o-action-btn cancel" onclick="adjustUserBalance('${esc(u.uid)}', -1)">خصم</button>
         </div>
       </div>
     `).join('');
@@ -2315,7 +2322,7 @@
       <div class="order-row">
         <div class="o-game">${esc(c.code)}</div>
         <div class="o-user"><strong style="color:#6fcf3a;">${c.amount || 0} EGP</strong> — متاح للاستخدام</div>
-        <button class="o-trash-btn" onclick="deleteRedemptionCode('${esc(c.code)}')" title="حذف الكود">🗑️</button>
+        <button class="o-trash-btn" onclick="deleteRedemptionCode('${esc(c.code)}')" title="حذف الكود"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 11v5M14 11v5"/></svg></button>
       </div>
     `).join('');
   }
@@ -2386,7 +2393,7 @@
     const statusEl = document.getElementById('robuxDataStatus');
     try {
       await window.fbSetDoc(getRobuxDataRef(), { ...robuxValues, updatedAt: window.fbServerTimestamp() }, { merge: true });
-      if (statusEl) { statusEl.textContent = 'اتحفظ ✅'; statusEl.className = 'login-status ok'; setTimeout(() => { if (statusEl.textContent === 'اتحفظ ✅') statusEl.textContent = ''; }, 2000); }
+      if (statusEl) { statusEl.textContent = 'اتحفظ'; statusEl.className = 'login-status ok'; setTimeout(() => { if (statusEl.textContent === 'اتحفظ') statusEl.textContent = ''; }, 2000); }
     } catch (err) {
       console.error('تعذر حفظ بيانات حساباتي:', err);
       if (statusEl) {
@@ -2512,7 +2519,7 @@
       if (typeof window.loadCashTotal === 'function') window.loadCashTotal();
       amountInput.value = '';
       reasonInput.value = '';
-      if (statusEl) { statusEl.textContent = 'اتضاف ✅'; statusEl.className = 'login-status ok'; setTimeout(() => { if (statusEl.textContent === 'اتضاف ✅') statusEl.textContent = ''; }, 2000); }
+      if (statusEl) { statusEl.textContent = 'اتضاف'; statusEl.className = 'login-status ok'; setTimeout(() => { if (statusEl.textContent === 'اتضاف') statusEl.textContent = ''; }, 2000); }
     } catch (err) {
       console.error('تعذر إضافة طلب الكاش:', err);
       const rawCode = err && err.code ? err.code : '';
@@ -2538,7 +2545,7 @@
       <div class="order-row" data-id="${esc(r.id)}">
         <div class="order-top-row">
           <div style="flex:1;min-width:0;">
-            <div class="o-game">${r.type === 'withdraw' ? '📤 سحب' : '📥 إيداع'} — ${esc(String(r.amount))} EGP</div>
+            <div class="o-game">${r.type === 'withdraw' ? 'سحب' : 'إيداع'} — ${esc(String(r.amount))} EGP</div>
             <div class="o-user">${esc(r.reason)}</div>
           </div>
         </div>
@@ -2567,7 +2574,7 @@
         <input type="number" class="oinput price-input" placeholder="السعر" value="${item.price != null ? item.price : ''}">
         <input type="number" class="oinput egp-input" placeholder="EGP" value="${item.egp != null ? item.egp : ''}">
         <label class="custom-check"><input type="checkbox" ${isCustom ? 'checked' : ''}> نص</label>
-        <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
+        <button class="remove-row-btn" onclick="removePriceRow(this)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 11v5M14 11v5"/></svg></button>
       </div>`;
     }
     if (section === 'giftcard') {
@@ -2575,7 +2582,7 @@
         <input type="text" class="oinput amt-input" placeholder="USD" value="${item.usd != null ? item.usd : ''}">
         <input type="number" class="oinput price-input" placeholder="السعر" value="${item.price != null ? item.price : ''}">
         <input type="number" class="oinput egp-input" placeholder="EGP" value="${item.egp != null ? item.egp : ''}">
-        <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
+        <button class="remove-row-btn" onclick="removePriceRow(this)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 11v5M14 11v5"/></svg></button>
       </div>`;
     }
     if (section === 'pubgUc') {
@@ -2583,7 +2590,7 @@
         <input type="text" class="oinput amt-input" placeholder="UC" value="${item.uc != null ? item.uc : ''}">
         <input type="number" class="oinput price-input" placeholder="السعر" value="${item.price != null ? item.price : ''}">
         <input type="number" class="oinput egp-input" placeholder="EGP" value="${item.egp != null ? item.egp : ''}">
-        <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
+        <button class="remove-row-btn" onclick="removePriceRow(this)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 11v5M14 11v5"/></svg></button>
       </div>`;
     }
     if (section === 'pubgOrod') {
@@ -2592,7 +2599,7 @@
         <input type="text" class="oinput desc-input" placeholder="الوصف" value="${item.desc != null ? item.desc : ''}" style="flex:1 1 100%;">
         <input type="number" class="oinput price-input" placeholder="السعر" value="${item.price != null ? item.price : ''}">
         <input type="number" class="oinput egp-input" placeholder="EGP" value="${item.egp != null ? item.egp : ''}">
-        <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
+        <button class="remove-row-btn" onclick="removePriceRow(this)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 11v5M14 11v5"/></svg></button>
       </div>`;
     }
     if (section === 'ffId' || section === 'ffAcc') {
@@ -2603,7 +2610,7 @@
         <input type="number" class="oinput price-input" placeholder="السعر" value="${item.price != null ? item.price : ''}">
         <input type="number" class="oinput egp-input" placeholder="EGP" value="${item.egp != null ? item.egp : ''}">
         <label class="custom-check"><input type="checkbox" ${isCustom ? 'checked' : ''}> اشتراك</label>
-        <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
+        <button class="remove-row-btn" onclick="removePriceRow(this)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 11v5M14 11v5"/></svg></button>
       </div>`;
     }
     if (section === 'fifaFc' || section === 'fifaSilver') {
@@ -2611,7 +2618,7 @@
         <input type="text" class="oinput amt-input" placeholder="${section === 'fifaFc' ? 'FC' : 'Silver'}" value="${item.amt != null ? item.amt : ''}">
         <input type="number" class="oinput price-input" placeholder="السعر" value="${item.price != null ? item.price : ''}">
         <input type="number" class="oinput egp-input" placeholder="EGP" value="${item.egp != null ? item.egp : ''}">
-        <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
+        <button class="remove-row-btn" onclick="removePriceRow(this)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 11v5M14 11v5"/></svg></button>
       </div>`;
     }
     if (section === 'fifaOrod') {
@@ -2620,7 +2627,7 @@
         <input type="number" class="oinput price-input" placeholder="السعر" value="${item.price != null ? item.price : ''}">
         <input type="number" class="oinput orig-price-input" placeholder="السعر قبل الخصم (اختياري)" value="${item.origPrice != null ? item.origPrice : ''}">
         <input type="number" class="oinput egp-input" placeholder="EGP" value="${item.egp != null ? item.egp : ''}">
-        <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
+        <button class="remove-row-btn" onclick="removePriceRow(this)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 11v5M14 11v5"/></svg></button>
       </div>`;
     }
     if (section === 'pes') {
@@ -2628,7 +2635,7 @@
         <input type="text" class="oinput amt-input" placeholder="Coins" value="${item.coin != null ? item.coin : ''}">
         <input type="number" class="oinput price-input" placeholder="السعر" value="${item.price != null ? item.price : ''}">
         <input type="number" class="oinput egp-input" placeholder="EGP" value="${item.egp != null ? item.egp : ''}">
-        <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
+        <button class="remove-row-btn" onclick="removePriceRow(this)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 11v5M14 11v5"/></svg></button>
       </div>`;
     }
     if (section === 'brawl') {
@@ -2636,7 +2643,7 @@
         <input type="text" class="oinput label-input" placeholder="اسم الباقة" value="${item.label != null ? item.label : ''}">
         <input type="number" class="oinput price-input" placeholder="السعر" value="${item.price != null ? item.price : ''}">
         <input type="number" class="oinput egp-input" placeholder="EGP" value="${item.egp != null ? item.egp : ''}">
-        <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
+        <button class="remove-row-btn" onclick="removePriceRow(this)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 11v5M14 11v5"/></svg></button>
       </div>`;
     }
     // comFawri / comHagz
@@ -2644,7 +2651,7 @@
       <input type="text" class="oinput amt-input" placeholder="روبكس" value="${item.rob != null ? item.rob : ''}">
       <input type="number" class="oinput price-input" placeholder="السعر" value="${item.price != null ? item.price : ''}">
       <input type="number" class="oinput egp-input" placeholder="EGP" value="${item.egp != null ? item.egp : ''}">
-      <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
+      <button class="remove-row-btn" onclick="removePriceRow(this)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 11v5M14 11v5"/></svg></button>
     </div>`;
   }
 
@@ -2784,7 +2791,7 @@
       <input type="text" class="oinput label-input" placeholder="الكود" value="${item.code != null ? item.code : ''}" style="text-transform:uppercase;">
       <input type="number" class="oinput price-input" placeholder="%" value="${item.percent != null ? item.percent : ''}">
       <label class="custom-check"><input type="checkbox" ${isActive ? 'checked' : ''}> فعّال</label>
-      <button class="remove-row-btn" onclick="removePriceRow(this)">🗑️</button>
+      <button class="remove-row-btn" onclick="removePriceRow(this)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 11v5M14 11v5"/></svg></button>
     </div>`;
   }
 
@@ -3125,12 +3132,12 @@
       <div class="order-row" data-id="${esc(inv.id)}">
         <div class="order-top-row">
           <div style="flex:1;min-width:0;">
-            <div class="o-game">${inv.type === 'withdraw' ? '📤 سحب' : '📥 إيداع'} — ${esc(String(inv.amount))} EGP</div>
+            <div class="o-game">${inv.type === 'withdraw' ? 'سحب' : 'إيداع'} — ${esc(String(inv.amount))} EGP</div>
             <div class="o-user">${esc(inv.reason)}</div>
           </div>
         </div>
         <div class="order-actions">
-          <button class="o-action-btn cancel" onclick="deleteCashInvoice('${inv.id}')">🗑️ حذف</button>
+          <button class="o-action-btn cancel" onclick="deleteCashInvoice('${inv.id}')">حذف</button>
         </div>
       </div>
     `).join('');
@@ -3231,7 +3238,7 @@
       nameInput.value = '';
       if (phoneInput) phoneInput.value = '';
       amountInput.value = '';
-      if (statusEl) { statusEl.textContent = 'اتضاف ✅'; statusEl.className = 'login-status ok'; setTimeout(() => { if (statusEl.textContent === 'اتضاف ✅') statusEl.textContent = ''; }, 2000); }
+      if (statusEl) { statusEl.textContent = 'اتضاف'; statusEl.className = 'login-status ok'; setTimeout(() => { if (statusEl.textContent === 'اتضاف') statusEl.textContent = ''; }, 2000); }
     } catch (err) {
       console.error('تعذر إضافة الحسبة:', err);
       const rawCode = err && err.code ? err.code : '';
@@ -3287,7 +3294,7 @@
         <div class="order-top-row">
           <div style="flex:1;min-width:0;">
             <div class="o-game">${esc(p.name)}</div>
-            ${p.phone ? `<div class="o-user">📞 ${esc(p.phone)}</div>` : ''}
+            ${p.phone ? `<div class="o-user">${esc(p.phone)}</div>` : ''}
             <div class="o-user" style="color:${currentDebtsFilter === 'lia' ? '#6fcf3a' : '#e05555'};">${Math.abs(p.total)} EGP</div>
           </div>
         </div>
@@ -3308,7 +3315,7 @@
 
     const entries = (window.debtsData || []).filter(d => d.name === name).sort((a, b) => b.sortTime - a.sortTime);
     const phone = (entries.find(d => d.phone) || {}).phone || '';
-    if (phoneEl) phoneEl.textContent = phone ? `📞 ${phone}` : '';
+    if (phoneEl) phoneEl.textContent = phone ? `${phone}` : '';
     // حساب الشخص نوعه واحد بس (ليا أو عليا)، اتحدد لما اتعمل الحساب من الصفحة اللي برا — هنا بس بنزود أو بنقلل فيه
     const accountType = entries.length ? entries[0].type : 'alaih';
     window.currentDebtPersonType = accountType;
@@ -3332,7 +3339,7 @@
     wrap.innerHTML = entries.map(dItem => {
       const isSub = dItem.direction === 'sub';
       const color = isSub ? '#e05555' : '#6fcf3a';
-      const actionLabel = isSub ? '➖ خصم' : '➕ إضافة';
+      const actionLabel = isSub ? 'خصم' : 'إضافة';
       return `
       <div class="order-row" data-id="${esc(dItem.id)}">
         <div class="order-top-row">
@@ -3341,7 +3348,7 @@
           </div>
         </div>
         <div class="order-actions">
-          <button class="o-action-btn cancel" onclick="deleteDebtEntry('${dItem.id}')">🗑️ حذف</button>
+          <button class="o-action-btn cancel" onclick="deleteDebtEntry('${dItem.id}')">حذف</button>
         </div>
       </div>
     `;
@@ -3377,7 +3384,7 @@
         name, amount, type: accountType, direction: personDebtDirection, createdAt: serverTimestamp()
       });
       amountInput.value = '';
-      if (statusEl) { statusEl.textContent = 'اتحفظ ✅'; statusEl.className = 'login-status ok'; setTimeout(() => { if (statusEl.textContent === 'اتحفظ ✅') statusEl.textContent = ''; }, 2000); }
+      if (statusEl) { statusEl.textContent = 'اتحفظ'; statusEl.className = 'login-status ok'; setTimeout(() => { if (statusEl.textContent === 'اتحفظ') statusEl.textContent = ''; }, 2000); }
     } catch (err) {
       console.error('تعذر إضافة الحركة:', err);
       const rawCode = err && err.code ? err.code : '';
@@ -3523,7 +3530,7 @@
       });
       codeInput.value = '';
       amountInput.value = '';
-      if (statusEl) { statusEl.textContent = 'اتضاف الكود بنجاح ✅'; statusEl.className = 'login-status ok'; }
+      if (statusEl) { statusEl.textContent = 'اتضاف الكود بنجاح'; statusEl.className = 'login-status ok'; }
     } catch (err) {
       // بنطبع كود ورسالة الخطأ الحقيقية من Firebase عشان تبان في الشاشة وتقدر تشخص المشكلة فورًا
       console.error('تعذر إضافة كود الاسترداد:', err);
@@ -3748,7 +3755,7 @@
         setDoc(doc(db, 'pricing', 'roblox'), pricingPayload),
         setDoc(doc(db, 'pricing', 'bonusCodes'), bonusPayload)
       ]);
-      if (statusEl) { statusEl.textContent = 'تم الحفظ ✅'; statusEl.className = 'login-status ok'; }
+      if (statusEl) { statusEl.textContent = 'تم الحفظ'; statusEl.className = 'login-status ok'; }
     } catch (err) {
       console.error('تعذر حفظ أسعار روبلكس أو أكواد الزيادة:', err);
       if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء الحفظ، حاول تاني'; statusEl.className = 'login-status err'; }
@@ -3802,7 +3809,7 @@
         updatedAt: serverTimestamp()
       };
       await setDoc(doc(db, 'pricing', 'pubg'), pricingPayload);
-      if (statusEl) { statusEl.textContent = 'تم الحفظ ✅'; statusEl.className = 'login-status ok'; }
+      if (statusEl) { statusEl.textContent = 'تم الحفظ'; statusEl.className = 'login-status ok'; }
     } catch (err) {
       console.error('تعذر حفظ أسعار ببجي:', err);
       if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء الحفظ، حاول تاني'; statusEl.className = 'login-status err'; }
@@ -3863,7 +3870,7 @@
         updatedAt: serverTimestamp()
       };
       await setDoc(doc(db, 'pricing', 'freefire'), pricingPayload);
-      if (statusEl) { statusEl.textContent = 'تم الحفظ ✅'; statusEl.className = 'login-status ok'; }
+      if (statusEl) { statusEl.textContent = 'تم الحفظ'; statusEl.className = 'login-status ok'; }
     } catch (err) {
       console.error('تعذر حفظ أسعار فري فاير:', err);
       if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء الحفظ، حاول تاني'; statusEl.className = 'login-status err'; }
@@ -3881,7 +3888,7 @@
       { amt: 999, price: 550 }, { amt: 1999, price: 1050 }
     ],
     orod: [
-      { label: '⭐ تصريح النجم', price: 260, origPrice: 280 }
+      { label: 'تصريح النجم', price: 260, origPrice: 280 }
     ]
   };
 
@@ -3917,7 +3924,7 @@
         updatedAt: serverTimestamp()
       };
       await setDoc(doc(db, 'pricing', 'fifa'), pricingPayload);
-      if (statusEl) { statusEl.textContent = 'تم الحفظ ✅'; statusEl.className = 'login-status ok'; }
+      if (statusEl) { statusEl.textContent = 'تم الحفظ'; statusEl.className = 'login-status ok'; }
     } catch (err) {
       console.error('تعذر حفظ أسعار فيفا:', err);
       if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء الحفظ، حاول تاني'; statusEl.className = 'login-status err'; }
@@ -3957,7 +3964,7 @@
         updatedAt: serverTimestamp()
       };
       await setDoc(doc(db, 'pricing', 'pes'), pricingPayload);
-      if (statusEl) { statusEl.textContent = 'تم الحفظ ✅'; statusEl.className = 'login-status ok'; }
+      if (statusEl) { statusEl.textContent = 'تم الحفظ'; statusEl.className = 'login-status ok'; }
     } catch (err) {
       console.error('تعذر حفظ أسعار بيس:', err);
       if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء الحفظ، حاول تاني'; statusEl.className = 'login-status err'; }
@@ -3996,7 +4003,7 @@
         updatedAt: serverTimestamp()
       };
       await setDoc(doc(db, 'pricing', 'brawlstars'), pricingPayload);
-      if (statusEl) { statusEl.textContent = 'تم الحفظ ✅'; statusEl.className = 'login-status ok'; }
+      if (statusEl) { statusEl.textContent = 'تم الحفظ'; statusEl.className = 'login-status ok'; }
     } catch (err) {
       console.error('تعذر حفظ أسعار براول ستارز:', err);
       if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء الحفظ، حاول تاني'; statusEl.className = 'login-status err'; }
@@ -4016,39 +4023,34 @@
   };
 
   // إعدادات المسابقة اللي بتتغير بضغطة: إظهار الكارت في الكروت اللي بتلف + قفل التسجيل (اكتمل العدد)
-  const contestFlags = { showCard: false, closed: false };
+  // زر واحد بس: التسجيل مفتوح = كارت المسابقة + الرسالة ظاهرين في الموقع، مقفول = الاتنين مخفيين
+  const contestFlags = { open: false };
   window.renderContestFlagBtns = function () {
-    const a = document.getElementById('contestShowCardBtn');
     const b = document.getElementById('contestClosedBtn');
-    if (a) {
-      a.textContent = contestFlags.showCard ? '👁️ كارت المسابقة: ظاهر' : '👁️ كارت المسابقة: مخفي';
-      a.style.background = contestFlags.showCard ? 'rgba(111,207,58,.14)' : '';
-      a.style.borderColor = contestFlags.showCard ? 'rgba(111,207,58,.45)' : '';
-      a.style.color = contestFlags.showCard ? '#6fcf3a' : '';
-    }
-    if (b) {
-      b.textContent = contestFlags.closed ? '🔒 التسجيل: اكتمل العدد' : '🔓 التسجيل: مفتوح';
-      b.style.background = contestFlags.closed ? 'rgba(224,85,85,.14)' : '';
-      b.style.borderColor = contestFlags.closed ? 'rgba(224,85,85,.45)' : '';
-      b.style.color = contestFlags.closed ? '#e05555' : '';
-    }
+    if (!b) return;
+    const open = contestFlags.open;
+    b.textContent = open ? 'التسجيل: مفتوح' : 'التسجيل: مقفول';
+    b.style.background = open ? 'rgba(111,207,58,.16)' : 'rgba(220,38,38,.18)';
+    b.style.borderColor = open ? 'rgba(111,207,58,.55)' : 'rgba(220,38,38,.6)';
+    b.style.color = open ? '#6fcf3a' : '#ef4444';
   };
-  window.toggleContestFlag = async function (key) {
+  window.toggleContestOpen = async function () {
     const statusEl = document.getElementById('contestsAdminStatus');
     try {
       const snap = await getDoc(doc(db, 'pricing', 'contest'));
       const cur = snap.exists() ? snap.data() : {};
       if (!cur.title) {
-        if (statusEl) { statusEl.textContent = 'احفظ المسابقة الأول وبعدين فعّل الكارت أو اقفل التسجيل'; statusEl.className = 'login-status err'; }
+        if (statusEl) { statusEl.textContent = 'احفظ المسابقة الأول وبعدين افتح التسجيل'; statusEl.className = 'login-status err'; }
         return;
       }
-      const next = !contestFlags[key];
-      await setDoc(doc(db, 'pricing', 'contest'), { [key]: next }, { merge: true });
-      contestFlags[key] = next;
+      const next = !contestFlags.open;
+      // showCard = الكارت والرسالة ظاهرين، closed عكسه (الموقع بيقرا الاتنين)
+      await setDoc(doc(db, 'pricing', 'contest'), { showCard: next, closed: !next }, { merge: true });
+      contestFlags.open = next;
       window.renderContestFlagBtns();
-      if (statusEl) { statusEl.textContent = 'تم ✅'; statusEl.className = 'login-status ok'; setTimeout(() => { if (statusEl.textContent === 'تم ✅') statusEl.textContent = ''; }, 1500); }
+      if (statusEl) { statusEl.textContent = next ? 'التسجيل اتفتح' : 'التسجيل اتقفل'; statusEl.className = 'login-status ok'; setTimeout(() => { statusEl.textContent = ''; }, 1500); }
     } catch (err) {
-      console.error('تعذر تحديث إعداد المسابقة:', err);
+      console.error('تعذر تغيير حالة التسجيل:', err);
       if (statusEl) { statusEl.textContent = 'حصلت مشكلة، حاول تاني'; statusEl.className = 'login-status err'; }
     }
   };
@@ -4065,8 +4067,7 @@
       document.getElementById('contestStartInput').value = data.startAt || '';
       window.syncContestStartDisplay();
       document.getElementById('contestPhoneInput').value = data.phone || '';
-      contestFlags.showCard = data.showCard === true;
-      contestFlags.closed = data.closed === true;
+      contestFlags.open = data.showCard === true;
       window.renderContestFlagBtns();
       if (statusEl) statusEl.textContent = '';
       window.loadContestEntries();
@@ -4181,8 +4182,8 @@
     if (statusEl) { statusEl.textContent = 'بيتم الحفظ...'; statusEl.className = 'login-status'; }
     try {
       // الموقع الأساسي بيستخدم الرقم ده في زرار التسجيل بس، ومش بيعرضه
-      await setDoc(doc(db, 'pricing', 'contest'), { title, prize, start, startAt, phone, showCard: contestFlags.showCard, closed: contestFlags.closed, updatedAt: serverTimestamp() });
-      if (statusEl) { statusEl.textContent = 'تم الحفظ ✅'; statusEl.className = 'login-status ok'; }
+      await setDoc(doc(db, 'pricing', 'contest'), { title, prize, start, startAt, phone, showCard: contestFlags.open, closed: !contestFlags.open, updatedAt: serverTimestamp() });
+      if (statusEl) { statusEl.textContent = 'تم الحفظ'; statusEl.className = 'login-status ok'; }
     } catch (err) {
       console.error('تعذر حفظ المسابقة:', err);
       if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء الحفظ، حاول تاني'; statusEl.className = 'login-status err'; }
@@ -4193,7 +4194,7 @@
     if (!confirm('متأكد إنك عايز تمسح المسابقة؟')) return;
     const statusEl = document.getElementById('contestsAdminStatus');
     try {
-      await setDoc(doc(db, 'pricing', 'contest'), { title: '', prize: '', start: '', startAt: '', phone: '', showCard: false, closed: false, updatedAt: serverTimestamp() });
+      await setDoc(doc(db, 'pricing', 'contest'), { title: '', prize: '', start: '', startAt: '', phone: '', showCard: false, closed: true, updatedAt: serverTimestamp() });
       // المسابقة خلصت: بنمسح كل المسجلين عشان يقدروا يسجلوا في اللي بعدها
       const entriesSnap = await getDocs(collection(db, 'contestEntries'));
       await Promise.all(entriesSnap.docs.map(function (d) { return deleteDoc(d.ref); }));
@@ -4202,10 +4203,10 @@
       document.getElementById('contestStartInput').value = '';
       window.syncContestStartDisplay();
       document.getElementById('contestPhoneInput').value = '';
-      contestFlags.showCard = false; contestFlags.closed = false;
+      contestFlags.open = false;
       window.renderContestFlagBtns();
       window.loadContestEntries();
-      if (statusEl) { statusEl.textContent = 'تم مسح المسابقة ✅'; statusEl.className = 'login-status ok'; }
+      if (statusEl) { statusEl.textContent = 'تم مسح المسابقة'; statusEl.className = 'login-status ok'; }
     } catch (err) {
       console.error('تعذر مسح المسابقة:', err);
       if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء المسح، حاول تاني'; statusEl.className = 'login-status err'; }
@@ -4224,5 +4225,19 @@
   };
 </script>
 
+<script>
+(function () {
+  function fixArabicInputs(root) {
+    (root || document).querySelectorAll('input[type="text"], input[type="search"], input[type="tel"], input:not([type]), textarea').forEach(function (el) {
+      if (!el.hasAttribute('dir')) el.setAttribute('dir', 'auto');
+      if (!el.hasAttribute('lang')) el.setAttribute('lang', 'ar');
+    });
+  }
+  document.addEventListener('DOMContentLoaded', function () {
+    fixArabicInputs();
+    new MutationObserver(function () { fixArabicInputs(); }).observe(document.body, { childList: true, subtree: true });
+  });
+})();
+</script>
 </body>
 </html>

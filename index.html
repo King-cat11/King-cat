@@ -6444,7 +6444,8 @@
     const $ = (id) => document.getElementById(id);
     if (!$('contestTitle')) return;
     const showCard = !!(data && data.showCard === true) && !!title;
-    const closed = !!(data && data.closed === true);
+    // زر واحد في الأدمن: التسجيل مفتوح = الكارت والرسالة ظاهرين، مقفول = مخفيين وزر التسجيل بيبقى "اكتمل العدد"
+    const closed = !(data && data.showCard === true);
     window.__contest = { title, prize, start, phone, closed };
     $('contestTitle').textContent = title || 'مفيش مسابقة دلوقتي';
     $('contestPrize').textContent = prize;
