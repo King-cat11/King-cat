@@ -3724,7 +3724,10 @@
     document.getElementById('ccCurrent').textContent = u.balance || 0;
     document.getElementById('ccAmount').value = '';
     document.getElementById('ccStatus').textContent = '';
-    document.getElementById('custCoinsOverlay').classList.add('open');
+    const ccOv = document.getElementById('custCoinsOverlay');
+    // نطلعه برا إطار الموبايل (اللي عليه transform) عشان يتثبت على الشاشة اللي قدامك مش على آخر الصفحة
+    if (ccOv.parentNode !== document.body) document.body.appendChild(ccOv);
+    ccOv.classList.add('open');
     window.lockCcScroll();
   };
   window.closeCustomerCoins = function () {
