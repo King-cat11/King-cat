@@ -1037,7 +1037,7 @@
   <div class="cards-grid" style="grid-template-columns:1fr;">
     <div class="admin-card admin-card-row" onclick="showRobloxPricing()">
       <div class="ac-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l9 5v10l-9 5-9-5V7zM3 7l9 5 9-5M12 12v10"/></svg></div>
-      <div class="ac-title">روبلكس</div>
+      <div class="ac-title">روبلوكس</div>
     </div>
     <div class="admin-card admin-card-row" onclick="showPubgPricing()">
       <div class="ac-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></div>
@@ -1062,7 +1062,7 @@
   </div>
 </main>
 
-<!-- ============ صفحة أسعار روبلكس ============ -->
+<!-- ============ صفحة أسعار روبلوكس ============ -->
 <main id="robloxPricingPage" style="display:none;">
   <div class="rp-header-row">
     <button class="back-btn" onclick="showPricingPage()">→ Back</button>
@@ -1526,7 +1526,6 @@
       <button type="button" class="o-action-btn done" style="flex:1;" onclick="adjustCustomerCoins(1)">زيادة</button>
     </div>
     <div class="cc-status" id="ccStatus"></div>
-    <button type="button" class="back-btn" style="width:100%;justify-content:center;margin:4px 0 0;" onclick="closeCustomerCoins()">إلغاء</button>
   </div>
 </div>
 
@@ -1983,7 +1982,7 @@
   }
   window.showContestsAdminPage = showContestsAdminPage;
 
-  // ============ التنقل لصفحة الألعاب وصفحة أسعار روبلكس ============
+  // ============ التنقل لصفحة الألعاب وصفحة أسعار روبلوكس ============
   function showPricingPage() {
     document.getElementById('dashboard').style.display = 'none';
     document.getElementById('ordersPage').style.display = 'none';
@@ -2698,7 +2697,7 @@
   updateRemainingRobuxStat();
   renderOrders();
 
-  // ============ صفوف تعديل أسعار روبلكس ============
+  // ============ صفوف تعديل أسعار روبلوكس ============
   // كل قسم (acc / comFawri / comHagz / giftcard) بياخد صف واحد لكل شريحة سعر
   function priceRowHTML(section, item) {
     item = item || {};
@@ -2824,7 +2823,7 @@
   }
   window.removePriceRow = removePriceRow;
 
-  // ============ فتح/قفل أقسام أسعار روبلكس (أكورديون — قسم واحد مفتوح في نفس الوقت) ============
+  // ============ فتح/قفل أقسام أسعار روبلوكس (أكورديون — قسم واحد مفتوح في نفس الوقت) ============
   // من غير أنيميشن خالص — تبديل فوري عشان مفيش لاج
   function setSectionOpen(el, body, open) {
     if (open) {
@@ -3916,7 +3915,7 @@
     ]
   };
 
-  // ============ تحميل أسعار روبلكس الحالية في صفحة التعديل ============
+  // ============ تحميل أسعار روبلوكس الحالية في صفحة التعديل ============
   window.loadRobloxPricing = async function () {
     const statusEl = document.getElementById('robloxPricingStatus');
     if (statusEl) { statusEl.textContent = 'بيتحمل...'; statusEl.className = 'login-status'; }
@@ -3929,7 +3928,7 @@
       window.renderPriceRows('giftcard', data.giftcard && data.giftcard.length ? data.giftcard : DEFAULT_ROBLOX_PRICING.giftcard);
       if (statusEl) statusEl.textContent = '';
     } catch (err) {
-      console.error('تعذر تحميل أسعار روبلكس:', err);
+      console.error('تعذر تحميل أسعار روبلوكس:', err);
       // لو حصلت مشكلة في التحميل، نعرض الأسعار الافتراضية على الأقل عشان الصفحة متفضلش فاضية
       window.renderPriceRows('acc', DEFAULT_ROBLOX_PRICING.acc);
       window.renderPriceRows('comFawri', DEFAULT_ROBLOX_PRICING.comFawri);
@@ -3939,7 +3938,7 @@
     }
   };
 
-  // ============ حفظ أسعار روبلكس وأكواد الزيادة كلهم مرة واحدة في Firestore ============
+  // ============ حفظ أسعار روبلوكس وأكواد الزيادة كلهم مرة واحدة في Firestore ============
   // بيحول أي أرقام عربية (٠١٢٣٤٥٦٧٨٩) مكتوبة من كيبورد الموبايل لأرقام إنجليزية عادية قبل ما نحولها لرقم
   function normalizeDigits(str) {
     if (!str) return str;
@@ -3967,7 +3966,7 @@
       ]);
       if (statusEl) { statusEl.textContent = 'تم الحفظ'; statusEl.className = 'login-status ok'; }
     } catch (err) {
-      console.error('تعذر حفظ أسعار روبلكس أو أكواد الزيادة:', err);
+      console.error('تعذر حفظ أسعار روبلوكس أو أكواد الزيادة:', err);
       if (statusEl) { statusEl.textContent = 'حصلت مشكلة أثناء الحفظ، حاول تاني'; statusEl.className = 'login-status err'; }
     }
   };
