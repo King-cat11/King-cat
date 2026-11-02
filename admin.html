@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>King&amp;cat - لوحة التحكم</title>
+<title>King Cat - لوحة التحكم</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Bebas+Neue&family=Cinzel:wght@600;700;800&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet" />
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -956,7 +956,7 @@
     <span></span><span></span><span></span>
   </button>
   <div class="header-title">
-    <span class="name">King<span class="amp">&amp;</span>Cat</span>
+    <span class="name">King Cat</span>
     <span class="badge">أدمن</span>
   </div>
   <div class="header-admin-icon">A</div>
@@ -2366,7 +2366,7 @@
     const o = ordersData.find(x => x.id === id);
     if (!o) return;
     document.getElementById('orderDetailTitleAdmin').textContent = o.game || 'طلب';
-    const cashbackNote = o.egpEarned > 0 ? `\n\nكاش باك: ${o.egpEarned} EGP (هيتسجل لرصيد العميل لما تدوس "تم")` : '';
+    const cashbackNote = o.egpEarned > 0 ? `\n\nكاش باك: ${o.egpEarned} EGP` : '';
     const discountNote = `\n\nاستخدم رصيد خصم: ${o.egpUsed > 0 ? 'نعم (' + o.egpUsed + ' EGP)' : 'لا'}`;
     document.getElementById('orderDetailBodyAdmin').textContent = (o.fullDetails || 'مفيش تفاصيل إضافية') + cashbackNote + discountNote;
     document.getElementById('orderDetailOverlay').style.display = 'flex';
