@@ -1434,8 +1434,11 @@
 
     /* panels */
     .rpage-panels { padding: 36px 5% 60px; flex: 1; }
-    #rp-plus.plus-soldout #plus-soldout-banner { display: block !important; }
-    #rp-plus.plus-soldout #plus-prices, #rp-plus.plus-soldout #plus-summary { opacity: .3; pointer-events: none; filter: grayscale(.6); }
+    /* باقة نفذت الكمية: بتفضل ظاهرة والكتابة "نفذ" عليها */
+    .pcard.sold-out { position: relative; pointer-events: none; border-color: rgba(220,38,38,.55) !important; }
+    .pcard.sold-out > .rob-qty, .pcard.sold-out > .egp { opacity: .28; filter: grayscale(.6); }
+    .pcard.sold-out .qty-ctrl { display: none !important; }
+    .pcard .sold-tag { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'Cairo', sans-serif; font-weight: 900; font-size: 1rem; color: #ef4444; letter-spacing: .02em; }
     .rpanel { display: none; }
     .rpanel.active { display: block; }
 
@@ -3600,6 +3603,10 @@
 
     <div class="rpanel" id="rp-plus">
       <div id="plus-soldout-banner" style="display:none;text-align:center;margin:6px 0 16px;padding:26px 12px;border-radius:16px;background:rgba(220,38,38,.18);border:2px solid #dc2626;color:#ef4444;font-family:'Cairo',sans-serif;font-weight:900;font-size:1.7rem;line-height:1.5;">⛔<br>لقد نفذت الكمية</div>
+      <div class="ofield" style="margin:6px 0 14px;">
+        <label class="olabel">الاسم <span class="req">*</span></label>
+        <input class="oinput" id="plus-name" type="text" maxlength="40" autocomplete="name" placeholder="اكتب اسمك هنا" style="text-align:right;" oninput="plusNameChanged()" />
+      </div>
       <div class="price-grid" id="plus-prices"></div>
       <p id="plus-empty" style="text-align:center;color:var(--muted);font-size:.85rem;padding:20px 0;">الأسعار هتنزل قريب</p>
 
@@ -4483,8 +4490,19 @@
   let plusCart = {};
   let plusUseEGP = false;
   function getPlusCards() { return document.querySelectorAll('#plus-prices .pcard'); }
+  function plusNameChanged() {
+    const v = (document.getElementById('plus-name').value || '').trim();
+    if (v.length >= 2) window.__kcTypedName = v;
+    if (v.length >= 2) document.getElementById('plus-error').textContent = '';
+  }
   function addPlusItem(card) {
-    if (window.plusSoldOut) return;
+    if (window.plusSoldOut || card.classList.contains('sold-out')) return;
+    const nameInp = document.getElementById('plus-name');
+    if (!nameInp || nameInp.value.trim().length < 2) {
+      document.getElementById('plus-error').textContent = 'اكتب اسمك الأول عشان تختار الكمية';
+      if (nameInp) nameInp.focus();
+      return;
+    }
     const name  = card.dataset.name;
     const price = parseInt(card.dataset.price);
     const egp   = parseFloat(card.dataset.egp) || 0;
@@ -4579,6 +4597,9 @@
   function sendPlusOrder() {
     const err = document.getElementById('plus-error');
     if (window.plusSoldOut) { err.textContent = 'لقد نفذت الكمية'; return; }
+    const plusName = (document.getElementById('plus-name').value || '').trim();
+    if (plusName.length < 2) { err.textContent = 'اكتب اسمك الأول'; document.getElementById('plus-name').focus(); return; }
+    window.__kcTypedName = plusName;
     const { items, totalPrice, totalEgp } = getPlusSelections();
     if (items.length === 0) { err.textContent = 'لازم تختار الكمية الأول'; return; }
     err.textContent = '';
@@ -6672,7 +6693,8 @@
   function buildPlusCardHTML(item) {
     const cb = item.egp || 0;
     const nm = String(item.name || '').replace(/"/g, '&quot;');
-    return `<div class="pcard" data-name="${nm}" data-price="${item.price}" data-egp="${cb}" onclick="addPlusItem(this)"><span class="rob-qty"><span class="rob-val" style="font-size:.9rem;">${item.name}</span></span><span class="egp">EGP ${item.price}</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changePlusQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changePlusQtyCard(this,1)">+</button></div></div>`;
+    const sold = window.plusSoldOut === true || item.soldOut === true;
+    return `<div class="pcard${sold ? ' sold-out' : ''}" data-name="${nm}" data-price="${item.price}" data-egp="${cb}" onclick="addPlusItem(this)"><span class="rob-qty"><span class="rob-val" style="font-size:.9rem;">${item.name}</span></span><span class="egp">EGP ${item.price}</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changePlusQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changePlusQtyCard(this,1)">+</button></div>${sold ? '<span class="sold-tag">نفذ</span>' : ''}</div>`;
   }
   function buildGiftCardHTML(item) {
     const cb = item.egp || 0;
@@ -6693,18 +6715,17 @@
       if (giftEl && Array.isArray(data.giftcard) && data.giftcard.length) giftEl.innerHTML = data.giftcard.map(buildGiftCardHTML).join('');
       const plusEl = document.getElementById('plus-prices');
       window.plusSoldOut = data.plusSoldOut === true;
-      const plusPanel = document.getElementById('rp-plus');
-      if (plusPanel) plusPanel.classList.toggle('plus-soldout', window.plusSoldOut);
-      if (window.plusSoldOut && typeof plusCart !== 'undefined') {
-        Object.keys(plusCart).forEach(k => delete plusCart[k]);
-        getPlusCards().forEach(c => { c.classList.remove('has-qty'); const qc = c.querySelector('.qty-ctrl'); if (qc) qc.style.display = 'none'; });
-      }
       if (plusEl) {
         const plusList = Array.isArray(data.plus) ? data.plus.filter(i => i && i.name && i.price > 0) : [];
         plusEl.innerHTML = plusList.map(buildPlusCardHTML).join('');
-        const pe = document.getElementById('plus-empty'); if (pe) pe.style.display = (plusList.length || window.plusSoldOut) ? 'none' : '';
+        const pe = document.getElementById('plus-empty'); if (pe) pe.style.display = plusList.length ? 'none' : '';
         if (typeof plusCart !== 'undefined') {
-          Object.keys(plusCart).forEach(k => { if (!plusList.some(i => i.name + '_' + i.price === k)) delete plusCart[k]; });
+          // أي باقة اتشالت أو نفذت بتتشال من طلب العميل، لكن الباقات نفسها بتفضل ظاهرة
+          Object.keys(plusCart).forEach(k => {
+            const it = plusList.find(i => i.name + '_' + i.price === k);
+            if (!it || window.plusSoldOut || it.soldOut === true) delete plusCart[k];
+          });
+          if (typeof renderPlusSummary === 'function') renderPlusSummary();
         }
       }
       window.robloxCashbackEgp = (typeof data.cashbackEgp === 'number' && data.cashbackEgp > 0) ? data.cashbackEgp : 0;
@@ -7106,6 +7127,7 @@
   // لو مسجل دخول: بيرجع اسمه (أو الإيميل لو مفيش اسم)
   // لو مش مسجل دخول: بيرجع Guest
   function getCustomerName() {
+    if (window.__kcTypedName) return window.__kcTypedName;
     const user = auth.currentUser;
     if (user) return user.displayName || shownIdentity(user) || 'Guest';
     return 'Guest';
@@ -7131,7 +7153,7 @@
       }
       await addDoc(collection(db, 'orders'), {
         uid: user ? user.uid : '',
-        customerName: user ? (user.displayName || shownIdentity(user) || 'عميل') : 'Guest',
+        customerName: window.__kcTypedName || (user ? (user.displayName || shownIdentity(user) || 'عميل') : 'Guest'),
         status: 'new',
         title: title || 'طلب',
         quantity: quantity || 1,
@@ -7619,5 +7641,65 @@
 })();
 </script>
 
+
+<!-- ============ طلب الاسم قبل أي شحن ============ -->
+<div id="kcNameOverlay" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.72);align-items:center;justify-content:center;padding:20px;">
+  <div style="width:100%;max-width:360px;background:#141414;border:1.5px solid rgba(220,38,38,.45);border-radius:16px;padding:22px;direction:rtl;font-family:'Cairo',sans-serif;">
+    <div style="font-weight:900;font-size:1.1rem;color:#ef4444;margin-bottom:6px;">اكتب اسمك قبل الشحن</div>
+    <div style="font-size:.8rem;color:#999;margin-bottom:12px;">الاسم ده هيتبعت مع طلبك.</div>
+    <input id="kcNameInput" type="text" maxlength="40" autocomplete="name" placeholder="اسمك" style="width:100%;box-sizing:border-box;background:#1a1a1a;border:1.5px solid rgba(255,255,255,.15);border-radius:10px;padding:12px 14px;color:#fff;font-family:'Cairo',sans-serif;font-size:1rem;outline:none;">
+    <div id="kcNameErr" style="min-height:18px;margin-top:8px;font-size:.8rem;font-weight:700;color:#e05555;"></div>
+    <div style="display:flex;gap:8px;margin-top:6px;">
+      <button id="kcNameOk" type="button" style="flex:1;background:linear-gradient(135deg,#b91c1c,#dc2626);color:#fff;border:none;border-radius:10px;padding:12px;font-family:'Cairo',sans-serif;font-weight:900;font-size:.9rem;cursor:pointer;">تأكيد وإكمال</button>
+      <button id="kcNameCancel" type="button" style="flex:0 0 auto;background:rgba(220,38,38,.12);color:#ef4444;border:1px solid rgba(220,38,38,.4);border-radius:10px;padding:12px 16px;font-family:'Cairo',sans-serif;font-weight:800;font-size:.9rem;cursor:pointer;">إلغاء</button>
+    </div>
+  </div>
+</div>
+<script>
+(function () {
+  var KEY = 'kc_customer_name';
+  var ov = document.getElementById('kcNameOverlay');
+  var inp = document.getElementById('kcNameInput');
+  var err = document.getElementById('kcNameErr');
+  var pending = null;
+
+  function saved() { try { return localStorage.getItem(KEY) || ''; } catch (e) { return ''; } }
+  function close() { ov.style.display = 'none'; pending = null; }
+  function ask(cb) {
+    pending = cb;
+    var pre = saved();
+    if (!pre && typeof window.getCustomerName === 'function') {
+      var g = window.getCustomerName();
+      if (g && g !== 'Guest' && g.indexOf('@') === -1) pre = g;
+    }
+    inp.value = pre;
+    err.textContent = '';
+    ov.style.display = 'flex';
+    setTimeout(function () { inp.focus(); }, 60);
+  }
+  function confirmName() {
+    var v = (inp.value || '').trim();
+    if (v.length < 2) { err.textContent = 'اكتب اسمك الأول'; return; }
+    window.__kcTypedName = v;
+    try { localStorage.setItem(KEY, v); } catch (e) {}
+    var cb = pending;
+    close();
+    if (cb) cb();
+  }
+  document.getElementById('kcNameOk').addEventListener('click', confirmName);
+  document.getElementById('kcNameCancel').addEventListener('click', close);
+  inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') confirmName(); });
+
+  ['sendAccOrder','sendComOrder','sendGiftOrder','sendPubgOrder','sendBrawlOrder',
+   'sendPesOrder','sendVisaOrder','sendFFIdOrder','sendFFAccOrder','sendFifaCoinsOrder'].forEach(function (fn) {
+    var orig = window[fn];
+    if (typeof orig !== 'function') return;
+    window[fn] = function () {
+      var self = this, args = arguments;
+      ask(function () { orig.apply(self, args); });
+    };
+  });
+})();
+</script>
 </body>
 </html>
