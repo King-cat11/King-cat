@@ -1076,6 +1076,69 @@
       bottom: -32px;
     }
 
+    /* ===== ابداعاتنا في روبلوكس: مربعات التصاميم ===== */
+    .creations-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 6px 0 30px; direction: rtl; align-items: start; }
+    .creation-card { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+    .creation-img {
+      position: relative; width: 100%; aspect-ratio: 4 / 5; border-radius: 12px; overflow: hidden;
+      background: linear-gradient(145deg, rgba(220,38,38,.12), rgba(11,18,32,.9));
+      border: 1.5px solid rgba(220,38,38,.4); box-shadow: 0 0 10px rgba(220,38,38,.2);
+      display: flex; align-items: center; justify-content: center; cursor: zoom-in;
+    }
+    .creation-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+    .creation-search-wrap { position: relative; margin: 0 0 12px; }
+    .creation-search-wrap svg { position: absolute; top: 50%; right: 13px; width: 19px; height: 19px; transform: translateY(-50%); color: #ef4444; pointer-events: none; }
+    .creation-search {
+      width: 100%; box-sizing: border-box; margin: 0; padding: 11px 42px 11px 14px; border-radius: 12px; direction: rtl;
+      background: rgba(220,38,38,.08); border: 1.5px solid rgba(220,38,38,.4); color: var(--white);
+      font-family: 'Cairo', sans-serif; font-size: .9rem; outline: none;
+    }
+    .creation-search::placeholder { color: var(--muted); }
+    .creation-search:focus { border-color: #dc2626; }
+    .creation-num {
+      position: absolute; top: 6px; right: 6px; z-index: 2; min-width: 24px; height: 24px; padding: 0 7px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(11,18,32,.85); border: 1.5px solid rgba(220,38,38,.6); color: #fff;
+      font-family: 'Cairo', sans-serif; font-weight: 900; font-size: .78rem; line-height: 1; pointer-events: none;
+    }
+    .creation-img .ph { width: 30%; height: 30%; color: rgba(239,68,68,.55); }
+    .creation-btns { display: flex; flex-direction: column; gap: 6px; }
+    .creation-buy {
+      width: 100%; border: none; border-radius: 9px; padding: 8px 4px; cursor: pointer;
+      background: linear-gradient(135deg, #b91c1c, #dc2626); color: #fff;
+      font-family: 'Cairo', sans-serif; font-weight: 800; font-size: .72rem; line-height: 1.2;
+    }
+    #creationLightbox {
+      display: none; position: fixed; inset: 0; z-index: 9000; background: rgba(0,0,0,.88);
+      align-items: center; justify-content: center; padding: 20px; flex-direction: column; gap: 14px; cursor: pointer;
+    }
+    #creationLightbox.open { display: flex; }
+    #creationLightbox .lb-box {
+      width: min(92vw, calc(78vh * .8)); aspect-ratio: 4 / 5; border-radius: 18px; overflow: hidden;
+      border: 1.5px solid rgba(220,38,38,.5); box-shadow: 0 0 24px rgba(220,38,38,.35);
+      background: linear-gradient(145deg, rgba(220,38,38,.12), rgba(11,18,32,.95));
+      display: flex; align-items: center; justify-content: center;
+    }
+    #creationLightbox img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    #creationLightbox .ph { width: 30%; height: 30%; color: rgba(239,68,68,.55); }
+    #creationLightbox .lb-box { position: relative; direction: ltr; touch-action: pan-y; }
+    #creationLightbox .lb-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%); z-index: 3; width: 38px; height: 38px; border-radius: 50%;
+      border: 1.5px solid rgba(220,38,38,.6); background: rgba(11,18,32,.75); color: #fff; font-size: 1.4rem; line-height: 1;
+      display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0 0 3px;
+    }
+    #creationLightbox .lb-prev { left: 8px; }
+    #creationLightbox .lb-next { right: 8px; }
+    #creationLightbox .lb-dots { position: absolute; bottom: 10px; left: 0; right: 0; z-index: 3; display: flex; justify-content: center; gap: 6px; pointer-events: none; }
+    #creationLightbox .lb-dots i { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.4); }
+    #creationLightbox .lb-dots i.on { background: #ef4444; }
+    /* تبديل بالسحب من الجنب: من غير وميض */
+    .creation-img img.slide { transform: translateX(100%); z-index: 0; will-change: transform; }
+    .creation-img img.slide.on { transform: translateX(0); z-index: 2; transition: transform .6s ease-in-out; }
+    .creation-img img.slide.prev { transform: translateX(-100%); z-index: 1; transition: transform .6s ease-in-out; }
+    #creationLightbox .lb-hint { color: var(--muted); font-size: .78rem; }
+    .creation-buy:active { transform: scale(.97); }
+
     .rpage {
       position: fixed;
       inset: 0;
@@ -1223,6 +1286,10 @@
       font-size: 1rem;
     }
     .rtab-select-wrap.open .rtab-select-arrow { transform: rotate(180deg); }
+    /* قايمة فيها اختيار واحد بس: مش شغالة (من غير سهم ومن غير فتح) */
+    .rtab-select-wrap.single .rtab-select-btn { pointer-events: none; cursor: default; }
+    .rtab-select-wrap.single .rtab-select-arrow { display: none; }
+    .rtab-select-wrap.single .rtab-menu { display: none !important; }
     .rtab-menu {
       position: absolute;
       left: 0;
@@ -1367,6 +1434,8 @@
 
     /* panels */
     .rpage-panels { padding: 36px 5% 60px; flex: 1; }
+    #rp-plus.plus-soldout #plus-soldout-banner { display: block !important; }
+    #rp-plus.plus-soldout #plus-prices, #rp-plus.plus-soldout #plus-summary { opacity: .3; pointer-events: none; filter: grayscale(.6); }
     .rpanel { display: none; }
     .rpanel.active { display: block; }
 
@@ -2525,7 +2594,7 @@
       slot.style.pointerEvents = '';
       slot.onclick = g.open;
       if (img) { img.src = g.img; img.alt = g.alt; }
-      if (nameEl) nameEl.textContent = g.name;
+      if (nameEl) nameEl.textContent = g.label || g.name;
     }
 
     function renderGroup(idx, animate){
@@ -2629,7 +2698,7 @@
         var card = document.createElement('div');
         card.className = 'game-card' + (g.name === 'Roblox Studio' ? ' rs-card' : '');
         card.style.cursor = 'pointer';
-        card.innerHTML = '<div class="bg"><img class="visa-card-img" src="' + g.img + '" alt="' + g.alt + '" loading="lazy"></div><div class="overlay"></div><div class="info"><div class="name-en">' + g.name + '</div></div>';
+        card.innerHTML = '<div class="bg"><img class="visa-card-img" src="' + g.img + '" alt="' + g.alt + '" loading="lazy"></div><div class="overlay"></div><div class="info"><div class="name-en">' + (g.label || g.name) + '</div></div>';
         card.onclick = g.open;
         grid.appendChild(card);
       });
@@ -3381,7 +3450,8 @@
         <button class="rtab-menu-item active" id="rtab-item-community" onclick="selectRTab(this,'community','كميونتي')">كميونتي</button>
         <button class="rtab-menu-item" id="rtab-item-account" onclick="selectRTab(this,'account','داخل الحساب')">داخل الحساب</button>
         <button class="rtab-menu-item" id="rtab-item-giftcard" onclick="selectRTab(this,'giftcard','جيفت كارد')">جيفت كارد</button>
-        <button class="rtab-menu-item" id="rtab-item-design" onclick="selectRobloxDesignTab(this,'design','طلب تصميم')" style="display:none;">طلب تصميم</button>
+        <button class="rtab-menu-item" id="rtab-item-plus" onclick="selectRTab(this,'plus','بلس')">بلس</button>
+        <button class="rtab-menu-item" id="rtab-item-design" onclick="selectRobloxDesignTab(this,'design','ابداعاتنا')" style="display:none;">ابداعاتنا</button>
       </div>
     </div>
     <div style="position:relative;display:inline-flex;">
@@ -3413,8 +3483,8 @@
   <span id="robloxPageSub" style="display:none;"></span>
 
   <!-- ROBLOX CARD — shared image, swapped by JS between Roblox / Roblox Studio -->
-  <div style="padding: 150px 5% 0; direction:ltr; display:flex; align-items:flex-start; justify-content:space-between; gap:12px;">
-    <div style="width:30%; max-width:115px; aspect-ratio:3/4; border:1.5px solid rgba(220,38,38,.4); border-radius:16px; overflow:hidden; box-shadow:0 0 10px rgba(220,38,38,.25); flex:0 0 auto;">
+  <div id="robloxTopRow" style="padding: 150px 5% 0; direction:ltr; display:flex; align-items:flex-start; justify-content:space-between; gap:12px;">
+    <div id="robloxThumbBox" style="width:30%; max-width:115px; aspect-ratio:3/4; border:1.5px solid rgba(220,38,38,.4); border-radius:16px; overflow:hidden; box-shadow:0 0 10px rgba(220,38,38,.25); flex:0 0 auto;">
       <img id="robloxPageThumb" src="https://raw.githubusercontent.com/King-cat11/King-cat/main/b6153b0e699d5b0018791b75a51075921330fa25.png" alt="Roblox" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
     </div>
     <div id="communityLinkTop" class="com-link-wrap">
@@ -3460,22 +3530,12 @@
     </div>
   </div>
 
-  <div id="designExplainModal" class="ce-modal-overlay" onclick="closeDesignExplainModal()">
+ <div id="designExplainModal" class="ce-modal-overlay" onclick="closeDesignExplainModal()">
     <div class="ce-modal-box" onclick="event.stopPropagation()">
-      <div style="display:flex;gap:10px;margin-bottom:16px;">
-        <button class="ptoggle active" id="design-modal-btn-info" onclick="event.stopPropagation();switchDesignModalTab('info')" style="flex:1;">شرح الطلب</button>
-        <button class="ptoggle" id="design-modal-btn-benefits" onclick="event.stopPropagation();switchDesignModalTab('benefits')" style="flex:1;">الفوايد</button>
-      </div>
-      <div id="design-modal-content-info">
-        <p class="explain-intro">بتختار انت عايز تصمم تيشرت او بنطلون او تصميم 3D او اي حاجه محتاجها وبتقولنا وصف للي عايزه بظبط — والمصمم بتاعنا هيقولك سعر الطلب بتاعك وموعد التسليم.</p>
-      </div>
-      <div id="design-modal-content-benefits" style="display:none;">
-        <p class="explain-intro">1- ممكن تطلب تصميم يكون خاص بيك لوحدك ويميزك عن الباقي.<br>2- تطلب تصميم حلو وتنزله للبيع ويجيب ليك R كتير — ودي الطريقة اللي أغلب التجار بتستخدمها.</p>
-      </div>
+      <p class="explain-intro">لما تشتري تصميم مننا ده بيساعدنا <strong>نقلل سعر الروب</strong> وبيشجعنا <strong>نكمل</strong>.</p>
       <p style="text-align:center;color:var(--muted);font-size:.78rem;margin-top:16px;">اضغط في أي مكان عشان تقفل</p>
     </div>
   </div>
-
 
   <div id="giftcardExplainModal" class="ce-modal-overlay" onclick="closeGiftcardExplainModal()">
     <div class="ce-modal-box" onclick="event.stopPropagation()">
@@ -3538,6 +3598,24 @@
       </div>
     </div>
 
+    <div class="rpanel" id="rp-plus">
+      <div id="plus-soldout-banner" style="display:none;text-align:center;margin:6px 0 16px;padding:26px 12px;border-radius:16px;background:rgba(220,38,38,.18);border:2px solid #dc2626;color:#ef4444;font-family:'Cairo',sans-serif;font-weight:900;font-size:1.7rem;line-height:1.5;">⛔<br>لقد نفذت الكمية</div>
+      <div class="price-grid" id="plus-prices"></div>
+      <p id="plus-empty" style="text-align:center;color:var(--muted);font-size:.85rem;padding:20px 0;">الأسعار هتنزل قريب</p>
+
+      <div id="plus-summary" style="display:block; margin-top:14px; background:#0f1f3a; border:1px solid rgba(220,38,38,.35); border-radius:12px; padding:14px;">
+        <div style="font-size:.85rem;color:#bbb;margin-bottom:4px;">طلبك:</div>
+        <div id="plus-sum-rows"><div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div></div>
+        <div id="plus-grand-total" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(220,38,38,.25);font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#dc2626;text-align:center;letter-spacing:.04em;">السعر: 0 جنيه</div>
+        <div id="plus-egp-status" style="margin-top:6px;font-size:.8rem;text-align:center;"></div>
+        <div class="oerror" id="plus-error" style="margin-top:10px;"></div>
+        <div style="display:flex;gap:10px;margin-top:14px;">
+          <button id="plus-use-egp-btn" onclick="togglePlusUseEGP()" style="flex:1;width:auto;background:rgba(220,38,38,.12);border:1.5px solid #dc2626;color:#ef4444;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:12px 6px;border-radius:12px;cursor:pointer;">استخدام EGP</button>
+          <button class="com-wa-btn" onclick="sendPlusOrder()" style="flex:1;width:auto;margin:0;background:linear-gradient(135deg,#b91c1c,#dc2626);color:#fff;font-size:.85rem;padding:12px 6px;">شحن</button>
+        </div>
+      </div>
+    </div>
+
     <div class="rpanel active" id="rp-community">
       <!-- فوري / حجز -->
       <div class="price-toggle" style="margin-top:8px;">
@@ -3584,22 +3662,20 @@
     </div>
 
     <div class="rpanel" id="rp-design">
-      <!-- الخانات -->
-      <div class="order-form" style="margin-top:0;">
-        <div class="ofield">
-          <label class="olabel">نوع التصميم <span class="req">*</span></label>
-          <input class="oinput" id="design-type" type="text" placeholder="مثال: بنطال / تيشرت / وجه / شعر" />
-        </div>
-        <div class="ofield">
-          <label class="olabel">وصف التصميم <span class="req">*</span></label>
-          <input class="oinput" id="design-desc" type="text" placeholder="اكتب عايزه يكون شكله ازاي بالظبط" />
-        </div>
-        <div class="oerror" id="design-error"></div>
-        <button class="com-wa-btn" onclick="sendDesignOrder()" style="background:linear-gradient(135deg,#b91c1c,#dc2626);color:#fff;">تواصل مع المصمم</button>
+      <div class="creation-search-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input class="creation-search" id="creationSearch" type="search" placeholder="ابحث باسم التصميم..." autocomplete="off" oninput="filterCreations()" />
       </div>
+      <div class="creations-grid" id="creationsGrid"></div>
+      <p id="creationsEmpty" style="display:none;text-align:center;color:var(--muted);font-size:.85rem;padding:20px 0;">مفيش تصميم بالاسم ده</p>
     </div>
 
   </div>
+</div>
+
+<div id="creationLightbox" onclick="closeCreationLightbox()">
+  <div class="lb-box" id="creationLightboxBox" onclick="event.stopPropagation()"></div>
+  <div class="lb-hint" id="creationLightboxHint">اضغط برا الصورة عشان تقفل</div>
 </div>
 
 <!-- FIFA PAGE -->
@@ -3826,12 +3902,22 @@
     layoutGuideBubbles([['visaHelpBubble','visaHelpArrow','visaBookBtn']]);
   }
   window.addEventListener('resize', positionVisaBubbles);
+  // أي قايمة اختيار فيها اختيار واحد ظاهر بس بتتقفل (مفيش سهم ومفيش فتح)
+  function syncSingleOptionMenus() {
+    document.querySelectorAll('.rtab-select-wrap').forEach(function (w) {
+      const visible = Array.prototype.filter.call(w.querySelectorAll('.rtab-menu-item'), function (i) { return i.style.display !== 'none'; });
+      w.classList.toggle('single', visible.length <= 1);
+      if (visible.length <= 1) w.classList.remove('open');
+    });
+  }
+  document.addEventListener('DOMContentLoaded', syncSingleOptionMenus);
   function openRoblox() {
     document.getElementById('robloxPage').classList.add('open');
     document.body.style.overflow = 'hidden';
     document.getElementById('rtab-item-community').style.display = '';
     document.getElementById('rtab-item-account').style.display = '';
     document.getElementById('rtab-item-giftcard').style.display = '';
+    document.getElementById('rtab-item-plus').style.display = '';
     document.getElementById('rtab-item-design').style.display = 'none';
     document.getElementById('robloxPageLogo').textContent = 'Roblox';
     document.getElementById('robloxPageSub').textContent = '';
@@ -3839,7 +3925,13 @@
     document.getElementById('robloxPageThumb').alt = 'Roblox';
     // رجوع فقاعة "تغيير طريقة الشحن" (بتتخفي في روبلوكس استوديو لأن فيه طريقة واحدة بس)
     const mb = document.getElementById('robloxMethodBubble'); if (mb) mb.style.display = '';
+    const tb = document.getElementById('robloxThumbBox'); if (tb) tb.style.display = '';
+    const tr = document.getElementById('robloxTopRow'); if (tr) tr.style.display = '';
+    const rp = document.querySelector('#robloxPage .rpage-panels'); if (rp) rp.style.paddingTop = '';
+    const bk = document.getElementById('robloxBookBtn'); if (bk) bk.parentElement.style.display = 'inline-flex';
+    const hb = document.getElementById('robloxHelpBubble'); if (hb) hb.style.display = '';
     selectRTab(document.getElementById('rtab-item-community'), 'community', 'كميونتي');
+    syncSingleOptionMenus();
     setTimeout(positionRobloxBubbles, 80); setTimeout(positionRobloxBubbles, 450);
   }
   function openRobloxDesign() {
@@ -3848,6 +3940,7 @@
     document.getElementById('rtab-item-community').style.display = 'none';
     document.getElementById('rtab-item-account').style.display = 'none';
     document.getElementById('rtab-item-giftcard').style.display = 'none';
+    document.getElementById('rtab-item-plus').style.display = 'none';
     document.getElementById('rtab-item-design').style.display = '';
     document.getElementById('robloxPageLogo').textContent = 'Roblox Studio';
     document.getElementById('robloxPageSub').textContent = '';
@@ -3855,7 +3948,13 @@
     document.getElementById('robloxPageThumb').alt = 'Roblox Studio';
     // استوديو فيه طريقة واحدة بس (طلب تصميم) فمفيش داعي لفقاعة تغيير طريقة الشحن
     const mb = document.getElementById('robloxMethodBubble'); if (mb) mb.style.display = 'none';
-    selectRobloxDesignTab(document.getElementById('rtab-item-design'), 'design', 'طلب تصميم');
+    const tb = document.getElementById('robloxThumbBox'); if (tb) tb.style.display = 'none';
+    const tr = document.getElementById('robloxTopRow'); if (tr) tr.style.display = 'none';
+    const rp = document.querySelector('#robloxPage .rpage-panels'); if (rp) rp.style.paddingTop = '92px';
+    const hb = document.getElementById('robloxHelpBubble'); if (hb) hb.style.display = 'none';
+    renderCreations();
+    selectRobloxDesignTab(document.getElementById('rtab-item-design'), 'design', 'ابداعاتنا');
+    syncSingleOptionMenus();
     setTimeout(positionRobloxBubbles, 80); setTimeout(positionRobloxBubbles, 450);
   }
   function openRobloxCommunity() {
@@ -3864,8 +3963,8 @@
   function closeRoblox() {
     document.getElementById('robloxPage').classList.remove('open');
     document.body.style.overflow = '';
-    accUseEGP = false; giftUseEGP = false; comUseEGP = false;
-    ['acc','gift','com'].forEach(p => {
+    accUseEGP = false; giftUseEGP = false; comUseEGP = false; plusUseEGP = false;
+    ['acc','gift','com','plus'].forEach(p => {
       const btn = document.getElementById(p + '-use-egp-btn');
       const status = document.getElementById(p + '-egp-status');
       if (btn) { btn.style.background = 'rgba(220,38,38,.12)'; btn.textContent = 'استخدام EGP'; }
@@ -4377,6 +4476,119 @@
     if (typeof window.saveOrder === 'function') {
       const totalQty = items.reduce((s,i) => s + i.qty, 0);
       window.saveOrder({ title: 'روبلوكس (جيفت كارد)', quantity: totalQty, price: total, details: msg, fullDetails: msg, egpUsed: totalPrice - total, egpEarned: totalEgp });
+    }
+    window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
+  }
+  // ============ بلس (روبلوكس) — الأسعار من لوحة الأدمن: pricing/roblox -> plus: [{name, price, egp}] ============
+  let plusCart = {};
+  let plusUseEGP = false;
+  function getPlusCards() { return document.querySelectorAll('#plus-prices .pcard'); }
+  function addPlusItem(card) {
+    if (window.plusSoldOut) return;
+    const name  = card.dataset.name;
+    const price = parseInt(card.dataset.price);
+    const egp   = parseFloat(card.dataset.egp) || 0;
+    const key   = name + '_' + price;
+    const qtyCtrl = card.querySelector('.qty-ctrl');
+    const qtyNum  = card.querySelector('.qty-num');
+    if (plusCart[key]) {
+      delete plusCart[key];
+      card.classList.remove('has-qty');
+      if (qtyCtrl) { qtyCtrl.style.display = 'none'; if (qtyNum) qtyNum.textContent = '0'; }
+    } else {
+      plusCart[key] = { name, price, egp, label: name, qty: 1 };
+      card.classList.add('has-qty');
+      if (qtyCtrl) { qtyCtrl.style.display = 'flex'; if (qtyNum) qtyNum.textContent = '1'; }
+    }
+    renderPlusSummary();
+    document.getElementById('plus-error').textContent = '';
+  }
+  function changePlusQtyCard(btn, delta) {
+    const card = btn.closest('.pcard');
+    const key  = card.dataset.name + '_' + card.dataset.price;
+    if (!plusCart[key]) return;
+    plusCart[key].qty = Math.max(1, plusCart[key].qty + delta);
+    card.querySelector('.qty-num').textContent = plusCart[key].qty;
+    renderPlusSummary();
+  }
+  function changePlusCartQty(key, delta) {
+    if (!plusCart[key]) return;
+    plusCart[key].qty += delta;
+    const gone = plusCart[key].qty <= 0;
+    if (gone) delete plusCart[key];
+    getPlusCards().forEach(c => {
+      if (c.dataset.name + '_' + c.dataset.price !== key) return;
+      const qc = c.querySelector('.qty-ctrl'), qn = c.querySelector('.qty-num');
+      if (gone) { c.classList.remove('has-qty'); if (qc) qc.style.display = 'none'; if (qn) qn.textContent = '0'; }
+      else if (qn) qn.textContent = plusCart[key].qty;
+    });
+    renderPlusSummary();
+  }
+  function getPlusSelections() {
+    const items = Object.values(plusCart);
+    let totalPrice = 0, totalEgp = 0;
+    items.forEach(i => { totalPrice += i.price * i.qty; totalEgp += (i.egp || 0) * i.qty; });
+    return { items, totalPrice, totalEgp };
+  }
+  function togglePlusUseEGP() {
+    const balance = getUserBalance();
+    const statusDiv = document.getElementById('plus-egp-status');
+    const btn = document.getElementById('plus-use-egp-btn');
+    if (balance <= 0) {
+      plusUseEGP = false;
+      if (statusDiv) { statusDiv.textContent = 'ليس معك عملات'; statusDiv.style.color = '#e05555'; }
+      if (btn) { btn.style.background = 'rgba(220,38,38,.12)'; btn.textContent = 'استخدام EGP'; }
+      renderPlusSummary();
+      return;
+    }
+    plusUseEGP = !plusUseEGP;
+    if (statusDiv) statusDiv.textContent = '';
+    if (btn) {
+      btn.style.background = plusUseEGP ? 'rgba(220,38,38,.35)' : 'rgba(220,38,38,.12)';
+      btn.textContent = plusUseEGP ? 'تم التفعيل' : 'استخدام EGP';
+    }
+    renderPlusSummary();
+  }
+  function renderPlusSummary() {
+    const { items, totalPrice, totalEgp } = getPlusSelections();
+    const rowsDiv = document.getElementById('plus-sum-rows');
+    const grandEl = document.getElementById('plus-grand-total');
+    if (!rowsDiv || !grandEl) return;
+    if (items.length === 0) {
+      rowsDiv.innerHTML = '<div style="font-size:.82rem;color:#777;padding:6px 0;">لسه مفيش حاجة مختارة</div>';
+      grandEl.innerHTML = 'السعر: 0 جنيه';
+      return;
+    }
+    rowsDiv.innerHTML = items.map(item => {
+      const key = item.name + '_' + item.price;
+      return `<div style="display:flex;align-items:center;justify-content:space-between;font-size:.87rem;color:#ddd;padding:7px 0;border-bottom:1px solid rgba(220,38,38,.15);gap:8px;">
+        <span style="flex:1;">${item.label} (${item.qty})</span>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <button onclick="changePlusCartQty('${key}',-1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(220,38,38,.4);background:#1a1a1a;color:#dc2626;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;opacity:.75;">−</button>
+          <button onclick="changePlusCartQty('${key}',1)" style="width:26px;height:26px;border-radius:6px;border:1px solid rgba(220,38,38,.5);background:#1a1a1a;color:#dc2626;font-size:1rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
+        </div>
+      </div>`;
+    }).join('');
+    if (plusUseEGP && getUserBalance() > 0) {
+      const discounted = Math.max(totalPrice - getUserBalance(), 0);
+      grandEl.innerHTML = `<div style="text-decoration:line-through;color:#888;font-size:1rem;">${totalPrice} جنيه</div><div>السعر: ${discounted} جنيه</div>${cashbackLineHTML(totalEgp)}`;
+    } else {
+      grandEl.innerHTML = `السعر: ${totalPrice} جنيه${cashbackLineHTML(totalEgp)}`;
+    }
+  }
+  function sendPlusOrder() {
+    const err = document.getElementById('plus-error');
+    if (window.plusSoldOut) { err.textContent = 'لقد نفذت الكمية'; return; }
+    const { items, totalPrice, totalEgp } = getPlusSelections();
+    if (items.length === 0) { err.textContent = 'لازم تختار الكمية الأول'; return; }
+    err.textContent = '';
+    const total = (plusUseEGP && getUserBalance() > 0) ? Math.max(totalPrice - getUserBalance(), 0) : totalPrice;
+    const RLM = '\u200F';
+    const itemsList = items.map(i => `${RLM}\u2022 ${i.name} (${i.qty})`).join('\n');
+    let msg = `${RLM}\u{2795} طلب شحن روبلوكس (بلس)\n${itemsList}\n${RLM}\u{1F4B0} السعر: ${total} جنيه\n${RLM}الاسم: ${getCustomerName()}`;
+    if (typeof window.saveOrder === 'function') {
+      const totalQty = items.reduce((s,i) => s + i.qty, 0);
+      window.saveOrder({ title: 'روبلوكس (بلس)', quantity: totalQty, price: total, details: msg, fullDetails: msg, egpUsed: totalPrice - total, egpEarned: totalEgp });
     }
     window.open('https://wa.me/201069478690?text=' + encodeURIComponent(msg), '_blank');
   }
@@ -5385,17 +5597,121 @@
   function selectFFIdAmt(el) { toggleFFIdAmt(el); }
   function selectFFAccAmt(el) { toggleFFAccAmt(el); }
 
-  function sendDesignOrder() {
-    const type = document.getElementById('design-type').value.trim();
-    const desc = document.getElementById('design-desc').value.trim();
-    const err  = document.getElementById('design-error');
-
-    if (!type) { err.textContent = 'اكتب نوع التصميم'; return; }
-    if (!desc) { err.textContent = 'اكتب وصف التصميم'; return; }
-    err.textContent = '';
-
-    const msg = `👕 طلب تصميم ملابس روبلوكس\n🛍️ نوع التصميم: ${type}\n📝 الوصف: ${desc}\nالاسم: ${getCustomerName()}`;
-    window.open('https://wa.me/201287724199?text=' + encodeURIComponent(msg), '_blank');
+  // ============ ابداعاتنا (جوه روبلوكس استوديو) — كل كارت: name = الاسم المكتوب عليه (لو سبته فاضي بيتكتب رقمه 1 و2 و3)، imgs = روابط الصور (لو أكتر من صورة بتتبدل كل ثانية ونص وفي الشاشة المنبثقة تسحب جنب تشوف التانية)، وأزراره (label + url رابط الشراء). كل 3 كروت جنب بعض ============
+  const ROBLOX_CREATIONS = [
+    { imgs: ['https://raw.githubusercontent.com/King-cat11/King-cat/main/IMG-20261116-WA0023.jpg', 'https://raw.githubusercontent.com/King-cat11/King-cat/main/IMG-20261116-WA0024.jpg'], buttons: [ { label: 'شراء T-Shirt', url: '' }, { label: 'شراء بنطلون', url: '' } ] },
+    { img: '', buttons: [ { label: 'شراء T-Shirt', url: '' }, { label: 'شراء بنطلون', url: '' } ] },
+    { img: '', buttons: [ { label: 'شراء T-Shirt', url: '' }, { label: 'شراء بنطلون', url: '' } ] }
+  ];
+  const CREATION_PH = '<svg class="ph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3 3 6l2 4 2-1v12h10V9l2 1 2-4-5-3a4 4 0 0 1-8 0z"/></svg>';
+  let lbImgs = [], lbIdx = 0;
+  function renderCreationLightbox() {
+    const host = document.getElementById('creationLightboxBox');
+    if (!host) return;
+    host.innerHTML = '';
+    if (lbImgs.length) { const im = document.createElement('img'); im.src = lbImgs[lbIdx]; im.alt = 'ابداعاتنا'; host.appendChild(im); }
+    else host.innerHTML = CREATION_PH;
+    if (lbImgs.length > 1) {
+      const pv = document.createElement('button'); pv.type = 'button'; pv.className = 'lb-arrow lb-prev'; pv.textContent = '‹';
+      pv.onclick = function (e) { e.stopPropagation(); stepCreationLightbox(-1); };
+      const nx = document.createElement('button'); nx.type = 'button'; nx.className = 'lb-arrow lb-next'; nx.textContent = '›';
+      nx.onclick = function (e) { e.stopPropagation(); stepCreationLightbox(1); };
+      const dots = document.createElement('div'); dots.className = 'lb-dots';
+      lbImgs.forEach(function (_, k) { const d = document.createElement('i'); if (k === lbIdx) d.className = 'on'; dots.appendChild(d); });
+      host.appendChild(pv); host.appendChild(nx); host.appendChild(dots);
+    }
+    const hint = document.getElementById('creationLightboxHint');
+    if (hint) hint.textContent = lbImgs.length > 1 ? 'اسحب جنب أو اضغط السهم عشان تشوف الصورة التانية، واضغط برا الصورة عشان تقفل' : 'اضغط برا الصورة عشان تقفل';
+  }
+  function stepCreationLightbox(d) {
+    if (lbImgs.length < 2) return;
+    lbIdx = (lbIdx + d + lbImgs.length) % lbImgs.length;
+    renderCreationLightbox();
+  }
+  function openCreationLightbox(imgs, startIdx) {
+    const lb = document.getElementById('creationLightbox');
+    if (!lb) return;
+    lbImgs = imgs || [];
+    lbIdx = Math.min(startIdx || 0, Math.max(lbImgs.length - 1, 0));
+    renderCreationLightbox();
+    lb.classList.add('open');
+  }
+  function closeCreationLightbox() {
+    const lb = document.getElementById('creationLightbox');
+    if (lb) lb.classList.remove('open');
+  }
+  (function () {
+    let x0 = null;
+    document.addEventListener('touchstart', function (e) {
+      x0 = e.target.closest && e.target.closest('#creationLightboxBox') ? e.touches[0].clientX : null;
+    }, { passive: true });
+    document.addEventListener('touchend', function (e) {
+      if (x0 === null) return;
+      const dx = e.changedTouches[0].clientX - x0; x0 = null;
+      if (Math.abs(dx) > 40) stepCreationLightbox(dx < 0 ? 1 : -1);
+    }, { passive: true });
+    document.addEventListener('keydown', function (e) {
+      const lb = document.getElementById('creationLightbox');
+      if (!lb || !lb.classList.contains('open')) return;
+      if (e.key === 'ArrowLeft') stepCreationLightbox(-1);
+      else if (e.key === 'ArrowRight') stepCreationLightbox(1);
+      else if (e.key === 'Escape') closeCreationLightbox();
+    });
+  })();
+  function filterCreations() {
+    const q = (document.getElementById('creationSearch').value || '').trim().toLowerCase();
+    let shown = 0;
+    document.querySelectorAll('#creationsGrid .creation-card').forEach(function (card) {
+      const ok = !q || card.dataset.name.indexOf(q) !== -1;
+      card.style.display = ok ? '' : 'none';
+      if (ok) shown++;
+    });
+    const em = document.getElementById('creationsEmpty');
+    if (em) em.style.display = shown ? 'none' : 'block';
+  }
+  function renderCreations() {
+    const grid = document.getElementById('creationsGrid');
+    if (!grid || grid.dataset.built === '1') return;
+    ROBLOX_CREATIONS.forEach(function (c, idx) {
+      const card = document.createElement('div');
+      card.className = 'creation-card';
+      card.dataset.name = ((c.name || '') + ' ' + (idx + 1)).toLowerCase();
+      const box = document.createElement('div');
+      box.className = 'creation-img';
+      const list = c.imgs || (c.img ? [c.img] : []);
+      let cur = 0;
+      if (list.length) {
+        const els = list.map(function (u, k) {
+          const im = document.createElement('img'); im.src = u; im.alt = 'ابداعاتنا'; im.loading = 'lazy';
+          if (list.length > 1) { im.className = 'slide' + (k === 0 ? ' on' : ''); }
+          box.appendChild(im); return im;
+        });
+        if (list.length > 1) {
+          setInterval(function () {
+            if (document.hidden) return;
+            const old = els[cur];
+            old.classList.remove('on'); old.classList.add('prev');
+            cur = (cur + 1) % els.length; els[cur].classList.add('on');
+            setTimeout(function () { old.classList.remove('prev'); }, 700);
+          }, 1500);
+        }
+      } else box.innerHTML = CREATION_PH;
+      const num = document.createElement('span');
+      num.className = 'creation-num'; num.textContent = c.name || String(idx + 1);
+      box.appendChild(num);
+      box.onclick = function () { openCreationLightbox(list, cur); };
+      const row = document.createElement('div');
+      row.className = 'creation-btns';
+      (c.buttons || []).forEach(function (b) {
+        const btn = document.createElement('button');
+        btn.type = 'button'; btn.className = 'creation-buy'; btn.textContent = b.label;
+        btn.onclick = function () { if (b.url) window.open(b.url, '_blank', 'noopener'); };
+        row.appendChild(btn);
+      });
+      card.appendChild(box); card.appendChild(row);
+      grid.appendChild(card);
+    });
+    grid.dataset.built = '1';
   }
 
   function openFifa() {
@@ -5618,20 +5934,11 @@
   function closeDesignExplainModal() {
     document.getElementById('designExplainModal').classList.remove('open');
   }
-  function switchDesignModalTab(tab) {
-    const infoBtn = document.getElementById('design-modal-btn-info');
-    const benefitsBtn = document.getElementById('design-modal-btn-benefits');
-    const infoBox = document.getElementById('design-modal-content-info');
-    const benefitsBox = document.getElementById('design-modal-content-benefits');
-    const showInfo = tab === 'info';
-    infoBtn.classList.toggle('active', showInfo);
-    benefitsBtn.classList.toggle('active', !showInfo);
-    infoBox.style.display = showInfo ? 'block' : 'none';
-    benefitsBox.style.display = showInfo ? 'none' : 'block';
-  }
   function openActiveExplainModal() {
     const activePanel = document.querySelector('.rpanel.active');
-    if (activePanel && activePanel.id === 'rp-account') {
+    if (activePanel && activePanel.id === 'rp-plus') {
+      return;
+    } else if (activePanel && activePanel.id === 'rp-account') {
       openAccountExplainModal();
     } else if (activePanel && activePanel.id === 'rp-design') {
       openDesignExplainModal();
@@ -6362,6 +6669,11 @@
     const cb = item.egp || 0;
     return `<div class="${cls}" data-rob="${item.rob}" data-price="${item.price}" data-egp="${cb}" onclick="addComItem(this)"><span class="rob-qty"><span class="rob">R</span><span class="rob-val">${item.rob}</span></span><span class="egp">EGP ${item.price}</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeComQtyCard(this,1)">+</button></div></div>`;
   }
+  function buildPlusCardHTML(item) {
+    const cb = item.egp || 0;
+    const nm = String(item.name || '').replace(/"/g, '&quot;');
+    return `<div class="pcard" data-name="${nm}" data-price="${item.price}" data-egp="${cb}" onclick="addPlusItem(this)"><span class="rob-qty"><span class="rob-val" style="font-size:.9rem;">${item.name}</span></span><span class="egp">EGP ${item.price}</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changePlusQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changePlusQtyCard(this,1)">+</button></div></div>`;
+  }
   function buildGiftCardHTML(item) {
     const cb = item.egp || 0;
     return `<div class="pcard" data-usd="${item.usd}" data-price="${item.price}" data-egp="${cb}" onclick="addGiftItem(this)"><span class="rob-qty"><span class="rob-val">${item.usd}</span><span class="rob" style="font-size:.72rem;margin-inline-start:3px;">USD</span></span><span class="egp">EGP ${item.price}</span><div class="qty-ctrl" style="display:none;"><button class="qty-btn" onclick="event.stopPropagation();changeGiftQtyCard(this,-1)">−</button><span class="qty-num">0</span><button class="qty-btn" onclick="event.stopPropagation();changeGiftQtyCard(this,1)">+</button></div></div>`;
@@ -6379,11 +6691,28 @@
       if (fawriEl && Array.isArray(data.comFawri) && data.comFawri.length) fawriEl.innerHTML = data.comFawri.map(i => buildComCardHTML(i, false)).join('');
       if (hagzEl && Array.isArray(data.comHagz) && data.comHagz.length) hagzEl.innerHTML = data.comHagz.map(i => buildComCardHTML(i, true)).join('');
       if (giftEl && Array.isArray(data.giftcard) && data.giftcard.length) giftEl.innerHTML = data.giftcard.map(buildGiftCardHTML).join('');
+      const plusEl = document.getElementById('plus-prices');
+      window.plusSoldOut = data.plusSoldOut === true;
+      const plusPanel = document.getElementById('rp-plus');
+      if (plusPanel) plusPanel.classList.toggle('plus-soldout', window.plusSoldOut);
+      if (window.plusSoldOut && typeof plusCart !== 'undefined') {
+        Object.keys(plusCart).forEach(k => delete plusCart[k]);
+        getPlusCards().forEach(c => { c.classList.remove('has-qty'); const qc = c.querySelector('.qty-ctrl'); if (qc) qc.style.display = 'none'; });
+      }
+      if (plusEl) {
+        const plusList = Array.isArray(data.plus) ? data.plus.filter(i => i && i.name && i.price > 0) : [];
+        plusEl.innerHTML = plusList.map(buildPlusCardHTML).join('');
+        const pe = document.getElementById('plus-empty'); if (pe) pe.style.display = (plusList.length || window.plusSoldOut) ? 'none' : '';
+        if (typeof plusCart !== 'undefined') {
+          Object.keys(plusCart).forEach(k => { if (!plusList.some(i => i.name + '_' + i.price === k)) delete plusCart[k]; });
+        }
+      }
       window.robloxCashbackEgp = (typeof data.cashbackEgp === 'number' && data.cashbackEgp > 0) ? data.cashbackEgp : 0;
       // لو الفاتورة ظاهرة بالفعل، حدّثها عشان سطر الكاش باك يتحدث لايف من غير ريفريش
       if (typeof renderAccSummary === 'function') renderAccSummary();
       if (typeof renderComSummary === 'function') renderComSummary();
       if (typeof renderGiftSummary === 'function') renderGiftSummary();
+      if (typeof renderPlusSummary === 'function') renderPlusSummary();
     } catch (err) {
       console.error('تعذر تطبيق أسعار روبلكس:', err);
     }
@@ -7190,7 +7519,7 @@
     // بعد ما نعرف حالة تسجيل الدخول الحقيقية، نعيد رسم كل الفواتير المفتوحة —
     // عشان سطر الكاش باك يتحدث فورًا ومايفضلش يقول "سجل دخول" غلط للمسجلين
     // (كان بيحصل لو الفاتورة اتعرضت قبل ما فايربيز يتأكد من حالة الدخول)
-    ['renderAccSummary','renderComSummary','renderGiftSummary','renderPubgSummary',
+    ['renderAccSummary','renderComSummary','renderGiftSummary','renderPlusSummary','renderPubgSummary',
      'renderBrawlSummary','renderPesSummary','renderFFIdSummary','renderFFAccSummary',
      'renderFifaSummary'].forEach(fn => {
       if (typeof window[fn] === 'function') window[fn]();
