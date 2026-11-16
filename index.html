@@ -3451,9 +3451,9 @@
       </button>
       <div class="rtab-menu" id="rtabMenu">
         <button class="rtab-menu-item active" id="rtab-item-community" onclick="selectRTab(this,'community','كميونتي')">كميونتي</button>
+        <button class="rtab-menu-item" id="rtab-item-plus" onclick="selectRTab(this,'plus','بلس')">بلس</button>
         <button class="rtab-menu-item" id="rtab-item-account" onclick="selectRTab(this,'account','داخل الحساب')">داخل الحساب</button>
         <button class="rtab-menu-item" id="rtab-item-giftcard" onclick="selectRTab(this,'giftcard','جيفت كارد')">جيفت كارد</button>
-        <button class="rtab-menu-item" id="rtab-item-plus" onclick="selectRTab(this,'plus','بلس')">بلس</button>
         <button class="rtab-menu-item" id="rtab-item-design" onclick="selectRobloxDesignTab(this,'design','ابداعاتنا')" style="display:none;">ابداعاتنا</button>
       </div>
     </div>
@@ -3486,7 +3486,7 @@
   <span id="robloxPageSub" style="display:none;"></span>
 
   <!-- ROBLOX CARD — shared image, swapped by JS between Roblox / Roblox Studio -->
-  <div id="robloxTopRow" style="padding: 150px 5% 0; direction:ltr; display:flex; align-items:flex-start; justify-content:space-between; gap:12px;">
+  <div id="robloxTopRow" style="padding: 150px 5% 0; direction:ltr; display:flex; align-items:flex-start; justify-content:space-between; gap:14px;">
     <div id="robloxThumbBox" style="width:30%; max-width:115px; aspect-ratio:3/4; border:1.5px solid rgba(220,38,38,.4); border-radius:16px; overflow:hidden; box-shadow:0 0 10px rgba(220,38,38,.25); flex:0 0 auto;">
       <img id="robloxPageThumb" src="https://raw.githubusercontent.com/King-cat11/King-cat/main/b6153b0e699d5b0018791b75a51075921330fa25.png" alt="Roblox" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
     </div>
@@ -3497,6 +3497,10 @@
     <div id="giftcardLinkTop" class="com-link-wrap" style="display:none;">
       <a href="https://www.roblox.com/promocodes" target="_blank" class="com-link com-link-blue" rel="noopener noreferrer" style="margin:0;">رابط الاسترداد</a>
       <button type="button" class="com-copy-btn" id="giftcardCopyBtn" onclick="copyGiftcardLink()">نسخ</button>
+    </div>
+    <div class="ofield" id="plusNameTop" style="display:none; flex:1; min-width:0; direction:rtl; margin:0;">
+      <label class="olabel" style="font-size:.95rem;color:#dc2626;">الاسم <span class="req">*</span></label>
+      <input class="oinput" id="plus-name" type="text" maxlength="40" autocomplete="name" placeholder="اكتب اسمك هنا" style="border-color:rgba(220,38,38,.4);text-align:right;width:100%;" oninput="plusNameChanged()" />
     </div>
   </div>
 
@@ -3603,10 +3607,6 @@
 
     <div class="rpanel" id="rp-plus">
       <div id="plus-soldout-banner" style="display:none;text-align:center;margin:6px 0 16px;padding:26px 12px;border-radius:16px;background:rgba(220,38,38,.18);border:2px solid #dc2626;color:#ef4444;font-family:'Cairo',sans-serif;font-weight:900;font-size:1.7rem;line-height:1.5;">⛔<br>لقد نفذت الكمية</div>
-      <div class="ofield" style="margin:6px 0 14px;">
-        <label class="olabel">الاسم <span class="req">*</span></label>
-        <input class="oinput" id="plus-name" type="text" maxlength="40" autocomplete="name" placeholder="اكتب اسمك هنا" style="text-align:right;" oninput="plusNameChanged()" />
-      </div>
       <div class="price-grid" id="plus-prices"></div>
       <p id="plus-empty" style="text-align:center;color:var(--muted);font-size:.85rem;padding:20px 0;">الأسعار هتنزل قريب</p>
 
@@ -4497,12 +4497,6 @@
   }
   function addPlusItem(card) {
     if (window.plusSoldOut || card.classList.contains('sold-out')) return;
-    const nameInp = document.getElementById('plus-name');
-    if (!nameInp || nameInp.value.trim().length < 2) {
-      document.getElementById('plus-error').textContent = 'اكتب اسمك الأول عشان تختار الكمية';
-      if (nameInp) nameInp.focus();
-      return;
-    }
     const name  = card.dataset.name;
     const price = parseInt(card.dataset.price);
     const egp   = parseFloat(card.dataset.egp) || 0;
@@ -6017,6 +6011,8 @@
     if (linkTop) linkTop.style.display = (id === 'community') ? 'flex' : 'none';
     const giftLinkTop = document.getElementById('giftcardLinkTop');
     if (giftLinkTop) giftLinkTop.style.display = (id === 'giftcard') ? 'flex' : 'none';
+    const plusNameTop = document.getElementById('plusNameTop');
+    if (plusNameTop) plusNameTop.style.display = (id === 'plus') ? 'flex' : 'none';
   }
 
   let robloxDesignMode = 'design';
