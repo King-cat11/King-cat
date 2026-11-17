@@ -1075,6 +1075,9 @@
     #mobileGamesGrid .game-card.rs-card .info {
       bottom: -32px;
     }
+    #ourCreationsGrid .game-card .info {
+      bottom: -20px;
+    }
 
     /* ===== ابداعاتنا في روبلوكس: مربعات التصاميم ===== */
     .creations-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 6px 0 30px; direction: rtl; align-items: start; }
@@ -2417,11 +2420,11 @@
       </div>
     </div>
     <div class="offer-slide o1 active" style="cursor:pointer;" onclick="openRobloxDesign()">
-      <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/b6153b0e699d5b0018791b75a51075921330fa25.png" alt="Roblox Studio" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;" />
+      <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/IMG-20261117-WA0044.jpg" alt="Creations" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;" />
       <div class="offer-badge">جديد</div>
       <div class="offer-bottom-fade"></div>
       <div class="offer-text offer-text-bottom">
-        <div class="offer-title offer-title-glow">Roblox Studio</div>
+        <div class="offer-title offer-title-glow">Creations</div>
       </div>
     </div>
     <div class="offer-slide o2" style="cursor:pointer;" onclick="openRobloxCommunity()">
@@ -2430,14 +2433,6 @@
       <div class="offer-bottom-fade"></div>
       <div class="offer-text offer-text-bottom">
         <div class="offer-title offer-title-glow">Roblox</div>
-      </div>
-    </div>
-    <div class="offer-slide o4" style="cursor:pointer;" onclick="openVisa()">
-      <img src="https://raw.githubusercontent.com/King-cat11/King-cat/main/sm.svg" alt="Visa" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;" />
-      <div class="offer-badge">جديد</div>
-      <div class="offer-bottom-fade"></div>
-      <div class="offer-text offer-text-bottom">
-        <div class="offer-title offer-title-glow">Visa</div>
       </div>
     </div>
     <div class="offer-slide o3" style="cursor:pointer;" onclick="openPubg()">
@@ -2480,7 +2475,6 @@
     <div class="offer-dots">
       <span class="offer-dot" id="offerContestDot" data-off="1"></span>
       <span class="offer-dot active"></span>
-      <span class="offer-dot"></span>
       <span class="offer-dot"></span>
       <span class="offer-dot"></span>
       <span class="offer-dot"></span>
@@ -2548,9 +2542,18 @@
 
   </div>
 
-  <div class="games-dots" id="mobileGamesDots">
-    <span class="games-dot active"></span>
-    <span class="games-dot"></span>
+  <!-- OUR CREATIONS -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin:-10px 0 14px;position:relative;z-index:1;">
+    <p style="font-size:1.05rem;font-weight:900;letter-spacing:.14em;color:#ef4444;text-transform:uppercase;margin:0;">OUR CREATIONS</p>
+  </div>
+  <div class="games-grid" id="ourCreationsGrid">
+    <div class="game-card rs-card" style="cursor:pointer;" onclick="openRobloxDesign()">
+      <div class="bg"><img class="visa-card-img" src="https://raw.githubusercontent.com/King-cat11/King-cat/main/IMG-20261117-WA0044.jpg" alt="Creations" loading="lazy"></div>
+      <div class="overlay"></div>
+      <div class="info">
+        <div class="name-en">Creations</div>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -2561,14 +2564,11 @@
       { img: "https://raw.githubusercontent.com/King-cat11/King-cat/main/images%20(1).jpeg", alt: "Free Fire", name: "Free Fire", open: function(){ openFreefire(); } },
       { img: "https://raw.githubusercontent.com/King-cat11/King-cat/main/images%20(10).jpeg", alt: "Brawl Stars", name: "Brawl Stars", open: function(){ openBrawl(); } },
       { img: "https://raw.githubusercontent.com/King-cat11/King-cat/main/images%20(8).jpeg", alt: "eFootball", name: "eFootball", open: function(){ openPes(); } },
-      { img: "https://raw.githubusercontent.com/King-cat11/King-cat/main/images%20(7).jpeg", alt: "FIFA", name: "FIFA", open: function(){ openFifa(); } },
-      { img: "https://raw.githubusercontent.com/King-cat11/King-cat/main/b6153b0e699d5b0018791b75a51075921330fa25.png", alt: "Roblox Studio", name: "Roblox Studio", open: function(){ openRobloxDesign(); } },
-      { img: "https://raw.githubusercontent.com/King-cat11/King-cat/main/sm.svg", alt: "Visa", name: "Visa", open: function(){ openVisa(); } }
+      { img: "https://raw.githubusercontent.com/King-cat11/King-cat/main/images%20(7).jpeg", alt: "FIFA", name: "FIFA", open: function(){ openFifa(); } }
     ];
 
-    // كل مجموعة بتعرض 6 كروت — المجموعة التانية فيها بس كرتين حقيقيين (روبلوكس استوديو + فيزا)
-    // والباقي أماكن فاضية (null) عشان الكروت متتكررش، وبتفضل بنفس المقاس من غير ما تتمدد
-    var groups = [ [0,1,2,3,4,5], [6,7,null,null,null,null] ];
+    // مجموعة واحدة بتعرض 6 كروت (مفيش تبديل)
+    var groups = [ [0,1,2,3,4,5] ];
     var groupIndex = 0;
     var grid = document.getElementById('mobileGamesGrid');
     var slots = grid ? Array.prototype.slice.call(grid.querySelectorAll('.game-card')) : [];
@@ -2620,7 +2620,7 @@
     }
 
     function swapGroup(dir){
-      if(animating) return;
+      if(groups.length < 2 || animating) return;
       animating = true;
       if(dir === -1){
         groupIndex = (groupIndex - 1 + groups.length) % groups.length;
@@ -2632,6 +2632,7 @@
     }
 
     function resetTimer(){
+      if(groups.length < 2) return;
       if(timer) clearInterval(timer);
       timer = setInterval(swapGroup, 8000);
     }
@@ -2694,8 +2695,7 @@
         { img: "https://raw.githubusercontent.com/King-cat11/King-cat/main/images%20(10).jpeg", alt: "Brawl Stars", name: "Brawl Stars", open: function(){ openBrawl(); } },
         { img: "https://raw.githubusercontent.com/King-cat11/King-cat/main/images%20(8).jpeg", alt: "eFootball", name: "eFootball", open: function(){ openPes(); } },
         { img: "https://raw.githubusercontent.com/King-cat11/King-cat/main/images%20(7).jpeg", alt: "FIFA", name: "FIFA", open: function(){ openFifa(); } },
-        { img: "https://raw.githubusercontent.com/King-cat11/King-cat/main/b6153b0e699d5b0018791b75a51075921330fa25.png", alt: "Roblox Studio", name: "Roblox Studio", open: function(){ openRobloxDesign(); } },
-        { img: "https://raw.githubusercontent.com/King-cat11/King-cat/main/sm.svg", alt: "Visa", name: "Visa", open: function(){ openVisa(); } }
+        { img: "https://raw.githubusercontent.com/King-cat11/King-cat/main/b6153b0e699d5b0018791b75a51075921330fa25.png", alt: "Roblox Studio", name: "Roblox Studio", open: function(){ openRobloxDesign(); } }
       ];
       items.forEach(function(g){
         var card = document.createElement('div');
