@@ -2915,6 +2915,31 @@
         <div class="login-status" id="eaSaveStatus"></div>
       </div>
 
+      <!-- حذف الحساب -->
+      <div class="oaccount-section" style="border-bottom:none;padding-top:6px;">
+        <button type="button" onclick="openDeleteAccountModal()" style="width:100%;background:rgba(224,85,85,.08);border:1.5px solid #e05555;color:#e05555;font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:10px;border-radius:10px;cursor:pointer;">حذف الحساب</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- DELETE ACCOUNT MODAL -->
+<div id="deleteAccountModal" class="ce-modal-overlay" onclick="closeDeleteAccountModal()" style="z-index:5200;">
+  <div class="ce-modal-box" onclick="event.stopPropagation()" style="border-color:rgba(224,85,85,.55);">
+    <p style="text-align:center;color:#e05555;font-weight:900;font-size:1.05rem;margin-bottom:12px;">حذف الحساب نهائياً</p>
+    <p class="explain-intro">الحذف <strong>مش بيتراجع عنه</strong>. حسابك وبياناتك ورصيد الـ EGP اللي معاك هيتمسحوا.</p>
+    <div id="delAccPwBox" class="ofield" style="display:none;margin:12px 0 4px;">
+      <label class="olabel">اكتب كلمة السر عشان تأكد</label>
+      <div class="pw-wrap">
+        <input class="oinput" id="delAccPassword" type="password" placeholder="كلمة السر" autocomplete="current-password" />
+      </div>
+    </div>
+    <p id="delAccGoogleNote" style="display:none;color:var(--muted);font-size:.82rem;margin:10px 0 4px;text-align:center;">هتظهرلك نافذة جوجل عشان تأكد إنك صاحب الحساب.</p>
+    <div class="login-status" id="delAccStatus"></div>
+    <div style="display:flex;gap:10px;margin-top:14px;">
+      <button type="button" onclick="closeDeleteAccountModal()" style="flex:1;background:#1a1a1a;border:1.5px solid rgba(255,255,255,.2);color:var(--white);font-family:'Cairo',sans-serif;font-weight:800;font-size:.85rem;padding:11px;border-radius:10px;cursor:pointer;">إلغاء</button>
+      <button type="button" id="delAccConfirmBtn" onclick="confirmDeleteAccount()" style="flex:1;background:#e05555;border:none;color:#fff;font-family:'Cairo',sans-serif;font-weight:900;font-size:.85rem;padding:11px;border-radius:10px;cursor:pointer;">حذف نهائي</button>
     </div>
   </div>
 </div>
@@ -3540,6 +3565,13 @@
  <div id="designExplainModal" class="ce-modal-overlay" onclick="closeDesignExplainModal()">
     <div class="ce-modal-box" onclick="event.stopPropagation()">
       <p class="explain-intro">لما تشتري تصميم مننا ده بيساعدنا <strong>نقلل سعر الروب</strong> وبيشجعنا <strong>نكمل</strong>.</p>
+      <p style="text-align:center;color:var(--muted);font-size:.78rem;margin-top:16px;">اضغط في أي مكان عشان تقفل</p>
+    </div>
+  </div>
+
+  <div id="plusExplainModal" class="ce-modal-overlay" onclick="closePlusExplainModal()">
+    <div class="ce-modal-box" onclick="event.stopPropagation()">
+      <p class="explain-intro">بتكتب اسمك ونحولك الروب في وقتها، ودا <strong>حل بديل عن الكميونتي مؤقتاً</strong>.</p>
       <p style="text-align:center;color:var(--muted);font-size:.78rem;margin-top:16px;">اضغط في أي مكان عشان تقفل</p>
     </div>
   </div>
@@ -5614,9 +5646,9 @@
 
   // ============ ابداعاتنا (جوه روبلوكس استوديو) — كل كارت: name = الاسم المكتوب عليه (لو سبته فاضي بيتكتب رقمه 1 و2 و3)، imgs = روابط الصور (لو أكتر من صورة بتتبدل كل ثانية ونص وفي الشاشة المنبثقة تسحب جنب تشوف التانية)، وأزراره (label + url رابط الشراء). كل 3 كروت جنب بعض ============
   const ROBLOX_CREATIONS = [
-    { imgs: ['https://raw.githubusercontent.com/King-cat11/King-cat/main/IMG-20261116-WA0023.jpg', 'https://raw.githubusercontent.com/King-cat11/King-cat/main/IMG-20261116-WA0024.jpg'], buttons: [ { label: 'شراء T-Shirt', url: '' }, { label: 'شراء بنطلون', url: '' } ] },
-    { img: '', buttons: [ { label: 'شراء T-Shirt', url: '' }, { label: 'شراء بنطلون', url: '' } ] },
-    { img: '', buttons: [ { label: 'شراء T-Shirt', url: '' }, { label: 'شراء بنطلون', url: '' } ] }
+    { imgs: ['https://raw.githubusercontent.com/King-cat11/King-cat/main/IMG-20261117-WA0036.jpg', 'https://raw.githubusercontent.com/King-cat11/King-cat/main/IMG-20261117-WA0033.jpg'], buttons: [ { label: 'شراء T-Shirt', url: 'https://www.roblox.com/share?code=57f635f2eaaddf49bf0e5776787a8ac2&type=AvatarItemDetails' }, { label: 'شراء بنطلون', url: 'https://www.roblox.com/share?code=b808999e799f3f4dace8653f0830ad48&type=AvatarItemDetails' } ] },
+    { imgs: ['https://raw.githubusercontent.com/King-cat11/King-cat/main/IMG-20261117-WA0035.jpg', 'https://raw.githubusercontent.com/King-cat11/King-cat/main/IMG-20261117-WA0034.jpg'], buttons: [ { label: 'شراء T-Shirt', url: 'https://www.roblox.com/share?code=057da734c20cc34badf586e2f8160456&type=AvatarItemDetails' }, { label: 'شراء بنطلون', url: 'https://www.roblox.com/share?code=ae28ce76e7a6114886a7e3fc25cb3d27&type=AvatarItemDetails' } ] },
+    { imgs: ['https://raw.githubusercontent.com/King-cat11/King-cat/main/IMG-20261117-WA0032.jpg', 'https://raw.githubusercontent.com/King-cat11/King-cat/main/IMG-20261117-WA0031.jpg'], buttons: [ { label: 'شراء T-Shirt', url: 'https://www.roblox.com/share?code=30cedb78836685418aa0a6bd5c42fdd8&type=AvatarItemDetails' }, { label: 'شراء بنطلون', url: 'https://www.roblox.com/share?code=ae28ce76e7a6114886a7e3fc25cb3d27&type=AvatarItemDetails' } ] }
   ];
   const CREATION_PH = '<svg class="ph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3 3 6l2 4 2-1v12h10V9l2 1 2-4-5-3a4 4 0 0 1-8 0z"/></svg>';
   let lbImgs = [], lbIdx = 0;
@@ -5946,13 +5978,19 @@
   function openDesignExplainModal() {
     document.getElementById('designExplainModal').classList.add('open');
   }
+  function openPlusExplainModal() {
+    document.getElementById('plusExplainModal').classList.add('open');
+  }
+  function closePlusExplainModal() {
+    document.getElementById('plusExplainModal').classList.remove('open');
+  }
   function closeDesignExplainModal() {
     document.getElementById('designExplainModal').classList.remove('open');
   }
   function openActiveExplainModal() {
     const activePanel = document.querySelector('.rpanel.active');
     if (activePanel && activePanel.id === 'rp-plus') {
-      return;
+      openPlusExplainModal();
     } else if (activePanel && activePanel.id === 'rp-account') {
       openAccountExplainModal();
     } else if (activePanel && activePanel.id === 'rp-design') {
@@ -6502,6 +6540,8 @@
     updatePassword,
     EmailAuthProvider,
     reauthenticateWithCredential,
+    reauthenticateWithPopup,
+    deleteUser,
     onAuthStateChanged,
     signOut
   } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
@@ -7471,6 +7511,60 @@
     if (settingsIcon) settingsIcon.textContent = label.trim().charAt(0).toUpperCase();
     if (settingsName) settingsName.textContent = label;
   }
+
+  // ============ حذف الحساب ============
+  window.openDeleteAccountModal = function () {
+    const user = auth.currentUser;
+    if (!user) return;
+    const usesPassword = hasPasswordProvider(user);
+    document.getElementById('delAccPwBox').style.display = usesPassword ? 'flex' : 'none';
+    document.getElementById('delAccGoogleNote').style.display = usesPassword ? 'none' : 'block';
+    document.getElementById('delAccPassword').value = '';
+    const st = document.getElementById('delAccStatus');
+    st.textContent = ''; st.className = 'login-status';
+    document.getElementById('delAccConfirmBtn').disabled = false;
+    document.getElementById('deleteAccountModal').classList.add('open');
+  };
+  window.closeDeleteAccountModal = function () {
+    document.getElementById('deleteAccountModal').classList.remove('open');
+  };
+  window.confirmDeleteAccount = async function () {
+    const user = auth.currentUser;
+    const st = document.getElementById('delAccStatus');
+    const btn = document.getElementById('delAccConfirmBtn');
+    if (!user) return;
+    const setSt = (m, c) => { st.textContent = m; st.className = 'login-status' + (c ? ' ' + c : ''); };
+    btn.disabled = true;
+    try {
+      // 1) تأكيد الهوية الأول (Firebase بيطلبه قبل أي حذف)
+      if (hasPasswordProvider(user)) {
+        const pw = document.getElementById('delAccPassword').value;
+        if (!pw) { setSt('اكتب كلمة السر الأول', 'err'); btn.disabled = false; return; }
+        setSt('جاري التأكيد...', '');
+        await reauthenticateWithCredential(user, EmailAuthProvider.credential(user.email, pw));
+      } else {
+        setSt('جاري التأكيد...', '');
+        await reauthenticateWithPopup(user, googleProvider);
+      }
+      setSt('جاري حذف الحساب...', '');
+      // 2) مسح بيانات المستخدم من قاعدة البيانات (لو القواعد مش بتسمح، بنكمل حذف الحساب برضو)
+      const uid = user.uid;
+      try { await deleteDoc(doc(db, 'users', uid)); } catch (e) { console.warn('تعذر حذف مستند المستخدم:', e); }
+      try { await deleteDoc(doc(db, 'contestEntries', uid)); } catch (e) { /* مش مهم */ }
+      // 3) حذف الحساب نفسه من Firebase Auth
+      await deleteUser(user);
+      closeDeleteAccountModal();
+      if (typeof closeEditAccountPage === 'function') closeEditAccountPage();
+      if (typeof closeSettingsPage === 'function') closeSettingsPage();
+      showToast('تم حذف حسابك');
+    } catch (err) {
+      const code = err && err.code ? err.code : '';
+      if (code.includes('wrong-password') || code.includes('invalid-credential')) setSt('كلمة السر غلط', 'err');
+      else if (code.includes('popup-closed') || code.includes('cancelled-popup')) setSt('تم إلغاء التأكيد', 'err');
+      else setSt(translateAuthError(err), 'err');
+      btn.disabled = false;
+    }
+  };
 
   window.logoutUser = async function () {
     try {
